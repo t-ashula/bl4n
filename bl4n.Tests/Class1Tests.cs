@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using bl4n;
 using Xunit;
+
 namespace bl4n.Tests
 {
     public class Class1Tests
