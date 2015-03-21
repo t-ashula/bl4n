@@ -1,4 +1,11 @@
-﻿using System.Reflection;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs"> 
+// bl4n - Backlog.jp API Client library
+// this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
