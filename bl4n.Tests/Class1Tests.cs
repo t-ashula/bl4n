@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using bl4n;
+using BL4N;
 using Xunit;
 
-namespace bl4n.Tests
+namespace BL4N.Tests
 {
     public class Class1Tests
     {

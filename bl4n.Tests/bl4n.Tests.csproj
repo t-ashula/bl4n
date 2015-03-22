@@ -6,8 +6,8 @@
     <ProjectGuid>{FBFAE89B-381C-42D5-8629-4610C395223F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bl4nTests</RootNamespace>
-    <AssemblyName>bl4nTests</AssemblyName>
+    <RootNamespace>BL4N.Tests</RootNamespace>
+    <AssemblyName>BL4N.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
