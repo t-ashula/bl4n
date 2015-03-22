@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Class1Tests.cs" company="">
+// <copyright file="APIType.cs" company="">
 //   bl4n - Backlog.jp API Client library
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015
 // </copyright>
@@ -7,16 +7,16 @@
 
 using System;
 using System.Linq;
-using Xunit;
 
-namespace BL4N.Tests
+namespace BL4N
 {
-    public class Class1Tests
+    /// <summary>API type </summary>
+    public enum APIType
     {
-        [Fact]
-        public void Class1Test()
-        {
-            Assert.True(false, "not implemented yet");
-        }
+        /// <summary> use API Key </summary>
+        APIKey,
+
+        /// <summary> use OAuth2 </summary>
+        OAuth2
     }
 }
