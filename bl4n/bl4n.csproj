@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BacklogJP.cs" />
+    <Compile Include="Backlog.cs" />
     <Compile Include="APIType.cs" />
+    <Compile Include="BacklogConnectionSettings.cs" />
+    <Compile Include="BacklogJPConnectionSettings.cs" />
+    <Compile Include="IBacklogConnectionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
