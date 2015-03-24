@@ -54,6 +54,24 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var spaceInfo = backlog.GetSpace();
             Assert.Equal("nulab", spaceInfo.SpaceKey);
+            Assert.Equal("Nubal Inc.", spaceInfo.Name);
+            Assert.Equal(1, spaceInfo.OwnerId);
+            Assert.Equal("ja", spaceInfo.Lang);
+            Assert.Equal("Asia/Tokyo", spaceInfo.Timezone);
+            Assert.Equal("08:00:00", spaceInfo.ReportSendTime);
+            Assert.Equal("markdown", spaceInfo.TextFormattingRule);
+            Assert.Equal(new DateTime(2008, 7, 6, 15, 0, 0), spaceInfo.Created);
+            Assert.Equal(new DateTime(2013, 6, 18, 7, 55, 37), spaceInfo.Updated);
+            /*
+                name = "Nubal Inc.",
+                ownerId = 1,
+                lang = "ja",
+                timezone = "Asia/Tokyo",
+                reportSendTime = "08:00:00",
+                textFormattingRule = "markdown",
+                created = "2008-07-06T15:00:00Z",
+                updated = "2013-06-18T07:55:37Z"
+            */
         }
     }
 }

@@ -8,6 +8,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using BL4N.Data;
@@ -67,15 +68,16 @@ namespace BL4N
         public ISpace GetSpace()
         {
             var api = GetApiEndPointBase() + "/space";
-            var space = GetApiResult<Space>(new Uri(api));
+            var serset = new DataContractJsonSerializerSettings { DateTimeFormat = new DateTimeFormat("yyyy-MM-dd'T'HH:mm:ssZ") };
+            var space = GetApiResult<Space>(new Uri(api), serset);
             return space.Result;
         }
 
-        private async Task<T> GetApiResult<T>(Uri apiEndPoint) where T : class
+        private async Task<T> GetApiResult<T>(Uri apiEndPoint, DataContractJsonSerializerSettings serializerSettings) where T : class
         {
             var ua = new HttpClient();
             var stream = await ua.GetStreamAsync(apiEndPoint);
-            var ser = new DataContractJsonSerializer(typeof(T));
+            var ser = new DataContractJsonSerializer(typeof(T), serializerSettings);
             return (T)ser.ReadObject(stream);
         }
 
