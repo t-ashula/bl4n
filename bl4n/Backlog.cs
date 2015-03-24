@@ -37,10 +37,10 @@ namespace BL4N
             get { return _settings.APIKey; }
         }
 
-        private readonly IBacklogConnectionSettings _settings;
+        private readonly BacklogConnectionSettings _settings;
 
         /// <summary> <see cref="Backlog"/> クラスを初期化します． </summary>
-        public Backlog(IBacklogConnectionSettings settings)
+        public Backlog(BacklogConnectionSettings settings)
         {
             _settings = settings;
         }

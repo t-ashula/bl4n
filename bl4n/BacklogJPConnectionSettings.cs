@@ -1,33 +1,29 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BacklogJPConnectionSettings.cs">
-// bl4n - Backlog.jp API Client library
-// this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
+//   bl4n - Backlog.jp API Client library
+//   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace BL4N
 {
-    public sealed class BacklogJPConnectionSettings : IBacklogConnectionSettings
+    [DataContract]
+    public sealed class BacklogJPConnectionSettings : BacklogConnectionSettings
     {
-        public BacklogJPConnectionSettings(string spaceName, string apiKey)
+        public BacklogJPConnectionSettings(string spaceName, APIType apiType, string apiKey)
+            : base(spaceName, apiType, apiKey, spaceName + ".backlog.jp", 443, true)
         {
-            SpaceName = spaceName;
-            APIKey = apiKey;
-            APIType = APIType.APIKey;
         }
 
-        public string SpaceName { get; private set; }
-
-        public string HostName
+        public override bool IsValid()
         {
-            get { return SpaceName + ".backlog.jp"; }
+            // only apikey type support, now
+            return APIType == APIType.APIKey
+                && (!string.IsNullOrWhiteSpace(SpaceName) && !string.IsNullOrWhiteSpace(APIKey));
         }
-
-        public string APIKey { get; private set; }
-
-        public APIType APIType { get; private set; }
     }
 }
