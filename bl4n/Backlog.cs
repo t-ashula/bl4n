@@ -67,7 +67,7 @@ namespace BL4N
 
         public ISpace GetSpace()
         {
-            var api = GetApiEndPointBase() + "/space";
+            var api = GetApiEndPointBase() + "/space" + "?apiKey=" + APIKey;
             var serset = new DataContractJsonSerializerSettings { DateTimeFormat = new DateTimeFormat("yyyy-MM-dd'T'HH:mm:ssZ") };
             var space = GetApiResult<Space>(new Uri(api), serset);
             return space.Result;
