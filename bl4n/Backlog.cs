@@ -7,6 +7,7 @@
 
 using System;
 using System.Linq;
+using BL4N.Data;
 
 namespace BL4N
 {
@@ -43,6 +44,11 @@ namespace BL4N
         public Backlog(BacklogConnectionSettings settings)
         {
             _settings = settings;
+        }
+
+        public ISpace GetSpace()
+        {
+            throw new NotImplementedException();
         }
     }
 }

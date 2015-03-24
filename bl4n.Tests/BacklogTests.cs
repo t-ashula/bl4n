@@ -11,35 +11,32 @@ using Xunit;
 
 namespace BL4N.Tests
 {
-    public class BacklogTests
+    public abstract class BacklogTests
     {
-        private readonly BacklogJPConnectionSettings _realSettings;
-        private readonly BacklogConnectionSettings _mockSettings;
+        private readonly BacklogConnectionSettings _settings;
 
-        public BacklogTests()
+        public BacklogConnectionSettings Settings
         {
-            _realSettings = (BacklogJPConnectionSettings)BacklogConnectionSettings.Load("bl4n.json");
-            _mockSettings = new BacklogConnectionSettings("mock", APIType.APIKey, "dummyapikey", "localhost", 34567, false);
+            get { return _settings; }
         }
 
-        [Fact]
-        public void BacklogConstructorTest_ForRealSettings()
+        protected BacklogTests(BacklogConnectionSettings settings)
         {
-            if (_realSettings == null || !_realSettings.IsValid())
+            _settings = settings;
+        }
+
+        protected void SkipIfSettingIsBroken()
+        {
+            if (Settings == null || !Settings.IsValid())
             {
-                Assert.True(true, "skip this test, real setting is not valid.");
-                return;
+                Assert.True(false, "skip this test, real setting is not valid.");
             }
-
-            var realClient = new Backlog(_realSettings);
-            Assert.Equal(_realSettings.SpaceName, realClient.SpaceName);
         }
 
-        [Fact]
-        public void BacklogConstructorTest_ForMockSettings()
-        {
-            var mockClient = new Backlog(_mockSettings);
-            Assert.Equal(_mockSettings.SpaceName, mockClient.SpaceName);
-        }
+        /// <summary> </summary>
+        public abstract void BacklogConstructorTest();
+
+        /// <summary> /api/v2/space のテスト </summary>
+        public abstract void GetSpaceTest();
     }
 }
