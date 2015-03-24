@@ -7,6 +7,9 @@
 
 using System;
 using System.Linq;
+using System.Net.Http;
+using System.Runtime.Serialization.Json;
+using System.Threading.Tasks;
 using BL4N.Data;
 
 namespace BL4N
@@ -32,6 +35,21 @@ namespace BL4N
             get { return _settings.HostName; }
         }
 
+        /// <summary> ポート番号まで含めた host を取得します </summary>
+        public string Host
+        {
+            get
+            {
+                if ((_settings.UseSSL && _settings.Port == 443)
+                    || (!_settings.UseSSL && _settings.Port == 80))
+                {
+                    return _settings.HostName;
+                }
+
+                return string.Format("{0}:{1}", _settings.HostName, _settings.Port);
+            }
+        }
+
         /// <summary> API Key を取得します </summary>
         public string APIKey
         {
@@ -48,7 +66,28 @@ namespace BL4N
 
         public ISpace GetSpace()
         {
-            throw new NotImplementedException();
+            var api = GetApiEndPointBase() + "/space";
+            var space = GetApiResult<Space>(new Uri(api));
+            return space.Result;
+        }
+
+        private async Task<T> GetApiResult<T>(Uri apiEndPoint) where T : class
+        {
+            var ua = new HttpClient();
+            var stream = await ua.GetStreamAsync(apiEndPoint);
+            var ser = new DataContractJsonSerializer(typeof(T));
+            return (T)ser.ReadObject(stream);
+        }
+
+        private async Task<string> GetApiResult(Uri apiEndPoint)
+        {
+            var ua = new HttpClient();
+            return await ua.GetStringAsync(apiEndPoint);
+        }
+
+        private string GetApiEndPointBase()
+        {
+            return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
         }
     }
 }

@@ -5,10 +5,21 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Linq;
+using System.Runtime.Serialization;
+
 namespace BL4N.Data
 {
     public interface ISpace
     {
         string SpaceKey { get; set; }
+    }
+
+    [DataContract]
+    public class Space : ISpace
+    {
+        [DataMember(Name = "spaceKey")]
+        public string SpaceKey { get; set; }
     }
 }

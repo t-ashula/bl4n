@@ -53,7 +53,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var spaceInfo = backlog.GetSpace();
-            Assert.Equal("mock", spaceInfo.SpaceKey);
+            Assert.Equal("nulab", spaceInfo.SpaceKey);
         }
     }
 }
