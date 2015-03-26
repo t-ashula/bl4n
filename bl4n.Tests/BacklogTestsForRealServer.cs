@@ -69,5 +69,12 @@ namespace BL4N.Tests
                 Assert.Equal(expected.Updated, actual.Updated);
             }
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceActivitiesTest()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

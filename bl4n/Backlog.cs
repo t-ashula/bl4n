@@ -1,11 +1,12 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Backlog.cs">
-// bl4n - Backlog.jp API Client library
-// this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
+//   bl4n - Backlog.jp API Client library
+//   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
@@ -90,6 +91,11 @@ namespace BL4N
         private string GetApiEndPointBase()
         {
             return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
+        }
+
+        public List<IActivity> GetSpaceActivities()
+        {
+            throw new NotImplementedException();
         }
     }
 }

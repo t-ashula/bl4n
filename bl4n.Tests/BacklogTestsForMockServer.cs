@@ -36,6 +36,7 @@ namespace BL4N.Tests
             }
         }
 
+        /// <inheritdoc/>
         [Fact]
         public override void BacklogConstructorTest()
         {
@@ -45,6 +46,7 @@ namespace BL4N.Tests
             Assert.Equal(Settings.SpaceName, realClient.SpaceName);
         }
 
+        /// <inheritdoc/>
         [Fact]
         public override void GetSpaceTest()
         {
@@ -62,16 +64,18 @@ namespace BL4N.Tests
             Assert.Equal("markdown", spaceInfo.TextFormattingRule);
             Assert.Equal(new DateTime(2008, 7, 6, 15, 0, 0), spaceInfo.Created);
             Assert.Equal(new DateTime(2013, 6, 18, 7, 55, 37), spaceInfo.Updated);
-            /*
-                name = "Nubal Inc.",
-                ownerId = 1,
-                lang = "ja",
-                timezone = "Asia/Tokyo",
-                reportSendTime = "08:00:00",
-                textFormattingRule = "markdown",
-                created = "2008-07-06T15:00:00Z",
-                updated = "2013-06-18T07:55:37Z"
-            */
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceActivitiesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var activities = backlog.GetSpaceActivities();
+            Assert.Equal(4, activities.Count);
         }
     }
 }

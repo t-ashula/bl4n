@@ -114,3 +114,4 @@ FakesAssemblies/
 .ntvs_analysis.dat
 *.plg
 *.opt
+tmp

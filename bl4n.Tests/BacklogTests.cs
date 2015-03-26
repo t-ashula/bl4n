@@ -38,5 +38,8 @@ namespace BL4N.Tests
 
         /// <summary> /api/v2/space のテスト </summary>
         public abstract void GetSpaceTest();
+
+        /// <summary> /api/v2/space/activities のテスト </summary>
+        public abstract void GetSpaceActivitiesTest();
     }
 }
