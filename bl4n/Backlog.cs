@@ -65,11 +65,13 @@ namespace BL4N
             _settings = settings;
         }
 
+        /// <summary> space 情報を取得します </summary>
+        /// <returns> <see cref="ISpace"/>. </returns>
         public ISpace GetSpace()
         {
-            var api = GetApiEndPointBase() + "/space" + "?apiKey=" + APIKey;
+            var uri = GetApiUri("/space");
             var serset = new DataContractJsonSerializerSettings { DateTimeFormat = new DateTimeFormat("yyyy-MM-dd'T'HH:mm:ssZ") };
-            var space = GetApiResult<Space>(new Uri(api), serset);
+            var space = GetApiResult<Space>(uri, serset);
             return space.Result;
         }
 
@@ -81,10 +83,12 @@ namespace BL4N
             return (T)ser.ReadObject(stream);
         }
 
-        private async Task<string> GetApiResult(Uri apiEndPoint)
+        private Uri GetApiUri(string apiname)
         {
-            var ua = new HttpClient();
-            return await ua.GetStringAsync(apiEndPoint);
+            var endpoint = GetApiEndPointBase() + apiname;
+            return _settings.APIType == APIType.APIKey
+                ? new Uri(endpoint + "?apiKey=" + APIKey)
+                : new Uri(endpoint);
         }
 
         private string GetApiEndPointBase()
