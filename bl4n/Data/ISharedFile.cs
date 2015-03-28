@@ -48,12 +48,12 @@ namespace BL4N.Data
         [DataMember(Name = "size")]
         public long Size { get; private set; }
 
-        [DataMember(Name = "id")]
-        private User _user;
+        [DataMember(Name = "createdUser")]
+        private User _createdUser;
 
         public IUser CreatedUser
         {
-            get { return _user; }
+            get { return _createdUser; }
         }
 
         [DataMember(Name = "created")]
@@ -61,5 +61,7 @@ namespace BL4N.Data
     }
 
     [CollectionDataContract]
-    internal sealed class SharedFiles : List<SharedFile> { }
+    internal sealed class SharedFiles : List<SharedFile>
+    {
+    }
 }

@@ -76,16 +76,19 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var activities = backlog.GetSpaceActivities();
-            Assert.Equal(3, activities.Count);
+            Assert.Equal(4, activities.Count);
 
-            // type 1,2,3,4
+            // type 1, 2, 3, 4
             IssueActivityTest(activities[0]);
 
+            // type 5, 6, 7
+            WikiActivityTest(activities[1]);
+
             // type 14
-            BulkUpdateActivityTest(activities[1]);
+            BulkUpdateActivityTest(activities[2]);
 
             // type 15, 16
-            ProjectActivityTest(activities[2]);
+            ProjectActivityTest(activities[3]);
         }
 
         private static void IssueActivityTest(IActivity activity)
@@ -127,6 +130,34 @@ namespace BL4N.Tests
             Assert.Equal("R2014-07-23", content.Changes[0].NewValue);
             Assert.Equal("", content.Changes[0].OldValue);
             Assert.Equal("standard", content.Changes[0].Type);
+        }
+
+        private static void WikiActivityTest(IActivity activity)
+        {
+            // type = 5, 6, 7
+            // Assert.InRange(activity.Type, 5, 7);
+            Assert.Equal(6, activity.Type);
+
+            var content = activity.Content as IWikiActivityContent;
+            Assert.NotNull(content);
+            /*
+             * ""content"": {
+             *   ""id"": 67261,
+             *   ""name"": ""Home"",
+             *   ""content"": ""1. a\n2. b\n3. c\n"",
+             *   ""diff"": ""1a1,3\n>1. a\n>2. b\n>3. c\n"",
+             *   ""version"": 1,
+             *   ""attachments"": [ ],
+             *   ""shared_files"": [ ]
+             * },
+             */
+            Assert.Equal(67261, content.Id);
+            Assert.Equal("Home", content.Name);
+            Assert.Equal("1. a\n2. b\n3. c\n", content.Content);
+            Assert.Equal("1a1,3\n>1. a\n>2. b\n>3. c\n", content.Diff);
+            Assert.Equal(1, content.Version);
+            Assert.Equal(0, content.Attachments.Count); // TODO: more
+            Assert.Equal(0, content.SharedFiles.Count); // TODO: more
         }
 
         private static void BulkUpdateActivityTest(IActivity activity)

@@ -34,6 +34,7 @@ namespace BL4N.Tests
             });
 
             // TODO: test data file
+            /*        */
             Get["/space/activities"] = _ => Response.AsText(@"[
                 {
                     ""id"": 3153,
@@ -52,6 +53,31 @@ namespace BL4N.Tests
                             { ""field"": ""milestone"", ""new_value"": ""R2014-07-23"", ""old_value"": """", ""type"": ""standard"" },
                             { ""field"": ""status"", ""new_value"": ""4"", ""old_value"": ""1"", ""type"": ""standard"" }
                         ]
+                    },
+                    ""notifications"": [{
+                        ""id"": 25,
+                        ""alreadyRead"": false,
+                        ""reason"": 2,
+                        ""user"": { ""id"": 5686, ""userId"": ""takada"", ""name"": ""takada"", ""roleType"": 2, ""lang"": ""ja"", ""mailAddress"": ""takada@nulab.example"" },
+                        ""resourceAlreadyRead"": false
+                    }],
+                    ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
+                    ""created"": ""2013-12-27T07:50:44Z""
+                },{
+                    ""id"": 3153,
+                    ""project"": {
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
+                        ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
+                    },
+                    ""type"": 6,
+                    ""content"": {
+                        ""id"": 67261,
+                        ""name"": ""Home"",
+                        ""content"": ""1. a\n2. b\n3. c\n"",
+                        ""diff"": ""1a1,3\n>1. a\n>2. b\n>3. c\n"",
+                        ""version"": 1,
+                        ""attachments"": [ ],
+                        ""shared_files"": [ ]
                     },
                     ""notifications"": [{
                         ""id"": 25,
@@ -99,12 +125,12 @@ namespace BL4N.Tests
                     ""type"": 15,
                     ""content"": {
                         ""users"": [{
-                                ""id"": 60966,
-                                ""userId"": ""t.ashula"",
-                                ""name"": ""t.ashula"",
-                                ""roleType"": 2,
-                                ""lang"": null,
-                                ""mailAddress"": ""t.ashula@gmail.com""
+                            ""id"": 60966,
+                            ""userId"": ""t.ashula"",
+                            ""name"": ""t.ashula"",
+                            ""roleType"": 2,
+                            ""lang"": null,
+                            ""mailAddress"": ""t.ashula@gmail.com""
                         }],
                         ""group_project_activities"": [
                             { ""id"": 52355403, ""type"": 15 },
@@ -112,13 +138,10 @@ namespace BL4N.Tests
                         ],
                         ""comment"": """"
                     },
-
                     ""notifications"": [ ],
                     ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
-
                     ""created"": ""2015-03-26T09:28:33Z""
                 }
-
             ]", "application/json;charset=utf-8");
         }
     }

@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
@@ -27,5 +28,54 @@ namespace BL4N.Data
         IList<IAttachment> Attachments { get; }
 
         IList<ISharedFile> SharedFiles { get; }
+    }
+
+    [DataContract]
+    internal sealed class WikiActivityContent : IWikiActivityContent
+    {
+        [DataMember(Name = "id")]
+        public long Id { get; private set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; private set; }
+
+        [DataMember(Name = "content")]
+        public string Content { get; private set; }
+
+        [DataMember(Name = "diff")]
+        public string Diff { get; private set; }
+
+        [DataMember(Name = "version")]
+        public long Version { get; private set; }
+
+        [DataMember(Name = "attachments")]
+        private Attachments _attachments;
+
+        [IgnoreDataMember]
+        public IList<IAttachment> Attachments
+        {
+            get { return _attachments.ToList<IAttachment>(); }
+        }
+
+        [DataMember(Name = "shared_files")]
+        private SharedFiles _sharedFiles;
+
+        [IgnoreDataMember]
+        public IList<ISharedFile> SharedFiles
+        {
+            get { return _sharedFiles.ToList<ISharedFile>(); }
+        }
+    }
+
+    [DataContract]
+    internal sealed class WikiActivity : Activity
+    {
+        [DataMember(Name = "content")]
+        private WikiActivityContent _content;
+
+        public override IActivityContent Content
+        {
+            get { return _content; }
+        }
     }
 }

@@ -31,13 +31,13 @@ namespace BL4N.Data
         [DataMember(Name = "id")]
         public long Id { get; private set; }
 
-        [DataMember(Name = "id")]
+        [DataMember(Name = "name")]
         public string Name { get; private set; }
 
-        [DataMember(Name = "id")]
+        [DataMember(Name = "size")]
         public long Size { get; private set; }
 
-        [DataMember(Name = "id")]
+        [DataMember(Name = "createdUser")]
         private User _createdUser;
 
         public IUser CreatedUser
@@ -45,7 +45,7 @@ namespace BL4N.Data
             get { return _createdUser; }
         }
 
-        [DataMember(Name = "id")]
+        [DataMember(Name = "created")]
         public DateTime Created { get; private set; }
     }
 

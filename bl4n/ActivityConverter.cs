@@ -17,24 +17,32 @@ namespace BL4N
     {
         protected override Activity Create(Type objectType, JObject jObject)
         {
-            if (FieldExists(jObject, "type", JTokenType.Integer))
+            if (!FieldExists(jObject, "type", JTokenType.Integer))
             {
-                var activityType = jObject["type"].Value<int>();
-                switch (activityType)
-                {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        return new IssueActivity();
+                throw new InvalidOperationException();
+            }
 
-                    case 14:
-                        return new BulkUpdateActivity();
+            var activityType = jObject["type"].Value<int>();
 
-                    case 15:
-                    case 16:
-                        return new ProjectActivity();
-                }
+            switch (activityType)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    return new IssueActivity();
+
+                case 5:
+                case 6:
+                case 7:
+                    return new WikiActivity();
+
+                case 14:
+                    return new BulkUpdateActivity();
+
+                case 15:
+                case 16:
+                    return new ProjectActivity();
             }
 
             throw new InvalidOperationException();
