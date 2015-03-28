@@ -76,7 +76,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var activities = backlog.GetSpaceActivities();
-            Assert.Equal(4, activities.Count);
+            Assert.Equal(5, activities.Count);
 
             // type 1, 2, 3, 4
             IssueActivityTest(activities[0]);
@@ -84,11 +84,14 @@ namespace BL4N.Tests
             // type 5, 6, 7
             WikiActivityTest(activities[1]);
 
+            // type 8, 9, 10
+            FileActivityTest(activities[2]);
+
             // type 14
-            BulkUpdateActivityTest(activities[2]);
+            BulkUpdateActivityTest(activities[3]);
 
             // type 15, 16
-            ProjectActivityTest(activities[3]);
+            ProjectActivityTest(activities[4]);
         }
 
         private static void IssueActivityTest(IActivity activity)
@@ -158,6 +161,23 @@ namespace BL4N.Tests
             Assert.Equal(1, content.Version);
             Assert.Equal(0, content.Attachments.Count); // TODO: more
             Assert.Equal(0, content.SharedFiles.Count); // TODO: more
+        }
+
+        private static void FileActivityTest(IActivity activity)
+        {
+            // type = 8, 9, 10
+            // Assert.InRange(activity.Type, 8, 10);
+            Assert.Equal(8, activity.Type);
+
+            var content = activity.Content as IFileActivityContent;
+            Assert.NotNull(content);
+
+            // ""content"": { ""id"": 1, ""dir"": ""/"", ""name"": ""tempfile.pdf"", ""size"": 12345 },
+
+            Assert.Equal(1, content.Id);
+            Assert.Equal("/", content.Dir);
+            Assert.Equal("tempfile.pdf", content.Name);
+            Assert.Equal(12345, content.Size);
         }
 
         private static void BulkUpdateActivityTest(IActivity activity)

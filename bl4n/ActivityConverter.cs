@@ -24,6 +24,7 @@ namespace BL4N
 
             var activityType = jObject["type"].Value<int>();
 
+            // XXX: use enum?
             switch (activityType)
             {
                 case 1:
@@ -36,6 +37,11 @@ namespace BL4N
                 case 6:
                 case 7:
                     return new WikiActivity();
+
+                case 8:
+                case 9:
+                case 10:
+                    return new FileActivity();
 
                 case 14:
                     return new BulkUpdateActivity();

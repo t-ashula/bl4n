@@ -89,6 +89,23 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
                 },{
+                    ""id"": 3153,
+                    ""project"": {
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
+                        ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
+                    },
+                    ""type"": 8,
+                    ""content"": { ""id"": 1, ""dir"": ""/"", ""name"": ""tempfile.pdf"", ""size"": 12345 },
+                    ""notifications"": [{
+                        ""id"": 25,
+                        ""alreadyRead"": false,
+                        ""reason"": 2,
+                        ""user"": { ""id"": 5686, ""userId"": ""takada"", ""name"": ""takada"", ""roleType"": 2, ""lang"": ""ja"", ""mailAddress"": ""takada@nulab.example"" },
+                        ""resourceAlreadyRead"": false
+                    }],
+                    ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
+                    ""created"": ""2013-12-27T07:50:44Z""
+                },{
                     ""id"": 3254,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
