@@ -9,10 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using BL4N.Data;
+using Newtonsoft.Json;
 
 namespace BL4N
 {
@@ -66,26 +65,21 @@ namespace BL4N
             _settings = settings;
         }
 
+        /// <summary> スペース情報を取得します </summary>
+        /// <returns> <see cref="ISpace"/></returns>
         public ISpace GetSpace()
         {
             var api = GetApiEndPointBase() + "/space" + "?apiKey=" + APIKey;
-            var serset = new DataContractJsonSerializerSettings { DateTimeFormat = new DateTimeFormat("yyyy-MM-dd'T'HH:mm:ssZ") };
-            var space = GetApiResult<Space>(new Uri(api), serset);
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var space = GetApiResult<Space>(new Uri(api), jss);
             return space.Result;
         }
 
-        private async Task<T> GetApiResult<T>(Uri apiEndPoint, DataContractJsonSerializerSettings serializerSettings) where T : class
+        public async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
         {
             var ua = new HttpClient();
-            var stream = await ua.GetStreamAsync(apiEndPoint);
-            var ser = new DataContractJsonSerializer(typeof(T), serializerSettings);
-            return (T)ser.ReadObject(stream);
-        }
-
-        private async Task<string> GetApiResult(Uri apiEndPoint)
-        {
-            var ua = new HttpClient();
-            return await ua.GetStringAsync(apiEndPoint);
+            var s = await ua.GetStringAsync(uri);
+            return JsonConvert.DeserializeObject<T>(s, jss);
         }
 
         private string GetApiEndPointBase()
@@ -93,9 +87,18 @@ namespace BL4N
             return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
         }
 
+        /// <summary> 最近の更新の一覧を取得します </summary>
+        /// <returns> <see cref="IActivity"/> のリスト</returns>
         public List<IActivity> GetSpaceActivities()
         {
-            throw new NotImplementedException();
+            var api = GetApiEndPointBase() + "/space/activities" + "?apiKey=" + APIKey;
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Converters = new JsonConverter[] { new ActivityConverter() }
+            };
+
+            return GetApiResult<List<Activity>>(new Uri(api), jss).Result.ToList<IActivity>();
         }
     }
 }

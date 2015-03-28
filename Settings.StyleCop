@@ -208,7 +208,7 @@
         </Rule>
         <Rule Name="FileHeaderMustHaveValidCompanyText">
           <RuleSettings>
-            <BooleanProperty Name="Enabled">True</BooleanProperty>
+            <BooleanProperty Name="Enabled">False</BooleanProperty>
           </RuleSettings>
         </Rule>
         <Rule Name="FileHeaderFileNameDocumentationMustMatchTypeName">

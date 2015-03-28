@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -44,14 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityConverter.cs" />
     <Compile Include="Backlog.cs" />
     <Compile Include="APIType.cs" />
     <Compile Include="BacklogConnectionSettings.cs" />
     <Compile Include="BacklogJPConnectionSettings.cs" />
+    <Compile Include="Data\IActivityContent.cs" />
     <Compile Include="Data\INotification.cs" />
     <Compile Include="Data\IProject.cs" />
     <Compile Include="Data\IActivity.cs" />
-    <Compile Include="Data\IActivityContent.cs" />
     <Compile Include="Data\IAttachment.cs" />
     <Compile Include="Data\IBulkUpdateActivityContent.cs" />
     <Compile Include="Data\IChange.cs" />
@@ -67,10 +72,14 @@
     <Compile Include="Data\IRevision.cs" />
     <Compile Include="Data\ISharedFile.cs" />
     <Compile Include="Data\ISpace.cs" />
+    <Compile Include="Data\IssueActivity.cs" />
     <Compile Include="Data\ISVNRepositoryActivityContent.cs" />
     <Compile Include="Data\IUser.cs" />
     <Compile Include="Data\IWikiActivityContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

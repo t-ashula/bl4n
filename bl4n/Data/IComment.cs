@@ -5,6 +5,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Runtime.Serialization;
+
 namespace BL4N.Data
 {
     /// <summary> comment with id for type 17 </summary>
@@ -13,5 +16,15 @@ namespace BL4N.Data
         long Id { get; }
 
         string Content { get; }
+    }
+
+    [DataContract]
+    internal sealed class Comment : IComment
+    {
+        [DataMember(Name = "id")]
+        public long Id { get; private set; }
+
+        [DataMember(Name = "content")]
+        public string Content { get; private set; }
     }
 }

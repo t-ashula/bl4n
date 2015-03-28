@@ -6,6 +6,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
@@ -21,5 +23,34 @@ namespace BL4N.Data
         IUser CreatedUser { get; }
 
         DateTime Created { get; }
+    }
+
+    [DataContract]
+    internal sealed class Attachement : IAttachment
+    {
+        [DataMember(Name = "id")]
+        public long Id { get; private set; }
+
+        [DataMember(Name = "id")]
+        public string Name { get; private set; }
+
+        [DataMember(Name = "id")]
+        public long Size { get; private set; }
+
+        [DataMember(Name = "id")]
+        private User _createdUser;
+
+        public IUser CreatedUser
+        {
+            get { return _createdUser; }
+        }
+
+        [DataMember(Name = "id")]
+        public DateTime Created { get; private set; }
+    }
+
+    [CollectionDataContract]
+    internal sealed class Attachments : List<Attachement>
+    {
     }
 }

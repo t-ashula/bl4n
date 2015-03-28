@@ -4,7 +4,10 @@
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BL4N.Data
 {
@@ -23,6 +26,6 @@ namespace BL4N.Data
 
         IList<IAttachment> Attachments { get; }
 
-        IList<ISharedFile> SharedFile { get; }
+        IList<ISharedFile> SharedFiles { get; }
     }
 }

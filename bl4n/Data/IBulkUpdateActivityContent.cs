@@ -6,6 +6,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
@@ -20,5 +22,48 @@ namespace BL4N.Data
         IList<ILink> Link { get; }
 
         IList<IChange> Changes { get; }
+    }
+
+    [DataContract]
+    internal sealed class BulkUpdateActivityContent : ActivityContent, IBulkUpdateActivityContent
+    {
+        [DataMember(Name = "tx_id")]
+        public long TxId { get; private set; }
+
+        [DataMember(Name = "comment")]
+        private Comment _comment;
+
+        public IComment Comment
+        {
+            get { return _comment; }
+        }
+
+        [DataMember(Name = "link")]
+        private List<Link> _links;
+
+        public IList<ILink> Link
+        {
+            get { return _links.ToList<ILink>(); }
+        }
+
+        [DataMember(Name = "changes")]
+        private Changes _changes;
+
+        public IList<IChange> Changes
+        {
+            get { return _changes.ToList<IChange>(); }
+        }
+    }
+
+    [DataContract]
+    internal sealed class BulkUpdateActivity : Activity
+    {
+        [DataMember(Name = "content")]
+        private BulkUpdateActivityContent _content;
+
+        public override IActivityContent Content
+        {
+            get { return _content; }
+        }
     }
 }
