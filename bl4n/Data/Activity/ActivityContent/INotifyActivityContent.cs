@@ -83,16 +83,4 @@ namespace BL4N.Data
             get { return _sharedFiles.ToList<ISharedFile>(); }
         }
     }
-
-    [DataContract]
-    internal sealed class NotifyActivity : Activity
-    {
-        [DataMember(Name = "content")]
-        private NotifyActivityContent _content;
-
-        public override IActivityContent Content
-        {
-            get { return _content; }
-        }
-    }
 }

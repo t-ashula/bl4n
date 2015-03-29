@@ -57,17 +57,4 @@ namespace BL4N.Data
             get { return _changes.ToList<IChange>(); }
         }
     }
-
-    [DataContract]
-    internal sealed class BulkUpdateActivity : Activity
-    {
-        [DataMember(Name = "content")]
-        private BulkUpdateActivityContent _content;
-
-        [IgnoreDataMember]
-        public override IActivityContent Content
-        {
-            get { return _content; }
-        }
-    }
 }

@@ -46,17 +46,4 @@ namespace BL4N.Data
         [DataMember(Name = "comment")]
         public string Comment { get; private set; }
     }
-
-    [DataContract]
-    internal sealed class ProjectActivity : Activity
-    {
-        [DataMember(Name = "content")]
-        private ProjectActivityContent _content;
-
-        [IgnoreDataMember]
-        public override IActivityContent Content
-        {
-            get { return _content; }
-        }
-    }
 }

@@ -66,16 +66,4 @@ namespace BL4N.Data
             get { return _sharedFiles.ToList<ISharedFile>(); }
         }
     }
-
-    [DataContract]
-    internal sealed class WikiActivity : Activity
-    {
-        [DataMember(Name = "content")]
-        private WikiActivityContent _content;
-
-        public override IActivityContent Content
-        {
-            get { return _content; }
-        }
-    }
 }

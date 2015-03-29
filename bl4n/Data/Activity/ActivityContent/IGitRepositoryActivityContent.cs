@@ -60,16 +60,4 @@ namespace BL4N.Data
             get { return _revisions.ToList<IRevision>(); }
         }
     }
-
-    [DataContract]
-    internal sealed class GitRepositoryActivity : Activity
-    {
-        [DataMember(Name = "content")]
-        private GitRepositoryActivityContent _content;
-
-        public override IActivityContent Content
-        {
-            get { return _content; }
-        }
-    }
 }

@@ -28,16 +28,4 @@ namespace BL4N.Data
         [DataMember(Name = "comment")]
         public string Comment { get; private set; }
     }
-
-    [DataContract]
-    internal sealed class SVNRepositoryActivity : Activity
-    {
-        [DataMember(Name = "content")]
-        private SVNRepositoryActivityContent _content;
-
-        public override IActivityContent Content
-        {
-            get { return _content; }
-        }
-    }
 }

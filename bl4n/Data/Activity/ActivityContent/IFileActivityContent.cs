@@ -38,16 +38,4 @@ namespace BL4N.Data
         [DataMember(Name = "size")]
         public long Size { get; private set; }
     }
-
-    [DataContract]
-    internal sealed class FileActivity : Activity
-    {
-        [DataMember(Name = "content")]
-        private FileActivityContent _content;
-
-        public override IActivityContent Content
-        {
-            get { return _content; }
-        }
-    }
 }
