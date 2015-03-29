@@ -33,6 +33,7 @@ namespace BL4N.Data
         [DataMember(Name = "comment")]
         private Comment _comment;
 
+        [IgnoreDataMember]
         public IComment Comment
         {
             get { return _comment; }
@@ -41,6 +42,7 @@ namespace BL4N.Data
         [DataMember(Name = "link")]
         private List<Link> _links;
 
+        [IgnoreDataMember]
         public IList<ILink> Link
         {
             get { return _links.ToList<ILink>(); }
@@ -49,6 +51,7 @@ namespace BL4N.Data
         [DataMember(Name = "changes")]
         private Changes _changes;
 
+        [IgnoreDataMember]
         public IList<IChange> Changes
         {
             get { return _changes.ToList<IChange>(); }
@@ -61,6 +64,7 @@ namespace BL4N.Data
         [DataMember(Name = "content")]
         private BulkUpdateActivityContent _content;
 
+        [IgnoreDataMember]
         public override IActivityContent Content
         {
             get { return _content; }

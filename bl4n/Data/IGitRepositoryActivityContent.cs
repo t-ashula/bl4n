@@ -5,7 +5,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
@@ -23,5 +26,50 @@ namespace BL4N.Data
         long RevisionCount { get; }
 
         IList<IRevision> Revisions { get; }
+    }
+
+    [DataContract]
+    internal class GitRepositoryActivityContent : ActivityContent, IGitRepositoryActivityContent
+    {
+        [DataMember(Name = "repository")]
+        private Repository _repository;
+
+        [IgnoreDataMember]
+        public IRepository Repository
+        {
+            get { return _repository; }
+        }
+
+        [DataMember(Name = "change_type")]
+        public string ChangeType { get; private set; }
+
+        [DataMember(Name = "revision_type")]
+        public string RevisionType { get; private set; }
+
+        [DataMember(Name = "ref")]
+        public string Ref { get; private set; }
+
+        [DataMember(Name = "revision_count")]
+        public long RevisionCount { get; private set; }
+
+        [DataMember(Name = "revisions")]
+        private List<Revision> _revisions;
+
+        public IList<IRevision> Revisions
+        {
+            get { return _revisions.ToList<IRevision>(); }
+        }
+    }
+
+    [DataContract]
+    internal sealed class GitRepositoryActivity : Activity
+    {
+        [DataMember(Name = "content")]
+        private GitRepositoryActivityContent _content;
+
+        public override IActivityContent Content
+        {
+            get { return _content; }
+        }
     }
 }

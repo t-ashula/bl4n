@@ -35,8 +35,9 @@ namespace BL4N.Tests
 
             // TODO: test data file
             /*        */
-            Get["/space/activities"] = _ => Response.AsText(@"[
-                {
+            Get["/space/activities"] = _ => Response.AsText(@"["
+                + /* 1, 2, 3, 4 */
+                @"{
                     ""id"": 3153,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -63,7 +64,9 @@ namespace BL4N.Tests
                     }],
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
-                },{
+                }"
+                + /* 5, 6, 7 */
+                @",{
                     ""id"": 3153,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -88,7 +91,9 @@ namespace BL4N.Tests
                     }],
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
-                },{
+                }"
+                + /* 8, 9, 10 */
+                @",{
                     ""id"": 3153,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -105,7 +110,42 @@ namespace BL4N.Tests
                     }],
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
-                },{
+                }"
+                + /* 11 */
+                @",{
+                    ""id"": 57269265,
+                    ""project"": {
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
+                        ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
+                    },
+                    ""type"": 11,
+                    ""content"": { ""rev"": 2, ""comment"": ""add Readme"" },
+                    ""notifications"": [ ],
+                    ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
+                    ""created"": ""2015-03-26T00:15:35Z""
+                }"
+                + /* 12, 13 */
+                @",{
+                    ""id"": 57269265,
+                    ""project"": {
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
+                        ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
+                    },
+                    ""type"": 12,
+                    ""content"": {
+                        ""repository"": { ""id"": 9251, ""name"": ""bl4n"", ""description"": null },
+                        ""change_type"": ""create"",
+                        ""revision_type"": ""commit"",
+                        ""ref"": ""refs/heads/master"",
+                        ""revision_count"": 1,
+                        ""revisions"": [ { ""rev"": ""56de3ef67126295552f9bfeb957816f955e36393"", ""comment"": ""add README.md"" }]
+                    },
+                    ""notifications"": [ ],
+                    ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
+                    ""created"": ""2015-03-26T00:15:35Z""
+                }"
+                + /* 14 */
+                @",{
                     ""id"": 3254,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -113,7 +153,7 @@ namespace BL4N.Tests
                     },
                     ""type"": 14,
                     ""content"": {
-                        ""tx_id"": 230217,
+                        ""tx_id"": 1,
                         ""comment"": { ""content"": ""お世話になっております．"" },
                         ""link"": [
                             { ""id"": 2, ""key_id"": 10, ""title"": ""[質問] 可能でしょうか？"" },
@@ -127,17 +167,13 @@ namespace BL4N.Tests
                     ""notifications"": [ ],
                     ""createdUser"": { ""id"": 1, ""userId"": null, ""name"": ""user2"", ""roleType"": 2, ""lang"": null, ""mailAddress"": null },
                     ""created"": ""2015-03-17T09:56:16Z""
-                },{
+                }"
+                + /* 15, 16 */
+                @",{
                     ""id"": 8159779,
                     ""project"": {
-                        ""id"": 26476,
-                        ""projectKey"": ""BL4N"",
-                        ""name"": ""bl4n"",
-                        ""chartEnabled"": false,
-                        ""subtaskingEnabled"": false,
-                        ""textFormattingRule"": ""markdown"",
-                        ""archived"": false,
-                        ""displayOrder"": 2147483646
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
+                        ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 15,
                     ""content"": {
@@ -149,17 +185,40 @@ namespace BL4N.Tests
                             ""lang"": null,
                             ""mailAddress"": ""t.ashula@gmail.com""
                         }],
-                        ""group_project_activities"": [
-                            { ""id"": 52355403, ""type"": 15 },
-                            { ""id"": 52355404, ""type"": 15 }
-                        ],
+                        ""group_project_activities"": [ { ""id"": 52355403, ""type"": 15 }, { ""id"": 52355404, ""type"": 15 } ],
                         ""comment"": """"
                     },
                     ""notifications"": [ ],
                     ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
                     ""created"": ""2015-03-26T09:28:33Z""
-                }
-            ]", "application/json;charset=utf-8");
+                }"
+                + /* 17 */
+                @",{
+                    ""id"": 8159779,
+                    ""project"": {
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
+                        ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
+                    },
+                    ""type"": 17,
+                    ""content"": {
+                        ""id"": 1,
+                        ""key_id"": 2,
+                        ""summary"": ""サマリー"",
+                        ""description"": ""追記をお願いします．"",
+                        ""comment"": {
+                            ""id"": 1115392520,
+                            ""content"": ""よろしくお願い致します．""
+                        },
+                        ""changes"": [ ],
+                        ""attachments"": [ ],
+                        ""shared_files"": [ ]
+                    },
+                    ""notifications"": [ ],
+                    ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
+                    ""created"": ""2015-03-26T09:28:33Z""
+                }"
+                +
+                @"]", "application/json;charset=utf-8");
         }
     }
 }

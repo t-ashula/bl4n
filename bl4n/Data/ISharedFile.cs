@@ -6,7 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace BL4N.Data
@@ -58,10 +58,5 @@ namespace BL4N.Data
 
         [DataMember(Name = "created")]
         public DateTime Created { get; private set; }
-    }
-
-    [CollectionDataContract]
-    internal sealed class SharedFiles : List<SharedFile>
-    {
     }
 }

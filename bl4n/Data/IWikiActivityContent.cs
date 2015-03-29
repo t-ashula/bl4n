@@ -49,7 +49,7 @@ namespace BL4N.Data
         public long Version { get; private set; }
 
         [DataMember(Name = "attachments")]
-        private Attachments _attachments;
+        private List<Attachment> _attachments;
 
         [IgnoreDataMember]
         public IList<IAttachment> Attachments
@@ -58,7 +58,7 @@ namespace BL4N.Data
         }
 
         [DataMember(Name = "shared_files")]
-        private SharedFiles _sharedFiles;
+        private List<SharedFile> _sharedFiles;
 
         [IgnoreDataMember]
         public IList<ISharedFile> SharedFiles

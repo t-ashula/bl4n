@@ -65,7 +65,7 @@ namespace BL4N.Data
         }
 
         [DataMember(Name = "attachments")]
-        private Attachments _attachments;
+        private List<Attachment> _attachments;
 
         [IgnoreDataMember]
         public IList<IAttachment> Attachments
@@ -74,7 +74,7 @@ namespace BL4N.Data
         }
 
         [DataMember(Name = "shared_files")]
-        private SharedFiles _sharedfiles;
+        private List<SharedFile> _sharedfiles;
 
         [IgnoreDataMember]
         public IList<ISharedFile> SharedFiles

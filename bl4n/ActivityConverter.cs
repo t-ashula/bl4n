@@ -43,12 +43,22 @@ namespace BL4N
                 case 10:
                     return new FileActivity();
 
+                case 11:
+                    return new SVNRepositoryActivity();
+
+                case 12:
+                case 13:
+                    return new GitRepositoryActivity();
+
                 case 14:
                     return new BulkUpdateActivity();
 
                 case 15:
                 case 16:
                     return new ProjectActivity();
+
+                case 17:
+                    return new NotifyActivity();
             }
 
             throw new InvalidOperationException();

@@ -24,7 +24,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class FileActivityContent : IFileActivityContent
+    internal sealed class FileActivityContent : ActivityContent, IFileActivityContent
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

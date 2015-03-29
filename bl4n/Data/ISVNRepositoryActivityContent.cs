@@ -4,6 +4,11 @@
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System;
+using System.Linq;
+using System.Runtime.Serialization;
+
 namespace BL4N.Data
 {
     /// <summary> content for type 11 </summary>
@@ -12,5 +17,27 @@ namespace BL4N.Data
         long Rev { get; }
 
         string Comment { get; }
+    }
+
+    [DataContract]
+    internal class SVNRepositoryActivityContent : ActivityContent, ISVNRepositoryActivityContent
+    {
+        [DataMember(Name = "rev")]
+        public long Rev { get; private set; }
+
+        [DataMember(Name = "comment")]
+        public string Comment { get; private set; }
+    }
+
+    [DataContract]
+    internal sealed class SVNRepositoryActivity : Activity
+    {
+        [DataMember(Name = "content")]
+        private SVNRepositoryActivityContent _content;
+
+        public override IActivityContent Content
+        {
+            get { return _content; }
+        }
     }
 }

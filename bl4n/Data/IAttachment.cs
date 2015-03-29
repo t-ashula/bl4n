@@ -6,7 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace BL4N.Data
@@ -26,7 +26,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Attachement : IAttachment
+    internal sealed class Attachment : IAttachment
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }
@@ -40,6 +40,7 @@ namespace BL4N.Data
         [DataMember(Name = "createdUser")]
         private User _createdUser;
 
+        [IgnoreDataMember]
         public IUser CreatedUser
         {
             get { return _createdUser; }
@@ -47,10 +48,5 @@ namespace BL4N.Data
 
         [DataMember(Name = "created")]
         public DateTime Created { get; private set; }
-    }
-
-    [CollectionDataContract]
-    internal sealed class Attachments : List<Attachement>
-    {
     }
 }

@@ -76,7 +76,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var activities = backlog.GetSpaceActivities();
-            Assert.Equal(5, activities.Count);
+            Assert.Equal(8, activities.Count);
 
             // type 1, 2, 3, 4
             IssueActivityTest(activities[0]);
@@ -87,11 +87,20 @@ namespace BL4N.Tests
             // type 8, 9, 10
             FileActivityTest(activities[2]);
 
+            // type 11
+            SVNRepositoryActivityTest(activities[3]);
+
+            // type 12, 13
+            GitRepositoryActivityTest(activities[4]);
+
             // type 14
-            BulkUpdateActivityTest(activities[3]);
+            BulkUpdateActivityTest(activities[5]);
 
             // type 15, 16
-            ProjectActivityTest(activities[4]);
+            ProjectActivityTest(activities[6]);
+
+            // type 17
+            NotifyActivityTest(activities[7]);
         }
 
         private static void IssueActivityTest(IActivity activity)
@@ -173,11 +182,51 @@ namespace BL4N.Tests
             Assert.NotNull(content);
 
             // ""content"": { ""id"": 1, ""dir"": ""/"", ""name"": ""tempfile.pdf"", ""size"": 12345 },
-
             Assert.Equal(1, content.Id);
             Assert.Equal("/", content.Dir);
             Assert.Equal("tempfile.pdf", content.Name);
             Assert.Equal(12345, content.Size);
+        }
+
+        private static void SVNRepositoryActivityTest(IActivity activity)
+        {
+            // type 11
+            Assert.Equal(11, activity.Type);
+
+            var content = activity.Content as ISVNRepositoryActivityContent;
+            Assert.NotNull(content);
+
+            // ""content"": { ""rev"":"" 2, ""comment"": ""add Readme"" },
+            Assert.Equal(2, content.Rev);
+            Assert.Equal("add Readme", content.Comment);
+        }
+
+        private static void GitRepositoryActivityTest(IActivity activity)
+        {
+            // type 12, 13
+            Assert.Equal(12, activity.Type);
+
+            var content = activity.Content as IGitRepositoryActivityContent;
+            Assert.NotNull(content);
+
+            // ""content"": {
+            //  ""repository"": { ""id"": 9251, ""name"": ""bl4n"", ""description"": null },
+            //    ""change_type"": ""create"",
+            //    ""revision_type"": ""commit"",
+            //    ""ref"": ""refs/heads/master"",
+            //    ""revision_count"": 1,
+            //    ""revisions"": [ { ""rev"": ""56de3ef67126295552f9bfeb957816f955e36393"", ""comment"": ""add README.md"" }]
+            // }
+            Assert.Equal(9251, content.Repository.Id);
+            Assert.Equal("bl4n", content.Repository.Name);
+            Assert.Equal(null, content.Repository.Description);
+            Assert.Equal("create", content.ChangeType);
+            Assert.Equal("commit", content.RevisionType);
+            Assert.Equal("refs/heads/master", content.Ref);
+            Assert.Equal(1, content.RevisionCount);
+            Assert.Equal(1, content.Revisions.Count);
+            Assert.Equal("56de3ef67126295552f9bfeb957816f955e36393", content.Revisions[0].Rev);
+            Assert.Equal("add README.md", content.Revisions[0].Comment);
         }
 
         private static void BulkUpdateActivityTest(IActivity activity)
@@ -190,7 +239,7 @@ namespace BL4N.Tests
             Assert.NotNull(content);
             /*
              * ""content"": {
-             *   ""tx_id"": 230217,
+             *   ""tx_id"": 1,
              *   ""comment"": { ""content"": ""お世話になっております．"" },
              *   ""link"": [
              *       { ""id"": 2, ""key_id"": 10, ""title"": ""[質問] 可能でしょうか？"" },
@@ -202,7 +251,7 @@ namespace BL4N.Tests
              *   ]
              * }
              */
-            Assert.Equal(230217, content.TxId);
+            Assert.Equal(1, content.TxId);
             Assert.Equal("お世話になっております．", content.Comment.Content);
             Assert.Equal(3, content.Link.Count);
             Assert.Equal(2, content.Link[0].Id);
@@ -217,7 +266,7 @@ namespace BL4N.Tests
         private static void ProjectActivityTest(IActivity activity)
         {
             // type = 15, 16
-            // Assert.InRange(1, 4, activity.Type);
+            // Assert.InRange(15, 16, activity.Type);
             Assert.Equal(15, activity.Type);
 
             var content = activity.Content as IProjectActivityContent;
@@ -246,6 +295,40 @@ namespace BL4N.Tests
             Assert.Equal(52355403, content.GroupProjectActivites[0].Id);
             Assert.Equal(15, content.GroupProjectActivites[0].Type);
             Assert.Equal(string.Empty, content.Comment);
+        }
+
+        private static void NotifyActivityTest(IActivity activity)
+        {
+            // type = 17
+            // Assert.InRange(17, 17, activity.Type);
+            Assert.Equal(17, activity.Type);
+
+            var content = activity.Content as INotifyActivityContent;
+            Assert.NotNull(content);
+            /*
+             * ""content"": {
+             *   ""id"": 1,
+             *   ""key_id"": 2,
+             *   ""summary"": ""サマリー"",
+             *   ""description"": ""追記をお願いします．"",
+             *   ""comment"": {
+             *     ""id"": 1115392520,
+             *     ""content"": ""よろしくお願い致します．""
+             *   },
+             *   ""changes"": [ ],
+             *   ""attachments"": [ ],
+             *   ""shared_files"": [ ]
+             * }
+             */
+            Assert.Equal(1, content.Id);
+            Assert.Equal(2, content.KeyId);
+            Assert.Equal("サマリー", content.Summary);
+            Assert.Equal("追記をお願いします．", content.Description);
+            Assert.Equal(1115392520, content.Comment.Id);
+            Assert.Equal("よろしくお願い致します．", content.Comment.Content);
+            Assert.Equal(0, content.Changes.Count);
+            Assert.Equal(0, content.Attachments.Count);
+            Assert.Equal(0, content.SharedFiles.Count);
         }
     }
 }
