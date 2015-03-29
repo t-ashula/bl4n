@@ -65,13 +65,13 @@ namespace BL4N
             _settings = settings;
         }
 
-        /// <summary> スペース情報を取得します </summary>
-        /// <returns> <see cref="ISpace"/></returns>
+        /// <summary> space 情報を取得します </summary>
+        /// <returns> <see cref="ISpace"/>. </returns>
         public ISpace GetSpace()
         {
-            var api = GetApiEndPointBase() + "/space" + "?apiKey=" + APIKey;
+            var uri = GetApiUri("/space");
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
-            var space = GetApiResult<Space>(new Uri(api), jss);
+            var space = GetApiResult<Space>(uri, jss);
             return space.Result;
         }
 
@@ -85,6 +85,14 @@ namespace BL4N
         private string GetApiEndPointBase()
         {
             return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
+        }
+
+        private Uri GetApiUri(string apiname)
+        {
+            var endpoint = GetApiEndPointBase() + apiname;
+            return _settings.APIType == APIType.APIKey
+                ? new Uri(endpoint + "?apiKey=" + APIKey)
+                : new Uri(endpoint);
         }
 
         /// <summary> 最近の更新の一覧を取得します </summary>

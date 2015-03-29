@@ -6,11 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using bl4ncui;
 using Xunit;
 
 namespace bl4ncui.Tests
