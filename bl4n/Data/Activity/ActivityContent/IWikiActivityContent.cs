@@ -46,7 +46,12 @@ namespace BL4N.Data
         public string Diff { get; private set; }
 
         [DataMember(Name = "version")]
-        public long Version { get; private set; }
+        private long? _version;
+
+        public long Version
+        {
+            get { return _version ?? 0; }
+        }
 
         [DataMember(Name = "attachments")]
         private List<Attachment> _attachments;

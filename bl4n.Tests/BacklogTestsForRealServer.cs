@@ -74,7 +74,10 @@ namespace BL4N.Tests
         [Fact]
         public override void GetSpaceActivitiesTest()
         {
-            throw new NotImplementedException();
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetSpaceActivities();
+            Assert.NotNull(actual);
         }
     }
 }
