@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -83,6 +84,7 @@
     <Compile Include="Data\Activity\ActivityContent\ISVNRepositoryActivityContent.cs" />
     <Compile Include="Data\IUser.cs" />
     <Compile Include="Data\Activity\ActivityContent\IWikiActivityContent.cs" />
+    <Compile Include="Data\ILogo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

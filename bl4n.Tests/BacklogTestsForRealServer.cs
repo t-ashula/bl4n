@@ -79,5 +79,19 @@ namespace BL4N.Tests
             var actual = backlog.GetSpaceActivities();
             Assert.NotNull(actual);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceLogoTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetSpaceImage();
+            Assert.Equal("logo_mark.png", actual.FileName);
+            var logo = Properties.Resources.logo;
+            Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
+            Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
+        }
     }
 }

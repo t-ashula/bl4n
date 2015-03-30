@@ -6,6 +6,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using Nancy;
 
@@ -20,6 +22,8 @@ namespace BL4N.Tests
         public BacklogMockupModule()
             : base("/api/v2")
         {
+            #region /space
+
             Get["/space"] = _ => Response.AsJson(new
             {
                 spaceKey = "nulab",
@@ -32,6 +36,10 @@ namespace BL4N.Tests
                 created = "2008-07-06T15:00:00Z",
                 updated = "2013-06-18T07:55:37Z"
             });
+
+            #endregion
+
+            #region /space/activities
 
             // TODO: test data file
             /*        */
@@ -219,6 +227,36 @@ namespace BL4N.Tests
                 }"
                 +
                 @"]", "application/json;charset=utf-8");
+
+            #endregion
+
+            #region /space/image
+
+            Get["/space/image"] = _ =>
+            {
+                var response = new Response
+                {
+                    ContentType = "image/png",
+                    Contents = stream =>
+                    {
+                        var logo = Properties.Resources.logo;
+                        using (var ms = new MemoryStream())
+                        {
+                            logo.Save(ms, ImageFormat.Png);
+                            ms.Position = 0;
+                            using (var writer = new BinaryWriter(stream))
+                            {
+                                writer.Write(ms.GetBuffer());
+                            }
+                        }
+                    }
+                };
+
+                response.Headers.Add("Content-Disposition", "attachment; filename*=UTF-8''logo_mark.png");
+                return response;
+            };
+
+            #endregion
         }
     }
 }

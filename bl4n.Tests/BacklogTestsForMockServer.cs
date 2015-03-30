@@ -8,6 +8,7 @@
 using System;
 using System.Linq;
 using BL4N.Data;
+using BL4N.Tests.Properties;
 using Nancy.Hosting.Self;
 using Xunit;
 
@@ -329,6 +330,21 @@ namespace BL4N.Tests
             Assert.Equal(0, content.Changes.Count);
             Assert.Equal(0, content.Attachments.Count);
             Assert.Equal(0, content.SharedFiles.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceLogoTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetSpaceImage();
+            Assert.Equal("logo_mark.png", actual.FileName);
+            var logo = Resources.logo;
+            Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
+            Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
         }
     }
 }

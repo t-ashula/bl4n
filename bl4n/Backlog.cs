@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BL4N.Data;
 using Newtonsoft.Json;
@@ -107,6 +108,37 @@ namespace BL4N
             };
 
             return GetApiResult<List<Activity>>(new Uri(api), jss).Result.ToList<IActivity>();
+        }
+
+        private async Task<Tuple<string, byte[]>> GetApiResultAsFile(Uri uri)
+        {
+            var ua = new HttpClient();
+            var res = await ua.GetAsync(uri);
+            IEnumerable<string> headers;
+            if (res.Content.Headers.TryGetValues("Content-Disposition", out headers)
+                || res.Headers.TryGetValues("Content-Disposition", out headers))
+            {
+                // sample: Content-Disposition:attachment;filename="logo_mark.png"
+                // chrome: Content-Disposition:attachment; filename*=UTF-8''logo_mark.png
+                foreach (var header in headers)
+                {
+                    var r = new Regex(@"filename\*=UTF-8''(?<name>.+)$");
+                    var m = r.Match(header);
+                    if (m.Success)
+                    {
+                        return Tuple.Create(m.Groups["name"].Value, await res.Content.ReadAsByteArrayAsync());
+                    }
+                }
+            }
+
+            return Tuple.Create(string.Empty, await res.Content.ReadAsByteArrayAsync());
+        }
+
+        public ILogo GetSpaceImage()
+        {
+            var api = GetApiUri("/space/image");
+            var res = GetApiResultAsFile(api).Result;
+            return new Logo(res.Item1, res.Item2);
         }
     }
 }
