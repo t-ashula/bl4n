@@ -44,5 +44,8 @@ namespace BL4N.Tests
 
         /// <summary> /api/v2/space/image のテスト </summary>
         public abstract void GetSpaceLogoTest();
+
+        /// <summary> /api/v2/space/notification のテスト </summary>
+        public abstract void GetSpaceNotificationTest();
     }
 }

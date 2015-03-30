@@ -257,6 +257,17 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /space/notification
+
+            // {"content":"お知らせの追加\":-)\"","updated":"2015-03-26T06:37:37Z"}"
+            Get["/space/notification"] = _ => Response.AsJson(new
+            {
+                content = "お知らせの追加\":-)\"",
+                updated = new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Unspecified)
+            });
+
+            #endregion
         }
     }
 }

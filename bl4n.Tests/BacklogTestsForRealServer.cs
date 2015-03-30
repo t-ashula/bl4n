@@ -93,5 +93,18 @@ namespace BL4N.Tests
             Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
             Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetSpaceNotifiacation();
+            // {"content":"お知らせの追加\":-)\"","updated":"2015-03-26T06:37:37Z"}
+            Assert.Equal("お知らせの追加\":-)\"", actual.Content);
+            Assert.Equal(new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Utc), actual.Updated);
+        }
     }
 }

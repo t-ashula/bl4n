@@ -85,6 +85,7 @@
     <Compile Include="Data\IUser.cs" />
     <Compile Include="Data\Activity\ActivityContent\IWikiActivityContent.cs" />
     <Compile Include="Data\ILogo.cs" />
+    <Compile Include="Data\ISpaceNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

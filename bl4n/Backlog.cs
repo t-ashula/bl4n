@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BL4N.Data;
@@ -139,6 +140,14 @@ namespace BL4N
             var api = GetApiUri("/space/image");
             var res = GetApiResultAsFile(api).Result;
             return new Logo(res.Item1, res.Item2);
+        }
+
+        public ISpaceNotification GetSpaceNotifiacation()
+        {
+            var api = GetApiUri("/space/notification");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<SpaceNotification>(api, jss);
+            return res.Result;
         }
     }
 }
