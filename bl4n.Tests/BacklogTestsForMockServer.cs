@@ -360,5 +360,19 @@ namespace BL4N.Tests
             Assert.Equal("お知らせの追加\":-)\"", actual.Content);
             Assert.Equal(new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Utc), actual.Updated);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateSpaceNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var content = string.Format("{0:F} に更新しました．", DateTime.Now);
+            var actual = backlog.UpdateSpaceNotification(content);
+            Assert.Equal(content, actual.Content);
+            Assert.Equal(new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Utc), actual.Updated); // mockserver always returns 2015-04-01T00:00:00Z
+        }
     }
 }

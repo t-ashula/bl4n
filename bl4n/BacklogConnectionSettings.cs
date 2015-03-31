@@ -34,6 +34,25 @@ namespace BL4N
         [DataMember]
         public string HostName { get; private set; }
 
+        [IgnoreDataMember]
+        private string _host;
+
+        [IgnoreDataMember]
+        public string Host
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_host))
+                {
+                    _host = (UseSSL && Port == 443) || (!UseSSL && Port == 80)
+                        ? HostName
+                        : string.Format("{0}:{1}", HostName, Port);
+                }
+
+                return _host;
+            }
+        }
+
         [DataMember]
         public int Port { get; private set; }
 

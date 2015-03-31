@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace BL4N.Tests
 {
@@ -44,8 +45,8 @@ namespace BL4N.Tests
             // TODO: test data file
             /*        */
             Get["/space/activities"] = _ => Response.AsText(@"["
-                + /* 1, 2, 3, 4 */
-                @"{
+                                                            + /* 1, 2, 3, 4 */
+                                                            @"{
                     ""id"": 3153,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -73,8 +74,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
                 }"
-                + /* 5, 6, 7 */
-                @",{
+                                                            + /* 5, 6, 7 */
+                                                            @",{
                     ""id"": 3153,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -100,8 +101,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
                 }"
-                + /* 8, 9, 10 */
-                @",{
+                                                            + /* 8, 9, 10 */
+                                                            @",{
                     ""id"": 3153,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -119,8 +120,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
                 }"
-                + /* 11 */
-                @",{
+                                                            + /* 11 */
+                                                            @",{
                     ""id"": 57269265,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -132,8 +133,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2015-03-26T00:15:35Z""
                 }"
-                + /* 12, 13 */
-                @",{
+                                                            + /* 12, 13 */
+                                                            @",{
                     ""id"": 57269265,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -152,8 +153,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2015-03-26T00:15:35Z""
                 }"
-                + /* 14 */
-                @",{
+                                                            + /* 14 */
+                                                            @",{
                     ""id"": 3254,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -176,8 +177,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": null, ""name"": ""user2"", ""roleType"": 2, ""lang"": null, ""mailAddress"": null },
                     ""created"": ""2015-03-17T09:56:16Z""
                 }"
-                + /* 15, 16 */
-                @",{
+                                                            + /* 15, 16 */
+                                                            @",{
                     ""id"": 8159779,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -200,8 +201,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
                     ""created"": ""2015-03-26T09:28:33Z""
                 }"
-                + /* 17 */
-                @",{
+                                                            + /* 17 */
+                                                            @",{
                     ""id"": 8159779,
                     ""project"": {
                         ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""サブタスク"",
@@ -225,8 +226,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
                     ""created"": ""2015-03-26T09:28:33Z""
                 }"
-                +
-                @"]", "application/json;charset=utf-8");
+                                                            +
+                                                            @"]", "application/json;charset=utf-8");
 
             #endregion
 
@@ -268,6 +269,25 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region put /space/notification
+
+            Put["/space/notification"] = p =>
+            {
+                var req = this.Bind<NotificationContent>();
+                return Response.AsJson(new
+                {
+                    content = req.Content,
+                    updated = new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Unspecified)
+                });
+            };
+
+            #endregion
+        }
+
+        private class NotificationContent
+        {
+            public string Content;
         }
     }
 }

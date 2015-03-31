@@ -36,16 +36,19 @@ namespace BL4N.Tests
         /// <summary> </summary>
         public abstract void BacklogConstructorTest();
 
-        /// <summary> /api/v2/space のテスト </summary>
+        /// <summary> GET /api/v2/space のテスト </summary>
         public abstract void GetSpaceTest();
 
-        /// <summary> /api/v2/space/activities のテスト </summary>
+        /// <summary> GET /api/v2/space/activities のテスト </summary>
         public abstract void GetSpaceActivitiesTest();
 
-        /// <summary> /api/v2/space/image のテスト </summary>
+        /// <summary> GET /api/v2/space/image のテスト </summary>
         public abstract void GetSpaceLogoTest();
 
-        /// <summary> /api/v2/space/notification のテスト </summary>
+        /// <summary> GET /api/v2/space/notification のテスト </summary>
         public abstract void GetSpaceNotificationTest();
+
+        /// <summary> PUT /api/v2/space/notification のテスト </summary>
+        public abstract void UpdateSpaceNotificationTest();
     }
 }

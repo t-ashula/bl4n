@@ -68,6 +68,21 @@ namespace BL4N.Tests
         }
 
         [Fact]
+        public void HostTest()
+        {
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(TestSettings)))
+            {
+                var settings = BacklogConnectionSettings.Load(ms);
+
+                Assert.Equal("localhost", settings.HostName);
+                Assert.Equal(34567, settings.Port);
+                Assert.False(settings.UseSSL);
+
+                Assert.Equal("localhost:34567", settings.Host);
+            }
+        }
+
+        [Fact]
         public void Save_Stream_Test()
         {
             var settings = new BacklogConnectionSettings(
