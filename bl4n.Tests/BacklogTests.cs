@@ -36,6 +36,8 @@ namespace BL4N.Tests
         /// <summary> </summary>
         public abstract void BacklogConstructorTest();
 
+        #region /api/v2/space
+
         /// <summary> GET /api/v2/space のテスト </summary>
         public abstract void GetSpaceTest();
 
@@ -50,5 +52,10 @@ namespace BL4N.Tests
 
         /// <summary> PUT /api/v2/space/notification のテスト </summary>
         public abstract void UpdateSpaceNotificationTest();
+
+        /// <summary> GET /api/v2/space/diskUsage のテスト </summary>
+        public abstract void GetSpaceDiskUsageTest();
+
+        #endregion
     }
 }

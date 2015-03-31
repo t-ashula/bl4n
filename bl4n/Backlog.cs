@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -161,6 +162,16 @@ namespace BL4N
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var hc = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("content", content) });
             var res = PutApiResult<SpaceNotification>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary> Get Space Disk Usage </summary>
+        /// <returns> <see cref="IDiskUsage"/> </returns>
+        public IDiskUsage GetSpaceDiskUsage()
+        {
+            var api = GetApiUri("/space/diskUsage");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<DiskUsage>(api, jss);
             return res.Result;
         }
     }

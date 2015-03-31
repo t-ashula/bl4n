@@ -119,5 +119,43 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
             // Assert.Equal(new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Utc), actual.Updated);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceDiskUsageTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetSpaceDiskUsage();
+
+            // Assert.Equal(104857600, actual.Capacity);
+            Assert.True(actual.Capacity >= 0);
+
+            // Assert.Equal(238554, actual.Issue);
+            Assert.True(actual.Issue >= 0);
+
+            // Assert.Equal(0, actual.Wiki);
+            Assert.True(actual.Wiki >= 0);
+
+            // Assert.Equal(14948, actual.File);
+            Assert.True(actual.File >= 0);
+
+            // Assert.Equal(0, actual.Subversion);
+            Assert.True(actual.Subversion >= 0);
+
+            // Assert.Equal(40960, actual.Git);
+            Assert.True(actual.Git >= 0);
+
+            Assert.Equal(1, actual.Details.Count);
+
+            // Assert.Equal(26476, actual.Details[0].ProjectId);
+            // Assert.Equal(238554, actual.Details[0].Issue);
+            // Assert.Equal(0, actual.Details[0].Wiki);
+            // Assert.Equal(14948, actual.Details[0].File);
+            // Assert.Equal(0, actual.Details[0].Subversion);
+            // Assert.Equal(40960, actual.Details[0].Git);
+            Assert.True(actual.Details[0].Git >= 0);
+        }
     }
 }

@@ -283,6 +283,32 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /space/diskUsage
+
+            Get["/space/diskUsage"] = _ => Response.AsJson(new
+            {
+                capacity = 1073741824,
+                issue = 119511,
+                wiki = 48575,
+                file = 0,
+                subversion = 0,
+                git = 0,
+                details = new[]
+                {
+                    new
+                    {
+                        projectId = 1,
+                        issue = 11931,
+                        wiki = 0,
+                        file = 0,
+                        subversion = 0,
+                        git = 0
+                    }
+                }
+            });
+
+            #endregion
         }
 
         private class NotificationContent

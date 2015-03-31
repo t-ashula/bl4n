@@ -374,5 +374,37 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
             Assert.Equal(new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Utc), actual.Updated); // mockserver always returns 2015-04-01T00:00:00Z
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceDiskUsageTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+            var backlog = new Backlog(Settings);
+            IDiskUsage actual = backlog.GetSpaceDiskUsage();
+            /*
+             * "capacity": 1073741824,
+             * "issue": 119511,
+             * "wiki": 48575,
+             * "file": 0,
+             * "subversion": 0,
+             * "git": 0,
+             * "details":[ { "projectId": 1,"issue": 11931, "wiki": 0, "file": 0, "subversion": 0, "git": 0 }]
+             */
+            Assert.Equal(1073741824, actual.Capacity);
+            Assert.Equal(119511, actual.Issue);
+            Assert.Equal(48575, actual.Wiki);
+            Assert.Equal(0, actual.File);
+            Assert.Equal(0, actual.Subversion);
+            Assert.Equal(0, actual.Git);
+            Assert.Equal(1, actual.Details.Count);
+            Assert.Equal(1, actual.Details[0].ProjectId);
+            Assert.Equal(11931, actual.Details[0].Issue);
+            Assert.Equal(0, actual.Details[0].Wiki);
+            Assert.Equal(0, actual.Details[0].File);
+            Assert.Equal(0, actual.Details[0].Subversion);
+            Assert.Equal(0, actual.Details[0].Git);
+        }
     }
 }
