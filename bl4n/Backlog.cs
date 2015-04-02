@@ -1,13 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Backlog.cs">
+// <copyright content="Backlog.cs">
 //   bl4n - Backlog.jp API Client library
-//   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
+//   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -71,6 +71,14 @@ namespace BL4N
             var ua = new HttpClient();
             var s = await ua.PutAsync(uri, c);
             return JsonConvert.DeserializeObject<T>(await s.Content.ReadAsStringAsync(), jss);
+        }
+
+        private async Task<T> PostApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
+        {
+            var ua = new HttpClient();
+            var s = await ua.PostAsync(uri, c);
+            var res = await s.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(res, jss);
         }
 
         private string GetApiEndPointBase()
@@ -172,6 +180,26 @@ namespace BL4N
             var api = GetApiUri("/space/diskUsage");
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<DiskUsage>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary> add sttachment to space </summary>
+        /// <param name="name">file name</param>
+        /// <param name="content">file content</param>
+        /// <returns> <see cref="IAttachment"/>(without CreatedUser and Created ) </returns>
+        public IAttachment AddAttachment(string name, Stream content)
+        {
+            var api = GetApiUri("/space/attachment");
+            var hc = new MultipartFormDataContent();
+            var filename = name.Contains(Path.PathSeparator) ? Path.GetFileName(name) : name;
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                filename = "content.dat";
+            }
+
+            hc.Add(new StreamContent(content), @"""file""", "\"" + filename + "\"");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = PostApiResult<Attachment>(api, hc, jss);
             return res.Result;
         }
     }

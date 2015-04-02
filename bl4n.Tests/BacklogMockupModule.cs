@@ -309,6 +309,26 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region post /space/attachment
+
+            Post["/space/attachment"] = _ =>
+            {
+                var file = Request.Files.FirstOrDefault();
+                // TODO: error response, Key should be "file"
+                // var key = file == null ? "" : file.Key;
+
+                var name = file == null ? "" : file.Name;
+                var size = file == null ? 0 : file.Value.Length;
+                return Response.AsJson(new
+                {
+                    id = 1,
+                    name = name,
+                    size = size
+                });
+            };
+
+            #endregion
         }
 
         private class NotificationContent

@@ -12,6 +12,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using BL4N.Data;
+using BL4N.Tests.Properties;
 using Xunit;
 
 namespace BL4N.Tests
@@ -156,6 +157,26 @@ namespace BL4N.Tests
             // Assert.Equal(0, actual.Details[0].Subversion);
             // Assert.Equal(40960, actual.Details[0].Git);
             Assert.True(actual.Details[0].Git >= 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            using (var ms = new MemoryStream())
+            {
+                var bmp = Resources.logo;
+                bmp.Save(ms, bmp.RawFormat);
+                var size = ms.Length;
+                ms.Position = 0;
+                var actual = backlog.AddAttachment("logo.png", ms);
+                Assert.True(actual.Id > 0);
+                Assert.Equal("logo.png", actual.Name);
+                Assert.Equal(size, actual.Size);
+            }
         }
     }
 }

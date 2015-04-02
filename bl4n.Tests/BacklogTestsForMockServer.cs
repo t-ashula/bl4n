@@ -6,7 +6,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Nancy.Hosting.Self;
@@ -405,6 +408,27 @@ namespace BL4N.Tests
             Assert.Equal(0, actual.Details[0].File);
             Assert.Equal(0, actual.Details[0].Subversion);
             Assert.Equal(0, actual.Details[0].Git);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            using (var ms = new MemoryStream())
+            {
+                var bmp = Resources.logo;
+                bmp.Save(ms, bmp.RawFormat);
+                var size = ms.Length;
+                ms.Position = 0;
+                var actual = backlog.AddAttachment("logo.png", ms);
+                Assert.Equal(1, actual.Id);
+                Assert.Equal("logo.png", actual.Name);
+                Assert.Equal(size, actual.Size);
+            }
         }
     }
 }

@@ -56,6 +56,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/space/diskUsage のテスト </summary>
         public abstract void GetSpaceDiskUsageTest();
 
+        /// <summary> POST /api/v2/space/attachment のテスト </summary>
+        public abstract void AddAttachmentTest();
+
         #endregion
     }
 }
