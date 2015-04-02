@@ -6,7 +6,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -188,6 +187,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var actual = backlog.GetUsers();
+
             // [{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
             //  {"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}]
             Assert.Equal(2, actual.Count);
@@ -199,6 +199,23 @@ namespace BL4N.Tests
             Assert.Equal("t.ashula", actual[1].UserId);
             Assert.Equal("t.ashula", actual[1].Name);
             Assert.Equal(2, actual[1].RoleType);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUserTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetUser(60966);
+
+            // [{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //  {"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}]
+            Assert.Equal(60966, actual.Id);
+            Assert.Equal("t.ashula", actual.UserId);
+            Assert.Equal("t.ashula", actual.Name);
+            Assert.Equal(2, actual.RoleType);
         }
     }
 }

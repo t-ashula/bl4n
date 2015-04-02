@@ -6,10 +6,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using BL4N.Tests.Properties;
 using Nancy;
 using Nancy.ModelBinding;
 
@@ -241,7 +241,7 @@ namespace BL4N.Tests
                     ContentType = "image/png",
                     Contents = stream =>
                     {
-                        var logo = Properties.Resources.logo;
+                        var logo = Resources.logo;
                         using (var ms = new MemoryStream())
                         {
                             logo.Save(ms, ImageFormat.Png);
@@ -345,6 +345,20 @@ namespace BL4N.Tests
                     lang ="ja",
                     mailAddress = "eguchi@nulab.example"
                 }
+            });
+
+            #endregion
+
+            #region /users/:userId
+
+            Get["/users/{UserId}"] = p => Response.AsJson(new
+            {
+                id = (int)p.UserId,
+                userId = "admin",
+                name = "admin",
+                roleType = 1,
+                lang = "ja",
+                mailAddress = "eguchi@nulab.example"
             });
 
             #endregion

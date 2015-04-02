@@ -213,5 +213,13 @@ namespace BL4N
             var users = res.Result;
             return users.ToList<IUser>();
         }
+
+        public IUser GetUser(int i)
+        {
+            var api = GetApiUri(string.Format("/users/{0}", i));
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<User>(api, jss);
+            return res.Result;
+        }
     }
 }

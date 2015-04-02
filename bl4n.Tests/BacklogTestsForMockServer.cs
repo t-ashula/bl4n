@@ -6,11 +6,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Nancy.Hosting.Self;
@@ -449,6 +446,24 @@ namespace BL4N.Tests
             Assert.Equal(1, actual[0].RoleType);
             Assert.Equal("ja", actual[0].Lang);
             Assert.Equal("eguchi@nulab.example", actual[0].MailAddress);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUserTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            IUser actual = backlog.GetUser(200);
+
+            Assert.Equal(200, actual.Id);
+            Assert.Equal("admin", actual.UserId);
+            Assert.Equal("admin", actual.Name);
+            Assert.Equal(1, actual.RoleType);
+            Assert.Equal("ja", actual.Lang);
+            Assert.Equal("eguchi@nulab.example", actual.MailAddress);
         }
     }
 }

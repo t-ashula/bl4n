@@ -63,5 +63,8 @@ namespace BL4N.Tests
 
         /// <summary> /api/v2/users のテスト </summary>
         public abstract void GetUsersTest();
+
+        /// <summary> /api/v2/user/{uid} のテスト </summary>
+        public abstract void GetUserTest();
     }
 }
