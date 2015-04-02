@@ -9,6 +9,7 @@ using System;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using BL4N.Data;
 using BL4N.Tests.Properties;
 using Nancy;
 using Nancy.ModelBinding;
@@ -360,6 +361,30 @@ namespace BL4N.Tests
                 lang = "ja",
                 mailAddress = "eguchi@nulab.example"
             });
+
+            #endregion
+
+            #region post /users
+
+            Post["/users"] = p =>
+            {
+                var req = Request.Form;
+                var user = new User
+                {
+                    Id = new Random().Next(),
+                    Lang = null,
+                    UserId = req.userId,
+                    MailAddress = req.mailAddress,
+                    Name = req.name
+                };
+                int roleType;
+                if (int.TryParse(req.roleType, out roleType))
+                {
+                    user.RoleType = roleType;
+                }
+
+                return Response.AsJson(user);
+            };
 
             #endregion
         }

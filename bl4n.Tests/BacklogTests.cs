@@ -61,10 +61,13 @@ namespace BL4N.Tests
 
         #endregion
 
-        /// <summary> /api/v2/users のテスト </summary>
+        /// <summary> GET /api/v2/users のテスト </summary>
         public abstract void GetUsersTest();
 
-        /// <summary> /api/v2/user/{uid} のテスト </summary>
+        /// <summary> GET /api/v2/users/{uid} のテスト </summary>
         public abstract void GetUserTest();
+
+        /// <summary> POST /api/v2/users のテスト </summary>
+        public abstract void AddUserTest();
     }
 }

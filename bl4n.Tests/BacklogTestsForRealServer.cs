@@ -190,7 +190,7 @@ namespace BL4N.Tests
 
             // [{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
             //  {"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}]
-            Assert.Equal(2, actual.Count);
+            Assert.True(actual.Count > 1);
             Assert.Equal(60965, actual[0].Id);
             Assert.Equal("bl4n.admin", actual[0].UserId);
             Assert.Equal("bl4n.admin", actual[0].Name);
@@ -216,6 +216,36 @@ namespace BL4N.Tests
             Assert.Equal("t.ashula", actual.UserId);
             Assert.Equal("t.ashula", actual.Name);
             Assert.Equal(2, actual.RoleType);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddUserTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            // { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" }
+            var name = string.Format("bl4n.{0}", DateTime.Now.Ticks);
+            var user = new User
+            {
+                UserId = name,
+                Name = name,
+                Lang = null,
+                MailAddress = string.Format("t.ashula+{0}@{1}", name, "gmail.com"),
+                RoleType = 6 // guest viewer
+            };
+
+            var pass = Path.GetTempFileName().PadLeft(21);
+            pass = pass.Substring(pass.Length - 20, 20);
+
+            var actual = backlog.AddUser(user, pass);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(user.UserId, actual.UserId);
+            Assert.Equal(user.Name, actual.Name);
+            // Assert.Equal(user.Lang, actual.Lang);
+            Assert.Equal(user.MailAddress, actual.MailAddress);
+            Assert.Equal(user.RoleType, actual.RoleType);
         }
     }
 }

@@ -221,5 +221,26 @@ namespace BL4N
             var res = GetApiResult<User>(api, jss);
             return res.Result;
         }
+
+        /// <summary> Adds new user to the space. </summary>
+        /// <param name="user"> user (required: UserId, Name, MailAddress, RoleType)</param>
+        /// <param name="pass"> password </param>
+        /// <returns>created user</returns>
+        public IUser AddUser(IUser user, string pass)
+        {
+            var api = GetApiUri("/users");
+            var jss = new JsonSerializerSettings();
+            var kvs = new[]
+            {
+                new KeyValuePair<string, string>("userId", user.UserId),
+                new KeyValuePair<string, string>("name", user.Name),
+                new KeyValuePair<string, string>("mailAddress", user.MailAddress),
+                new KeyValuePair<string, string>("roleType", user.RoleType.ToString()),
+                new KeyValuePair<string, string>("password", pass)
+            };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<User>(api, hc, jss);
+            return res.Result;
+        }
     }
 }

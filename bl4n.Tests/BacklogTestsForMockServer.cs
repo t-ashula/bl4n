@@ -8,6 +8,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Nancy.Hosting.Self;
@@ -456,7 +457,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            IUser actual = backlog.GetUser(200);
+            var actual = backlog.GetUser(200);
 
             Assert.Equal(200, actual.Id);
             Assert.Equal("admin", actual.UserId);
@@ -464,6 +465,35 @@ namespace BL4N.Tests
             Assert.Equal(1, actual.RoleType);
             Assert.Equal("ja", actual.Lang);
             Assert.Equal("eguchi@nulab.example", actual.MailAddress);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddUserTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            // { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" }
+            var user = new User
+            {
+                UserId = "admin",
+                Name = string.Format("admin.{0}", DateTime.Now.Ticks),
+                Lang = null,
+                MailAddress = string.Format("{0}@{1}", "admin", "example.com"),
+                RoleType = 6 // guest viewer
+            };
+            var pass = Path.GetTempFileName().PadLeft(21);
+            pass = pass.Substring(pass.Length - 20, 20);
+
+            var actual = backlog.AddUser(user, pass);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(user.UserId, actual.UserId);
+            Assert.Equal(user.Name, actual.Name);
+            // Assert.Equal(user.Lang, actual.Lang);
+            Assert.Equal(user.MailAddress, actual.MailAddress);
+            Assert.Equal(user.RoleType, actual.RoleType);
         }
     }
 }
