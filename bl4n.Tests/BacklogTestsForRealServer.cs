@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -90,7 +91,7 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var actual = backlog.GetSpaceImage();
             Assert.Equal("logo_mark.png", actual.FileName);
-            var logo = Properties.Resources.logo;
+            var logo = Resources.logo;
             Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
             Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
         }
@@ -177,6 +178,27 @@ namespace BL4N.Tests
                 Assert.Equal("logo.png", actual.Name);
                 Assert.Equal(size, actual.Size);
             }
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUsersTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetUsers();
+            // [{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //  {"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}]
+            Assert.Equal(2, actual.Count);
+            Assert.Equal(60965, actual[0].Id);
+            Assert.Equal("bl4n.admin", actual[0].UserId);
+            Assert.Equal("bl4n.admin", actual[0].Name);
+            Assert.Equal(1, actual[0].RoleType);
+            Assert.Equal(60966, actual[1].Id);
+            Assert.Equal("t.ashula", actual[1].UserId);
+            Assert.Equal("t.ashula", actual[1].Name);
+            Assert.Equal(2, actual[1].RoleType);
         }
     }
 }

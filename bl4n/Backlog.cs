@@ -202,5 +202,16 @@ namespace BL4N
             var res = PostApiResult<Attachment>(api, hc, jss);
             return res.Result;
         }
+
+        /// <summary> Get User List Returns list of users in your space. </summary>
+        /// <returns> List of <see cref="IUser"/>. </returns>
+        public IList<IUser> GetUsers()
+        {
+            var api = GetApiUri("/users");
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<User>>(api, jss);
+            var users = res.Result;
+            return users.ToList<IUser>();
+        }
     }
 }

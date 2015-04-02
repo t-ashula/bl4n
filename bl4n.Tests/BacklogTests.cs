@@ -60,5 +60,8 @@ namespace BL4N.Tests
         public abstract void AddAttachmentTest();
 
         #endregion
+
+        /// <summary> /api/v2/users のテスト </summary>
+        public abstract void GetUsersTest();
     }
 }

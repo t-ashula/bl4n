@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -327,6 +328,24 @@ namespace BL4N.Tests
                     size = size
                 });
             };
+
+            #endregion
+
+            #region /users
+
+            Get["/users"] = _ => Response.AsJson(new[]
+            {
+                /*[ { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" } ] */
+                new
+                {
+                    id =1,
+                    userId = "admin",
+                    name = "admin",
+                    roleType = 1,
+                    lang ="ja",
+                    mailAddress = "eguchi@nulab.example"
+                }
+            });
 
             #endregion
         }

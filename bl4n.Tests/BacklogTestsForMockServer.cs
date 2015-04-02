@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -429,6 +430,25 @@ namespace BL4N.Tests
                 Assert.Equal("logo.png", actual.Name);
                 Assert.Equal(size, actual.Size);
             }
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUsersTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetUsers();
+            Assert.Equal(1, actual.Count);
+            /*[ { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" } ] */
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal("admin", actual[0].UserId);
+            Assert.Equal("admin", actual[0].Name);
+            Assert.Equal(1, actual[0].RoleType);
+            Assert.Equal("ja", actual[0].Lang);
+            Assert.Equal("eguchi@nulab.example", actual[0].MailAddress);
         }
     }
 }
