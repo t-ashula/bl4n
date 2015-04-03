@@ -214,9 +214,12 @@ namespace BL4N
             return users.ToList<IUser>();
         }
 
-        public IUser GetUser(int i)
+        /// <summary> Get User returns information about user. </summary>
+        /// <param name="userId">user id ( not nickname )</param>
+        /// <returns><see cref="IUser"/></returns>
+        public IUser GetUser(int userId)
         {
-            var api = GetApiUri(string.Format("/users/{0}", i));
+            var api = GetApiUri(string.Format("/users/{0}", userId));
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<User>(api, jss);
             return res.Result;
