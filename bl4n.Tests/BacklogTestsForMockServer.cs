@@ -559,5 +559,20 @@ namespace BL4N.Tests
             Assert.Equal(dummySelf.name, myself.Name);
             Assert.Equal(dummySelf.roleType, myself.RoleType);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUserIconTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetUserIcon(1);
+            Assert.Equal("person_168.gif", actual.FileName);
+            var logo = Resources.logo;
+            Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
+            Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
+        }
     }
 }

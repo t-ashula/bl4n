@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -322,6 +323,19 @@ namespace BL4N
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<User>(api, jss);
             return res.Result;
+        }
+
+        /// <summary>
+        /// Get User Icon. Downloads user icon.
+        /// </summary>
+        /// <param name="uid">user id</param>
+        /// <returns>user icon</returns>
+        public ILogo GetUserIcon(long uid)
+        {
+            var api = GetApiUri(string.Format("/users/{0}/icon", uid));
+            var res = GetApiResultAsFile(api);
+
+            return new Logo(res.Result.Item1, res.Result.Item2);
         }
     }
 }

@@ -324,5 +324,17 @@ namespace BL4N.Tests
             Assert.Equal(dummySelf.roleType, myself.RoleType);
             Assert.Equal(dummySelf.mailAddress, myself.MailAddress);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUserIconTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var self = backlog.GetOwnUser();
+            var actual = backlog.GetUserIcon(self.Id);
+            Assert.Equal("22_pierrot.gif", actual.FileName);
+        }
     }
 }

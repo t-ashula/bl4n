@@ -439,6 +439,37 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /users/:userId/icon
+
+            Get["/users/{userId}/icon"] = p =>
+            {
+                // Content-Type:application/octet-stream
+                // Content-Disposition:attachment;filename="person_168.gif"
+
+                var response = new Response
+                {
+                    ContentType = "application/octet-stream",
+                    Contents = stream =>
+                    {
+                        var logo = Resources.logo;
+                        using (var ms = new MemoryStream())
+                        {
+                            logo.Save(ms, ImageFormat.Png);
+                            ms.Position = 0;
+                            using (var writer = new BinaryWriter(stream))
+                            {
+                                writer.Write(ms.GetBuffer());
+                            }
+                        }
+                    }
+                };
+
+                response.Headers.Add("Content-Disposition", "attachment; filename*=UTF-8''person_168.gif");
+                return response;
+            };
+
+            #endregion
         }
 
         private class NotificationContent
