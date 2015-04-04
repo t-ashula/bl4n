@@ -364,7 +364,7 @@ namespace BL4N.Tests
 
             #endregion
 
-            #region post /users
+            #region post /users/:userId
 
             Post["/users"] = p =>
             {
@@ -372,6 +372,30 @@ namespace BL4N.Tests
                 var user = new User
                 {
                     Id = new Random().Next(),
+                    Lang = null,
+                    UserId = req.userId,
+                    MailAddress = req.mailAddress,
+                    Name = req.name
+                };
+                int roleType;
+                if (int.TryParse(req.roleType, out roleType))
+                {
+                    user.RoleType = roleType;
+                }
+
+                return Response.AsJson(user);
+            };
+
+            #endregion
+
+            #region patch /users/:userId
+
+            Patch["/users/{userId}"] = p =>
+            {
+                var req = Request.Form;
+                var user = new User
+                {
+                    Id = p.UserId,
                     Lang = null,
                     UserId = req.userId,
                     MailAddress = req.mailAddress,

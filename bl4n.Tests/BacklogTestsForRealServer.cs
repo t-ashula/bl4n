@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Xml.Schema;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Xunit;
@@ -246,6 +247,37 @@ namespace BL4N.Tests
             // Assert.Equal(user.Lang, actual.Lang);
             Assert.Equal(user.MailAddress, actual.MailAddress);
             Assert.Equal(user.RoleType, actual.RoleType);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateUserTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var users = backlog.GetUsers();
+            var oldUser = users.FirstOrDefault(u => u.RoleType == 6);
+            if (oldUser == null)
+            {
+                // TODO: 冪等性
+                return;
+            }
+
+            // var oldName = oldUser.Name;
+            var newName = string.Format("bl4n.{0}", DateTime.Now.Ticks);
+
+            var newUser = new User
+            {
+                Id = oldUser.Id,
+                Lang = oldUser.Lang,
+                Name = newName, // new name
+                MailAddress = oldUser.MailAddress,
+                RoleType = oldUser.RoleType,
+                UserId = oldUser.UserId
+            };
+
+            var changed = backlog.UpdateUser(newUser);
+            Assert.Equal(newName, changed.Name);
         }
     }
 }

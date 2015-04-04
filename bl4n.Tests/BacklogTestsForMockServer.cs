@@ -8,7 +8,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Nancy.Hosting.Self;
@@ -488,6 +487,34 @@ namespace BL4N.Tests
             pass = pass.Substring(pass.Length - 20, 20);
 
             var actual = backlog.AddUser(user, pass);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(user.UserId, actual.UserId);
+            Assert.Equal(user.Name, actual.Name);
+            // Assert.Equal(user.Lang, actual.Lang);
+            Assert.Equal(user.MailAddress, actual.MailAddress);
+            Assert.Equal(user.RoleType, actual.RoleType);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateUserTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+            var backlog = new Backlog(Settings);
+            var user = new User
+            {
+                Id = 1,
+                UserId = "guest",
+                Name = string.Format("guest.{0}", DateTime.Now.Ticks),
+                Lang = null,
+                MailAddress = string.Format("{0}@{1}", "guest", "example.com"),
+                RoleType = 5 // guest reporter
+            };
+            var password = Path.GetTempFileName().PadLeft(21);
+            password = password.Substring(password.Length - 20, 20);
+
+            var actual = backlog.UpdateUser(user, password);
             Assert.True(actual.Id > 0);
             Assert.Equal(user.UserId, actual.UserId);
             Assert.Equal(user.Name, actual.Name);

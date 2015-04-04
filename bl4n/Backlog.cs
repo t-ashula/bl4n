@@ -81,6 +81,20 @@ namespace BL4N
             return JsonConvert.DeserializeObject<T>(res, jss);
         }
 
+        private async Task<T> PatchApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
+        {
+            var ua = new HttpClient();
+            var req = new HttpRequestMessage
+            {
+                Method = new HttpMethod("PATCH"),
+                RequestUri = uri,
+                Content = c
+            };
+            var s = await ua.SendAsync(req);
+            var res = await s.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(res, jss);
+        }
+
         private string GetApiEndPointBase()
         {
             return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
@@ -243,6 +257,36 @@ namespace BL4N
             };
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<User>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public IUser UpdateUser(IUser user, string password = "")
+        {
+            var userId = user.Id;
+            var api = GetApiUri(string.Format("/users/{0}", userId));
+            var jss = new JsonSerializerSettings();
+
+            // XXX: only changing parameter ?
+            var kvs = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("name", user.Name),
+                new KeyValuePair<string, string>("mailAddress", user.MailAddress),
+                new KeyValuePair<string, string>("roleType", user.RoleType.ToString()),
+            };
+
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                kvs.Add(new KeyValuePair<string, string>("password", password));
+            }
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<User>(api, hc, jss);
             return res.Result;
         }
     }
