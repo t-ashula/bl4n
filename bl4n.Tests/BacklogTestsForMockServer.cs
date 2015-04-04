@@ -534,5 +534,30 @@ namespace BL4N.Tests
             var deleted = backlog.DeleteUser(delId);
             Assert.Equal(delId, deleted.Id);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetOwnUserTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var myself = backlog.GetOwnUser();
+            var dummySelf = new
+            {
+                id = 1,
+                userId = "admin",
+                name = "admin",
+                roleType = 1,
+                lang = "ja",
+                mailAddress = "eguchi@nulab.example"
+            };
+
+            Assert.Equal(dummySelf.id, myself.Id);
+            Assert.Equal(dummySelf.userId, myself.UserId);
+            Assert.Equal(dummySelf.name, myself.Name);
+            Assert.Equal(dummySelf.roleType, myself.RoleType);
+        }
     }
 }

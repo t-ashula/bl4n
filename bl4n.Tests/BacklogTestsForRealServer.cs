@@ -298,5 +298,31 @@ namespace BL4N.Tests
             var deleted = backlog.DeleteUser(del.Id);
             Assert.Equal(del.Id, deleted.Id);
         }
+
+        /// <inhertidoc/>
+        [Fact]
+        public override void GetOwnUserTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var myself = backlog.GetOwnUser();
+            // {"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"}
+            var dummySelf = new
+            {
+                id = 60965,
+                userId = "bl4n.admin",
+                name = "bl4n.admin",
+                roleType = 1,
+                // lang = null,
+                mailAddress = "t.ashula+nulab@gmail.com"
+            };
+
+            Assert.Equal(dummySelf.id, myself.Id);
+            Assert.Equal(dummySelf.userId, myself.UserId);
+            Assert.Equal(dummySelf.name, myself.Name);
+            Assert.Equal(dummySelf.roleType, myself.RoleType);
+            Assert.Equal(dummySelf.mailAddress, myself.MailAddress);
+        }
     }
 }

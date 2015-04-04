@@ -310,5 +310,18 @@ namespace BL4N
             var res = DeleteApiResult<User>(api, jss);
             return res.Result;
         }
+
+        /// <summary>
+        /// Get Own User. Returns own information about user.
+        /// /users/myself
+        /// </summary>
+        /// <returns> <see cref="IUser"/> of myself </returns>
+        public IUser GetOwnUser()
+        {
+            var api = GetApiUri("/users/myself");
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<User>(api, jss);
+            return res.Result;
+        }
     }
 }

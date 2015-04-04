@@ -425,6 +425,20 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /users/myself
+
+            Get["/users/myself"] = _ => Response.AsJson(new
+            {
+                id = 1,
+                userId = "admin",
+                name = "admin",
+                roleType = 1,
+                lang = "ja",
+                mailAddress = "eguchi@nulab.example"
+            });
+
+            #endregion
         }
 
         private class NotificationContent

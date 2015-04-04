@@ -73,7 +73,10 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/users/:userId のテスト </summary>
         public abstract void UpdateUserTest();
 
-        /// <summary> DELETe /api/v2/users/:userId のテスト </summary>
+        /// <summary> DELETE /api/v2/users/:userId のテスト </summary>
         public abstract void DeleteUserTest();
+
+        /// <summary> GET /api/v2/users/myself のテスト </summary>
+        public abstract void GetOwnUserTest();
     }
 }
