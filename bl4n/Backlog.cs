@@ -95,6 +95,14 @@ namespace BL4N
             return JsonConvert.DeserializeObject<T>(res, jss);
         }
 
+        private async Task<T> DeleteApiResult<T>(Uri uri, JsonSerializerSettings jss)
+        {
+            var ua = new HttpClient();
+            var s = await ua.DeleteAsync(uri);
+            var res = await s.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(res, jss);
+        }
+
         private string GetApiEndPointBase()
         {
             return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
@@ -287,6 +295,19 @@ namespace BL4N
 
             var hc = new FormUrlEncodedContent(kvs);
             var res = PatchApiResult<User>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Delete User. Deletes user from the space.
+        /// </summary>
+        /// <param name="uid">user id</param>
+        /// <returns>deleted user</returns>
+        public IUser DeleteUser(long uid)
+        {
+            var api = GetApiUri(string.Format("/users/{0}", uid));
+            var jss = new JsonSerializerSettings();
+            var res = DeleteApiResult<User>(api, jss);
             return res.Result;
         }
     }

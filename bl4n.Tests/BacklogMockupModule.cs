@@ -339,11 +339,11 @@ namespace BL4N.Tests
                 /*[ { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" } ] */
                 new
                 {
-                    id =1,
+                    id = 1,
                     userId = "admin",
                     name = "admin",
                     roleType = 1,
-                    lang ="ja",
+                    lang = "ja",
                     mailAddress = "eguchi@nulab.example"
                 }
             });
@@ -409,6 +409,20 @@ namespace BL4N.Tests
 
                 return Response.AsJson(user);
             };
+
+            #endregion
+
+            #region delete /users/:userId
+
+            Delete["/users/{userId}"] = p => Response.AsJson(new
+            {
+                id = p.userId,
+                userId = "admin",
+                name = "admin",
+                roleType = 1,
+                lang = "ja",
+                mailAddress = "eguchi@nulab.example"
+            });
 
             #endregion
         }

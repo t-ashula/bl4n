@@ -11,7 +11,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Xml.Schema;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Xunit;
@@ -223,10 +222,10 @@ namespace BL4N.Tests
         [Fact]
         public override void AddUserTest()
         {
+            // TODO: 冪等性
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
-            // { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" }
             var name = string.Format("bl4n.{0}", DateTime.Now.Ticks);
             var user = new User
             {
@@ -253,13 +252,14 @@ namespace BL4N.Tests
         [Fact]
         public override void UpdateUserTest()
         {
+            // TODO: 冪等性
             SkipIfSettingIsBroken();
             var backlog = new Backlog(Settings);
             var users = backlog.GetUsers();
             var oldUser = users.FirstOrDefault(u => u.RoleType == 6);
             if (oldUser == null)
             {
-                // TODO: 冪等性
+                Assert.False(true, "no user to test");
                 return;
             }
 
@@ -278,6 +278,25 @@ namespace BL4N.Tests
 
             var changed = backlog.UpdateUser(newUser);
             Assert.Equal(newName, changed.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteUserTest()
+        {
+            // TODO: 冪等性
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var users = backlog.GetUsers();
+            var del = users.FirstOrDefault(u => (u.RoleType != 1 && u.RoleType != 2));
+            if (del == null)
+            {
+                Assert.False(true, "no user to test");
+                return;
+            }
+
+            var deleted = backlog.DeleteUser(del.Id);
+            Assert.Equal(del.Id, deleted.Id);
         }
     }
 }
