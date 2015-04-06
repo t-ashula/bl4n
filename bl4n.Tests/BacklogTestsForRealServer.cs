@@ -366,5 +366,24 @@ namespace BL4N.Tests
             Assert.Equal(60965, actual[0].Presenter.Id);
             Assert.Equal(new DateTime(2015, 4, 6, 5, 52, 46, DateTimeKind.Utc), actual[0].Created);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void CountUserReceivedStarsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var uid = backlog.GetOwnUser().Id;
+            var actual = backlog.CountUserReceivedStars(uid);
+            Assert.Equal(1, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedIssuesTest()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

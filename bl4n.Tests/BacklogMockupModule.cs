@@ -565,6 +565,12 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /users/:userId/start/count
+
+            Get["/users/{userId}/stars/count"] = p => Response.AsJson(new { count = 42 });
+
+            #endregion
         }
     }
 }

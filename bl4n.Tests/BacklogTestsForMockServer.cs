@@ -625,5 +625,17 @@ namespace BL4N.Tests
             Assert.Equal(1, actual[0].Presenter.Id);
             Assert.Equal(new DateTime(2014, 1, 23, 10, 55, 19, DateTimeKind.Utc), actual[0].Created);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void CountUserReceivedStarsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.CountUserReceivedStars(1);
+            Assert.Equal(42, actual.Count);
+        }
     }
 }

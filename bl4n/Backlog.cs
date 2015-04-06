@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BL4N.Data;
@@ -370,6 +371,21 @@ namespace BL4N
             };
             var res = GetApiResult<List<Star>>(api, jss);
             return res.Result.ToList<IStar>();
+        }
+
+        /// <summary>
+        /// Count User Received Stars
+        /// Returns number of stars that user received.
+        /// </summary>
+        /// <remarks>TODO: more parameters</remarks>
+        /// <param name="uid">user id</param>
+        /// <returns><see cref="ICounter"/></returns>
+        public ICounter CountUserReceivedStars(long uid)
+        {
+            var api = GetApiUri(string.Format("/users/{0}/stars/count", uid));
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
         }
     }
 }
