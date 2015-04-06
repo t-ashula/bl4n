@@ -276,7 +276,8 @@ namespace BL4N.Tests
 
             Put["/space/notification"] = p =>
             {
-                var req = this.Bind<NotificationContent>();
+                // var req = this.Bind<NotificationContent>();
+                var req = Request.Form;
                 return Response.AsJson(new
                 {
                     content = req.Content,
@@ -540,11 +541,6 @@ namespace BL4N.Tests
             });
 
             #endregion
-        }
-
-        private class NotificationContent
-        {
-            public string Content;
         }
     }
 }
