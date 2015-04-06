@@ -339,13 +339,13 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void GetUserActivitiesTest()
+        public override void GetUserRecentUpdatesTest()
         {
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
             var uid = backlog.GetOwnUser().Id;
-            var activities = backlog.GetUserActivities(uid);
+            var activities = backlog.GetUserRecentUpdates(uid);
             Assert.True(activities.Count > 0);
             Assert.Equal(uid, activities[0].CreatedUser.Id);
         }

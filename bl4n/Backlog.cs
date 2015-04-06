@@ -342,7 +342,7 @@ namespace BL4N
         /// </summary>
         /// <remarks>TODO: more parameters </remarks>
         /// <returns> List of <see cref="IActivity"/>. </returns>
-        public IList<IActivity> GetUserActivities(long uid)
+        public IList<IActivity> GetUserRecentUpdates(long uid)
         {
             var api = GetApiUri(string.Format("/users/{0}/activities", uid));
             var jss = new JsonSerializerSettings

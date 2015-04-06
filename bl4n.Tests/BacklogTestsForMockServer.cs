@@ -578,13 +578,13 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void GetUserActivitiesTest()
+        public override void GetUserRecentUpdatesTest()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var actual = backlog.GetUserActivities(1);
+            var actual = backlog.GetUserRecentUpdates(1);
             Assert.Equal(1, actual.Count);
             Assert.Equal(2, actual[0].Type);
         }

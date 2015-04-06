@@ -83,7 +83,7 @@ namespace BL4N.Tests
         public abstract void GetUserIconTest();
 
         /// <summary> GET /api/v2/users/:userId/activities のテスト </summary>
-        public abstract void GetUserActivitiesTest();
+        public abstract void GetUserRecentUpdatesTest();
 
         /// <summary> GET /api/v2/users/:userId/stars のテスト </summary>
         public abstract void GetReceivedStarListTest();
