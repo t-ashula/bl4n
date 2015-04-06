@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BL4N.Data;
@@ -586,6 +587,43 @@ namespace BL4N.Tests
             var actual = backlog.GetUserActivities(1);
             Assert.Equal(1, actual.Count);
             Assert.Equal(2, actual[0].Type);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetReceivedStarListTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetReceivedStarList(1);
+            /*{
+                new
+                {
+                    id=75,
+                    // comment = null,
+                    url = "https://xx.backlogtool.com/view/BLG-1",
+                    title = "[BLG-1] first issue | Show issue - Backlog",
+                    presenter = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2014-01-23T10:55:19Z"
+                }
+            });*/
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(null, actual[0].Comment);
+            Assert.Equal("https://xx.backlogtool.com/view/BLG-1", actual[0].Url);
+            Assert.Equal("[BLG-1] first issue | Show issue - Backlog", actual[0].Title);
+
+            Assert.Equal(1, actual[0].Presenter.Id);
+            Assert.Equal(new DateTime(2014, 1, 23, 10, 55, 19, DateTimeKind.Utc), actual[0].Created);
         }
     }
 }

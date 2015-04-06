@@ -84,5 +84,8 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/users/:userId/activities のテスト </summary>
         public abstract void GetUserActivitiesTest();
+
+        /// <summary> GET /api/v2/users/:userId/stars のテスト </summary>
+        public abstract void GetReceivedStarListTest();
     }
 }

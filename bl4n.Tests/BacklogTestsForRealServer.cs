@@ -349,5 +349,22 @@ namespace BL4N.Tests
             Assert.True(activities.Count > 0);
             Assert.Equal(uid, activities[0].CreatedUser.Id);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetReceivedStarListTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var uid = backlog.GetOwnUser().Id;
+            var actual = backlog.GetReceivedStarList(uid);
+            Assert.True(actual.Count > 0);
+            Assert.Equal(null, actual[0].Comment);
+            Assert.Equal("https://bl4n.backlog.jp/view/BL4N-1#comment-4390750", actual[0].Url);
+            Assert.Equal("[BL4N-1] 最近の更新の取得 | 課題の表示 - Backlog", actual[0].Title);
+            Assert.Equal(60965, actual[0].Presenter.Id);
+            Assert.Equal(new DateTime(2015, 4, 6, 5, 52, 46, DateTimeKind.Utc), actual[0].Created);
+        }
     }
 }

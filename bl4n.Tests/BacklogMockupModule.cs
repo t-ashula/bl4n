@@ -12,7 +12,6 @@ using System.Linq;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Nancy;
-using Nancy.ModelBinding;
 
 namespace BL4N.Tests
 {
@@ -537,6 +536,31 @@ namespace BL4N.Tests
                         mailAddress = "eguchi@nulab.example"
                     },
                     created = "2013-12-27T07:50:44Z"
+                }
+            });
+
+            #endregion
+
+            #region /users/:userId/stars
+
+            Get["/users/{userId}/stars"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id=75,
+                    // comment = null,
+                    url = "https://xx.backlogtool.com/view/BLG-1",
+                    title = "[BLG-1] first issue | Show issue - Backlog",
+                    presenter = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2014-01-23T10:55:19Z"
                 }
             });
 

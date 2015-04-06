@@ -82,6 +82,7 @@
     <Compile Include="Data\ISpace.cs" />
     <Compile Include="Data\Activity\IssueActivity.cs" />
     <Compile Include="Data\Activity\ActivityContent\ISVNRepositoryActivityContent.cs" />
+    <Compile Include="Data\IStar.cs" />
     <Compile Include="Data\IUser.cs" />
     <Compile Include="Data\Activity\ActivityContent\IWikiActivityContent.cs" />
     <Compile Include="Data\ILogo.cs" />

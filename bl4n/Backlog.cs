@@ -353,5 +353,23 @@ namespace BL4N
             var res = GetApiResult<List<Activity>>(api, jss);
             return res.Result.ToList<IActivity>();
         }
+
+        /// <summary>
+        /// Get Received Star List.
+        /// Returns the list of stars that user received.
+        /// </summary>
+        /// <remarks>TODO: more parameters</remarks>
+        /// <param name="uid">user id</param>
+        /// <returns>list of <see cref="IStar"/></returns>
+        public IList<IStar> GetReceivedStarList(long uid)
+        {
+            var api = GetApiUri(string.Format("/users/{0}/stars", uid));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+            };
+            var res = GetApiResult<List<Star>>(api, jss);
+            return res.Result.ToList<IStar>();
+        }
     }
 }
