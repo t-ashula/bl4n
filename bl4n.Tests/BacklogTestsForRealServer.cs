@@ -336,5 +336,18 @@ namespace BL4N.Tests
             var actual = backlog.GetUserIcon(self.Id);
             Assert.Equal("22_pierrot.gif", actual.FileName);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUserActivitiesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var uid = backlog.GetOwnUser().Id;
+            var activities = backlog.GetUserActivities(uid);
+            Assert.True(activities.Count > 0);
+            Assert.Equal(uid, activities[0].CreatedUser.Id);
+        }
     }
 }

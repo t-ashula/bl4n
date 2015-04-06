@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -336,6 +335,23 @@ namespace BL4N
             var res = GetApiResultAsFile(api);
 
             return new Logo(res.Result.Item1, res.Result.Item2);
+        }
+
+        /// <summary>
+        /// Get User Recent Updates. Returns user's recent updates
+        /// </summary>
+        /// <remarks>TODO: more parameters </remarks>
+        /// <returns> List of <see cref="IActivity"/>. </returns>
+        public IList<IActivity> GetUserActivities(long uid)
+        {
+            var api = GetApiUri(string.Format("/users/{0}/activities", uid));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Converters = new JsonConverter[] { new ActivityConverter() }
+            };
+            var res = GetApiResult<List<Activity>>(api, jss);
+            return res.Result.ToList<IActivity>();
         }
     }
 }

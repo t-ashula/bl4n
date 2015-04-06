@@ -395,7 +395,7 @@ namespace BL4N.Tests
                 var req = Request.Form;
                 var user = new User
                 {
-                    Id = p.UserId,
+                    Id = p.userId,
                     Lang = null,
                     UserId = req.userId,
                     MailAddress = req.mailAddress,
@@ -468,6 +468,76 @@ namespace BL4N.Tests
                 response.Headers.Add("Content-Disposition", "attachment; filename*=UTF-8''person_168.gif");
                 return response;
             };
+
+            #endregion
+
+            #region /api/v2/users/:userId/activities
+
+            Get["/users/{userId}/activities"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 3153,
+                    project = new
+                    {
+                        id = 92,
+                        projectKey = "SUB",
+                        name = "Subtasking",
+                        chartEnabled = true,
+                        subtaskingEnabled = true,
+                        // textFormattingRule = null,
+                        archived = false,
+                        displayOrder = 0
+                    },
+                    type = 2,
+                    content = new
+                    {
+                        id = 4809,
+                        key_id = 121,
+                        summary = "Comment",
+                        description = "",
+                        comment = new
+                        {
+                            id = 7237,
+                            content = ""
+                        },
+                        changes = new[]
+                        {
+                            new { field = "milestone", new_value = " R2014-07-23", old_value = "", type = "standard" },
+                            new { field = "status", new_value = "4", old_value = "1", type = "standard" }
+                        }
+                    },
+                    notifications = new[]
+                    {
+                        new
+                        {
+                            id = 25,
+                            alreadyRead = false,
+                            reason = 2,
+                            user = new
+                            {
+                                id = 5686,
+                                userId = "takada",
+                                name = "takada",
+                                roleType = 2,
+                                lang = "ja",
+                                mailAddress = "takada@nulab.example"
+                            },
+                            resourceAlreadyRead = false
+                        },
+                    },
+                    createdUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2013-12-27T07:50:44Z"
+                }
+            });
 
             #endregion
         }

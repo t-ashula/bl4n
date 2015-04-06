@@ -81,5 +81,8 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/users/:userId/icon のテスト </summary>
         public abstract void GetUserIconTest();
+
+        /// <summary> GET /api/v2/users/:userId/activities のテスト </summary>
+        public abstract void GetUserActivitiesTest();
     }
 }
