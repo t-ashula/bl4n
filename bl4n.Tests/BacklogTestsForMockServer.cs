@@ -6,7 +6,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BL4N.Data;
@@ -818,6 +817,21 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Created);
             Assert.Equal(1, actual.UpdatedUser.Id);
             Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateGroupTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var member = new long[] { 1, 2, 3 };
+            var actual = backlog.UpdateGroup(20, "newName", member);
+            Assert.Equal(20, actual.Id);
+            Assert.Equal("newName", actual.Name);
+            Assert.Equal(2, actual.Members[0].Id);
         }
 
         #endregion

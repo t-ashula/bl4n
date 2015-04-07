@@ -478,9 +478,30 @@ namespace BL4N.Tests
             //  "updatedUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
             //  "updated":"2015-04-07T11:58:54Z"}
             Assert.Equal(3377, actual.Id);
-            Assert.Equal("g1", actual.Name);
+            Assert.StartsWith("g1", actual.Name);
             Assert.Equal(1, actual.Members.Count);
             Assert.Equal(60966, actual.Members[0].Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateGroupTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var g1 = backlog.GetGroups().FirstOrDefault(g => g.Name.StartsWith("g1"));
+            if (g1 == null)
+            {
+                Assert.False(false, "group g1.x not found?");
+                return;
+            }
+
+            var newName = string.Format("g1.{0:00000}", DateTime.Now.Ticks % 100000); // group.name.length must be less than 20
+            var actual = backlog.UpdateGroup(g1.Id, newName, new long[] { });
+            Assert.Equal(g1.Id, actual.Id);
+            Assert.Equal(newName, actual.Name);
+            Assert.Equal(g1.Members.Count, actual.Members.Count);
         }
 
         #endregion

@@ -490,6 +490,33 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Update Group
+        /// Updates information about group.
+        /// </summary>
+        /// <param name="groupId">group id</param>
+        /// <param name="newname">new group name</param>
+        /// <param name="member">User ID added to the group</param>
+        /// <returns>changed <see cref="IGroup"/></returns>
+        public IGroup UpdateGroup(long groupId, string newname, IEnumerable<long> member)
+        {
+            var api = GetApiUri(string.Format("/groups/{0}", groupId));
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+
+            // XXX: only changing parameter ?
+            var kvs = new List<KeyValuePair<string, string>>();
+            if (!string.IsNullOrWhiteSpace(newname))
+            {
+                kvs.Add(new KeyValuePair<string, string>("name", newname));
+            }
+
+            kvs.AddRange(member.Select(uid => new KeyValuePair<string, string>("members[]", uid.ToString())));
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<Data.Group>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

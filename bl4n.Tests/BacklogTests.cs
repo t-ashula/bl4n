@@ -115,6 +115,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/groups/:groupId </summary>
         public abstract void GetGroupTest();
 
+        /// <summary> PATCH /api/v2/groups/:groupId </summary>
+        public abstract void UpdateGroupTest();
+
         #endregion
     }
 }
