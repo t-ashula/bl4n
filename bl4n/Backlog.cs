@@ -532,5 +532,18 @@ namespace BL4N
         }
 
         #endregion
+
+        /// <summary>
+        /// Get Status List
+        /// Returns list of statuses.
+        /// </summary>
+        /// <returns>list of <see cref="IStatus"/> </returns>
+        public IList<IStatus> GetStatuses()
+        {
+            var api = GetApiUri("/statuses");
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<Status>>(api, jss);
+            return res.Result.ToList<IStatus>();
+        }
     }
 }

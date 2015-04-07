@@ -794,6 +794,18 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /statuses
+
+            Get["/statuses"] = _ => Response.AsJson(new[]
+            {
+                new { id = 1, name = "Open" },
+                new { id = 2, name = "In Progress" },
+                new { id = 3, name = "Resolved" },
+                new { id = 4, name = "Closed" }
+            });
+
+            #endregion
         }
     }
 }

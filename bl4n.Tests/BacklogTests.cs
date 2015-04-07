@@ -122,5 +122,11 @@ namespace BL4N.Tests
         public abstract void DeleteGroupTest();
 
         #endregion
+
+        #region /api/v2/statuses
+
+        public abstract void GetStatusesTest();
+
+        #endregion
     }
 }

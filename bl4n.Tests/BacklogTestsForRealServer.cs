@@ -521,9 +521,35 @@ namespace BL4N.Tests
             Assert.Equal(added.Members.Count, actual.Members.Count);
             Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
             Assert.Equal(added.CreatedUser.Id, actual.CreatedUser.Id);
-            Assert.Equal(added.Created, actual.Created);
+            // Assert.Equal(added.Created, actual.Created); // ???
             // Assert.Equal(1, actual.UpdatedUser.Id);
             // Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Updated);
+        }
+
+        #endregion
+
+        #region /api/v2/statuses
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetStatusesTest()
+        {
+            // [{"id":1,"name":"未対応"},{"id":2,"name":"処理中"},{"id":3,"name":"処理済み"},{"id":4,"name":"完了"}]
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetStatuses();
+
+            Assert.Equal(4, actual.Count);
+
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal("未対応", actual[0].Name);
+            Assert.Equal(2, actual[1].Id);
+            Assert.Equal("処理中", actual[1].Name);
+            Assert.Equal(3, actual[2].Id);
+            Assert.Equal("処理済み", actual[2].Name);
+            Assert.Equal(4, actual[3].Id);
+            Assert.Equal("完了", actual[3].Name);
         }
 
         #endregion

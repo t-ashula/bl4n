@@ -6,6 +6,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using BL4N.Data;
@@ -853,6 +855,37 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Created);
             Assert.Equal(1, actual.UpdatedUser.Id);
             Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Updated);
+        }
+
+        #endregion
+
+        #region /api/v2/statuses
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetStatusesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetStatuses();
+
+            Assert.Equal(4, actual.Count);
+            /*
+                new { id = 1, name = "Open" },
+                new { id = 2, name = "In Progress" },
+                new { id = 3, name = "Resolved" },
+                new { id = 4, name = "Closed" }
+            */
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal("Open", actual[0].Name);
+            Assert.Equal(2, actual[1].Id);
+            Assert.Equal("In Progress", actual[1].Name);
+            Assert.Equal(3, actual[2].Id);
+            Assert.Equal("Resolved", actual[2].Name);
+            Assert.Equal(4, actual[3].Id);
+            Assert.Equal("Closed", actual[3].Name);
         }
 
         #endregion
