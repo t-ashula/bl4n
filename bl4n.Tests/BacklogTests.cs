@@ -128,5 +128,11 @@ namespace BL4N.Tests
         public abstract void GetStatusesTest();
 
         #endregion
+
+        #region /api/v2/resolutions
+
+        public abstract void GetResolutionsTest();
+
+        #endregion
     }
 }

@@ -553,5 +553,33 @@ namespace BL4N.Tests
         }
 
         #endregion
+
+        #region /api/v2/resolutions
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetResolutionsTest()
+        {
+            // [{"id":0,"name":"対応済み"},{"id":1,"name":"対応しない"},{"id":2,"name":"無効"},{"id":3,"name":"重複"},{"id":4,"name":"再現しない"}]
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetResolutions();
+
+            Assert.Equal(5, actual.Count);
+
+            Assert.Equal(0, actual[0].Id);
+            Assert.Equal("対応済み", actual[0].Name);
+            Assert.Equal(1, actual[1].Id);
+            Assert.Equal("対応しない", actual[1].Name);
+            Assert.Equal(2, actual[2].Id);
+            Assert.Equal("無効", actual[2].Name);
+            Assert.Equal(3, actual[3].Id);
+            Assert.Equal("重複", actual[3].Name);
+            Assert.Equal(4, actual[4].Id);
+            Assert.Equal("再現しない", actual[4].Name);
+        }
+
+        #endregion
     }
 }

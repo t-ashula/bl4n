@@ -806,6 +806,19 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /resolutions
+
+            Get["/resolutions"] = _ => Response.AsJson(new[]
+            {
+                new { id = 0, name = "Fixed" },
+                new { id = 1, name = "Won't Fix" },
+                new { id = 2, name = "Invalid" },
+                new { id = 3, name = "Duplication" },
+                new { id = 4, name = "Cannot Reproduce" }
+            });
+
+            #endregion
         }
     }
 }

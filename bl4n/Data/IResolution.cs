@@ -17,6 +17,7 @@ namespace BL4N.Data
         string Name { get; }
     }
 
+    [DataContract]
     internal sealed class Resolution : IResolution
     {
         [DataMember(Name = "id")]

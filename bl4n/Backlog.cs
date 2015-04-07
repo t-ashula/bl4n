@@ -533,6 +533,8 @@ namespace BL4N
 
         #endregion
 
+        #region Statuses API
+
         /// <summary>
         /// Get Status List
         /// Returns list of statuses.
@@ -545,5 +547,24 @@ namespace BL4N
             var res = GetApiResult<List<Status>>(api, jss);
             return res.Result.ToList<IStatus>();
         }
+
+        #endregion
+
+        #region Resolutions API
+
+        /// <summary>
+        /// Get Resolution List
+        /// Returns list of resolutions.
+        /// </summary>
+        /// <returns>list of <see cref="IResolution"/> </returns>
+        public IList<IResolution> GetResolutions()
+        {
+            var api = GetApiUri("/resolutions");
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<Resolution>>(api, jss);
+            return res.Result.ToList<IResolution>();
+        }
+
+        #endregion
     }
 }

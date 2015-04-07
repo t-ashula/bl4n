@@ -6,8 +6,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using BL4N.Data;
@@ -886,6 +884,37 @@ namespace BL4N.Tests
             Assert.Equal("Resolved", actual[2].Name);
             Assert.Equal(4, actual[3].Id);
             Assert.Equal("Closed", actual[3].Name);
+        }
+
+        #endregion
+
+        #region /api/v2/resolutions
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetResolutionsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetResolutions();
+            /*[
+             * { "id": 0, "name": "Fixed" }, { "id": 1, "name": "Won't Fix" }, { "id": 2, "name": "Invalid" },
+             * { "id": 3, "name": "Duplication" }, { "id": 4, "name": "Cannot Reproduce" }
+             *]
+             */
+            Assert.Equal(5, actual.Count);
+            Assert.Equal(0, actual[0].Id);
+            Assert.Equal("Fixed", actual[0].Name);
+            Assert.Equal(1, actual[1].Id);
+            Assert.Equal("Won't Fix", actual[1].Name);
+            Assert.Equal(2, actual[2].Id);
+            Assert.Equal("Invalid", actual[2].Name);
+            Assert.Equal(3, actual[3].Id);
+            Assert.Equal("Duplication", actual[3].Name);
+            Assert.Equal(4, actual[4].Id);
+            Assert.Equal("Cannot Reproduce", actual[4].Name);
         }
 
         #endregion
