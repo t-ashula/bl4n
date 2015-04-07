@@ -733,25 +733,20 @@ namespace BL4N.Tests
 
             #region /groups/:groupId
 
-            Get["/groups/{groupId}"] = p =>
+            Get["/groups/{groupId}"] = p => Response.AsJson(new
             {
-                var group = new
+                id = p.groupId,
+                name = "test",
+                members = new[]
                 {
-                    id = p.groupId,
-                    name = "test",
-                    members = new[]
-                    {
-                        new { id = 2, userId = "developer", name = "developer", roleType = 2, mailAddress = "developer@nulab.example" }
-                    },
-                    displayOrder = -1,
-                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
-                    created = "2013-05-30T09:11:36Z",
-                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
-                    updated = "2013-05-30T09:11:36Z",
-                };
-
-                return Response.AsJson(group);
-            };
+                    new { id = 2, userId = "developer", name = "developer", roleType = 2, mailAddress = "developer@nulab.example" }
+                },
+                displayOrder = -1,
+                createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                created = "2013-05-30T09:11:36Z",
+                updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                updated = "2013-05-30T09:11:36Z",
+            });
 
             #endregion
 
@@ -778,6 +773,25 @@ namespace BL4N.Tests
 
                 return Response.AsJson(group);
             };
+
+            #endregion
+
+            #region delete /groups/:groupId
+
+            Delete["/groups/{groupId}"] = p => Response.AsJson(new
+            {
+                id = p.groupId,
+                name = "test",
+                members = new[]
+                {
+                    new { id = 2, userId = "developer", name = "developer", roleType = 2, mailAddress = "developer@nulab.example" }
+                },
+                displayOrder = -1,
+                createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                created = "2013-05-30T09:11:36Z",
+                updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                updated = "2013-05-30T09:11:36Z",
+            });
 
             #endregion
         }

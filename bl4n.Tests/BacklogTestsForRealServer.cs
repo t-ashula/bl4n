@@ -502,6 +502,28 @@ namespace BL4N.Tests
             Assert.Equal(g1.Id, actual.Id);
             Assert.Equal(newName, actual.Name);
             Assert.Equal(g1.Members.Count, actual.Members.Count);
+            Assert.Equal(g1.Created, actual.Created);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteGroupTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            // TODO: 冪等性
+            var added = backlog.AddGroup("delete", new long[] { });
+            var actual = backlog.DeleteGroup(added.Id);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(added.Name, actual.Name);
+            Assert.Equal(added.Members.Count, actual.Members.Count);
+            Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
+            Assert.Equal(added.CreatedUser.Id, actual.CreatedUser.Id);
+            Assert.Equal(added.Created, actual.Created);
+            // Assert.Equal(1, actual.UpdatedUser.Id);
+            // Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Updated);
         }
 
         #endregion

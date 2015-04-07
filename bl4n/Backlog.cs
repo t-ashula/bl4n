@@ -517,6 +517,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Group
+        /// Deletes group.
+        /// </summary>
+        /// <param name="groupId">group id</param>
+        /// <returns>deleted <see cref="IGroup"/></returns>
+        public IGroup DeleteGroup(long groupId)
+        {
+            var api = GetApiUri(string.Format("/groups/{0}", groupId));
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = DeleteApiResult<Data.Group>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

@@ -118,6 +118,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/groups/:groupId </summary>
         public abstract void UpdateGroupTest();
 
+        /// <summary> DELETE /api/v2/groups/:groupId </summary>
+        public abstract void DeleteGroupTest();
+
         #endregion
     }
 }
