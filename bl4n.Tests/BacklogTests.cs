@@ -141,5 +141,12 @@ namespace BL4N.Tests
         public abstract void GetPrioritiesTest();
 
         #endregion
+
+        #region /api/v2/projects
+
+        /// <summary> GET /api/v2/projects </summary>
+        public abstract void GetProjectsTest();
+
+        #endregion
     }
 }

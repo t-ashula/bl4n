@@ -583,5 +583,22 @@ namespace BL4N
         }
 
         #endregion
+
+        #region Projects API
+
+        /// <summary>
+        /// Get Project List
+        /// Returns list of projects.
+        /// </summary>
+        /// <returns>list of <see cref="IProject"/> </returns>
+        public IList<IProject> GetProjects()
+        {
+            var api = GetApiUri("/projects");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<List<Project>>(api, jss);
+            return res.Result.ToList<IProject>();
+        }
+
+        #endregion
     }
 }

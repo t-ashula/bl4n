@@ -605,5 +605,31 @@ namespace BL4N.Tests
         }
 
         #endregion
+
+        #region /api/v2/projects
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjects();
+
+            // [{"id":26476,"projectKey":"BL4N","name":"bl4n","chartEnabled":false,"subtaskingEnabled":false,"textFormattingRule":"markdown","archived":false,"displayOrder":2147483646}]
+            Assert.Equal(1, actual.Count);
+
+            Assert.Equal(26476, actual[0].Id);
+            Assert.Equal("BL4N", actual[0].ProjectKey);
+            Assert.Equal("bl4n", actual[0].Name);
+            Assert.False(actual[0].ChartEnabled);
+            Assert.False(actual[0].SubtaskingEnabled);
+            Assert.Equal("markdown", actual[0].TextFormattingRule);
+            Assert.False(actual[0].Archived);
+            Assert.Equal(2147483646, actual[0].DisplayOrder);
+        }
+
+        #endregion
     }
 }

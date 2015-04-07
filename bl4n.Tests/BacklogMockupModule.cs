@@ -830,6 +830,24 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /projects
+
+            Get["/projects"] = _ => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 1,
+                    projectKey = "TEST",
+                    name = "test",
+                    chartEnabled = false,
+                    subtaskingEnabled = false,
+                    textFormattingRule = "markdown",
+                    archived = false
+                }
+            });
+
+            #endregion
         }
     }
 }
