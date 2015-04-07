@@ -417,5 +417,19 @@ namespace BL4N
             var res = GetApiResult<List<ProjectUpdate>>(api, jss);
             return res.Result.ToList<IProjectUpdate>();
         }
+
+        /// <summary>
+        /// Get List of Recently Viewed Wikis
+        /// Returns list of Wikis which the user viewed recently.
+        /// </summary>
+        /// <remarks>TODO: more parameters</remarks>
+        /// <returns> return list of <see cref="IWikiPageUpdate"/> </returns>
+        public IList<IWikiPageUpdate> GetListOfRecentlyViewedWikis()
+        {
+            var api = GetApiUri("/users/myself/recentlyViewedWikis");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<List<WikiPageUpdate>>(api, jss);
+            return res.Result.ToList<IWikiPageUpdate>();
+        }
     }
 }

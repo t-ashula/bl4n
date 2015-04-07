@@ -406,5 +406,19 @@ namespace BL4N.Tests
             var project = actual[0].Project;
             Assert.IsAssignableFrom<IProject>(project);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedWikisTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetListOfRecentlyViewedWikis();
+
+            Assert.InRange(actual.Count, 1, 20);
+            Assert.IsAssignableFrom<IWikiPage>(actual[0].WikiPage);
+            Assert.True(actual[0].WikiPage.Id > 0);
+        }
     }
 }

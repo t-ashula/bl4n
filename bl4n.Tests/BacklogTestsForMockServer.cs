@@ -725,5 +725,29 @@ namespace BL4N.Tests
             Assert.Equal("TEST", actual[0].Project.ProjectKey);
             Assert.Equal(new DateTime(2014, 7, 11, 1, 59, 7), actual[0].Updated);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedWikisTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetListOfRecentlyViewedWikis();
+            Assert.Equal(1, actual.Count);
+            Assert.IsAssignableFrom<IWikiPage>(actual[0].WikiPage);
+            Assert.Equal(112, actual[0].WikiPage.Id);
+            Assert.Equal(103, actual[0].WikiPage.ProjectId);
+            Assert.Equal("Home", actual[0].WikiPage.Name);
+            Assert.Equal(1, actual[0].WikiPage.Tags.Count);
+            Assert.Equal(12, actual[0].WikiPage.Tags[0].Id);
+            Assert.Equal("proceedings", actual[0].WikiPage.Tags[0].Name);
+            Assert.Equal(1, actual[0].WikiPage.CreatedUser.Id);
+            Assert.Equal(1, actual[0].WikiPage.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2013, 5, 30, 9, 11, 36), actual[0].WikiPage.Created);
+            Assert.Equal(new DateTime(2013, 5, 30, 9, 11, 36), actual[0].WikiPage.Updated);
+            Assert.Equal(new DateTime(2014, 7, 16, 7, 18, 16), actual[0].Updated);
+        }
     }
 }

@@ -660,6 +660,29 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /users/myself/recentlyViewedWikis
+
+            Get["/users/myself/recentlyViewedWikis"] = _ => Response.AsJson(new[]
+            {
+                new
+                {
+                    page = new
+                    {
+                        id = 112,
+                        projectId = 103,
+                        name = "Home",
+                        tags = new[] { new { id = 12, name = "proceedings" } },
+                        createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        created = "2013-05-30T09:11:36Z",
+                        updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        updated = "2013-05-30T09:11:36Z"
+                    },
+                    updated = "2014-07-16T07:18:16Z"
+                }
+            });
+
+            #endregion
         }
     }
 }
