@@ -439,7 +439,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var actual = backlog.GetGroups();
-            Assert.Equal(1, actual.Count);
+            Assert.True(actual.Count > 0);
         }
 
         /// <inheritdoc/>
@@ -458,6 +458,29 @@ namespace BL4N.Tests
             Assert.Equal(users.Length, actual.Members.Count);
             var members = actual.Members.Select(u => u.Id).OrderBy(_ => _).ToArray();
             Assert.Equal(users, members);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetGroupTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            var actual = backlog.GetGroup(3377);
+            // {"id":3377,
+            //  "name":"g1",
+            //  "members":[{"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}],
+            //  "displayOrder":-1,
+            //  "createdUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //  "created":"2015-04-07T11:58:54Z",
+            //  "updatedUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //  "updated":"2015-04-07T11:58:54Z"}
+            Assert.Equal(3377, actual.Id);
+            Assert.Equal("g1", actual.Name);
+            Assert.Equal(1, actual.Members.Count);
+            Assert.Equal(60966, actual.Members[0].Id);
         }
 
         #endregion

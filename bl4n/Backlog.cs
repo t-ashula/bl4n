@@ -476,6 +476,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Group
+        /// Returns information about group.
+        /// </summary>
+        /// <param name="groupId">group id</param>
+        /// <returns><see cref="IGroup"/></returns>
+        public IGroup GetGroup(long groupId)
+        {
+            var api = GetApiUri(string.Format("/groups/{0}", groupId));
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<Data.Group>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

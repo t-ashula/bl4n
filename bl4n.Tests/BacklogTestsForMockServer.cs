@@ -799,6 +799,27 @@ namespace BL4N.Tests
             Assert.Equal(2, actual.Members[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetGroupTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetGroup(20);
+            Assert.Equal(20, actual.Id);
+            Assert.Equal("test", actual.Name);
+            Assert.Equal(1, actual.Members.Count);
+            Assert.Equal(2, actual.Members[0].Id);
+            Assert.Equal("developer", actual.Members[0].UserId);
+            Assert.Equal(-1, actual.DisplayOrder);
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Updated);
+        }
+
         #endregion
     }
 }
