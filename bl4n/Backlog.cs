@@ -387,6 +387,11 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get List of Recently Viewed Issues
+        /// Returns list of issues which the user viewed recently.
+        /// </summary>
+        /// <returns> list of <see cref="IIssue"/>. </returns>
         public IList<IIssueUpdate> GetListOfRecentlyViewedIssues()
         {
             var api = GetApiUri("/users/myself/recentlyViewedIssues");
