@@ -637,6 +637,29 @@ namespace BL4N.Tests
             Get["/users/myself/recentlyViewedIssues"] = _ => Response.AsText(JsonStr);
 
             #endregion
+
+            #region /users/myself/recentlyViewedProjects
+
+            Get["/users/myself/recentlyViewedProjects"] = _ => Response.AsJson(new[]
+            {
+                new
+                {
+                    project = new
+                    {
+                        id = 1,
+                        projectKey = "TEST",
+                        name = "test",
+                        chartEnabled = false,
+                        subtaskingEnabled = false,
+                        textFormattingRule = "markdown",
+                        archived = false,
+                        displayOrder = 0
+                    },
+                    updated = "2014-07-11T01:59:07Z"
+                }
+            });
+
+            #endregion
         }
     }
 }

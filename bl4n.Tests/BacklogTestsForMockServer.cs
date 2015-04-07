@@ -709,5 +709,21 @@ namespace BL4N.Tests
             Assert.Equal(1, issue.Stars.Count);
             Assert.Equal(10, issue.Stars[0].Id);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedProjectsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetListOfRecentlyViewedProjects();
+            Assert.Equal(1, actual.Count);
+            Assert.IsAssignableFrom<IProject>(actual[0].Project);
+            Assert.Equal(1, actual[0].Project.Id);
+            Assert.Equal("TEST", actual[0].Project.ProjectKey);
+            Assert.Equal(new DateTime(2014, 7, 11, 1, 59, 7), actual[0].Updated);
+        }
     }
 }

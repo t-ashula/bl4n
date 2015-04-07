@@ -10,8 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BL4N.Data;
@@ -399,6 +397,20 @@ namespace BL4N
             };
             var res = GetApiResult<List<IssueUpdate>>(api, jss);
             return res.Result.ToList<IIssueUpdate>();
+        }
+
+        /// <summary>
+        /// Get List of Recently Viewed Projects
+        /// Returns list of projects which the user viewed recently.
+        /// </summary>
+        /// <remarks>TODO: more parameters</remarks>
+        /// <returns>return list of <see cref="IProjectUpdate"/></returns>
+        public IList<IProjectUpdate> GetListOfRecentlyViewedProjects()
+        {
+            var api = GetApiUri("/users/myself/recentlyViewedProjects");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<List<ProjectUpdate>>(api, jss);
+            return res.Result.ToList<IProjectUpdate>();
         }
     }
 }

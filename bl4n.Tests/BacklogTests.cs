@@ -93,5 +93,8 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/users/myself/recentlyViewedIssues のテスト </summary>
         public abstract void GetListOfRecentlyViewedIssuesTest();
+
+        /// <summary> GET /api/v2/users/myself/recentlyViewedProjects のテスト </summary>
+        public abstract void GetListOfRecentlyViewedProjectsTest();
     }
 }

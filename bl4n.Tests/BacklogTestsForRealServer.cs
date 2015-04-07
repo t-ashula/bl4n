@@ -392,5 +392,19 @@ namespace BL4N.Tests
             var issue = actual[0].Issue;
             Assert.IsAssignableFrom<IIssue>(issue);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedProjectsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            var actual = backlog.GetListOfRecentlyViewedProjects();
+            Assert.InRange(actual.Count, 1, 20);
+            var project = actual[0].Project;
+            Assert.IsAssignableFrom<IProject>(project);
+        }
     }
 }
