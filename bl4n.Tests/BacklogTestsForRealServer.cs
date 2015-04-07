@@ -581,5 +581,29 @@ namespace BL4N.Tests
         }
 
         #endregion
+
+        #region /api/v2/priorities
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetPrioritiesTest()
+        {
+            // [{"id":2,"name":"高"},{"id":3,"name":"中"},{"id":4,"name":"低"}]
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetPriorities();
+
+            Assert.Equal(3, actual.Count);
+
+            Assert.Equal(2, actual[0].Id);
+            Assert.Equal("高", actual[0].Name);
+            Assert.Equal(3, actual[1].Id);
+            Assert.Equal("中", actual[1].Name);
+            Assert.Equal(4, actual[2].Id);
+            Assert.Equal("低", actual[2].Name);
+        }
+
+        #endregion
     }
 }

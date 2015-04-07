@@ -134,5 +134,12 @@ namespace BL4N.Tests
         public abstract void GetResolutionsTest();
 
         #endregion
+
+        #region /api/v2/priorities
+
+        /// <summary> GET /api/v2/priorities </summary>
+        public abstract void GetPrioritiesTest();
+
+        #endregion
     }
 }

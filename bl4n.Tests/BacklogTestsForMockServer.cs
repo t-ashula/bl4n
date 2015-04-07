@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BL4N.Data;
@@ -916,6 +917,29 @@ namespace BL4N.Tests
             Assert.Equal("Duplication", actual[3].Name);
             Assert.Equal(4, actual[4].Id);
             Assert.Equal("Cannot Reproduce", actual[4].Name);
+        }
+
+        #endregion
+
+        #region /api/v2/priorities
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetPrioritiesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            IList<IPriority> actual = backlog.GetPriorities();
+            // [ { "id": 2, "name": "High" }, { "id": 3, "name": "Normal" }, { "id": 4, "name": "Low" } ]
+            Assert.Equal(3, actual.Count);
+            Assert.Equal(2, actual[0].Id);
+            Assert.Equal("High", actual[0].Name);
+            Assert.Equal(3, actual[1].Id);
+            Assert.Equal("Normal", actual[1].Name);
+            Assert.Equal(4, actual[2].Id);
+            Assert.Equal("Low", actual[2].Name);
         }
 
         #endregion

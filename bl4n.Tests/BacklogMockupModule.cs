@@ -819,6 +819,17 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /priorities
+
+            Get["/priorities"] = _ => Response.AsJson(new[]
+            {
+                new { id = 2, name = "High" },
+                new { id = 3, name = "Normal" },
+                new { id = 4, name = "Low" }
+            });
+
+            #endregion
         }
     }
 }

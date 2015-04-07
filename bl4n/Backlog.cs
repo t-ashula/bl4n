@@ -566,5 +566,22 @@ namespace BL4N
         }
 
         #endregion
+
+        #region Priorities API
+
+        /// <summary>
+        /// Get Priority List
+        /// Returns list of priorities.
+        /// </summary>
+        /// <returns>list of <see cref="IPriority"/></returns>
+        public IList<IPriority> GetPriorities()
+        {
+            var api = GetApiUri("/priorities");
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<Priority>>(api, jss);
+            return res.Result.ToList<IPriority>();
+        }
+
+        #endregion
     }
 }
