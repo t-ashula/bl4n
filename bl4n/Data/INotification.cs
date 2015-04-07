@@ -5,7 +5,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Collections.Generic;
+using System;
 using System.Runtime.Serialization;
 
 namespace BL4N.Data
@@ -47,10 +47,5 @@ namespace BL4N.Data
 
         [DataMember(Name = "resouceAlreadyRead")]
         public bool ResouceAlreadyRead { get; set; }
-    }
-
-    [CollectionDataContract]
-    internal sealed class Notifications : List<Notification>
-    {
     }
 }

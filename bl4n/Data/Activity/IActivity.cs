@@ -52,7 +52,7 @@ namespace BL4N.Data
         public abstract IActivityContent Content { get; }
 
         [DataMember(Name = "notifications")]
-        private Notifications _notifications;
+        private List<Notification> _notifications;
 
         [IgnoreDataMember]
         public IList<INotification> Notifications

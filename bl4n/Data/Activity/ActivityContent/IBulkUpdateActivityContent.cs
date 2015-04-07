@@ -49,7 +49,7 @@ namespace BL4N.Data
         }
 
         [DataMember(Name = "changes")]
-        private Changes _changes;
+        private List<Change> _changes;
 
         [IgnoreDataMember]
         public IList<IChange> Changes

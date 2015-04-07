@@ -33,9 +33,4 @@ namespace BL4N.Data
         [DataMember(Name = "title")]
         public string Title { get; private set; }
     }
-
-    [CollectionDataContract]
-    internal sealed class Links : List<Link>
-    {
-    }
 }

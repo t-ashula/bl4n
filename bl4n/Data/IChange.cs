@@ -5,7 +5,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Collections.Generic;
+using System;
 using System.Runtime.Serialization;
 
 namespace BL4N.Data
@@ -38,7 +38,4 @@ namespace BL4N.Data
         [DataMember(Name = "type")]
         public string Type { get; private set; }
     }
-
-    [CollectionDataContract]
-    internal sealed class Changes : List<Change> { }
 }
