@@ -665,7 +665,8 @@ namespace BL4N.Tests
             Assert.Equal(0, issue.IssueType.DisplayOrder);
             Assert.Equal("first issue", issue.Summary);
             Assert.Equal(string.Empty, issue.Description);
-            Assert.Null(issue.Resolution);
+            Assert.Equal(0, issue.Resolutions.Id); // ""resolutions"": { ""id"": 0, ""name"": ""対応済み"" },
+            Assert.Equal("対応済み", issue.Resolutions.Name);
             Assert.Equal(3, issue.Priority.Id);
             Assert.Equal("Normal", issue.Priority.Name);
             Assert.Equal(1, issue.Status.Id);

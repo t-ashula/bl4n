@@ -28,7 +28,7 @@ namespace BL4N.Data
 
         string Description { get; }
 
-        IResolution Resolution { get; }
+        IResolution Resolutions { get; }
 
         IPriority Priority { get; }
 
@@ -99,13 +99,13 @@ namespace BL4N.Data
         [DataMember(Name = "description")]
         public string Description { get; private set; }
 
-        [DataMember(Name = "resolution")]
-        private Resolution _resolution;
+        [DataMember(Name = "resolutions")]
+        private Resolution _resolutions;
 
         [IgnoreDataMember]
-        public IResolution Resolution
+        public IResolution Resolutions
         {
-            get { return _resolution; }
+            get { return _resolutions; }
         }
 
         [DataMember(Name = "priority")]
