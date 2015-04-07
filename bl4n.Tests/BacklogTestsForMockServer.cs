@@ -50,6 +50,8 @@ namespace BL4N.Tests
             Assert.Equal(Settings.SpaceName, realClient.SpaceName);
         }
 
+        #region /api/v2/space
+
         /// <inheritdoc/>
         [Fact]
         public override void GetSpaceTest()
@@ -430,6 +432,10 @@ namespace BL4N.Tests
             }
         }
 
+        #endregion
+
+        #region /api/v2/users
+
         /// <inheritdoc/>
         [Fact]
         public override void GetUsersTest()
@@ -749,5 +755,34 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(2013, 5, 30, 9, 11, 36), actual[0].WikiPage.Updated);
             Assert.Equal(new DateTime(2014, 7, 16, 7, 18, 16), actual[0].Updated);
         }
+
+        #endregion
+
+        #region /api/v2/groups
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetGroupsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetGroups();
+            Assert.Equal(1, actual.Count);
+            Assert.IsAssignableFrom<IGroup>(actual[0]);
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal("test", actual[0].Name);
+            Assert.Equal(1, actual[0].Members.Count);
+            Assert.Equal(2, actual[0].Members[0].Id);
+            Assert.Equal("developer", actual[0].Members[0].UserId);
+            Assert.Equal(-1, actual[0].DisplayOrder);
+            Assert.Equal(1, actual[0].CreatedUser.Id);
+            Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual[0].Created);
+            Assert.Equal(1, actual[0].UpdatedUser.Id);
+            Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual[0].Updated);
+        }
+
+        #endregion
     }
 }

@@ -431,5 +431,19 @@ namespace BL4N
             var res = GetApiResult<List<WikiPageUpdate>>(api, jss);
             return res.Result.ToList<IWikiPageUpdate>();
         }
+
+        /// <summary>
+        /// Get List of Groups
+        /// Returns list of groups.
+        /// </summary>
+        /// <remarks>TODO: more parameters</remarks>
+        /// <returns>retur list of <see cref="IGroup"/></returns>
+        public IList<IGroup> GetGroups()
+        {
+            var api = GetApiUri("/groups");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<List<Data.Group>>(api, jss);
+            return res.Result.ToList<IGroup>();
+        }
     }
 }

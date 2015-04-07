@@ -35,6 +35,8 @@ namespace BL4N.Tests
             Assert.Equal(Settings.SpaceName, realClient.SpaceName);
         }
 
+        #region /api/v2/space
+
         [Fact]
         public override void GetSpaceTest()
         {
@@ -178,6 +180,10 @@ namespace BL4N.Tests
                 Assert.Equal(size, actual.Size);
             }
         }
+
+        #endregion
+
+        #region /api/v2/users
 
         /// <inheritdoc/>
         [Fact]
@@ -420,5 +426,22 @@ namespace BL4N.Tests
             Assert.IsAssignableFrom<IWikiPage>(actual[0].WikiPage);
             Assert.True(actual[0].WikiPage.Id > 0);
         }
+
+        #endregion
+
+        #region /api/v2/groups
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetGroupsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetGroups();
+            Assert.Equal(1, actual.Count);
+        }
+
+        #endregion
     }
 }

@@ -61,6 +61,8 @@ namespace BL4N.Tests
 
         #endregion
 
+        #region /api/v2/users
+
         /// <summary> GET /api/v2/users のテスト </summary>
         public abstract void GetUsersTest();
 
@@ -99,5 +101,14 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/users/myself/recentlyViewedWikis のテスト </summary>
         public abstract void GetListOfRecentlyViewedWikisTest();
+
+        #endregion
+
+        #region /api/v2/groups
+
+        /// <summary> GET /api/v2/groups のテスト </summary>
+        public abstract void GetGroupsTest();
+
+        #endregion
     }
 }

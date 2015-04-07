@@ -683,6 +683,28 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /groups
+
+            Get["/groups"] = _ => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 1,
+                    name = "test",
+                    members = new[]
+                    {
+                        new { id = 2, userId = "developer", name = "developer", roleType = 2, /*lang = null,*/ mailAddress = "developer@nulab.example" }
+                    },
+                    displayOrder = -1,
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2013-05-30T09:11:36Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2013-05-30T09:11:36Z"
+                }
+            });
+
+            #endregion
         }
     }
 }
