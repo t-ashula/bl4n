@@ -90,5 +90,8 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/users/:userId/stars/count のテスト </summary>
         public abstract void CountUserReceivedStarsTest();
+
+        /// <summary> GET /api/v2/users/myself/recentlyViewedIssues のテスト </summary>
+        public abstract void GetListOfRecentlyViewedIssuesTest();
     }
 }

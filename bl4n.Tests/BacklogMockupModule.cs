@@ -547,7 +547,7 @@ namespace BL4N.Tests
             {
                 new
                 {
-                    id=75,
+                    id = 75,
                     // comment = null,
                     url = "https://xx.backlogtool.com/view/BLG-1",
                     title = "[BLG-1] first issue | Show issue - Backlog",
@@ -569,6 +569,72 @@ namespace BL4N.Tests
             #region /users/:userId/start/count
 
             Get["/users/{userId}/stars/count"] = p => Response.AsJson(new { count = 42 });
+
+            #endregion
+
+            #region /users/myself/recentlyViewedIssues
+
+            const string JsonStr = "["
+                                   +
+                                   @"{""issue"":{
+      ""id"": 1, ""projectId"": 1, ""issueKey"": ""BLG-1"", ""keyId"": 1,
+      ""issueType"": { ""id"": 2, ""projectId"" :1, ""name"": ""Task"", ""color"": ""#7ea800"", ""displayOrder"": 0 },
+      ""summary"": ""first issue"",
+      ""description"": """",
+      ""resolutions"": { ""id"": 0, ""name"": ""対応済み"" },
+      ""priority"": { ""id"": 3, ""name"": ""Normal"" },
+      ""status"": { ""id"": 1, ""name"": ""Open"" },
+      ""assignee"": {
+        ""id"": 2, ""name"": ""eguchi"", ""roleType"" :2, ""lang"": null, ""mailAddress"": ""eguchi@nulab.example""
+      },
+      ""category"": [ { ""id"": 54712, ""name"": ""API"", ""displayOrder"": 2147483646 } ],
+      ""versions"": [ {
+        ""id"": 33856, ""projectId"": 26476, ""name"": ""1.0.0"", ""description"": ""initial release version"",
+        ""startDate"": ""2015-04-01T00:00:00Z"", ""releaseDueDate"": ""2015-04-30T00:00:00Z"", ""archived"": false, ""displayOrder"": 2147483646 } ],
+      ""milestone"": [ {
+        ""id"": 33856, ""projectId"": 26476, ""name"": ""1.0.0"", ""description"": ""initial release version"",
+        ""startDate"": ""2015-04-01T00:00:00Z"", ""releaseDueDate"": ""2015-04-30T00:00:00Z"", ""archived"": false, ""displayOrder"": 2147483646 } ],
+      ""startDate"": null,
+      ""dueDate"": ""2015-04-10T00:00:00Z"",
+      ""estimatedHours"": 2.0,
+      ""actualHours"": 3.0,
+      ""parentIssueId"": null,
+      ""createdUser"": {
+        ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example""
+      },
+      ""created"": ""2012-07-23T06:10:15Z"",
+      ""updatedUser"": {
+        ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example""
+      },
+      ""updated"": ""2013-02-07T08:09:49Z"",
+      ""customFields"": [],
+      ""attachments"": [ { ""id"": 1, ""name"": ""IMGP0088.JPG"", ""size"": 85079 }],
+      ""sharedFiles"": [ {
+        ""id"": 454403, ""type"": ""file"", ""dir"": ""/usericon/"", ""name"": ""01.png"", ""size"": 2735,
+        ""createdUser"": {
+          ""id"": 5686, ""userId"": ""takada"", ""name"": ""takada"", ""roleType"":2, ""lang"":""ja"", ""mailAddress"":""takada@nulab.example""
+        },
+        ""created"": ""2009-02-27T03:26:15Z"",
+        ""updatedUser"": {
+          ""id"": 5686, ""userId"": ""takada"", ""name"": ""takada"", ""roleType"":2, ""lang"":""ja"", ""mailAddress"":""takada@nulab.example""
+        },
+        ""updated"":""2009-03-03T16:57:47Z""
+      }],
+      ""stars"": [ {
+        ""id"": 10,
+        ""comment"": null,
+        ""url"": ""https://xx.backlogtool.com/view/BLG-1"",
+        ""title"": ""[BLG-1] first issue | Show issue - Backlog"",
+        ""presenter"": {
+          ""id"": 2, ""userId"": ""eguchi"", ""name"": ""eguchi"", ""roleType"": 2, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example""
+        },
+        ""created"":""2013-07-08T10:24:28Z""
+      }]
+    },
+    ""updated"": ""2014-07-11T02:00:00Z""
+}"
+                                   + "]";
+            Get["/users/myself/recentlyViewedIssues"] = _ => Response.AsText(JsonStr);
 
             #endregion
         }

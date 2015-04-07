@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -386,6 +387,18 @@ namespace BL4N
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<Counter>(api, jss);
             return res.Result;
+        }
+
+        public IList<IIssueUpdate> GetListOfRecentlyViewedIssues()
+        {
+            var api = GetApiUri("/users/myself/recentlyViewedIssues");
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<IssueUpdate>>(api, jss);
+            return res.Result.ToList<IIssueUpdate>();
         }
     }
 }

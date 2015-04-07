@@ -637,5 +637,77 @@ namespace BL4N.Tests
             var actual = backlog.CountUserReceivedStars(1);
             Assert.Equal(42, actual.Count);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedIssuesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetListOfRecentlyViewedIssues();
+            Assert.Equal(1, actual.Count);
+            var issue = actual[0].Issue;
+            Assert.Equal(1, issue.Id);
+            Assert.Equal(1, issue.ProjectId);
+            Assert.Equal("BLG-1", issue.IssueKey);
+            Assert.Equal(1, issue.KeyId);
+            Assert.Equal(2, issue.IssueType.Id);
+            Assert.Equal(1, issue.IssueType.ProjectId);
+            Assert.Equal("Task", issue.IssueType.Name);
+            Assert.Equal("#7ea800", issue.IssueType.Color);
+            Assert.Equal(0, issue.IssueType.DisplayOrder);
+            Assert.Equal("first issue", issue.Summary);
+            Assert.Equal(string.Empty, issue.Description);
+            Assert.Null(issue.Resolution);
+            Assert.Equal(3, issue.Priority.Id);
+            Assert.Equal("Normal", issue.Priority.Name);
+            Assert.Equal(1, issue.Status.Id);
+            Assert.Equal("Open", issue.Status.Name);
+            Assert.Equal(2, issue.Assignee.Id);
+            Assert.Equal("eguchi", issue.Assignee.Name);
+            Assert.Equal(2, issue.Assignee.RoleType);
+            Assert.Null(issue.Assignee.Lang);
+            Assert.Equal("eguchi@nulab.example", issue.Assignee.MailAddress);
+            Assert.Equal(1, issue.Categories.Count);
+            Assert.Equal(54712, issue.Categories[0].Id);
+            Assert.Equal("API", issue.Categories[0].Name);
+            Assert.Equal(2147483646, issue.Categories[0].DisplayOrder);
+            Assert.Equal(1, issue.Versions.Count);
+            Assert.Equal(33856, issue.Versions[0].Id);
+            Assert.Equal(26476, issue.Versions[0].ProjectId);
+            Assert.Equal("1.0.0", issue.Versions[0].Name);
+            Assert.Equal("initial release version", issue.Versions[0].Description);
+            Assert.Equal(new DateTime(2015, 04, 01, 00, 00, 00, DateTimeKind.Utc), issue.Versions[0].StartDate);
+            Assert.Equal(new DateTime(2015, 04, 30, 00, 00, 00, DateTimeKind.Utc), issue.Versions[0].ReleaseDueDate);
+            Assert.Equal(false, issue.Versions[0].Archived);
+            Assert.Equal(2147483646, issue.Versions[0].DisplayOrder);
+            Assert.Equal(1, issue.Milestones.Count);
+            Assert.Equal(33856, issue.Milestones[0].Id);
+            Assert.Equal(26476, issue.Milestones[0].ProjectId);
+            Assert.Equal("1.0.0", issue.Milestones[0].Name);
+            Assert.Equal("initial release version", issue.Milestones[0].Description);
+            Assert.Equal(new DateTime(2015, 04, 01, 00, 00, 00, DateTimeKind.Utc), issue.Milestones[0].StartDate);
+            Assert.Equal(new DateTime(2015, 04, 30, 00, 00, 00, DateTimeKind.Utc), issue.Milestones[0].ReleaseDueDate);
+            Assert.Equal(false, issue.Milestones[0].Archived);
+            Assert.Equal(2147483646, issue.Milestones[0].DisplayOrder);
+            Assert.Null(issue.StartDate); // DateTime
+            Assert.Equal(new DateTime(2015, 4, 10, 0, 0, 0, DateTimeKind.Utc), issue.DueDate); // "dueDate": "2015-04-10T00:00:00Z"
+            Assert.Equal(2.0, issue.EstimatedHours);
+            Assert.Equal(3.0, issue.ActualHours);
+            Assert.Null(issue.ParentIssueId);
+            Assert.Equal(1, issue.CreatedUser.Id);
+            Assert.Equal(new DateTime(2012, 7, 23, 6, 10, 15, DateTimeKind.Utc), issue.Created);
+            Assert.Equal(1, issue.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2013, 2, 7, 8, 9, 49, DateTimeKind.Utc), issue.Updated);
+            Assert.Equal(0, issue.CustomFields.Count); // TODO: custome field type
+            Assert.Equal(1, issue.Attachments.Count);
+            Assert.Equal(1, issue.Attachments[0].Id);
+            Assert.Equal(1, issue.SharedFiles.Count);
+            Assert.Equal(454403, issue.SharedFiles[0].Id);
+            Assert.Equal(1, issue.Stars.Count);
+            Assert.Equal(10, issue.Stars[0].Id);
+        }
     }
 }
