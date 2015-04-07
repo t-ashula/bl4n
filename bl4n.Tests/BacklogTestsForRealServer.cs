@@ -442,6 +442,24 @@ namespace BL4N.Tests
             Assert.Equal(1, actual.Count);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddGroupTest()
+        {
+            // TODO: 冪等性
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var users = backlog.GetUsers().Select(u => u.Id).OrderBy(_ => _).ToArray();
+            var name = string.Format("g.{0}", DateTime.Now.Ticks);
+
+            var actual = backlog.AddGroup(name, users);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(users.Length, actual.Members.Count);
+            var members = actual.Members.Select(u => u.Id).OrderBy(_ => _).ToArray();
+            Assert.Equal(users, members);
+        }
+
         #endregion
     }
 }

@@ -140,6 +140,8 @@ namespace BL4N
             return Tuple.Create(string.Empty, await res.Content.ReadAsByteArrayAsync());
         }
 
+        #region Space API
+
         /// <summary> space 情報を取得します </summary>
         /// <returns> <see cref="ISpace"/>. </returns>
         public ISpace GetSpace()
@@ -224,6 +226,10 @@ namespace BL4N
             var res = PostApiResult<Attachment>(api, hc, jss);
             return res.Result;
         }
+
+        #endregion
+
+        #region User API
 
         /// <summary> Get User List Returns list of users in your space. </summary>
         /// <returns> List of <see cref="IUser"/>. </returns>
@@ -432,6 +438,10 @@ namespace BL4N
             return res.Result.ToList<IWikiPageUpdate>();
         }
 
+        #endregion
+
+        #region Group API
+
         /// <summary>
         /// Get List of Groups
         /// Returns list of groups.
@@ -445,5 +455,27 @@ namespace BL4N
             var res = GetApiResult<List<Data.Group>>(api, jss);
             return res.Result.ToList<IGroup>();
         }
+
+        /// <summary>
+        /// Add Group.
+        /// Adds new group.
+        /// </summary>
+        /// <param name="name">group name</param>
+        /// <param name="members">group member id</param>
+        /// <returns>created <see cref="IGroup"/></returns>
+        public IGroup AddGroup(string name, IEnumerable<long> members)
+        {
+            var api = GetApiUri("/groups");
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+
+            var kvs = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("name", name) };
+            kvs.AddRange(members.Select(uid => new KeyValuePair<string, string>("members[]", uid.ToString())));
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<Data.Group>(api, hc, jss);
+            return res.Result;
+        }
+
+        #endregion
     }
 }

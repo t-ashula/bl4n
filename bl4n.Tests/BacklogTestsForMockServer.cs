@@ -783,6 +783,22 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual[0].Updated);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddGroupTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var name = string.Format("g.{0}", DateTime.Now.Ticks);
+            var members = new long[] { 2 };
+            var actual = backlog.AddGroup(name, members);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(1, actual.Members.Count);
+            Assert.Equal(2, actual.Members[0].Id);
+        }
+
         #endregion
     }
 }

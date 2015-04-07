@@ -109,6 +109,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/groups のテスト </summary>
         public abstract void GetGroupsTest();
 
+        /// <summary> POST /api/v2/groups のテスト </summary>
+        public abstract void AddGroupTest();
+
         #endregion
     }
 }
