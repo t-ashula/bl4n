@@ -622,6 +622,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Project
+        /// Returns information about project.
+        /// </summary>
+        /// <param name="projectKey">projectKey</param>
+        /// <returns><see cref="IProject"/></returns>
+        public IProject GetProject(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}", projectKey));
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<Project>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

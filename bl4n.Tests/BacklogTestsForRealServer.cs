@@ -645,9 +645,28 @@ namespace BL4N.Tests
                 TextFormattingRule = "markdown"
             };
             var actual = backlog.AddProject(np);
-            // プランの都合上プロジェクトの追加ができないのでテスト不可？
+            // プランの都合上プロジェクトの追加ができないのでテスト不可
             // Assert.Equal("newproject", actual.Name);
             Assert.True(true, "cant add new project on free plan.");
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectTest()
+        {
+            // id:26476, key:BL4N
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var project = backlog.GetProjects().FirstOrDefault();
+            if (project == null)
+            {
+                Assert.False(true, "no project!!");
+                return;
+            }
+
+            var actual = backlog.GetProject(project.Id.ToString());
+            Assert.Equal(project.Id, actual.Id);
+            Assert.Equal(project.ProjectKey, actual.ProjectKey);
         }
 
         #endregion
