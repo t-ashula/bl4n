@@ -147,6 +147,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects </summary>
         public abstract void GetProjectsTest();
 
+        /// <summary> GET /api/v2/projects </summary>
+        public abstract void AddProjectTest();
+
         #endregion
     }
 }

@@ -630,6 +630,26 @@ namespace BL4N.Tests
             Assert.Equal(2147483646, actual[0].DisplayOrder);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var np = new Project
+            {
+                Name = "newproject",
+                ProjectKey = "NEWPRO",
+                ChartEnabled = false,
+                SubtaskingEnabled = false,
+                TextFormattingRule = "markdown"
+            };
+            var actual = backlog.AddProject(np);
+            // プランの都合上プロジェクトの追加ができないのでテスト不可？
+            // Assert.Equal("newproject", actual.Name);
+            Assert.True(true, "cant add new project on free plan.");
+        }
+
         #endregion
     }
 }

@@ -848,6 +848,24 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region post /projects
+
+            Post["/projects"] = p =>
+            {
+                var req = Request.Form;
+                return Response.AsJson(new
+                {
+                    id = 1,
+                    name = req.name,
+                    projectKey = req.key,
+                    chartEnabled = req.chartEnabled,
+                    subtaskingEnabled = req.subtaskingEnabled,
+                    textFormattingRule = req.textFormattingRule
+                });
+            };
+
+            #endregion
         }
     }
 }

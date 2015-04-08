@@ -599,6 +599,29 @@ namespace BL4N
             return res.Result.ToList<IProject>();
         }
 
+        /// <summary>
+        /// Add Project
+        /// Adds new project.
+        /// </summary>
+        /// <param name="newProject">project to create</param>
+        /// <returns>created <see cref="IProject"/></returns>
+        public IProject AddProject(IProject newProject)
+        {
+            var api = GetApiUri("/projects");
+            var jss = new JsonSerializerSettings();
+            var kvs = new[]
+            {
+                new KeyValuePair<string,string>("name", newProject.Name),
+                new KeyValuePair<string,string>("key", newProject.ProjectKey),
+                new KeyValuePair<string,string>("chartEnabled", newProject.ChartEnabled.ToString().ToLower()),
+                new KeyValuePair<string,string>("subtaskingEnabled", newProject.SubtaskingEnabled.ToString().ToLower()),
+                new KeyValuePair<string,string>("textFormattingRule", newProject.TextFormattingRule),
+            };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<Project>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

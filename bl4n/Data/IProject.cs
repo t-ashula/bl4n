@@ -35,27 +35,27 @@ namespace BL4N.Data
     internal sealed class Project : IProject
     {
         [DataMember(Name = "id")]
-        public long Id { get; private set; }
+        public long Id { get; set; }
 
         [DataMember(Name = "projectKey")]
-        public string ProjectKey { get; private set; }
+        public string ProjectKey { get; set; }
 
         [DataMember(Name = "name")]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [DataMember(Name = "chartEnabled")]
-        public bool ChartEnabled { get; private set; }
+        public bool ChartEnabled { get; set; }
 
         [DataMember(Name = "subtaskingEnabled")]
-        public bool SubtaskingEnabled { get; private set; }
+        public bool SubtaskingEnabled { get; set; }
 
         [DataMember(Name = "textFormattingRule")]
-        public string TextFormattingRule { get; private set; }
+        public string TextFormattingRule { get; set; }
 
         [DataMember(Name = "archived")]
-        public bool Archived { get; private set; }
+        public bool Archived { get; set; }
 
         [DataMember(Name = "displayOrder")]
-        public int DisplayOrder { get; private set; }
+        public int DisplayOrder { get; set; }
     }
 }
