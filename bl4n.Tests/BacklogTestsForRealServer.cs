@@ -707,6 +707,21 @@ namespace BL4N.Tests
             Assert.True(true, "cant del project on free plan.");
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectIconTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectImage(projectKey);
+            Assert.Equal("26476", actual.FileName);
+            var logo = Resources.projectIcon;
+            Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
+            Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
+        }
+
         #endregion
     }
 }

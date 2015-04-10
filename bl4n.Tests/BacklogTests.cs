@@ -159,6 +159,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/project/:projectIdOrKey </summary>
         public abstract void DeleteProjectTest();
 
+        /// <summary> GET /api/v2/project/:projectIdOrKey/image </summary>
+        public abstract void GetProjectIconTest();
+
         #endregion
     }
 }

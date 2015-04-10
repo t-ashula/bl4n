@@ -698,6 +698,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Project Icon
+        /// Downloads project icon.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>project icon</returns>
+        public ILogo GetProjectImage(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/image", projectKey));
+            var res = GetApiResultAsFile(api);
+
+            return new Logo(res.Result.Item1, res.Result.Item2);
+        }
+
         #endregion
     }
 }
