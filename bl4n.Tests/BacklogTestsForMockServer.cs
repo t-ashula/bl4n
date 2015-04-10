@@ -1022,6 +1022,34 @@ namespace BL4N.Tests
             Assert.Equal(false, actual.Archived);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var newProject = new Project
+            {
+                Id = new Random().Next(),
+                Name = "hoge",
+                ProjectKey = "hogehoge",
+                ChartEnabled = false,
+                SubtaskingEnabled = false,
+                TextFormattingRule = "markdown",
+                Archived = false
+            };
+            var actual = backlog.UpdateProject(newProject);
+            Assert.Equal(newProject.Id, actual.Id);
+            Assert.Equal(newProject.ProjectKey, actual.ProjectKey);
+            Assert.Equal(newProject.Name, actual.Name);
+            Assert.Equal(newProject.ChartEnabled, actual.ChartEnabled);
+            Assert.Equal(newProject.SubtaskingEnabled, actual.SubtaskingEnabled);
+            Assert.Equal(newProject.TextFormattingRule, actual.TextFormattingRule);
+            Assert.Equal(newProject.Archived, actual.Archived);
+        }
+
         #endregion
     }
 }

@@ -636,6 +636,54 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Update Project
+        /// Updates information about project.
+        /// </summary>
+        /// <param name="newProject"></param>
+        /// <returns>updated <see cref="IProject"/></returns>
+        public IProject UpdateProject(IProject newProject)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}", newProject.Id));
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var current = GetProject(newProject.Id.ToString());
+
+            var kvs = new List<KeyValuePair<string, string>>();
+            if (!string.IsNullOrEmpty(newProject.Name) && current.Name != newProject.Name)
+            {
+                kvs.Add(new KeyValuePair<string, string>("name", newProject.Name));
+            }
+
+            if (!string.IsNullOrEmpty(newProject.ProjectKey) && current.ProjectKey != newProject.ProjectKey)
+            {
+                kvs.Add(new KeyValuePair<string, string>("key", newProject.ProjectKey));
+            }
+
+            if (current.ChartEnabled != newProject.ChartEnabled)
+            {
+                kvs.Add(new KeyValuePair<string, string>("chartEnabled", newProject.ChartEnabled.ToString().ToLower()));
+            }
+
+            if (current.SubtaskingEnabled != newProject.SubtaskingEnabled)
+            {
+                kvs.Add(new KeyValuePair<string, string>("subtaskingEnabled", newProject.SubtaskingEnabled.ToString().ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(newProject.TextFormattingRule) && current.TextFormattingRule != newProject.TextFormattingRule)
+            {
+                kvs.Add(new KeyValuePair<string, string>("textFormattingRule", newProject.TextFormattingRule));
+            }
+
+            if (current.Archived != newProject.Archived)
+            {
+                kvs.Add(new KeyValuePair<string, string>("archived", newProject.Archived.ToString().ToLower()));
+            }
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<Project>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

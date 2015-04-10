@@ -892,6 +892,33 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region patch /projects/:projectKey
+
+            Patch["/projects/{projectKey}"] = p =>
+            {
+                var req = Request.Form;
+                var key = p.projectKey;
+                long pid;
+
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new
+                {
+                    id = pid == -1 ? 1 : pid,
+                    projectKey = string.IsNullOrEmpty(req.key) ? (pid == -1 ? key : "TEST") : req.key,
+                    name = string.IsNullOrEmpty(req.name) ? "test" : req.name,
+                    chartEnabled = false,
+                    subtaskingEnabled = false,
+                    textFormattingRule = string.IsNullOrEmpty(req.textFormattingRule) ? "markdown" : req.textFormattingRule,
+                    archived = false
+                });
+            };
+
+            #endregion
         }
     }
 }

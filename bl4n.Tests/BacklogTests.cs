@@ -153,6 +153,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/project/:projectIdOrKey </summary>
         public abstract void GetProjectTest();
 
+        /// <summary> PATCH /api/v2/project/:projectIdOrKey </summary>
+        public abstract void UpdateProjectTest();
+
         #endregion
     }
 }

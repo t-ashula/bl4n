@@ -622,7 +622,7 @@ namespace BL4N.Tests
 
             Assert.Equal(26476, actual[0].Id);
             Assert.Equal("BL4N", actual[0].ProjectKey);
-            Assert.Equal("bl4n", actual[0].Name);
+            Assert.StartsWith("bl4n", actual[0].Name);
             Assert.False(actual[0].ChartEnabled);
             Assert.False(actual[0].SubtaskingEnabled);
             Assert.Equal("markdown", actual[0].TextFormattingRule);
@@ -667,6 +667,34 @@ namespace BL4N.Tests
             var actual = backlog.GetProject(project.Id.ToString());
             Assert.Equal(project.Id, actual.Id);
             Assert.Equal(project.ProjectKey, actual.ProjectKey);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var current = backlog.GetProjects().First();
+            var newProject = new Project
+            {
+                Id = current.Id,
+                Name = current.Name + (new Random().Next() % 100),
+                ProjectKey = current.ProjectKey,
+                ChartEnabled = current.ChartEnabled,
+                SubtaskingEnabled = current.SubtaskingEnabled,
+                TextFormattingRule = current.TextFormattingRule,
+                Archived = current.Archived
+            };
+            var actual = backlog.UpdateProject(newProject);
+            Assert.Equal(newProject.Id, actual.Id);
+            Assert.Equal(newProject.ProjectKey, actual.ProjectKey);
+            Assert.Equal(newProject.Name, actual.Name);
+            Assert.Equal(newProject.ChartEnabled, actual.ChartEnabled);
+            Assert.Equal(newProject.SubtaskingEnabled, actual.SubtaskingEnabled);
+            Assert.Equal(newProject.TextFormattingRule, actual.TextFormattingRule);
+            Assert.Equal(newProject.Archived, actual.Archived);
         }
 
         #endregion
