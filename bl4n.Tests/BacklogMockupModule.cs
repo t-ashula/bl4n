@@ -919,6 +919,32 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region delete /projects/:projectKey
+
+            Delete["/projects/{projectKey}"] = p =>
+            {
+                var key = p.projectKey;
+                long pid;
+
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new
+                {
+                    id = pid == -1 ? 1 : pid,
+                    projectKey = pid == -1 ? key : "TEST",
+                    name = "test",
+                    chartEnabled = false,
+                    subtaskingEnabled = false,
+                    textFormattingRule = "markdown",
+                    archived = false
+                });
+            };
+
+            #endregion
         }
     }
 }

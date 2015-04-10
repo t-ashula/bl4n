@@ -684,6 +684,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Project
+        /// Deletes project.
+        /// </summary>
+        /// <param name="test">project key</param>
+        /// <returns>deleted project</returns>
+        public IProject DeleteProject(string test)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}", test));
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = DeleteApiResult<Project>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

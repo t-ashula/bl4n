@@ -156,6 +156,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/project/:projectIdOrKey </summary>
         public abstract void UpdateProjectTest();
 
+        /// <summary> DELETE /api/v2/project/:projectIdOrKey </summary>
+        public abstract void DeleteProjectTest();
+
         #endregion
     }
 }

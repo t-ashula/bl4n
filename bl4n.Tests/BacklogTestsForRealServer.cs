@@ -697,6 +697,16 @@ namespace BL4N.Tests
             Assert.Equal(newProject.Archived, actual.Archived);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectTest()
+        {
+            // プランの都合上プロジェクトの追加ができないのでテスト不可
+            // Assert.Equal("newproject", actual.Name);
+
+            Assert.True(true, "cant del project on free plan.");
+        }
+
         #endregion
     }
 }

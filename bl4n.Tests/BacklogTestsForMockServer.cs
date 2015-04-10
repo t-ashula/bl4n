@@ -1050,6 +1050,30 @@ namespace BL4N.Tests
             Assert.Equal(newProject.Archived, actual.Archived);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
+            var actual = backlog.DeleteProject("TEST");
+            /*{
+             * "id": 1, "projectKey": "TEST", "name": "test",
+             * "chartEnabled": false, "subtaskingEnabled": false,
+             * "textFormattingRule": "markdown", "archived":false
+             * }*/
+            Assert.Equal(1, actual.Id);
+            Assert.Equal("TEST", actual.ProjectKey);
+            Assert.Equal("test", actual.Name);
+            Assert.Equal(false, actual.ChartEnabled);
+            Assert.Equal(false, actual.SubtaskingEnabled);
+            Assert.Equal("markdown", actual.TextFormattingRule);
+            Assert.Equal(false, actual.Archived);
+        }
+
         #endregion
     }
 }
