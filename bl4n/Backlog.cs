@@ -712,6 +712,24 @@ namespace BL4N
             return new Logo(res.Result.Item1, res.Result.Item2);
         }
 
+        /// <summary>
+        /// Get Project Recent Updates
+        /// Returns recent update in the project.
+        /// </summary>
+        /// <remarks>TODO: more parameters </remarks>
+        /// <returns>list of <see cref="IActivity"/></returns>
+        public IList<IActivity> GetProjectRecentUpdates(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/activities", projectKey));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Converters = new JsonConverter[] { new ActivityConverter() }
+            };
+            var res = GetApiResult<List<Activity>>(api, jss);
+            return res.Result.ToList<IActivity>();
+        }
+
         #endregion
     }
 }

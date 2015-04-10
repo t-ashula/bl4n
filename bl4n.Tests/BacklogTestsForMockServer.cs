@@ -1089,6 +1089,19 @@ namespace BL4N.Tests
             Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectRecentUpdates()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var activities = backlog.GetProjectRecentUpdates("1");
+            Assert.Equal(1, activities.Count);
+            Assert.Equal(2, activities[0].Type);
+        }
+
         #endregion
     }
 }

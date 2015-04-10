@@ -946,7 +946,7 @@ namespace BL4N.Tests
 
             #endregion
 
-            #region /projects/:projectKey/iamge
+            #region /projects/:projectKey/image
 
             Get["/projects/{projectKey}/image"] = p =>
             {
@@ -973,6 +973,83 @@ namespace BL4N.Tests
 
                 response.Headers.Add("Content-Disposition", "attachment; filename*=UTF-8''logo_mark.png");
                 return response;
+            };
+
+            #endregion
+
+            #region /projects/:projectKey/activities
+
+            Get["/projects/{projectKey}/activities"] = p =>
+            {
+                var key = p.projectKey;
+                long pid;
+
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = 3153,
+                        project = new
+                        {
+                            id = 92,
+                            projectKey = "SUB",
+                            name = "Subtasking",
+                            chartEnabled = true,
+                            subtaskingEnabled = true,
+                            textFormattingRule = "markdown",
+                            archived = false,
+                            displayOrder = 0
+                        },
+                        type = 2,
+                        content = new
+                        {
+                            id = 4809,
+                            key_id = 121,
+                            summary = "Comment",
+                            description = "",
+                            comment = new { id = 7237, content = "" },
+                            changes = new[]
+                            {
+                                new { field = "milestone", new_value = " R2014-07-23", old_value = "", type = "standard" },
+                                new { field = "status", new_value = "4", old_value = "1", type = "standard" }
+                            }
+                        },
+                        notifications = new[]
+                        {
+                            new
+                            {
+                                id = 25,
+                                alreadyRead = false,
+                                reason = 2,
+                                user = new
+                                {
+                                    id = 5686,
+                                    userId = "takada",
+                                    name = "takada",
+                                    roleType = 2,
+                                    lang = "ja",
+                                    mailAddress = "takada@nulab.example"
+                                },
+                                resourceAlreadyRead = false
+                            },
+                        },
+                        createdUser = new
+                        {
+                            id = 1,
+                            userId = "admin",
+                            name = "admin",
+                            roleType = 1,
+                            lang = "ja",
+                            mailAddress = "eguchi@nulab.example"
+                        },
+                        created = "2013-12-27T07:50:44Z"
+                    }
+                });
             };
 
             #endregion

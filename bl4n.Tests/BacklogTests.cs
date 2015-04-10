@@ -162,6 +162,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/project/:projectIdOrKey/image </summary>
         public abstract void GetProjectIconTest();
 
+        /// <summary> GET /api/v2/project/:projectIdOrKey/activities </summary>
+        public abstract void GetProjectRecentUpdates();
+
         #endregion
     }
 }

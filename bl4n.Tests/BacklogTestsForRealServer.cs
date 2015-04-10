@@ -722,6 +722,21 @@ namespace BL4N.Tests
             Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectRecentUpdates()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+
+            var actual = backlog.GetProjectRecentUpdates(projectKey);
+
+            Assert.InRange(actual.Count, 1, 20);
+            Assert.Equal(projectKey, actual[0].Project.ProjectKey);
+        }
+
         #endregion
     }
 }
