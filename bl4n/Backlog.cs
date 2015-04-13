@@ -730,6 +730,24 @@ namespace BL4N
             return res.Result.ToList<IActivity>();
         }
 
+        /// <summary>
+        /// Add Project User
+        /// Adds user to list of project members.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="uid">user id</param>
+        /// <returns>added <see cref="IUser"/></returns>
+        public IUser AddProjectUser(string projectKey, long uid)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/users", projectKey));
+            var jss = new JsonSerializerSettings();
+            var kvs = new[] { new KeyValuePair<string, string>("userId", uid.ToString()) };
+            var hc = new FormUrlEncodedContent(kvs);
+
+            var res = PostApiResult<User>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

@@ -165,6 +165,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/project/:projectIdOrKey/activities </summary>
         public abstract void GetProjectRecentUpdatesTest();
 
+        /// <summary> POST /api/v2/project/:projectIdOrKey/users </summary>
+        public abstract void AddProjectUserTest();
+
         #endregion
     }
 }

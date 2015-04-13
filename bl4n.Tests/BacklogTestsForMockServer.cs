@@ -1102,6 +1102,24 @@ namespace BL4N.Tests
             Assert.Equal(2, activities[0].Type);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectUserTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var uid = new Random().Next();
+            var actual = backlog.AddProjectUser("test", uid);
+            Assert.Equal(uid, actual.Id);
+            Assert.Equal("admin", actual.UserId);
+            Assert.Equal("admin", actual.Name);
+            Assert.Equal(1, actual.RoleType);
+            Assert.Equal("ja", actual.Lang);
+            Assert.Equal("eguchi@nulab.example", actual.MailAddress);
+        }
+
         #endregion
     }
 }
