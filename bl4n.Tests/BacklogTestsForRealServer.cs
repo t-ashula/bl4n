@@ -724,7 +724,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void GetProjectRecentUpdates()
+        public override void GetProjectRecentUpdatesTest()
         {
             SkipIfSettingIsBroken();
 
