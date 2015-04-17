@@ -1093,6 +1093,26 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region POST /projects/:projectKey/administrators
+
+            Post["/projects/{projectKey}/administrators"] = p =>
+            {
+                var req = Request.Form;
+                var user = new
+                {
+                    id = req.userId,
+                    userId = "takada",
+                    name = "takada",
+                    roleType = 2,
+                    lang = "ja",
+                    mailAddress = "takada@nulab.example"
+                };
+
+                return Response.AsJson(user);
+            };
+
+            #endregion
         }
     }
 }

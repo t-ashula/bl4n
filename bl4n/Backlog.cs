@@ -762,8 +762,6 @@ namespace BL4N
             return res.Result;
         }
 
-        #endregion
-
         /// <summary>
         /// Delete Project User
         /// Removes user from list project members.
@@ -781,5 +779,24 @@ namespace BL4N
             var res = DeleteApiResult<User>(api, hc, jss);
             return res.Result;
         }
+
+        /// <summary>
+        /// Add Project Administrator
+        /// Adds "Project Administrator" role to user
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="id">user id</param>
+        /// <returns>changed <see cref="IUser"/></returns>
+        public IUser AddProjectAdministrator(string projectKey, long id)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/administrators", projectKey));
+            var jss = new JsonSerializerSettings();
+            var kvs = new[] { new KeyValuePair<string, string>("userId", id.ToString()) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<User>(api, hc, jss);
+            return res.Result;
+        }
+
+        #endregion
     }
 }

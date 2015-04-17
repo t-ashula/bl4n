@@ -1138,6 +1138,24 @@ namespace BL4N.Tests
             Assert.Equal("eguchi@nulab.example", actual.MailAddress);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectAdministorTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var uid = new Random().Next();
+            var actual = backlog.AddProjectAdministrator("test", uid);
+            Assert.Equal(uid, actual.Id);
+            Assert.Equal("takada", actual.UserId);
+            Assert.Equal("takada", actual.Name);
+            Assert.Equal(2, actual.RoleType);
+            Assert.Equal("ja", actual.Lang);
+            Assert.Equal("takada@nulab.example", actual.MailAddress);
+        }
+
         #endregion
     }
 }
