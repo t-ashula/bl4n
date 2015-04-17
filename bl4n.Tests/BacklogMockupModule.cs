@@ -1130,6 +1130,23 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectKey/administrators
+
+            Get["/projects/{projectKey}/administrators"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 5686,
+                    userId = "takada",
+                    name = "takada",
+                    roleType = 2,
+                    lang = "ja",
+                    mailAddress = "takada@nulab.example"
+                }
+            });
+
+            #endregion
         }
     }
 }

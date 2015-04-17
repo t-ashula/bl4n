@@ -811,6 +811,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get List of Project Administrators
+        /// Returns list of users who has Project Administrator role
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of administrator <see cref="IUser"/></returns>
+        public IList<IUser> GetProjectAdministrators(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/administrators", projectKey));
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<User>>(api, jss);
+            return res.Result.ToList<IUser>();
+        }
+
         #endregion
     }
 }

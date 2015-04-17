@@ -843,6 +843,22 @@ namespace BL4N.Tests
             backlog.DeleteUser(addedUser.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectAdministorsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+
+            var actual = backlog.GetProjectAdministrators(projectKey);
+            Assert.Equal(1, actual.Count); // t.ashula as a project admin, space admin is not project admin
+            // [{"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}]
+            Assert.Equal(60966, actual[0].Id);
+            Assert.Equal("t.ashula", actual[0].Name);
+        }
+
         #endregion
     }
 }
