@@ -769,6 +769,18 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetProjectUsersTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectUsers(projectKey);
+            Assert.True(actual.Count >= 2); // bl4n.admin, t.ashula and more
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void DeleteProjectUserTest()
         {
             SkipIfSettingIsBroken();

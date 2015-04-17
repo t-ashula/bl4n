@@ -168,6 +168,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/project/:projectIdOrKey/users </summary>
         public abstract void AddProjectUserTest();
 
+        /// <summary> GET /api/v2/project/:projectIdOrKey/users </summary>
+        public abstract void GetProjectUsersTest();
+
         /// <summary> DELETE /api/v2/project/:projectIdOrKey/users </summary>
         public abstract void DeleteProjectUserTest();
 

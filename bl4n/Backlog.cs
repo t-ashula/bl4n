@@ -763,6 +763,20 @@ namespace BL4N
         }
 
         /// <summary>
+        /// Get Project User List
+        /// Returns list of project members.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of <see cref="IUser"/></returns>
+        public IList<IUser> GetProjectUsers(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/users", projectKey));
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<User>>(api, jss);
+            return res.Result.ToList<IUser>();
+        }
+
+        /// <summary>
         /// Delete Project User
         /// Removes user from list project members.
         /// </summary>

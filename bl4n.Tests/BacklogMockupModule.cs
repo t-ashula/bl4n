@@ -1074,6 +1074,23 @@ namespace BL4N.Tests
 
             #endregion
 
+            #region /projects/:projectKey/users
+
+            Get["/projects/{projectKey}/users"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 1,
+                    userId = "admin",
+                    name = "admin",
+                    roleType = 1,
+                    lang = "ja",
+                    mailAddress = "eguchi@nulab.example"
+                }
+            });
+
+            #endregion
+
             #region delete /projects/:projectKey/users
 
             Delete["/projects/{projectKey}/users"] = p =>
