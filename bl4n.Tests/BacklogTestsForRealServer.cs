@@ -767,6 +767,37 @@ namespace BL4N.Tests
             backlog.DeleteUser(newUser.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectUserTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var r = new Random();
+            var newUserName = string.Format("g.{0:X}", r.Next());
+            var newUserInfo = new User
+            {
+                UserId = newUserName,
+                Lang = "ja",
+                Name = newUserName,
+                MailAddress = newUserName + "@example.com",
+                RoleType = 5, // guest reporter
+            };
+            var newUser = backlog.AddUser(newUserInfo, "hogehogehogehoge"); // TODO:
+            var addedUser = backlog.AddProjectUser(projectKey, newUser.Id);
+            var actual = backlog.DeleteProjectUser(projectKey, addedUser.Id);
+            Assert.Equal(newUser.Id, actual.Id);
+            Assert.Equal(newUser.UserId, actual.UserId);
+            Assert.Equal(newUser.Name, actual.Name);
+            Assert.Equal(newUser.RoleType, actual.RoleType);
+            Assert.Equal(newUser.Lang, actual.Lang);
+            Assert.Equal(newUser.MailAddress, actual.MailAddress);
+
+            backlog.DeleteUser(newUser.Id);
+        }
+
         #endregion
     }
 }

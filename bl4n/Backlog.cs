@@ -103,6 +103,20 @@ namespace BL4N
             return JsonConvert.DeserializeObject<T>(res, jss);
         }
 
+        private async Task<T> DeleteApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
+        {
+            var ua = new HttpClient();
+            var req = new HttpRequestMessage
+            {
+                Method = new HttpMethod("DELETE"),
+                RequestUri = uri,
+                Content = c
+            };
+            var s = await ua.SendAsync(req);
+            var res = await s.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(res, jss);
+        }
+
         private string GetApiEndPointBase()
         {
             return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
@@ -749,5 +763,23 @@ namespace BL4N
         }
 
         #endregion
+
+        /// <summary>
+        /// Delete Project User
+        /// Removes user from list project members.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="uid">user id</param>
+        /// <returns>deleted <see cref="IUser"/></returns>
+        public IUser DeleteProjectUser(string projectKey, long uid)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/users", projectKey));
+            var jss = new JsonSerializerSettings();
+            var kvs = new[] { new KeyValuePair<string, string>("userId", uid.ToString()) };
+            var hc = new FormUrlEncodedContent(kvs);
+
+            var res = DeleteApiResult<User>(api, hc, jss);
+            return res.Result;
+        }
     }
 }
