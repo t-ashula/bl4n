@@ -918,6 +918,26 @@ namespace BL4N.Tests
             Assert.Equal(0, actual[0].DisplayOrder);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectIssueTypeTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var colors = new[] { "#e30000", "#990000", "#934981", "#814fbc", "#2779ca", "#007e9a", "#7ea800", "#ff9200", "#ff3265", "#666665" };
+            var issueType = new IssueType
+            {
+                Color = colors[new Random().Next(colors.Length - 1)],
+                Name = string.Format("is.{0}", new Random().Next(2000))
+            };
+            var actual = backlog.AddProjectIssueType(projectKey, issueType);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(issueType.Color, actual.Color);
+            Assert.Equal(issueType.Name, actual.Name);
+        }
+
         #endregion
     }
 }

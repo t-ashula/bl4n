@@ -1170,6 +1170,19 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region POST /projects/:projectKey/issueTypes
+
+            Post["/projects/{projectKey}/issueTypes"] = p => Response.AsJson(new
+            {
+                id = 1,
+                projectKey = 1,
+                name = Request.Form.name,
+                color = Request.Form.color,
+                displayOrder = 0
+            });
+
+            #endregion
         }
     }
 }

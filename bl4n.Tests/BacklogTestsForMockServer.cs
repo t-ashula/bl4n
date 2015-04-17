@@ -1227,6 +1227,25 @@ namespace BL4N.Tests
             Assert.Equal(0, actual[0].DisplayOrder);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectIssueTypeTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var issueType = new IssueType
+            {
+                Color = string.Format("#{0:x6}", new Random().Next(0xFFFFFF)),
+                Name = string.Format("is.{0}", new Random().Next(2000))
+            };
+            var actual = backlog.AddProjectIssueType("projectKey", issueType);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(issueType.Color, actual.Color);
+            Assert.Equal(issueType.Name, actual.Name);
+        }
+
         #endregion
     }
 }

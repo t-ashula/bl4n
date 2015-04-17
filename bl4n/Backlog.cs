@@ -857,6 +857,27 @@ namespace BL4N
             return res.Result.ToList<IIssueType>();
         }
 
+        /// <summary>
+        /// Add Issue Type
+        /// Adds new Issue Type to the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="issueType">issue type to add</param>
+        /// <returns>added <see cref="IIssueType"/></returns>
+        public IIssueType AddProjectIssueType(string projectKey, IIssueType issueType)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/issueTypes", projectKey));
+            var jss = new JsonSerializerSettings();
+            var kvs = new[]
+            {
+                new KeyValuePair<string, string>("name", issueType.Name),
+                new KeyValuePair<string, string>("color", issueType.Color)
+            };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<IssueType>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
