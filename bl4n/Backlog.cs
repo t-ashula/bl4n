@@ -843,6 +843,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Issue Type List
+        /// Returns list of Issue Types in the project.
+        /// </summary>
+        /// <param name="projectkey"></param>
+        /// <returns></returns>
+        public IList<IIssueType> GetProjectIssueTypes(string projectkey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/issueTypes", projectkey));
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<IssueType>>(api, jss);
+            return res.Result.ToList<IIssueType>();
+        }
+
         #endregion
     }
 }

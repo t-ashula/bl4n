@@ -1209,6 +1209,24 @@ namespace BL4N.Tests
             Assert.Equal("takada@nulab.example", actual.MailAddress);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectIssueTypesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            IList<IIssueType> actual = backlog.GetProjectIssueTypes("projectKey");
+            Assert.Equal(1, actual.Count);
+
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal(1, actual[0].ProjectId);
+            Assert.Equal("Bug", actual[0].Name);
+            Assert.Equal("#990000", actual[0].Color);
+            Assert.Equal(0, actual[0].DisplayOrder);
+        }
+
         #endregion
     }
 }

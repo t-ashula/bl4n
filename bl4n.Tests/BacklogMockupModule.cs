@@ -1161,6 +1161,15 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /projects/:projectKey/issueTypes
+
+            Get["/projects/{projectKey}/issueTypes"] = p => Response.AsJson(new[]
+            {
+                new { id = 1, projectId = 1, name = "Bug", color = "#990000", displayOrder = 0 }
+            });
+
+            #endregion
         }
     }
 }
