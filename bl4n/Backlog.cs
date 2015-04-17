@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -823,6 +824,23 @@ namespace BL4N
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<User>>(api, jss);
             return res.Result.ToList<IUser>();
+        }
+
+        /// <summary>
+        /// Delete Project Administrator
+        /// Removes Project Administrator role from user
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="uid">user id</param>
+        /// <returns>deleted <see cref="IUser"/></returns>
+        public IUser DeleteProjectAdministrator(string projectKey, long uid)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/administrators", projectKey));
+            var jss = new JsonSerializerSettings();
+            var kvs = new[] { new KeyValuePair<string, string>("userId", uid.ToString()) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = DeleteApiResult<User>(api, hc, jss);
+            return res.Result;
         }
 
         #endregion

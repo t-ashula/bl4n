@@ -1147,6 +1147,20 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region delete /projects/:projectKey/administrators
+
+            Delete["/projects/{projectKey}/administrators"] = p => Response.AsJson(new
+            {
+                id = Request.Form.userId,
+                userId = "takada",
+                name = "takada",
+                roleType = 2,
+                lang = "ja",
+                mailAddress = "takada@nulab.example"
+            });
+
+            #endregion
         }
     }
 }

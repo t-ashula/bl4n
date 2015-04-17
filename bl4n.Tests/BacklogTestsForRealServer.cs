@@ -859,6 +859,45 @@ namespace BL4N.Tests
             Assert.Equal("t.ashula", actual[0].Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectAdministratorTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var r = new Random();
+            var newUserName = string.Format("g.{0:X}", r.Next());
+            var newUserInfo = new User
+            {
+                UserId = newUserName,
+                Lang = "ja",
+                Name = newUserName,
+                MailAddress = newUserName + "@example.com",
+                RoleType = 2 // Normal User
+            };
+
+            var newUser = backlog.AddUser(newUserInfo, "hogehogehogehoge"); // TODO: password
+            Assert.NotEqual(0, newUser.Id);
+
+            var addedUser = backlog.AddProjectUser(projectKey, newUser.Id);
+            Assert.Equal(newUser.Id, addedUser.Id);
+
+            var addedAdmin = backlog.AddProjectAdministrator(projectKey, addedUser.Id);
+            Assert.Equal(addedAdmin.Id, addedUser.Id);
+
+            var actual = backlog.DeleteProjectAdministrator(projectKey, addedAdmin.Id);
+            Assert.Equal(addedAdmin.Id, actual.Id);
+            Assert.Equal(addedAdmin.UserId, actual.UserId);
+            Assert.Equal(addedAdmin.Name, actual.Name);
+            Assert.Equal(addedAdmin.RoleType, actual.RoleType);
+            Assert.Equal(addedAdmin.Lang, actual.Lang);
+            Assert.Equal(addedAdmin.MailAddress, actual.MailAddress);
+
+            backlog.DeleteUser(addedUser.Id);
+        }
+
         #endregion
     }
 }

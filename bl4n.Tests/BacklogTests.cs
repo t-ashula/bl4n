@@ -180,6 +180,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/administrators </summary>
         public abstract void GetProjectAdministorsTest();
 
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/administrators </summary>
+        public abstract void DeleteProjectAdministratorTest();
+
         #endregion
     }
 }
