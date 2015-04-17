@@ -178,7 +178,7 @@ namespace BL4N.Tests
         public abstract void AddProjectAdministorTest();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/administrators </summary>
-        public abstract void GetProjectAdministorsTest();
+        public abstract void GetProjectAdministratorsTest();
 
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/administrators </summary>
         public abstract void DeleteProjectAdministratorTest();

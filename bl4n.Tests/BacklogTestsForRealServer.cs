@@ -845,7 +845,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void GetProjectAdministorsTest()
+        public override void GetProjectAdministratorsTest()
         {
             SkipIfSettingIsBroken();
 
