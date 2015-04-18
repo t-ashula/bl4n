@@ -1250,6 +1250,17 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region delte /projects/:projectKey/categories/:id
+
+            Delete["/projects/{projectIdOrKey}/categories/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                name = "Bug",
+                displayOrder = 0
+            });
+
+            #endregion
         }
     }
 }

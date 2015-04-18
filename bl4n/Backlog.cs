@@ -971,6 +971,21 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Category
+        /// Deletes Category.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="categoryId">category id to del</param>
+        /// <returns>deletec <see cref="ICategory"/></returns>
+        public ICategory DeleteProjectCategory(string projectKey, long categoryId)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/categories/{1}", projectKey, categoryId));
+            var jss = new JsonSerializerSettings();
+            var res = DeleteApiResult<Category>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

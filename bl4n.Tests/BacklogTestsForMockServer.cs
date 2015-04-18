@@ -1334,6 +1334,23 @@ namespace BL4N.Tests
             Assert.Equal(cat.Name, actual.Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var cat = new Category
+            {
+                Id = new Random().Next(100)
+            };
+
+            var actual = backlog.DeleteProjectCategory("projectKey", cat.Id);
+            Assert.Equal(cat.Id, actual.Id);
+        }
+
         #endregion
     }
 }
