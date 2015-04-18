@@ -912,10 +912,11 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectIssueTypes(projectKey);
             Assert.True(actual.Count >= 1);
-            Assert.Equal(26476, actual[0].ProjectId);
-            Assert.Equal("タスク", actual[0].Name);
-            Assert.Equal("#7ea800", actual[0].Color);
-            Assert.Equal(0, actual[0].DisplayOrder);
+            var taskIssue = actual.First(i => i.DisplayOrder == 0);
+            Assert.Equal(26476, taskIssue.ProjectId);
+            Assert.Equal("タスク", taskIssue.Name);
+            Assert.Equal("#7ea800", taskIssue.Color);
+            Assert.Equal(0, taskIssue.DisplayOrder);
         }
 
         /// <inheritdoc/>
@@ -1010,10 +1011,11 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectCategories(projectKey);
             Assert.True(actual.Count >= 1);
-            // [{"id":54712,"name":"API","displayOrder":2147483646}]
-            Assert.Equal(54712, actual[0].Id);
-            Assert.Equal(2147483646, actual[0].DisplayOrder);
-            Assert.Equal("API", actual[0].Name);
+            // [{"id":61309,"name":"API","displayOrder":2147483646}]
+            var apiCat = actual.OrderBy(p => p.Id).First();
+            Assert.Equal(61309, apiCat.Id);
+            Assert.Equal(2147483646, apiCat.DisplayOrder);
+            Assert.Equal("API", apiCat.Name);
         }
 
         /// <inheritdoc/>
