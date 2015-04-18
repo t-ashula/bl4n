@@ -932,10 +932,44 @@ namespace BL4N.Tests
                 Color = colors[new Random().Next(colors.Length - 1)],
                 Name = string.Format("is.{0}", new Random().Next(2000))
             };
+
             var actual = backlog.AddProjectIssueType(projectKey, issueType);
             Assert.True(actual.Id > 0);
             Assert.Equal(issueType.Color, actual.Color);
             Assert.Equal(issueType.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectIssueTypeTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var colors = new[] { "#e30000", "#990000", "#934981", "#814fbc", "#2779ca", "#007e9a", "#7ea800", "#ff9200", "#ff3265", "#666665" };
+            var issueType = new IssueType
+            {
+                Color = colors[new Random().Next(colors.Length - 1)],
+                Name = string.Format("is.{0}", new Random().Next(2000))
+            };
+            var added = backlog.AddProjectIssueType(projectKey, issueType);
+            Assert.True(added.Id > 0);
+            var change = new IssueType
+            {
+                Id = added.Id,
+                Color = colors[new Random().Next(colors.Length - 1)],
+                Name = string.Format("is.{0}", new Random().Next(2000))
+            };
+
+            var actual = backlog.UpdateProjectIssueType(projectKey, change);
+            Assert.Equal(added.Id, change.Id);
+            Assert.Equal(added.ProjectId, actual.ProjectId);
+            Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
+
+            Assert.Equal(change.Color, actual.Color);
+            Assert.Equal(change.Name, actual.Name);
         }
 
         #endregion

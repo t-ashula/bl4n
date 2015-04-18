@@ -1183,6 +1183,19 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region PATCH /projects/:projectKey/issueTypes/:id
+
+            Patch["/projects/{projectKey}/issueTypes/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                projectId = 1,
+                name = string.IsNullOrEmpty(Request.Form.name) ? "Bug" : Request.Form.name,
+                color = string.IsNullOrEmpty(Request.Form.color) ? "#990000" : Request.Form.color,
+                displayOrder = 0
+            });
+
+            #endregion
         }
     }
 }

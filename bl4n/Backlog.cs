@@ -878,6 +878,33 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Update Issue Type
+        /// Updates information about Issue Type.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="issueType">issue type to change</param>
+        /// <returns>updated <see cref="IIssueType"/></returns>
+        public IIssueType UpdateProjectIssueType(string projectKey, IIssueType issueType)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/issueTypes/{1}", projectKey, issueType.Id));
+            var jss = new JsonSerializerSettings();
+            var kvs = new List<KeyValuePair<string, string>>();
+            if (!string.IsNullOrEmpty(issueType.Name))
+            {
+                kvs.Add(new KeyValuePair<string, string>("name", issueType.Name));
+            }
+
+            if (!string.IsNullOrEmpty(issueType.Color))
+            {
+                kvs.Add(new KeyValuePair<string, string>("color", issueType.Color));
+            }
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<IssueType>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
