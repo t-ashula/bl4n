@@ -702,17 +702,19 @@ namespace BL4N.Tests
     }
 
     /// <summary>
-    /// Nancy の http hander module
+    /// /api/v2/groups routing module
     /// </summary>
-    public class BacklogMockupModule : NancyModule
+    public class BacklogGroupsMockupModule : NancyModule
     {
-        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
-        public BacklogMockupModule()
-            : base("/api/v2")
+        /// <summary>
+        /// /api/v2/groups routing
+        /// </summary>
+        public BacklogGroupsMockupModule()
+            : base("/api/v2/groups")
         {
             #region /groups
 
-            Get["/groups"] = _ => Response.AsJson(new[]
+            Get[""] = _ => Response.AsJson(new[]
             {
                 new
                 {
@@ -734,7 +736,7 @@ namespace BL4N.Tests
 
             #region post /groups
 
-            Post["/groups"] = p =>
+            Post[""] = p =>
             {
                 var req = Request.Form;
                 var group = new
@@ -759,7 +761,7 @@ namespace BL4N.Tests
 
             #region /groups/:groupId
 
-            Get["/groups/{groupId}"] = p => Response.AsJson(new
+            Get["/{groupId}"] = p => Response.AsJson(new
             {
                 id = p.groupId,
                 name = "test",
@@ -778,7 +780,7 @@ namespace BL4N.Tests
 
             #region patch /groups/:groupId
 
-            Patch["/groups/{groupId}"] = p =>
+            Patch["/{groupId}"] = p =>
             {
                 var req = Request.Form;
 
@@ -804,7 +806,7 @@ namespace BL4N.Tests
 
             #region delete /groups/:groupId
 
-            Delete["/groups/{groupId}"] = p => Response.AsJson(new
+            Delete["/{groupId}"] = p => Response.AsJson(new
             {
                 id = p.groupId,
                 name = "test",
@@ -820,7 +822,18 @@ namespace BL4N.Tests
             });
 
             #endregion
+        }
+    }
 
+    /// <summary>
+    /// Nancy の http hander module
+    /// </summary>
+    public class BacklogMockupModule : NancyModule
+    {
+        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
+        public BacklogMockupModule()
+            : base("/api/v2")
+        {
             #region /statuses
 
             Get["/statuses"] = _ => Response.AsJson(new[]
