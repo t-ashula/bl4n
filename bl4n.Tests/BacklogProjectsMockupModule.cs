@@ -454,6 +454,25 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /projects/:projectKey/versions
+
+            Get["/{projectKey}/versions"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 3,
+                    projectId = 1,
+                    name = "wait for release",
+                    description = "",
+                    // startDate = null,
+                    // releaseDueDate = null,
+                    archived = false,
+                    displayOrder = 0
+                }
+            });
+
+            #endregion
         }
     }
 }

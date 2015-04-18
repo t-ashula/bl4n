@@ -1086,6 +1086,34 @@ namespace BL4N.Tests
             Assert.Equal(added.Name, actual.Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectVersionsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectVersions(projectKey);
+            Assert.True(actual.Count >= 1);
+            // [{"id":33856,
+            //   "projectId":26476,
+            //   "name":"1.0.0",
+            //   "description":"initial release version",
+            //   "startDate":"2015-04-01T00:00:00Z",
+            //   "releaseDueDate":"2015-04-30T00:00:00Z",
+            //   "archived":false,"displayOrder":2147483646}]
+            var first = actual.OrderBy(p => p.Id).First();
+            Assert.Equal(33856, first.Id);
+            Assert.Equal(26476, first.ProjectId);
+            Assert.Equal(2147483646, first.DisplayOrder);
+            Assert.Equal("1.0.0", first.Name);
+            Assert.Equal("initial release version", first.Description);
+            Assert.Equal(new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Utc), first.StartDate);
+            Assert.Equal(new DateTime(2015, 4, 30, 0, 0, 0, DateTimeKind.Utc), first.ReleaseDueDate);
+        }
+
         #endregion
     }
 }

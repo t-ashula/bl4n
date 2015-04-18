@@ -207,6 +207,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/categories/:id </summary>
         public abstract void DeleteProjectCategoryTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/versions </summary>
+        public abstract void GetProjectVersionsTest();
+
         #endregion
     }
 }

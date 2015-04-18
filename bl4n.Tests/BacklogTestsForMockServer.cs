@@ -1351,6 +1351,24 @@ namespace BL4N.Tests
             Assert.Equal(cat.Id, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectVersionsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectVersions("projectKey");
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(3, actual[0].Id);
+            Assert.Equal(1, actual[0].ProjectId);
+            Assert.Equal(0, actual[0].DisplayOrder);
+            Assert.Equal(string.Empty, actual[0].Description);
+            Assert.Equal("wait for release", actual[0].Name);
+            Assert.False(actual[0].Archived);
+        }
+
         #endregion
     }
 }

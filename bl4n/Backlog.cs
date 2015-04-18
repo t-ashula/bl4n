@@ -986,6 +986,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Version List
+        /// Returns list of Versions in the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of <see cref="IVersion"/></returns>
+        public IList<IVersion> GetProjectVersions(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/versions", projectKey));
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<Data.Version>>(api, jss);
+            return res.Result.ToList<IVersion>();
+        }
+
         #endregion
     }
 }
