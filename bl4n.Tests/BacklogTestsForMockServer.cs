@@ -1284,6 +1284,21 @@ namespace BL4N.Tests
             Assert.Equal("Bug", actual.Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectCategoriesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            IList<ICategory> actual = backlog.GetProjectCategories("projectKey");
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(12, actual[0].Id);
+            Assert.Equal(0, actual[0].DisplayOrder);
+            Assert.Equal("Development", actual[0].Name);
+        }
+
         #endregion
     }
 }

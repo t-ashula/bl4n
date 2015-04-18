@@ -1219,6 +1219,15 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectKey/categories
+
+            Get["/projects/{projectKey}/categories"] = p => Response.AsJson(new[]
+            {
+                new{id= 12,name= "Development",displayOrder= 0 }
+            });
+
+            #endregion
         }
     }
 }

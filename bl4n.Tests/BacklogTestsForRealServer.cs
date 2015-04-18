@@ -999,6 +999,23 @@ namespace BL4N.Tests
             Assert.Equal(added.Name, actual.Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectCategoriesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectCategories(projectKey);
+            Assert.True(actual.Count >= 1);
+            // [{"id":54712,"name":"API","displayOrder":2147483646}]
+            Assert.Equal(54712, actual[0].Id);
+            Assert.Equal(2147483646, actual[0].DisplayOrder);
+            Assert.Equal("API", actual[0].Name);
+        }
+
         #endregion
     }
 }

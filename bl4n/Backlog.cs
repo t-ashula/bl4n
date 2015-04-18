@@ -923,6 +923,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Category List
+        /// Returns list of Categories in the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of project's <see cref="ICategory"/></returns>
+        public IList<ICategory> GetProjectCategories(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/categories", projectKey));
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<List<Category>>(api, jss);
+            return res.Result.ToList<ICategory>();
+        }
+
         #endregion
     }
 }
