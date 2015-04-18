@@ -905,6 +905,24 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Issue Type
+        /// Deletes Issue Type.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="issueId">delete issueType id</param>
+        /// <param name="substituteIssueTypeId">Substitute Issue Type Id</param>
+        /// <returns>deleted <see cref="IIssueType"/></returns>
+        public IIssueType DeleteProjectIssueType(string projectKey, long issueId, long substituteIssueTypeId)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/issueTypes/{1}", projectKey, issueId));
+            var jss = new JsonSerializerSettings();
+            var kvs = new[] { new KeyValuePair<string, string>("substituteIssueTypeId", substituteIssueTypeId.ToString()) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = DeleteApiResult<IssueType>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

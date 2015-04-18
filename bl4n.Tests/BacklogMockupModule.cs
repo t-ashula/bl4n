@@ -1196,6 +1196,29 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region DELETE /api/v2/projects/:projectIdOrKey/issueTypes/:id
+
+            Delete["/projects/{projectIdOrKey}/issueTypes/{id}"] = p =>
+            {
+                var subPara = Request.Form.substituteIssueTypeId;
+                long subid;
+                if (subPara == null || !long.TryParse(subPara, out subid))
+                {
+                    // error
+                }
+
+                return Response.AsJson(new
+                {
+                    id = p.id,
+                    projectId = 1,
+                    name = "Bug",
+                    color = "#990000",
+                    displayOrder = 0
+                });
+            };
+
+            #endregion
         }
     }
 }

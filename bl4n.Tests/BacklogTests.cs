@@ -192,6 +192,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/issueTypes/:id </summary>
         public abstract void UpdateProjectIssueTypeTest();
 
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/issueTypes/:id </summary>
+        public abstract void DeleteProjectIssueTypeTest();
+
         #endregion
     }
 }
