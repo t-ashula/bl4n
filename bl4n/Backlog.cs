@@ -942,7 +942,7 @@ namespace BL4N
         /// Adds new Category to the project.
         /// </summary>
         /// <param name="projectKey">project key</param>
-        /// <param name="category">category to add (Name: required)</param>
+        /// <param name="category">category to add (required: Name)</param>
         /// <returns>added <see cref="ICategory"/></returns>
         public ICategory AddProjectCategory(string projectKey, ICategory category)
         {
@@ -951,6 +951,23 @@ namespace BL4N
             var hc = new FormUrlEncodedContent(kvs);
             var jss = new JsonSerializerSettings();
             var res = PostApiResult<Category>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Category
+        /// Updates information about Category.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="category">category to update (required: Id, Name)</param>
+        /// <returns></returns>
+        public ICategory UpdateProjectCategory(string projectkey, ICategory category)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/categories/{1}", projectkey, category.Id));
+            var kvs = new[] { new KeyValuePair<string, string>("name", category.Name) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var jss = new JsonSerializerSettings();
+            var res = PatchApiResult<Category>(api, hc, jss);
             return res.Result;
         }
 

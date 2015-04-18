@@ -1034,6 +1034,33 @@ namespace BL4N.Tests
             Assert.Equal(cat.Name, actual.Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var cat = new Category
+            {
+                Name = string.Format("cat.{0}", new Random().Next(2000))
+            };
+
+            var added = backlog.AddProjectCategory(projectKey, cat);
+            Assert.True(added.Id > 0);
+            Assert.Equal(cat.Name, added.Name);
+            var newCat = new Category
+            {
+                Id = added.Id,
+                Name = added.Name + "1"
+            };
+            var actual = backlog.UpdateProjectCategory(projectKey, newCat);
+            Assert.Equal(newCat.Id, actual.Id);
+            Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
+            Assert.Equal(newCat.Name, actual.Name);
+        }
+
         #endregion
     }
 }

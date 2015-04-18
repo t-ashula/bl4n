@@ -201,6 +201,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/projects/:projectIdOrKey/categories </summary>
         public abstract void AddProjectCategoryTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/categories/:id </summary>
+        public abstract void UpdateProjectCategoryTest();
+
         #endregion
     }
 }

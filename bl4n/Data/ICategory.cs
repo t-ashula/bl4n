@@ -23,7 +23,7 @@ namespace BL4N.Data
     internal sealed class Category : ICategory
     {
         [DataMember(Name = "id")]
-        public long Id { get; private set; }
+        public long Id { get; set; }
 
         [DataMember(Name = "name")]
         public string Name { get; set; }

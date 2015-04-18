@@ -1239,6 +1239,17 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region PATCH /projects/:projectKey/categories/:id
+
+            Patch["/projects/{projectKey}/categories/{id}"] = p => Response.AsJson(new
+            {
+                id = 1,
+                name = Request.Form.name,
+                displayOrder = 0
+            });
+
+            #endregion
         }
     }
 }

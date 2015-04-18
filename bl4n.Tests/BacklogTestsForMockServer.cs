@@ -1308,10 +1308,30 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var category = new Category { Name = string.Format("cat.{0}", new Random().Next(100)) };
-            ICategory actual = backlog.AddProjectCategory("projectKey", category);
+            var actual = backlog.AddProjectCategory("projectKey", category);
             Assert.Equal(1, actual.Id);
             Assert.Equal(0, actual.DisplayOrder);
             Assert.Equal(category.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var cat = new Category
+            {
+                Id = 1,
+                Name = string.Format("cat.{0}", new Random().Next(2000))
+            };
+            var actual = backlog.UpdateProjectCategory("projectKey", cat);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(1, actual.Id);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(cat.Name, actual.Name);
         }
 
         #endregion
