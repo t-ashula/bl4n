@@ -337,17 +337,19 @@ namespace BL4N.Tests
     }
 
     /// <summary>
-    /// Nancy の http hander module
+    /// /api/v2/users routing module
     /// </summary>
-    public class BacklogMockupModule : NancyModule
+    public class BacklogUsersMockupModule : NancyModule
     {
-        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
-        public BacklogMockupModule()
-            : base("/api/v2")
+        /// <summary>
+        /// /api/v2/users routing
+        /// </summary>
+        public BacklogUsersMockupModule()
+            : base("/api/v2/users")
         {
             #region /users
 
-            Get["/users"] = _ => Response.AsJson(new[]
+            Get[""] = _ => Response.AsJson(new[]
             {
                 /*[ { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" } ] */
                 new
@@ -365,7 +367,7 @@ namespace BL4N.Tests
 
             #region /users/:userId
 
-            Get["/users/{UserId}"] = p => Response.AsJson(new
+            Get["/{UserId}"] = p => Response.AsJson(new
             {
                 id = (int)p.UserId,
                 userId = "admin",
@@ -379,7 +381,7 @@ namespace BL4N.Tests
 
             #region post /users/
 
-            Post["/users"] = p =>
+            Post[""] = p =>
             {
                 var req = Request.Form;
                 var user = new User
@@ -403,7 +405,7 @@ namespace BL4N.Tests
 
             #region patch /users/:userId
 
-            Patch["/users/{userId}"] = p =>
+            Patch["/{userId}"] = p =>
             {
                 var req = Request.Form;
                 var user = new User
@@ -427,7 +429,7 @@ namespace BL4N.Tests
 
             #region delete /users/:userId
 
-            Delete["/users/{userId}"] = p => Response.AsJson(new
+            Delete["/{userId}"] = p => Response.AsJson(new
             {
                 id = p.userId,
                 userId = "admin",
@@ -441,7 +443,7 @@ namespace BL4N.Tests
 
             #region /users/myself
 
-            Get["/users/myself"] = _ => Response.AsJson(new
+            Get["/myself"] = _ => Response.AsJson(new
             {
                 id = 1,
                 userId = "admin",
@@ -455,7 +457,7 @@ namespace BL4N.Tests
 
             #region /users/:userId/icon
 
-            Get["/users/{userId}/icon"] = p =>
+            Get["/{userId}/icon"] = p =>
             {
                 // Content-Type:application/octet-stream
                 // Content-Disposition:attachment;filename="person_168.gif"
@@ -484,9 +486,9 @@ namespace BL4N.Tests
 
             #endregion
 
-            #region /api/v2/users/:userId/activities
+            #region /users/:userId/activities
 
-            Get["/users/{userId}/activities"] = p => Response.AsJson(new[]
+            Get["/{userId}/activities"] = p => Response.AsJson(new[]
             {
                 new
                 {
@@ -556,7 +558,7 @@ namespace BL4N.Tests
 
             #region /users/:userId/stars
 
-            Get["/users/{userId}/stars"] = p => Response.AsJson(new[]
+            Get["/{userId}/stars"] = p => Response.AsJson(new[]
             {
                 new
                 {
@@ -581,7 +583,7 @@ namespace BL4N.Tests
 
             #region /users/:userId/start/count
 
-            Get["/users/{userId}/stars/count"] = p => Response.AsJson(new { count = 42 });
+            Get["/{userId}/stars/count"] = p => Response.AsJson(new { count = 42 });
 
             #endregion
 
@@ -647,13 +649,13 @@ namespace BL4N.Tests
     ""updated"": ""2014-07-11T02:00:00Z""
 }"
                                    + "]";
-            Get["/users/myself/recentlyViewedIssues"] = _ => Response.AsText(JsonStr);
+            Get["/myself/recentlyViewedIssues"] = _ => Response.AsText(JsonStr);
 
             #endregion
 
             #region /users/myself/recentlyViewedProjects
 
-            Get["/users/myself/recentlyViewedProjects"] = _ => Response.AsJson(new[]
+            Get["/myself/recentlyViewedProjects"] = _ => Response.AsJson(new[]
             {
                 new
                 {
@@ -676,7 +678,7 @@ namespace BL4N.Tests
 
             #region /users/myself/recentlyViewedWikis
 
-            Get["/users/myself/recentlyViewedWikis"] = _ => Response.AsJson(new[]
+            Get["/myself/recentlyViewedWikis"] = _ => Response.AsJson(new[]
             {
                 new
                 {
@@ -696,7 +698,18 @@ namespace BL4N.Tests
             });
 
             #endregion
+        }
+    }
 
+    /// <summary>
+    /// Nancy の http hander module
+    /// </summary>
+    public class BacklogMockupModule : NancyModule
+    {
+        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
+        public BacklogMockupModule()
+            : base("/api/v2")
+        {
             #region /groups
 
             Get["/groups"] = _ => Response.AsJson(new[]
