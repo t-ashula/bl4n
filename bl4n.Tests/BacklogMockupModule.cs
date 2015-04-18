@@ -826,53 +826,19 @@ namespace BL4N.Tests
     }
 
     /// <summary>
-    /// Nancy の http hander module
+    /// /api/v2/projects routing module
     /// </summary>
-    public class BacklogMockupModule : NancyModule
+    public class BacklogProjectsMockupModule : NancyModule
     {
-        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
-        public BacklogMockupModule()
-            : base("/api/v2")
+        /// <summary>
+        /// /api/v2/projects routing
+        /// </summary>
+        public BacklogProjectsMockupModule()
+            : base("/api/v2/projects")
         {
-            #region /statuses
-
-            Get["/statuses"] = _ => Response.AsJson(new[]
-            {
-                new { id = 1, name = "Open" },
-                new { id = 2, name = "In Progress" },
-                new { id = 3, name = "Resolved" },
-                new { id = 4, name = "Closed" }
-            });
-
-            #endregion
-
-            #region /resolutions
-
-            Get["/resolutions"] = _ => Response.AsJson(new[]
-            {
-                new { id = 0, name = "Fixed" },
-                new { id = 1, name = "Won't Fix" },
-                new { id = 2, name = "Invalid" },
-                new { id = 3, name = "Duplication" },
-                new { id = 4, name = "Cannot Reproduce" }
-            });
-
-            #endregion
-
-            #region /priorities
-
-            Get["/priorities"] = _ => Response.AsJson(new[]
-            {
-                new { id = 2, name = "High" },
-                new { id = 3, name = "Normal" },
-                new { id = 4, name = "Low" }
-            });
-
-            #endregion
-
             #region /projects
 
-            Get["/projects"] = _ => Response.AsJson(new[]
+            Get[""] = _ => Response.AsJson(new[]
             {
                 new
                 {
@@ -890,7 +856,7 @@ namespace BL4N.Tests
 
             #region post /projects
 
-            Post["/projects"] = p =>
+            Post[""] = p =>
             {
                 var req = Request.Form;
                 return Response.AsJson(new
@@ -908,7 +874,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey
 
-            Get["/projects/{projectKey}"] = p =>
+            Get["/{projectKey}"] = p =>
             {
                 var key = p.projectKey;
                 long pid;
@@ -934,7 +900,7 @@ namespace BL4N.Tests
 
             #region patch /projects/:projectKey
 
-            Patch["/projects/{projectKey}"] = p =>
+            Patch["/{projectKey}"] = p =>
             {
                 var req = Request.Form;
                 var key = p.projectKey;
@@ -961,7 +927,7 @@ namespace BL4N.Tests
 
             #region delete /projects/:projectKey
 
-            Delete["/projects/{projectKey}"] = p =>
+            Delete["/{projectKey}"] = p =>
             {
                 var key = p.projectKey;
                 long pid;
@@ -987,7 +953,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/image
 
-            Get["/projects/{projectKey}/image"] = p =>
+            Get["/{projectKey}/image"] = p =>
             {
                 // Content-Type:application/octet-stream
                 // Content-Disposition:attachment;filename="logo_mark.png"
@@ -1018,7 +984,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/activities
 
-            Get["/projects/{projectKey}/activities"] = p =>
+            Get["/{projectKey}/activities"] = p =>
             {
                 var key = p.projectKey;
                 long pid;
@@ -1095,7 +1061,7 @@ namespace BL4N.Tests
 
             #region POST /projects/:projectKey/users
 
-            Post["/projects/{projectKey}/users"] = p =>
+            Post["/{projectKey}/users"] = p =>
             {
                 var req = Request.Form;
                 var user = new
@@ -1115,7 +1081,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/users
 
-            Get["/projects/{projectKey}/users"] = p => Response.AsJson(new[]
+            Get["/{projectKey}/users"] = p => Response.AsJson(new[]
             {
                 new
                 {
@@ -1132,7 +1098,7 @@ namespace BL4N.Tests
 
             #region delete /projects/:projectKey/users
 
-            Delete["/projects/{projectKey}/users"] = p =>
+            Delete["/{projectKey}/users"] = p =>
             {
                 var req = Request.Form;
                 var user = new
@@ -1152,7 +1118,7 @@ namespace BL4N.Tests
 
             #region POST /projects/:projectKey/administrators
 
-            Post["/projects/{projectKey}/administrators"] = p =>
+            Post["/{projectKey}/administrators"] = p =>
             {
                 var req = Request.Form;
                 var user = new
@@ -1172,7 +1138,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/administrators
 
-            Get["/projects/{projectKey}/administrators"] = p => Response.AsJson(new[]
+            Get["/{projectKey}/administrators"] = p => Response.AsJson(new[]
             {
                 new
                 {
@@ -1189,7 +1155,7 @@ namespace BL4N.Tests
 
             #region delete /projects/:projectKey/administrators
 
-            Delete["/projects/{projectKey}/administrators"] = p => Response.AsJson(new
+            Delete["/{projectKey}/administrators"] = p => Response.AsJson(new
             {
                 id = Request.Form.userId,
                 userId = "takada",
@@ -1203,7 +1169,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/issueTypes
 
-            Get["/projects/{projectKey}/issueTypes"] = p => Response.AsJson(new[]
+            Get["/{projectKey}/issueTypes"] = p => Response.AsJson(new[]
             {
                 new { id = 1, projectId = 1, name = "Bug", color = "#990000", displayOrder = 0 }
             });
@@ -1212,7 +1178,7 @@ namespace BL4N.Tests
 
             #region POST /projects/:projectKey/issueTypes
 
-            Post["/projects/{projectKey}/issueTypes"] = p => Response.AsJson(new
+            Post["/{projectKey}/issueTypes"] = p => Response.AsJson(new
             {
                 id = 1,
                 projectKey = 1,
@@ -1225,7 +1191,7 @@ namespace BL4N.Tests
 
             #region PATCH /projects/:projectKey/issueTypes/:id
 
-            Patch["/projects/{projectKey}/issueTypes/{id}"] = p => Response.AsJson(new
+            Patch["/{projectKey}/issueTypes/{id}"] = p => Response.AsJson(new
             {
                 id = p.id,
                 projectId = 1,
@@ -1238,7 +1204,7 @@ namespace BL4N.Tests
 
             #region DELETE /api/v2/projects/:projectIdOrKey/issueTypes/:id
 
-            Delete["/projects/{projectIdOrKey}/issueTypes/{id}"] = p =>
+            Delete["/{projectIdOrKey}/issueTypes/{id}"] = p =>
             {
                 var subPara = Request.Form.substituteIssueTypeId;
                 long subid;
@@ -1261,7 +1227,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/categories
 
-            Get["/projects/{projectKey}/categories"] = p => Response.AsJson(new[]
+            Get["/{projectKey}/categories"] = p => Response.AsJson(new[]
             {
                 new { id = 12, name = "Development", displayOrder = 0 }
             });
@@ -1270,7 +1236,7 @@ namespace BL4N.Tests
 
             #region POST /projects/:projectKey/categories
 
-            Post["/projects/{projectKey}/categories"] = p => Response.AsJson(new
+            Post["/{projectKey}/categories"] = p => Response.AsJson(new
             {
                 id = 1,
                 name = Request.Form.name,
@@ -1281,7 +1247,7 @@ namespace BL4N.Tests
 
             #region PATCH /projects/:projectKey/categories/:id
 
-            Patch["/projects/{projectKey}/categories/{id}"] = p => Response.AsJson(new
+            Patch["/{projectKey}/categories/{id}"] = p => Response.AsJson(new
             {
                 id = 1,
                 name = Request.Form.name,
@@ -1292,11 +1258,58 @@ namespace BL4N.Tests
 
             #region delte /projects/:projectKey/categories/:id
 
-            Delete["/projects/{projectIdOrKey}/categories/{id}"] = p => Response.AsJson(new
+            Delete["/{projectIdOrKey}/categories/{id}"] = p => Response.AsJson(new
             {
                 id = p.id,
                 name = "Bug",
                 displayOrder = 0
+            });
+
+            #endregion
+        }
+    }
+
+    /// <summary>
+    /// Nancy の http hander module
+    /// </summary>
+    public class BacklogMockupModule : NancyModule
+    {
+        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
+        public BacklogMockupModule()
+            : base("/api/v2")
+        {
+            #region /statuses
+
+            Get["/statuses"] = _ => Response.AsJson(new[]
+            {
+                new { id = 1, name = "Open" },
+                new { id = 2, name = "In Progress" },
+                new { id = 3, name = "Resolved" },
+                new { id = 4, name = "Closed" }
+            });
+
+            #endregion
+
+            #region /resolutions
+
+            Get["/resolutions"] = _ => Response.AsJson(new[]
+            {
+                new { id = 0, name = "Fixed" },
+                new { id = 1, name = "Won't Fix" },
+                new { id = 2, name = "Invalid" },
+                new { id = 3, name = "Duplication" },
+                new { id = 4, name = "Cannot Reproduce" }
+            });
+
+            #endregion
+
+            #region /priorities
+
+            Get["/priorities"] = _ => Response.AsJson(new[]
+            {
+                new { id = 2, name = "High" },
+                new { id = 3, name = "Normal" },
+                new { id = 4, name = "Low" }
             });
 
             #endregion
