@@ -444,7 +444,7 @@ namespace BL4N.Tests
 
             #endregion
 
-            #region delte /projects/:projectKey/categories/:id
+            #region delete /projects/:projectKey/categories/:id
 
             Delete["/{projectIdOrKey}/categories/{id}"] = p => Response.AsJson(new
             {
