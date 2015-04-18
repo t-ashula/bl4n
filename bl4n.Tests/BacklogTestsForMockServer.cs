@@ -1292,11 +1292,26 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            IList<ICategory> actual = backlog.GetProjectCategories("projectKey");
+            var actual = backlog.GetProjectCategories("projectKey");
             Assert.Equal(1, actual.Count);
             Assert.Equal(12, actual[0].Id);
             Assert.Equal(0, actual[0].DisplayOrder);
             Assert.Equal("Development", actual[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var category = new Category { Name = string.Format("cat.{0}", new Random().Next(100)) };
+            ICategory actual = backlog.AddProjectCategory("projectKey", category);
+            Assert.Equal(1, actual.Id);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(category.Name, actual.Name);
         }
 
         #endregion

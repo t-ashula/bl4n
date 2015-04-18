@@ -1224,7 +1224,18 @@ namespace BL4N.Tests
 
             Get["/projects/{projectKey}/categories"] = p => Response.AsJson(new[]
             {
-                new{id= 12,name= "Development",displayOrder= 0 }
+                new { id = 12, name = "Development", displayOrder = 0 }
+            });
+
+            #endregion
+
+            #region POST /projects/:projectKey/categories
+
+            Post["/projects/{projectKey}/categories"] = p => Response.AsJson(new
+            {
+                id = 1,
+                name = Request.Form.name,
+                displayOrder = 0
             });
 
             #endregion

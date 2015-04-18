@@ -1016,6 +1016,24 @@ namespace BL4N.Tests
             Assert.Equal("API", actual[0].Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var cat = new Category
+            {
+                Name = string.Format("cat.{0}", new Random().Next(2000))
+            };
+
+            var actual = backlog.AddProjectCategory(projectKey, cat);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(cat.Name, actual.Name);
+        }
+
         #endregion
     }
 }

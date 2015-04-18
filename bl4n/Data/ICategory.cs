@@ -26,7 +26,7 @@ namespace BL4N.Data
         public long Id { get; private set; }
 
         [DataMember(Name = "name")]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [DataMember(Name = "displayOrder")]
         public int DisplayOrder { get; private set; }

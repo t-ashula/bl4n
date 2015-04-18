@@ -937,6 +937,23 @@ namespace BL4N
             return res.Result.ToList<ICategory>();
         }
 
+        /// <summary>
+        /// Add Category
+        /// Adds new Category to the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="category">category to add (Name: required)</param>
+        /// <returns>added <see cref="ICategory"/></returns>
+        public ICategory AddProjectCategory(string projectKey, ICategory category)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/categories", projectKey));
+            var kvs = new[] { new KeyValuePair<string, string>("name", category.Name) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var jss = new JsonSerializerSettings();
+            var res = PostApiResult<Category>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
