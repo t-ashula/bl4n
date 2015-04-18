@@ -16,17 +16,19 @@ using Nancy;
 namespace BL4N.Tests
 {
     /// <summary>
-    /// Nancy の http hander module
+    /// /api/v2/space routing module
     /// </summary>
-    public class BacklogMockupModule : NancyModule
+    public class BacklogSpaceMockupModule : NancyModule
     {
-        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
-        public BacklogMockupModule()
-            : base("/api/v2")
+        /// <summary>
+        /// /api/v2/space routing
+        /// </summary>
+        public BacklogSpaceMockupModule()
+            : base("/api/v2/space")
         {
             #region /space
 
-            Get["/space"] = _ => Response.AsJson(new
+            Get[""] = _ => Response.AsJson(new
             {
                 spaceKey = "nulab",
                 name = "Nubal Inc.",
@@ -45,7 +47,7 @@ namespace BL4N.Tests
 
             // TODO: test data file
             /*        */
-            Get["/space/activities"] = _ => Response.AsText(@"["
+            Get["/activities"] = _ => Response.AsText(@"["
                                                             + /* 1, 2, 3, 4 */
                                                             @"{
                     ""id"": 3153,
@@ -234,7 +236,7 @@ namespace BL4N.Tests
 
             #region /space/image
 
-            Get["/space/image"] = _ =>
+            Get["/image"] = _ =>
             {
                 var response = new Response
                 {
@@ -263,7 +265,7 @@ namespace BL4N.Tests
             #region /space/notification
 
             // {"content":"お知らせの追加\":-)\"","updated":"2015-03-26T06:37:37Z"}"
-            Get["/space/notification"] = _ => Response.AsJson(new
+            Get["/notification"] = _ => Response.AsJson(new
             {
                 content = "お知らせの追加\":-)\"",
                 updated = new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Unspecified)
@@ -273,7 +275,7 @@ namespace BL4N.Tests
 
             #region put /space/notification
 
-            Put["/space/notification"] = p =>
+            Put["/notification"] = p =>
             {
                 // var req = this.Bind<NotificationContent>();
                 var req = Request.Form;
@@ -288,7 +290,7 @@ namespace BL4N.Tests
 
             #region /space/diskUsage
 
-            Get["/space/diskUsage"] = _ => Response.AsJson(new
+            Get["/diskUsage"] = _ => Response.AsJson(new
             {
                 capacity = 1073741824,
                 issue = 119511,
@@ -314,7 +316,7 @@ namespace BL4N.Tests
 
             #region post /space/attachment
 
-            Post["/space/attachment"] = _ =>
+            Post["/attachment"] = _ =>
             {
                 var file = Request.Files.FirstOrDefault();
                 // TODO: error response, Key should be "file"
@@ -331,7 +333,18 @@ namespace BL4N.Tests
             };
 
             #endregion
+        }
+    }
 
+    /// <summary>
+    /// Nancy の http hander module
+    /// </summary>
+    public class BacklogMockupModule : NancyModule
+    {
+        /// <summary> <see cref="BacklogMockupModule"/> を初期化します </summary>
+        public BacklogMockupModule()
+            : base("/api/v2")
+        {
             #region /users
 
             Get["/users"] = _ => Response.AsJson(new[]
