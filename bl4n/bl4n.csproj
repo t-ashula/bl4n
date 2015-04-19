@@ -62,6 +62,9 @@
     <Compile Include="Data\Activity\ProjectActivity.cs" />
     <Compile Include="Data\Activity\SVNRepositoryActivity.cs" />
     <Compile Include="Data\Activity\WikiActivity.cs" />
+    <Compile Include="Data\CheckBoxTypeCustomField.cs" />
+    <Compile Include="Data\CustomFieldTypes.cs" />
+    <Compile Include="Data\DateTypeCustomField.cs" />
     <Compile Include="Data\ICategory.cs" />
     <Compile Include="Data\ICustomField.cs" />
     <Compile Include="Data\ICustomFieldItem.cs" />
@@ -104,6 +107,14 @@
     <Compile Include="Data\IVersion.cs" />
     <Compile Include="Data\IWikiPage.cs" />
     <Compile Include="Data\IWikiPageUpdate.cs" />
+    <Compile Include="Data\ListTypeCustomField.cs" />
+    <Compile Include="Data\MultiListTypeCustomField.cs" />
+    <Compile Include="Data\NumberTypeCustomField.cs" />
+    <Compile Include="Data\RadioButtonTypeCustomField.cs" />
+    <Compile Include="Data\SentenceTypeCustomField.cs" />
+    <Compile Include="Data\SingleListTypeCustomeField.cs" />
+    <Compile Include="Data\TextTypeCustomField.cs" />
+    <Compile Include="Data\TypedCustomeField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

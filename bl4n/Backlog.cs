@@ -1132,6 +1132,148 @@ namespace BL4N
             return res.Result.ToList<ICustomField>();
         }
 
+        /// <summary>
+        /// Add Custom Field
+        /// Adds new Custom Field to the project.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="field">custom field</param>
+        /// <returns>created <see cref="ICustomField"/></returns>
+        public ICustomField AddProjectCustomField(string projectkey, TypedCustomeField field)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/customFields", projectkey));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("name", field.Name),
+                new KeyValuePair<string, string>("typeId", ((int)field.TypeId).ToString())
+            };
+
+            if (field.ApplicableIssueTypes != null && field.ApplicableIssueTypes.Length > 0)
+            {
+                kvs.AddRange(field.ApplicableIssueTypes.Select(issueType => new KeyValuePair<string, string>("applicableIssueTypes[]", issueType.ToString())));
+            }
+
+            if (!string.IsNullOrEmpty(field.Description))
+            {
+                kvs.Add(new KeyValuePair<string, string>("description", field.Description));
+            }
+
+            if (field.Required)
+            {
+                kvs.Add(new KeyValuePair<string, string>("required", "true"));
+            }
+
+            switch (field.TypeId)
+            {
+                case CustomFieldTypes.Text:
+                case CustomFieldTypes.Sentence:
+                    break;
+
+                case CustomFieldTypes.Number:
+                    kvs.AddRange(GetCustomFieldParams((NumberTypeCustomField)field));
+                    break;
+
+                case CustomFieldTypes.Date:
+                    kvs.AddRange(GetCustomFieldParams((DateTypeCustomField)field));
+                    break;
+
+                case CustomFieldTypes.SingleList:
+                case CustomFieldTypes.MultipleList:
+                case CustomFieldTypes.Checkbox:
+                case CustomFieldTypes.Radio:
+                    kvs.AddRange(GetCustomFieldParams((ListTypeCustomField)field));
+                    break;
+            }
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<CustomField>(api, hc, jss);
+            return res.Result;
+        }
+
+        private static List<KeyValuePair<string, string>> GetCustomFieldParams(NumberTypeCustomField field)
+        {
+            var opt = new List<KeyValuePair<string, string>>();
+            if (field.MinValue.HasValue)
+            {
+                opt.Add(new KeyValuePair<string, string>("min", string.Format("{0}", field.MinValue.Value)));
+            }
+
+            if (field.MaxValue.HasValue)
+            {
+                opt.Add(new KeyValuePair<string, string>("max", string.Format("{0}", field.MaxValue.Value)));
+            }
+
+            if (field.InitailValue.HasValue)
+            {
+                opt.Add(new KeyValuePair<string, string>("initailValue", string.Format("{0}", field.InitailValue.Value)));
+            }
+
+            if (!string.IsNullOrEmpty(field.Unit))
+            {
+                opt.Add(new KeyValuePair<string, string>("unit", field.Unit));
+            }
+
+            return opt;
+        }
+
+        private static List<KeyValuePair<string, string>> GetCustomFieldParams(DateTypeCustomField field)
+        {
+            var opt = new List<KeyValuePair<string, string>>();
+
+            if (!string.IsNullOrEmpty(field.FirstDate))
+            {
+                opt.Add(new KeyValuePair<string, string>("min", field.FirstDate));
+            }
+
+            if (!string.IsNullOrEmpty(field.LastDate))
+            {
+                opt.Add(new KeyValuePair<string, string>("max", field.LastDate));
+            }
+
+            if (!string.IsNullOrEmpty(field.InitialDate))
+            {
+                opt.Add(new KeyValuePair<string, string>("initialDate", field.InitialDate));
+            }
+
+            if (field.InitailShift.HasValue)
+            {
+                opt.Add(new KeyValuePair<string, string>("initailShift", string.Format("{0}", field.InitailShift.Value)));
+            }
+
+            if (field.InitialValueType.HasValue)
+            {
+                opt.Add(new KeyValuePair<string, string>("initialValueType", string.Format("{0}", field.InitialValueType.Value)));
+            }
+
+            return opt;
+        }
+
+        private static List<KeyValuePair<string, string>> GetCustomFieldParams(ListTypeCustomField field)
+        {
+            var opt = new List<KeyValuePair<string, string>>();
+            if (field.Items != null && field.Items.Any())
+            {
+                opt.AddRange(field.Items.Select(item => new KeyValuePair<string, string>("items[]", item)));
+            }
+
+            if (field.AllowInput.HasValue)
+            {
+                opt.Add(new KeyValuePair<string, string>("allowInput", field.AllowInput.Value ? "true" : "false"));
+            }
+
+            if (field.AllowAddItem.HasValue)
+            {
+                opt.Add(new KeyValuePair<string, string>("allowAddItem", field.AllowAddItem.Value ? "true" : "false"));
+            }
+
+            return opt;
+        }
+
         #endregion
     }
 }

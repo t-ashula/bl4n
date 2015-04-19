@@ -1465,6 +1465,25 @@ namespace BL4N.Tests
             Assert.Equal("Windows 8", actual[0].Items[0].Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCustomFieldsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var applicableIssueTypes = new long[] { 1 };
+            var field = new TextTypeCustomField("fieldName", applicableIssueTypes);
+            var actual = backlog.AddProjectCustomField("projectKey", field);
+            Assert.Equal(2, actual.Id);
+            Assert.Equal(1, actual.TypeId);
+            Assert.Equal(field.Name, actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(field.ApplicableIssueTypes, actual.ApplicableIssueTypes.ToArray());
+        }
+
         #endregion
     }
 }
