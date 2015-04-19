@@ -1515,7 +1515,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             long id = new Random().Next(100);
-            ICustomField actual = backlog.DeleteProjectCustomField("projectKey", id);
+            var actual = backlog.DeleteProjectCustomField("projectKey", id);
 
             Assert.Equal(id, actual.Id);
             Assert.Equal(1, actual.TypeId);
@@ -1523,6 +1523,29 @@ namespace BL4N.Tests
             Assert.Equal(string.Empty, actual.Description);
             Assert.False(actual.Required);
             Assert.Equal(new long[] { 1 }, actual.ApplicableIssueTypes.ToArray());
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCustomFieldListItemTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(100);
+            var actual = backlog.AddProjectCustomFieldListItem("projectKey", id, "fsharp");
+
+            Assert.Equal(id, actual.Id);
+            Assert.Equal(5, actual.TypeId);
+            Assert.Equal("language", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
+            Assert.Equal(1, actual.Items.Count);
+            Assert.Equal(2, actual.Items[0].Id);
+            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
         #endregion

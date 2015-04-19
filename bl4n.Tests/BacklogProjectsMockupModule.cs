@@ -577,6 +577,25 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region POST /projects/:projectKey/customFields/:id/items
+
+            Post["/{projectKey}/customFields/{id}/items"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                typeId = 5,
+                name = "language",
+                description = "",
+                required = false,
+                applicableIssueTypes = new long[0],
+                allowAddItem = true,
+                items = new[]
+                {
+                    new { id = 2, name = Request.Form.name, displayOrder = 1 }
+                }
+            });
+
+            #endregion
         }
     }
 }
