@@ -549,6 +549,20 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region PATCH /projects/:projectKey/customFields
+
+            Patch["/{projectKey}/customFields/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                typeId = 1,
+                name = Request.Form.name,
+                description = string.IsNullOrEmpty(Request.Form.description) ? string.Empty : Request.Form.description,
+                required = string.IsNullOrEmpty(Request.Form.required) ? "false" : Request.Form.required,
+                applicableIssueTypes = new long[] { 1 }
+            });
+
+            #endregion
         }
     }
 }

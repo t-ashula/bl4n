@@ -225,6 +225,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/projects/:projectIdOrKey/customFields </summary>
         public abstract void AddProjectCustomFieldsTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/customFields/:id </summary>
+        public abstract void UpdateCustomFieldTest();
+
         #endregion
     }
 }
