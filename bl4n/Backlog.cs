@@ -1378,6 +1378,29 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Update List Item for List Type Custom Field
+        /// Updates list item for list type custom field.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="fieldId">field id</param>
+        /// <param name="itemId">item id</param>
+        /// <param name="name">name to update</param>
+        /// <returns>updated <see cref="ICustomField"/></returns>
+        public ICustomField UpdateProjectCustomFieldListItem(string projectkey, long fieldId, long itemId, string name)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}/items/{2}", projectkey, fieldId, itemId));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new[] { new KeyValuePair<string, string>("name", name) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<CustomField>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

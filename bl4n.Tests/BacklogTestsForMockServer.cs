@@ -1548,6 +1548,30 @@ namespace BL4N.Tests
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectCustomFieldListItemTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long fieldId = new Random().Next(100);
+            long itemId = new Random().Next(100);
+            var actual = backlog.UpdateProjectCustomFieldListItem("projectKey", fieldId, itemId, "fsharp");
+
+            Assert.Equal(fieldId, actual.Id);
+            Assert.Equal(5, actual.TypeId);
+            Assert.Equal("language", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
+            Assert.Equal(1, actual.Items.Count);
+            Assert.Equal(itemId, actual.Items[0].Id);
+            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal("fsharp", actual.Items[0].Name);
+        }
+
         #endregion
     }
 }
