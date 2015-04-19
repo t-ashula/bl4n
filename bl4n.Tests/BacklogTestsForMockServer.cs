@@ -1506,6 +1506,25 @@ namespace BL4N.Tests
             Assert.Equal(field.ApplicableIssueTypes, actual.ApplicableIssueTypes.ToArray());
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteCustomFieldTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(100);
+            ICustomField actual = backlog.DeleteProjectCustomField("projectKey", id);
+
+            Assert.Equal(id, actual.Id);
+            Assert.Equal(1, actual.TypeId);
+            Assert.Equal("Attribute for Bug", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(new long[] { 1 }, actual.ApplicableIssueTypes.ToArray());
+        }
+
         #endregion
     }
 }

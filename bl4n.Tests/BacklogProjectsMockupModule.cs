@@ -563,6 +563,20 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region DELETE /projects/:projectKey/customFields
+
+            Delete["/{projectKey}/customFields/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                typeId = 1,
+                name = "Attribute for Bug",
+                description = string.Empty,
+                required = false,
+                applicableIssueTypes = new long[] { 1 }
+            });
+
+            #endregion
         }
     }
 }

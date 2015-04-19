@@ -1337,6 +1337,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Custom Field
+        /// Deletes Custom Field.
+        /// </summary>
+        /// <param name="projectkey"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ICustomField DeleteProjectCustomField(string projectkey, long id)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}", projectkey, id));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = DeleteApiResult<CustomField>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
