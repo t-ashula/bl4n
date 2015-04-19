@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    public class DateTypeCustomField : TypedCustomeField
+    public class DateTypeCustomField : TypedCustomField
     {
         public DateTypeCustomField(string fieldname, long[] applicableIssueTypes = null, string description = null, bool required = false,
             string firstDate = null, string lastDate = null, int? initialValueType = null, string initialDate = null, int? initialShift = null)

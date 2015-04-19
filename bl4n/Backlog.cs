@@ -1139,7 +1139,7 @@ namespace BL4N
         /// <param name="projectkey">project key</param>
         /// <param name="field">custom field</param>
         /// <returns>created <see cref="ICustomField"/></returns>
-        public ICustomField AddProjectCustomField(string projectkey, TypedCustomeField field)
+        public ICustomField AddProjectCustomField(string projectkey, TypedCustomField field)
         {
             var api = GetApiUri(string.Format("/projects/{0}/customFields", projectkey));
             var jss = new JsonSerializerSettings
@@ -1282,7 +1282,7 @@ namespace BL4N
         /// <param name="id">custom filed id</param>
         /// <param name="field">field to update</param>
         /// <returns>updated <see cref="ICustomField"/></returns>
-        public ICustomField UpdateProjectCustomField(string projectkey, long id, TypedCustomeField field)
+        public ICustomField UpdateProjectCustomField(string projectkey, long id, TypedCustomField field)
         {
             var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}", projectkey, id));
             var jss = new JsonSerializerSettings

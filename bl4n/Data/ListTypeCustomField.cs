@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    public abstract class ListTypeCustomField : TypedCustomeField
+    public abstract class ListTypeCustomField : TypedCustomField
     {
         protected ListTypeCustomField(string fieldname, long[] applicableIssueTypes = null, string description = null, bool required = false,
             List<string> items = null, bool? allowInput = null, bool? allowAddItem = null)

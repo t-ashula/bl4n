@@ -114,7 +114,7 @@
     <Compile Include="Data\SentenceTypeCustomField.cs" />
     <Compile Include="Data\SingleListTypeCustomeField.cs" />
     <Compile Include="Data\TextTypeCustomField.cs" />
-    <Compile Include="Data\TypedCustomeField.cs" />
+    <Compile Include="Data\TypedCustomField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

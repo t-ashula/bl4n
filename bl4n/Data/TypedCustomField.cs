@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TypedCustomeField.cs">
+// <copyright file="TypedCustomField.cs">
 //   bl4n - Backlog.jp API Client library
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    public abstract class TypedCustomeField
+    public abstract class TypedCustomField
     {
         public abstract CustomFieldTypes TypeId { get; }
 
@@ -22,7 +22,7 @@ namespace BL4N.Data
 
         public bool Required { get; set; }
 
-        protected TypedCustomeField(string fieldname, long[] applicableIssueTypes = null, string description = null, bool required = false)
+        protected TypedCustomField(string fieldname, long[] applicableIssueTypes = null, string description = null, bool required = false)
         {
             Name = fieldname;
             ApplicableIssueTypes = applicableIssueTypes;

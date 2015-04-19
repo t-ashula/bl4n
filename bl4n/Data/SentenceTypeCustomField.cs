@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    public class SentenceTypeCustomField : TypedCustomeField
+    public class SentenceTypeCustomField : TypedCustomField
     {
         public SentenceTypeCustomField(string fieldname, long[] applicableIssueTypes = null, string description = null, bool required = false)
             : base(fieldname, applicableIssueTypes, description, required)

@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    public class NumberTypeCustomField : TypedCustomeField
+    public class NumberTypeCustomField : TypedCustomField
     {
         public NumberTypeCustomField(string fieldname, long[] applicableIssueTypes = null, string description = null, bool required = false,
             double? minValue = null, double? maxValue = null, double? initialValue = null, string unit = null)
