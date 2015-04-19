@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -998,6 +997,43 @@ namespace BL4N
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<Data.Version>>(api, jss);
             return res.Result.ToList<IVersion>();
+        }
+
+        /// <summary>
+        /// Add Version
+        /// Adds new Version to the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="newVersion">version to add</param>
+        /// <returns>added <see cref="IVersion"/></returns>
+        public IVersion AddProjectVersion(string projectKey, IVersion newVersion)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/versions", projectKey));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("name", newVersion.Name) };
+            if (!string.IsNullOrEmpty(newVersion.Description))
+            {
+                kvs.Add(new KeyValuePair<string, string>("description", newVersion.Description));
+            }
+
+            // date string format is 2015-04-25?
+            if (newVersion.StartDate != default(DateTime))
+            {
+                kvs.Add(new KeyValuePair<string, string>("startDate", newVersion.StartDate.Date.ToString("yyyy-MM-dd")));
+            }
+
+            if (newVersion.ReleaseDueDate != default(DateTime))
+            {
+                kvs.Add(new KeyValuePair<string, string>("releaseDueDate", newVersion.ReleaseDueDate.Date.ToString("yyyy-MM-dd")));
+            }
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<Data.Version>(api, hc, jss);
+            return res.Result;
         }
 
         #endregion

@@ -473,6 +473,22 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region POST /projects/:projectKey/versions
+
+            Post["/{projectKey}/versions"] = p => Response.AsJson(new
+            {
+                id = 3,
+                projectId = 1,
+                name = Request.Form.name,
+                description = string.IsNullOrEmpty(Request.Form.description) ? string.Empty : Request.Form.description,
+                startDate = string.IsNullOrEmpty(Request.Form.startDate) ? null : Request.Form.startDate,
+                releaseDueDate = string.IsNullOrEmpty(Request.Form.releaseDueDate) ? null : Request.Form.releaseDueDate,
+                archived = false,
+                displayOrder = 0
+            });
+
+            #endregion
         }
     }
 }

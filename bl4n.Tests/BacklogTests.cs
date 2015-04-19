@@ -210,6 +210,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/versions </summary>
         public abstract void GetProjectVersionsTest();
 
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/versions </summary>
+        public abstract void AddProjectVersionTest();
+
         #endregion
     }
 }

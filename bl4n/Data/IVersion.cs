@@ -39,16 +39,16 @@ namespace BL4N.Data
         public long ProjectId { get; private set; }
 
         [DataMember(Name = "name")]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [DataMember(Name = "description")]
-        public string Description { get; private set; }
+        public string Description { get; set; }
 
         [DataMember(Name = "startDate")]
-        public DateTime StartDate { get; private set; }
+        public DateTime StartDate { get; set; }
 
         [DataMember(Name = "releaseDueDate")]
-        public DateTime ReleaseDueDate { get; private set; }
+        public DateTime ReleaseDueDate { get; set; }
 
         [DataMember(Name = "archived")]
         public bool Archived { get; private set; }
