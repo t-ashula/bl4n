@@ -490,7 +490,7 @@ namespace BL4N.Tests
 
             #endregion
 
-            #region /projects/:projectKey/versions/:id
+            #region PATCH /projects/:projectKey/versions/:id
 
             Patch["/{projectKey}/versions/{id}"] = p => Response.AsJson(new
             {
@@ -501,6 +501,22 @@ namespace BL4N.Tests
                 startDate = string.IsNullOrEmpty(Request.Form.startDate) ? null : DateTime.Parse(Request.Form.startDate),
                 releaseDueDate = string.IsNullOrEmpty(Request.Form.releaseDueDate) ? null : DateTime.Parse(Request.Form.releaseDueDate),
                 archived = string.IsNullOrEmpty(Request.Form.archived) ? "false" : Request.Form.archived,
+                displayOrder = 0
+            });
+
+            #endregion
+
+            #region DELETE  /projects/:projectKey/versions/:id
+
+            Delete["/{projectKey}/versions/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                projectId = 1,
+                name = "wait for release",
+                description = "",
+                // startDate = null,
+                // releaseDueDate = null,
+                archived = false,
                 displayOrder = 0
             });
 

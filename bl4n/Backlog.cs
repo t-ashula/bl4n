@@ -1094,6 +1094,26 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Version
+        /// Deletes Version.
+        /// </summary>
+        /// <param name="projectKey">project key </param>
+        /// <param name="id">version id to delete</param>
+        /// <returns>deleted <see cref="IVersion"/></returns>
+        public IVersion DeleteProjectVersion(string projectKey, long id)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/versions/{1}", projectKey, id));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = DeleteApiResult<Data.Version>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

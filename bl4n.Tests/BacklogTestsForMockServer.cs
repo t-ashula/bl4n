@@ -1419,6 +1419,25 @@ namespace BL4N.Tests
             Assert.False(actual.Archived);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectVersionTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.DeleteProjectVersion("projectKey", 3);
+            Assert.Equal(3, actual.Id);
+            Assert.Equal(1, actual.ProjectId);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.Equal("wait for release", actual.Name);
+            Assert.Equal(new DateTime(), actual.StartDate);
+            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.False(actual.Archived);
+        }
+
         #endregion
     }
 }

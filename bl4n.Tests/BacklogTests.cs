@@ -216,6 +216,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/versions/:id </summary>
         public abstract void UpdateProjectVersionTest();
 
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/versions/:id </summary>
+        public abstract void DeleteProjectVersionTest();
+
         #endregion
     }
 }
