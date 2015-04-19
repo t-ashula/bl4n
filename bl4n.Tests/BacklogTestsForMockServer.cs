@@ -1438,6 +1438,33 @@ namespace BL4N.Tests
             Assert.False(actual.Archived);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectCustomFieldsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectCustomFields("projectKey");
+
+            Assert.Equal(2, actual.Count);
+
+            // + @"""id"": 1, ""typeId"": 6, ""name"": ""custom"", ""description"": """", ""required"": false, ""applicableIssueTypes"": [],""allowAddItem"": false,"
+            // + @"""items"": [ { ""id"": 1, ""name"": ""Windows 8"", ""displayOrder"": 0 }] "
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal(6, actual[0].TypeId);
+            Assert.Equal("custom", actual[0].Name);
+            Assert.Equal(string.Empty, actual[0].Description);
+            Assert.False(actual[0].Required);
+            Assert.Equal(0, actual[0].ApplicableIssueTypes.Count);
+            Assert.False(actual[0].AllowAddItem);
+            Assert.Equal(1, actual[0].Items.Count);
+            Assert.Equal(1, actual[0].Items[0].Id);
+            Assert.Equal(0, actual[0].Items[0].DisplayOrder);
+            Assert.Equal("Windows 8", actual[0].Items[0].Name);
+        }
+
         #endregion
     }
 }

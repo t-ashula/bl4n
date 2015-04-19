@@ -506,7 +506,7 @@ namespace BL4N.Tests
 
             #endregion
 
-            #region DELETE  /projects/:projectKey/versions/:id
+            #region DELETE /projects/:projectKey/versions/:id
 
             Delete["/{projectKey}/versions/{id}"] = p => Response.AsJson(new
             {
@@ -519,6 +519,20 @@ namespace BL4N.Tests
                 archived = false,
                 displayOrder = 0
             });
+
+            #endregion
+
+            #region /projects/:projectKey/customFields
+
+            Get["/{projectKey}/customFields"] = p => Response.AsText(
+                "["
+                + "{"
+                + @"""id"": 1, ""typeId"": 6, ""name"": ""custom"", ""description"": """", ""required"": false, ""applicableIssueTypes"": [],""allowAddItem"": false,"
+                + @"""items"": [ { ""id"": 1, ""name"": ""Windows 8"", ""displayOrder"": 0 }] "
+                + "}, {"
+                + @"""id"": 2, ""typeId"": 1, ""name"": ""Attribute for Bug"", ""description"": """", ""required"": false, ""applicableIssueTypes"": [1] "
+                + "}" +
+                "]");
 
             #endregion
         }

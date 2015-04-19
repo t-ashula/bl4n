@@ -1114,6 +1114,24 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Custom Field List
+        /// Returns list of Custom Fields in the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of <see cref="ICustomField"/></returns>
+        public IList<ICustomField> GetProjectCustomFields(string projectKey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/customFields", projectKey));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<CustomField>>(api, jss);
+            return res.Result.ToList<ICustomField>();
+        }
+
         #endregion
     }
 }

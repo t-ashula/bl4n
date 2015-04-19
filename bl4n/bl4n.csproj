@@ -64,6 +64,7 @@
     <Compile Include="Data\Activity\WikiActivity.cs" />
     <Compile Include="Data\ICategory.cs" />
     <Compile Include="Data\ICustomField.cs" />
+    <Compile Include="Data\ICustomFieldItem.cs" />
     <Compile Include="Data\IGroup.cs" />
     <Compile Include="Data\IIssue.cs" />
     <Compile Include="Data\IIssueType.cs" />
