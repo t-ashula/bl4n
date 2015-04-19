@@ -489,6 +489,22 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /projects/:projectKey/versions/:id
+
+            Patch["/{projectKey}/versions/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                projectId = 1,
+                name = Request.Form.name,
+                description = string.IsNullOrEmpty(Request.Form.description) ? string.Empty : Request.Form.description,
+                startDate = string.IsNullOrEmpty(Request.Form.startDate) ? null : DateTime.Parse(Request.Form.startDate),
+                releaseDueDate = string.IsNullOrEmpty(Request.Form.releaseDueDate) ? null : DateTime.Parse(Request.Form.releaseDueDate),
+                archived = string.IsNullOrEmpty(Request.Form.archived) ? "false" : Request.Form.archived,
+                displayOrder = 0
+            });
+
+            #endregion
         }
     }
 }

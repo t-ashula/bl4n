@@ -33,7 +33,7 @@ namespace BL4N.Data
     internal sealed class Version : IVersion
     {
         [DataMember(Name = "id")]
-        public long Id { get; private set; }
+        public long Id { get; set; }
 
         [DataMember(Name = "projectId")]
         public long ProjectId { get; private set; }
@@ -51,7 +51,7 @@ namespace BL4N.Data
         public DateTime ReleaseDueDate { get; set; }
 
         [DataMember(Name = "archived")]
-        public bool Archived { get; private set; }
+        public bool Archived { get; set; }
 
         [DataMember(Name = "displayOrder")]
         public int DisplayOrder { get; private set; }

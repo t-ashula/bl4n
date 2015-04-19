@@ -1393,6 +1393,32 @@ namespace BL4N.Tests
             Assert.False(actual.Archived);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectVersionTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var newVersion = new Data.Version
+            {
+                Id = 3,
+                Name = string.Format("v.{0}", new Random().Next(10000)),
+                StartDate = DateTime.UtcNow.Date,
+                Description = string.Format("description.{0}", DateTime.Now)
+            };
+            var actual = backlog.UpdateProjectVersion("projectKey", newVersion);
+            Assert.Equal(3, actual.Id);
+            Assert.Equal(1, actual.ProjectId);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(newVersion.Description, actual.Description);
+            Assert.Equal(newVersion.Name, actual.Name);
+            Assert.Equal(newVersion.StartDate.Date, actual.StartDate);
+            Assert.Equal(new DateTime(), newVersion.ReleaseDueDate);
+            Assert.False(actual.Archived);
+        }
+
         #endregion
     }
 }
