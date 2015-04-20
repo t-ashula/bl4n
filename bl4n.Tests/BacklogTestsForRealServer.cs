@@ -737,6 +737,8 @@ namespace BL4N.Tests
             Assert.Equal(projectKey, actual[0].Project.ProjectKey);
         }
 
+        #region project/user
+
         /// <inheritdoc/>
         [Fact]
         public override void AddProjectUserTest()
@@ -809,6 +811,10 @@ namespace BL4N.Tests
 
             backlog.DeleteUser(newUser.Id);
         }
+
+        #endregion
+
+        #region project/admin
 
         /// <inheritdoc/>
         [Fact]
@@ -897,6 +903,10 @@ namespace BL4N.Tests
 
             backlog.DeleteUser(addedUser.Id);
         }
+
+        #endregion
+
+        #region project/issueType
 
         /// <inheritdoc/>
         [Fact]
@@ -1000,6 +1010,10 @@ namespace BL4N.Tests
             Assert.Equal(added.Name, actual.Name);
         }
 
+        #endregion
+
+        #region project/category
+
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectCategoriesTest()
@@ -1085,6 +1099,10 @@ namespace BL4N.Tests
             Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
             Assert.Equal(added.Name, actual.Name);
         }
+
+        #endregion
+
+        #region project/version
 
         /// <inheritdoc/>
         [Fact]
@@ -1197,6 +1215,10 @@ namespace BL4N.Tests
             Assert.Equal(added.Archived, actual.Archived);
         }
 
+        #endregion
+
+        #region project/customField
+
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectCustomFieldsTest()
@@ -1252,6 +1274,41 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
             Assert.True(true, "Free plan does not support custom field"); // TODO:
         }
+
+        #endregion
+
+        #region project/files
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectSharedFiles(projectKey);
+            Assert.True(actual.Count > 0);
+            // [{"id":2585041,"type":"directory","dir":"/","name":"dir1","size":null,
+            //   "createdUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //   "created":"2015-04-20T00:10:21Z",
+            //   "updatedUser":null,
+            //   "updated":"2015-04-20T00:10:21Z"},
+            //  {"id":2314867,"type":"file","dir":"/","name":"0s.jpg","size":14948,
+            //   "createdUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //   "created":"2015-03-26T03:41:39Z",
+            //   "updatedUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //   "updated":"2015-03-26T08:59:26Z"}]
+            Assert.True(actual.All(f => f.Dir == "/"));
+            Assert.Equal("directory", actual[0].Type);
+            Assert.Equal("dir1", actual[0].Name);
+            Assert.Equal(0, actual[0].Size);
+            Assert.Equal("file", actual[1].Type);
+            Assert.Equal("0s.jpg", actual[1].Name);
+        }
+
+        #endregion
 
         #endregion
     }

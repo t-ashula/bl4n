@@ -600,6 +600,8 @@ namespace BL4N
 
         #region Projects API
 
+        #region project/misc
+
         /// <summary>
         /// Get Project List
         /// Returns list of projects.
@@ -744,6 +746,10 @@ namespace BL4N
             return res.Result.ToList<IActivity>();
         }
 
+        #endregion
+
+        #region project/user
+
         /// <summary>
         /// Add Project User
         /// Adds user to list of project members.
@@ -794,6 +800,10 @@ namespace BL4N
             return res.Result;
         }
 
+        #endregion
+
+        #region project/admin
+
         /// <summary>
         /// Add Project Administrator
         /// Adds "Project Administrator" role to user
@@ -841,6 +851,10 @@ namespace BL4N
             var res = DeleteApiResult<User>(api, hc, jss);
             return res.Result;
         }
+
+        #endregion
+
+        #region project/issueType
 
         /// <summary>
         /// Get Issue Type List
@@ -922,6 +936,10 @@ namespace BL4N
             return res.Result;
         }
 
+        #endregion
+
+        #region project/category
+
         /// <summary>
         /// Get Category List
         /// Returns list of Categories in the project.
@@ -984,6 +1002,10 @@ namespace BL4N
             var res = DeleteApiResult<Category>(api, jss);
             return res.Result;
         }
+
+        #endregion
+
+        #region project/version
 
         /// <summary>
         /// Get Version List
@@ -1113,6 +1135,10 @@ namespace BL4N
             var res = DeleteApiResult<Data.Version>(api, jss);
             return res.Result;
         }
+
+        #endregion
+
+        #region project/customfield
 
         /// <summary>
         /// Get Custom Field List
@@ -1421,6 +1447,33 @@ namespace BL4N
             var res = DeleteApiResult<CustomField>(api, jss);
             return res.Result;
         }
+
+        #endregion
+
+        #region project/file
+
+        /// <summary>
+        /// Get List of Shared Files
+        /// Gets list of Shared Files.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="path">path </param>
+        /// <remarks>TODO: more parameters</remarks>
+        /// <returns>list of <see cref="ISharedFile"/> in path</returns>
+        public IList<ISharedFile> GetProjectSharedFiles(string projectkey, string path = "")
+        {
+            var apig = GetApiUri(string.Format("/projects/{0}/files/metadata/{1}", projectkey, path));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = GetApiResult<List<SharedFile>>(apig, jss);
+            return res.Result.ToList<ISharedFile>();
+        }
+
+        #endregion
 
         #endregion
     }

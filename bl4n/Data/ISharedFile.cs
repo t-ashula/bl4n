@@ -27,6 +27,10 @@ namespace BL4N.Data
         IUser CreatedUser { get; }
 
         DateTime Created { get; }
+
+        IUser UpdatedUser { get; }
+
+        DateTime Updated { get; }
     }
 
     /// <summary> shared_file; api / library </summary>
@@ -51,6 +55,7 @@ namespace BL4N.Data
         [DataMember(Name = "createdUser")]
         private User _createdUser;
 
+        [IgnoreDataMember]
         public IUser CreatedUser
         {
             get { return _createdUser; }
@@ -58,5 +63,14 @@ namespace BL4N.Data
 
         [DataMember(Name = "created")]
         public DateTime Created { get; private set; }
+
+        [DataMember(Name = "updateddUser")]
+        private User _updatedUser;
+
+        [IgnoreDataMember]
+        public IUser UpdatedUser { get { return _updatedUser; } }
+
+        [DataMember(Name = "updated")]
+        public DateTime Updated { get; private set; }
     }
 }

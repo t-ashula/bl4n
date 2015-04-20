@@ -240,6 +240,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/customFields/:id/items/:itemId </summary>
         public abstract void DeleteProjectCustomFieldListItemTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/files/metadata/:path </summary>
+        public abstract void GetProjectSharedFilesTest();
+
         #endregion
     }
 }

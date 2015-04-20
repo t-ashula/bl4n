@@ -1102,6 +1102,8 @@ namespace BL4N.Tests
             Assert.Equal(2, activities[0].Type);
         }
 
+        #region project/users
+
         /// <inheritdoc/>
         [Fact]
         public override void AddProjectUserTest()
@@ -1154,6 +1156,10 @@ namespace BL4N.Tests
             Assert.Equal("ja", actual.Lang);
             Assert.Equal("eguchi@nulab.example", actual.MailAddress);
         }
+
+        #endregion
+
+        #region project/admin
 
         /// <inheritdoc/>
         [Fact]
@@ -1208,6 +1214,10 @@ namespace BL4N.Tests
             Assert.Equal("ja", actual.Lang);
             Assert.Equal("takada@nulab.example", actual.MailAddress);
         }
+
+        #endregion
+
+        #region project/issueType
 
         /// <inheritdoc/>
         [Fact]
@@ -1284,6 +1294,10 @@ namespace BL4N.Tests
             Assert.Equal("Bug", actual.Name);
         }
 
+        #endregion
+
+        #region project/category
+
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectCategoriesTest()
@@ -1350,6 +1364,10 @@ namespace BL4N.Tests
             var actual = backlog.DeleteProjectCategory("projectKey", cat.Id);
             Assert.Equal(cat.Id, actual.Id);
         }
+
+        #endregion
+
+        #region project/version
 
         /// <inheritdoc/>
         [Fact]
@@ -1437,6 +1455,10 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(), actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
+
+        #endregion
+
+        #region project/customField
 
         /// <inheritdoc/>
         [Fact]
@@ -1595,6 +1617,55 @@ namespace BL4N.Tests
             Assert.Equal(1, actual.Items[0].DisplayOrder); //
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
+
+        #endregion
+
+        #region project/files
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var dir1 = "dir1";
+            var actual = backlog.GetProjectSharedFiles("projectKey", dir1);
+            Assert.Equal(1, actual.Count);
+            var file = actual[0];
+            var expected = new
+            {
+                id = 825952,
+                type = "file",
+                dir = dir1 + "/",
+                name = "20091130.txt",
+                size = 4836,
+                createdUser = new
+                {
+                    id = 1,
+                    userId = "admin",
+                    name = "admin",
+                    roleType = 1,
+                    lang = "ja",
+                    mailAddress = "eguchi@nulab.example"
+                },
+                created = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc),
+                // "updatedUser": null,
+                updated = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc)
+            };
+            Assert.Equal(expected.id, file.Id);
+            Assert.Equal(expected.type, file.Type);
+            Assert.Equal(expected.dir, file.Dir);
+            Assert.Equal(expected.name, file.Name);
+            Assert.Equal(expected.size, file.Size);
+            Assert.Equal(expected.createdUser.id, file.CreatedUser.Id);
+            Assert.Equal(expected.created, file.Created);
+            Assert.Null(file.UpdatedUser);
+            Assert.Equal(expected.updated, file.Updated);
+        }
+
+        #endregion
 
         #endregion
     }
