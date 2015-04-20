@@ -247,6 +247,20 @@ namespace BL4N.Tests
 
             #endregion
 
+            #region /projects/:projectKey/diskUsage
+
+            Get["/{projectKey}/diskUsage"] = p => Response.AsJson(new
+            {
+                projectId = 1,
+                issue = 11931,
+                wiki = 0,
+                file = 0,
+                subversion = 0,
+                git = 0
+            });
+
+            #endregion
+
             #region POST /projects/:projectKey/users
 
             Post["/{projectKey}/users"] = p =>

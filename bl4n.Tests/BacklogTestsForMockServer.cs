@@ -947,6 +947,8 @@ namespace BL4N.Tests
 
         #region /api/v2/projects
 
+        #region project
+
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectsTest()
@@ -1075,6 +1077,10 @@ namespace BL4N.Tests
             Assert.Equal(false, actual.Archived);
         }
 
+        #endregion
+
+        #region project/misc
+
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectIconTest()
@@ -1102,6 +1108,34 @@ namespace BL4N.Tests
             Assert.Equal(1, activities.Count);
             Assert.Equal(2, activities[0].Type);
         }
+
+        /// inheritdoc/>
+        [Fact]
+        public override void GetProjectDiskUsageTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var expected = new
+            {
+                projectId = 1,
+                issue = 11931,
+                wiki = 0,
+                file = 0,
+                subversion = 0,
+                git = 0
+            };
+            var actual = backlog.GetProjectDiskUsage("projectKey");
+            Assert.Equal(expected.projectId, actual.ProjectId);
+            Assert.Equal(expected.issue, actual.Issue);
+            Assert.Equal(expected.wiki, actual.Wiki);
+            Assert.Equal(expected.file, actual.File);
+            Assert.Equal(expected.subversion, actual.Subversion);
+            Assert.Equal(expected.git, actual.Git);
+        }
+
+        #endregion
 
         #region project/users
 

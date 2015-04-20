@@ -600,7 +600,7 @@ namespace BL4N
 
         #region Projects API
 
-        #region project/misc
+        #region project
 
         /// <summary>
         /// Get Project List
@@ -714,6 +714,10 @@ namespace BL4N
             return res.Result;
         }
 
+        #endregion
+
+        #region project/misc
+
         /// <summary>
         /// Get Project Icon
         /// Downloads project icon.
@@ -744,6 +748,24 @@ namespace BL4N
             };
             var res = GetApiResult<List<Activity>>(api, jss);
             return res.Result.ToList<IActivity>();
+        }
+
+        /// <summary>
+        /// Get Project Disk Usage
+        /// Returns information about project disk usage.
+        /// </summary>
+        /// <param name="projectkey"></param>
+        /// <returns></returns>
+        public IDiskUsageDetail GetProjectDiskUsage(string projectkey)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/diskUsage", projectkey));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<DiskUsageDetail>(api, jss);
+            return res.Result;
         }
 
         #endregion

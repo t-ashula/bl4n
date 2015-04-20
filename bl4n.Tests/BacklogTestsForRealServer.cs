@@ -609,6 +609,8 @@ namespace BL4N.Tests
 
         #region /api/v2/projects
 
+        #region project
+
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectsTest()
@@ -708,6 +710,10 @@ namespace BL4N.Tests
             Assert.True(true, "cant del project on free plan.");
         }
 
+        #endregion
+
+        #region project/misc
+
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectIconTest()
@@ -737,6 +743,21 @@ namespace BL4N.Tests
             Assert.InRange(actual.Count, 1, 20);
             Assert.Equal(projectKey, actual[0].Project.ProjectKey);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectDiskUsageTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectDiskUsage(projectKey);
+            Assert.True(actual.ProjectId > 0);
+            Assert.True(actual.File > 0);
+            Assert.True(actual.Issue > 0);
+        }
+
+        #endregion
 
         #region project/user
 
