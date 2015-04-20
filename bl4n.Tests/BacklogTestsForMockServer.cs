@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using BL4N.Data;
@@ -1663,6 +1664,27 @@ namespace BL4N.Tests
             Assert.Equal(expected.created, file.Created);
             Assert.Null(file.UpdatedUser);
             Assert.Equal(expected.updated, file.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFileTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var id = (long)(new Random().Next());
+            var actual = backlog.GetProjectSharedFile("projectKey", id);
+            Assert.NotNull(actual);
+            Assert.Equal("logo_mark.png", actual.FileName);
+            var logo = Resources.projectIcon;
+            using (var ms = new MemoryStream())
+            {
+                logo.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+                Assert.Equal(ms.GetBuffer(), actual.Content);
+            }
         }
 
         #endregion

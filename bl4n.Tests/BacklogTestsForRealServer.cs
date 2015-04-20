@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -1306,6 +1307,20 @@ namespace BL4N.Tests
             Assert.Equal(0, actual[0].Size);
             Assert.Equal("file", actual[1].Type);
             Assert.Equal("0s.jpg", actual[1].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFileTest()
+        {
+            // Resources.projectIcon => /dir1/26476.png, id=2585042
+            // TODO: verify content
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectSharedFile(projectKey, 2585042); // XXX
+            Assert.NotNull(actual.Content);
+            Assert.Equal("26476.png", actual.FileName);
         }
 
         #endregion

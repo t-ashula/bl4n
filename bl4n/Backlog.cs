@@ -1454,7 +1454,7 @@ namespace BL4N
 
         /// <summary>
         /// Get List of Shared Files
-        /// Gets list of Shared Files.
+        /// Gets list of Shared Files ( meta data only )
         /// </summary>
         /// <param name="projectkey">project key</param>
         /// <param name="path">path </param>
@@ -1471,6 +1471,21 @@ namespace BL4N
 
             var res = GetApiResult<List<SharedFile>>(apig, jss);
             return res.Result.ToList<ISharedFile>();
+        }
+
+        /// <summary>
+        /// Get File
+        /// Downloads the file.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="id">shared file id</param>
+        /// <returns>downloaded <see cref="ISharedFileData"/></returns>
+        public ISharedFileData GetProjectSharedFile(string projectkey, long id)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/files/{1}", projectkey, id));
+            var res = GetApiResultAsFile(api);
+            var file = new SharedFileData(res.Result.Item1, res.Result.Item2);
+            return file;
         }
 
         #endregion

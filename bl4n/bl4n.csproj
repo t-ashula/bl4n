@@ -115,6 +115,7 @@
     <Compile Include="Data\SingleListTypeCustomeField.cs" />
     <Compile Include="Data\TextTypeCustomField.cs" />
     <Compile Include="Data\TypedCustomField.cs" />
+    <Compile Include="Data\ISharedFileData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
