@@ -615,6 +615,25 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region DELETE /projects/:projectKey/customFields/:id/items/:itemId
+
+            Delete["/{projectKey}/customFields/{id}/items/{itemId}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                typeId = 5,
+                name = "language",
+                description = "",
+                required = false,
+                applicableIssueTypes = new long[0],
+                allowAddItem = true,
+                items = new[]
+                {
+                    new { id = p.itemId, name = "fsharp", displayOrder = 1 }
+                }
+            });
+
+            #endregion
         }
     }
 }

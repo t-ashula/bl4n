@@ -1401,6 +1401,27 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete List Item for List Type Custom Field
+        /// Deletes list item for list type custom field.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="fieldId">field id</param>
+        /// <param name="itemId">item id</param>
+        /// <returns>deleted <see cref="ICustomField"/></returns>
+        public ICustomField DeleteProjectCustomFieldListItem(string projectkey, long fieldId, long itemId)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}/items/{2}", projectkey, fieldId, itemId));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = DeleteApiResult<CustomField>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

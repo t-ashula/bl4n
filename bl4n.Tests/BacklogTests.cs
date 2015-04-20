@@ -237,6 +237,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/customFields/:id/items/:itemId </summary>
         public abstract void UpdateProjectCustomFieldListItemTest();
 
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/customFields/:id/items/:itemId </summary>
+        public abstract void DeleteProjectCustomFieldListItemTest();
+
         #endregion
     }
 }

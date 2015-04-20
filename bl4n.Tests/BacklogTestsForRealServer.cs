@@ -1245,6 +1245,14 @@ namespace BL4N.Tests
             Assert.True(true, "Free plan does not support custom field"); // TODO:
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCustomFieldListItemTest()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
         #endregion
     }
 }
