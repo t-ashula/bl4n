@@ -1346,6 +1346,29 @@ namespace BL4N.Tests
 
         #endregion
 
+        #region project/webhook
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHooksTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetProjectWebHooks(projectKey);
+
+            Assert.True(actual.Count > 0);
+            var wh1 = actual.OrderBy(w => w.Id).FirstOrDefault();
+            Assert.NotNull(wh1);
+            Assert.True(wh1.Id > 0);
+            Assert.Equal("wh1", wh1.Name);
+            Assert.False(wh1.AllEvent);
+            Assert.Equal(new long[] { 13 }, wh1.ActivityTypeIds.ToArray()); // 13 : git repository created
+        }
+
+        #endregion
+
         #endregion
     }
 }

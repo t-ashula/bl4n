@@ -1723,6 +1723,43 @@ namespace BL4N.Tests
 
         #endregion
 
+        #region project/webhook
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHooksTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectWebHooks("projectKey");
+            Assert.Equal(1, actual.Count);
+            /*
+                    id = 3,
+                    name = "webhook",
+                    description = "",
+                    hookUrl = "http://nulab.test/",
+                    allEvent = false,
+                    activityTypeIds = new[] { 1, 2, 3, 4, 5 },
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2014-11-30T01:22:21Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2014-11-30T01:22:21Z"*/
+            var hook = actual[0];
+            Assert.Equal(3, hook.Id);
+            Assert.Equal("webhook", hook.Name);
+            Assert.Equal(string.Empty, hook.Description);
+            Assert.False(hook.AllEvent);
+            Assert.Equal(new long[] { 1, 2, 3, 4, 5 }, hook.ActivityTypeIds.ToArray());
+            Assert.Equal(1, hook.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), hook.Created);
+            Assert.Equal(1, hook.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), hook.Updated);
+        }
+
+        #endregion
+
         #endregion
     }
 }

@@ -105,6 +105,7 @@
     <Compile Include="Data\IDiskUsage.cs" />
     <Compile Include="Data\ICounter.cs" />
     <Compile Include="Data\IVersion.cs" />
+    <Compile Include="Data\IWebHook.cs" />
     <Compile Include="Data\IWikiPage.cs" />
     <Compile Include="Data\IWikiPageUpdate.cs" />
     <Compile Include="Data\ListTypeCustomField.cs" />
