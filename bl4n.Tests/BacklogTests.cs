@@ -265,5 +265,12 @@ namespace BL4N.Tests
         public abstract void DeleteProjectWebHookTest();
 
         #endregion
+
+        #region /api/v2/issues
+
+        /// <summary> GET /api/v2/issues </summary>
+        public abstract void GetIssuesTest();
+
+        #endregion
     }
 }

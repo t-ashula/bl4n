@@ -1497,5 +1497,16 @@ namespace BL4N.Tests
         #endregion
 
         #endregion
+
+        #region /api/v2/issues
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssuesTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

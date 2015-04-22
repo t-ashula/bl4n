@@ -1658,5 +1658,28 @@ namespace BL4N
         #endregion
 
         #endregion
+
+        #region Issues API
+
+        /// <summary>
+        /// Get Issue List
+        /// Returns list of issues.
+        /// </summary>
+        /// <param name="projectIds">Project Ids</param>
+        /// <param name="options">search option</param>
+        /// <returns>list of <see cref="IIssue"/></returns>
+        public IList<IIssue> GetIssues(long[] projectIds, IssueSearchOptions options)
+        {
+            var api = GetApiUri("/issues");
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Issue>>(api, jss);
+            return res.Result.ToList<IIssue>();
+        }
+
+        #endregion
     }
 }

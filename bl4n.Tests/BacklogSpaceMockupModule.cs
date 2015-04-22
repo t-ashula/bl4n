@@ -15,6 +15,20 @@ using Nancy;
 namespace BL4N.Tests
 {
     /// <summary>
+    /// /api/v2/issues routeing module
+    /// </summary>
+    public class BacklogIssueMockupModule : NancyModule
+    {
+        /// <summary>
+        /// /api/v2/issues routing
+        /// </summary>
+        public BacklogIssueMockupModule()
+            : base("/api/v2/issues")
+        {
+        }
+    }
+
+    /// <summary>
     /// /api/v2/space routing module
     /// </summary>
     public class BacklogSpaceMockupModule : NancyModule

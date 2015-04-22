@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using BL4N.Tests.Properties;
 using Nancy;
-using Xunit.Sdk;
 
 namespace BL4N.Tests
 {

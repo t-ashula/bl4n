@@ -73,16 +73,16 @@ namespace BL4N.Data
     internal sealed class Issue : IIssue
     {
         [DataMember(Name = "id")]
-        public long Id { get; private set; }
+        public long Id { get; set; }
 
         [DataMember(Name = "projectId")]
-        public long ProjectId { get; private set; }
+        public long ProjectId { get; set; }
 
         [DataMember(Name = "issueKey")]
-        public string IssueKey { get; private set; }
+        public string IssueKey { get; set; }
 
         [DataMember(Name = "keyId")]
-        public long KeyId { get; private set; }
+        public long KeyId { get; set; }
 
         [DataMember(Name = "issueType")]
         private IssueType _issueType;

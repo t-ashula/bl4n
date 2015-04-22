@@ -1883,5 +1883,24 @@ namespace BL4N.Tests
         #endregion
 
         #endregion
+
+        #region /api/v2/issues
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssuesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var options = new IssueSearchOptions();
+            IList<IIssue> actual = backlog.GetIssues(new[] { 1 }, options);
+            Assert.Equal(1, actual.Count);
+            var issue = actual[0];
+            Assert.Equal(1, issue.Id);
+        }
+
+        #endregion
     }
 }
