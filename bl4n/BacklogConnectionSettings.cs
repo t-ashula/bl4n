@@ -17,6 +17,13 @@ namespace BL4N
     [KnownType(typeof(BacklogJPConnectionSettings))]
     public class BacklogConnectionSettings
     {
+        /// <summary> <see cref="BacklogConnectionSettings"/> のインスタンスを初期化します </summary>
+        /// <param name="spaceName">スペース名</param>
+        /// <param name="apiType">認証方式</param>
+        /// <param name="apikey">APIKey</param>
+        /// <param name="hostName">ホスト名</param>
+        /// <param name="port">ポート番号</param>
+        /// <param name="ssl">SSL を使うかどうか</param>
         public BacklogConnectionSettings(string spaceName, APIType apiType, string apikey, string hostName, int port, bool ssl)
         {
             APIType = apiType;
@@ -28,15 +35,18 @@ namespace BL4N
             UseSSL = ssl;
         }
 
+        /// <summary> スペース名を取得します </summary>
         [DataMember]
         public string SpaceName { get; private set; }
 
+        /// <summary> ホスト名を取得します </summary>
         [DataMember]
         public string HostName { get; private set; }
 
         [IgnoreDataMember]
         private string _host;
 
+        /// <summary> ポート番号を含めたホスト名を取得します </summary>
         [IgnoreDataMember]
         public string Host
         {
@@ -53,12 +63,15 @@ namespace BL4N
             }
         }
 
+        /// <summary> ポート番号を取得します </summary>
         [DataMember]
         public int Port { get; private set; }
 
+        /// <summary> SSL を使うかどうかを取得します </summary>
         [DataMember]
         public bool UseSSL { get; private set; }
 
+        /// <summary> APIType を取得します． </summary>
         public APIType APIType { get; private set; }
 
         [DataMember(Name = "APIType")]
@@ -68,6 +81,7 @@ namespace BL4N
             set { APIType = (APIType)Enum.Parse(typeof(APIType), value); }
         }
 
+        /// <summary> APIKey を取得します． </summary>
         [DataMember]
         public string APIKey { get; private set; }
 

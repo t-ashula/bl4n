@@ -1895,7 +1895,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var options = new IssueSearchOptions();
-            IList<IIssue> actual = backlog.GetIssues(new[] { 1 }, options);
+            var actual = backlog.GetIssues(new long[] { 1 }, options);
             Assert.Equal(1, actual.Count);
             var issue = actual[0];
             Assert.Equal(1, issue.Id);

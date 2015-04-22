@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="BacklogConnectionSettingsTests.cs" />
     <Compile Include="BacklogGroupsMockupModule.cs" />
+    <Compile Include="BacklogIssueMockupModule.cs" />
     <Compile Include="BacklogMockServerFixture.cs" />
     <Compile Include="BacklogMockupModule.cs" />
     <Compile Include="BacklogProjectsMockupModule.cs" />

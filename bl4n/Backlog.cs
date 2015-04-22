@@ -132,6 +132,29 @@ namespace BL4N
                 : new Uri(endpoint);
         }
 
+        private Uri GetApiUri(string[] subjects, List<KeyValuePair<string, string>> query = null)
+        {
+            if (query == null)
+            {
+                query = new List<KeyValuePair<string, string>>();
+            }
+
+            if (_settings.APIType == APIType.APIKey)
+            {
+                query.Add(new KeyValuePair<string, string>("apikey", APIKey));
+            }
+
+            var builder = new UriBuilder
+            {
+                Scheme = _settings.UseSSL ? Uri.UriSchemeHttps : Uri.UriSchemeHttp,
+                Host = _settings.HostName,
+                Port = _settings.Port,
+                Path = "/api/v2/" + string.Join("/", subjects),
+                Query = string.Join("&", query.Select(kv => string.Format("{0}={1}", Uri.EscapeUriString(kv.Key), Uri.EscapeUriString(kv.Value))))
+            };
+            return builder.Uri;
+        }
+
         private async Task<Tuple<string, byte[]>> GetApiResultAsFile(Uri uri)
         {
             var ua = new HttpClient();
@@ -1670,7 +1693,11 @@ namespace BL4N
         /// <returns>list of <see cref="IIssue"/></returns>
         public IList<IIssue> GetIssues(long[] projectIds, IssueSearchOptions options)
         {
-            var api = GetApiUri("/issues");
+            var query = new List<KeyValuePair<string, string>>();
+            query.AddRange(projectIds.Select(pid => new KeyValuePair<string, string>("projectIds[]", string.Format("{0}", pid))));
+            query.AddRange(options.ToKeyValues());
+
+            var api = GetApiUri(new[] { "issues" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
