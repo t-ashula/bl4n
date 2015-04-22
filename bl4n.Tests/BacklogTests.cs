@@ -261,6 +261,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/webhooks/:id</summary>
         public abstract void UpdateProjectWebHookTest();
 
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/webhooks/:id </summary>
+        public abstract void DeleteProjectWebHookTest();
+
         #endregion
     }
 }

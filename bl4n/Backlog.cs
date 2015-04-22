@@ -1636,6 +1636,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Webhook
+        /// Deletes webhook.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="hookId">web hook id</param>
+        /// <returns>deleted <see cref="IWebHook"/></returns>
+        public IWebHook DeleteProjectWebHook(string projectkey, long hookId)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/webhooks/{1}", projectkey, hookId));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = DeleteApiResult<WebHook>(api, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

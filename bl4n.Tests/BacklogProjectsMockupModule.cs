@@ -776,6 +776,24 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region DELETE /projects/:projectKey/webhooks/:id
+
+            Delete["/{projectKey}/webhooks/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                name = "webhook",
+                description = "",
+                hookUrl = "http://nulab.test/",
+                allEvent = false,
+                activityTypeIds = new[] { 1, 2, 3, 4, 5 },
+                createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                created = "2014-11-30T01:22:21Z",
+                updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                updated = "2014-11-30T01:22:21Z"
+            });
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

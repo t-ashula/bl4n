@@ -1856,6 +1856,30 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
+            var r = new Random();
+            long hookId = r.Next(100);
+            var actual = backlog.DeleteProjectWebHook("projectKey", hookId);
+            Assert.Equal(hookId, actual.Id);
+            Assert.Equal("webhook", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.Equal("http://nulab.test/", actual.HookUrl);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, actual.ActivityTypeIds.ToArray());
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
+        }
+
         #endregion
 
         #endregion
