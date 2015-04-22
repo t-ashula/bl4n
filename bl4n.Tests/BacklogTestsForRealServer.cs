@@ -1259,7 +1259,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void UpdateCustomFieldTest()
+        public override void UpdateProjectCustomFieldTest()
         {
             SkipIfSettingIsBroken();
             Assert.True(true, "Free plan does not support custom field"); // TODO:
