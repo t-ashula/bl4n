@@ -1534,6 +1534,13 @@ namespace BL4N
             return res.Result.ToList<IWebHook>();
         }
 
+        /// <summary>
+        /// Add Webhook
+        /// Adds new webhook.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="wh">new webhook to add (Required: Name? )</param>
+        /// <returns>added <see cref="IWebHook"/></returns>
         public IWebHook AddProjectWebHook(string projectkey, IWebHook wh)
         {
             var api = GetApiUri(string.Format("/projects/{0}/webhooks", projectkey));
