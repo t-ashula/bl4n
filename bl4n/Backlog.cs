@@ -1516,6 +1516,12 @@ namespace BL4N
 
         #region project/webhook
 
+        /// <summary>
+        /// Get List of Webhooks
+        /// Returns list of webhooks.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <returns>list of <see cref="IWebHook"/></returns>
         public IList<IWebHook> GetProjectWebHooks(string projectkey)
         {
             var api = GetApiUri(string.Format("/projects/{0}/webhooks", projectkey));
