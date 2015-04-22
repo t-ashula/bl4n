@@ -1267,7 +1267,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void DeleteCustomFieldTest()
+        public override void DeleteProjectCustomFieldTest()
         {
             SkipIfSettingIsBroken();
             Assert.True(true, "Free plan does not support custom field"); // TODO:

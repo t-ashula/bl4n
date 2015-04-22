@@ -1567,7 +1567,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void DeleteCustomFieldTest()
+        public override void DeleteProjectCustomFieldTest()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();

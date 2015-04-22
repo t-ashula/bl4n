@@ -232,7 +232,7 @@ namespace BL4N.Tests
         public abstract void UpdateProjectCustomFieldTest();
 
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/customFields/:id </summary>
-        public abstract void DeleteCustomFieldTest();
+        public abstract void DeleteProjectCustomFieldTest();
 
         /// <summary> POST /api/v2/projects/:projectIdOrKey/customFields/:id/items </summary>
         public abstract void AddProjectCustomFieldListItemTest();
