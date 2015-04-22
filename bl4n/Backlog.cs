@@ -1528,6 +1528,42 @@ namespace BL4N
             return res.Result.ToList<IWebHook>();
         }
 
+        public IWebHook AddProjectWebHook(string projectkey, IWebHook wh)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/webhooks", projectkey));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("name", wh.Name) };
+            if (!string.IsNullOrEmpty(wh.Description))
+            {
+                kvs.Add(new KeyValuePair<string, string>("description", wh.Description));
+            }
+
+            if (!string.IsNullOrEmpty(wh.HookUrl))
+            {
+                kvs.Add(new KeyValuePair<string, string>("hookUrl", wh.HookUrl));
+            }
+
+            if (wh.AllEvent)
+            {
+                kvs.Add(new KeyValuePair<string, string>("allEvent", "true"));
+            }
+            else
+            {
+                if (wh.ActivityTypeIds != null)
+                {
+                    kvs.AddRange(wh.ActivityTypeIds.Select(typeId => new KeyValuePair<string, string>("activityTypeIds[]", string.Format("{0}", typeId))));
+                }
+            }
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<WebHook>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

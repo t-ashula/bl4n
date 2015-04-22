@@ -1364,7 +1364,36 @@ namespace BL4N.Tests
             Assert.True(wh1.Id > 0);
             Assert.Equal("wh1", wh1.Name);
             Assert.False(wh1.AllEvent);
-            Assert.Equal(new long[] { 13 }, wh1.ActivityTypeIds.ToArray()); // 13 : git repository created
+            Assert.Equal(new[] { 13 }, wh1.ActivityTypeIds.ToArray()); // 13 : git repository created
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var wh = new WebHook
+            {
+                Name = string.Format("wh.{0}", new Random().Next(1000)),
+                Description = "test",
+                HookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000)),
+                AllEvent = false
+            };
+            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
+            var actual = backlog.AddProjectWebHook(projectKey, wh);
+
+            Assert.True(actual.Id > 0);
+            Assert.Equal(wh.Name, actual.Name);
+            Assert.Equal(wh.Description, actual.Description);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(wh.ActivityTypeIds.ToArray(), actual.ActivityTypeIds.ToArray());
+            Assert.True(actual.CreatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Created.ToUniversalTime().Date);
+            Assert.True(actual.UpdatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Updated.ToUniversalTime().Date);
         }
 
         #endregion

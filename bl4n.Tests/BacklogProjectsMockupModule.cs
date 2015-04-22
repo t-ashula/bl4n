@@ -700,13 +700,37 @@ namespace BL4N.Tests
                     description = "",
                     hookUrl = "http://nulab.test/",
                     allEvent = false,
-                    activityTypeIds = new long[] { 1, 2, 3, 4, 5 },
+                    activityTypeIds = new[] { 1, 2, 3, 4, 5 },
                     createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
                     created = "2014-11-30T01:22:21Z",
                     updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
                     updated = "2014-11-30T01:22:21Z"
                 }
             });
+
+            #endregion
+
+            #region POST /projects/:projectKey/webhooks
+
+            Post["/{projectKey}/webhooks"] = p =>
+            {
+                var req = Request.Form;
+
+                var idReq = req["activityTypeIds[]"];
+                return Response.AsJson(new
+                {
+                    id = 3,
+                    name = req.name,
+                    description = !string.IsNullOrEmpty(req.description) ? req.description : string.Empty,
+                    hookUrl = !string.IsNullOrEmpty(req.hookUrl) ? req.hookUrl : string.Empty,
+                    allEvent = !string.IsNullOrEmpty(req.allEvent) ? req.allEvent : "false",
+                    activityTypeIds = idReq.HasValue ? ((string)idReq).Split(',').Select(int.Parse).ToArray() : new[] { 0 },
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2014-11-30T01:22:21Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2014-11-30T01:22:21Z"
+                });
+            };
 
             #endregion
         }
