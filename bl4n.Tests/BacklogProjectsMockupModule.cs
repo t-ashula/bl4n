@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using BL4N.Tests.Properties;
 using Nancy;
+using Xunit.Sdk;
 
 namespace BL4N.Tests
 {
@@ -749,6 +750,30 @@ namespace BL4N.Tests
                 updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
                 updated = "2014-11-30T01:22:21Z"
             });
+
+            #endregion
+
+            #region PATCH /projects/:projectKey/webhooks/:id
+
+            Patch["/{projectKey}/webhooks/{id}"] = p =>
+            {
+                var req = Request.Form;
+
+                var idReq = req["activityTypeIds[]"];
+                return Response.AsJson(new
+                {
+                    id = p.id,
+                    name = req.name,
+                    description = !string.IsNullOrEmpty(req.description) ? req.description : string.Empty,
+                    hookUrl = !string.IsNullOrEmpty(req.hookUrl) ? req.hookUrl : string.Empty,
+                    allEvent = !string.IsNullOrEmpty(req.allEvent) ? req.allEvent : "false",
+                    activityTypeIds = idReq.HasValue ? ((string)idReq).Split(',').Select(int.Parse).ToArray() : new[] { 0 },
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2014-11-30T01:22:21Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2014-11-30T01:22:21Z"
+                });
+            };
 
             #endregion
         }

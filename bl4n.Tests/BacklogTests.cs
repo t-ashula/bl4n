@@ -258,6 +258,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/webhooks/:id </summary>
         public abstract void GetProjectWebHookTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/webhooks/:id</summary>
+        public abstract void UpdateProjectWebHookTest();
+
         #endregion
     }
 }

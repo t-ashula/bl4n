@@ -1596,6 +1596,46 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Update Webhook
+        /// Updates information about webhook.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
+        /// <param name="wh">webhook to update (Required:Id)</param>
+        /// <returns>updated <see cref="IWebHook"/></returns>
+        public IWebHook UpdateProjectWebHook(string projectkey, IWebHook wh)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/webhooks/{1}", projectkey, wh.Id));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("name", wh.Name),
+                new KeyValuePair<string, string>("description", wh.Description),
+                new KeyValuePair<string, string>("hookUrl", wh.HookUrl)
+            };
+
+            // TODO: clear ActivityTypeIds and/or correct AllEvent?
+            if (wh.AllEvent)
+            {
+                kvs.Add(new KeyValuePair<string, string>("allEvent", "true"));
+            }
+            else
+            {
+                if (wh.ActivityTypeIds != null)
+                {
+                    kvs.AddRange(wh.ActivityTypeIds.Select(typeId => new KeyValuePair<string, string>("activityTypeIds[]", string.Format("{0}", typeId))));
+                }
+            }
+
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<WebHook>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

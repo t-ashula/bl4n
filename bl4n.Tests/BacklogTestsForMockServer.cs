@@ -1824,6 +1824,38 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
+            var r = new Random();
+            var wh = new WebHook
+            {
+                Id = r.Next(100),
+                Name = string.Format("wh.{0}", r.Next(1000)),
+                Description = "test",
+                HookUrl = string.Format("http://example.test/{0}/", r.Next(1000)),
+                AllEvent = false
+            };
+            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
+            var actual = backlog.UpdateProjectWebHook("projectKey", wh);
+
+            Assert.Equal(wh.Id, actual.Id);
+            Assert.Equal(wh.Name, actual.Name);
+            Assert.Equal(wh.Description, actual.Description);
+            Assert.Equal(wh.AllEvent, actual.AllEvent);
+            Assert.Equal(wh.ActivityTypeIds.ToArray(), actual.ActivityTypeIds.ToArray());
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
+        }
+
         #endregion
 
         #endregion

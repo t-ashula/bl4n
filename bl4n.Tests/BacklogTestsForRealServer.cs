@@ -1419,6 +1419,48 @@ namespace BL4N.Tests
             Assert.Equal(new[] { 13 }, actual.ActivityTypeIds.ToArray()); // 13 : git repository created
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var wh = new WebHook
+            {
+                Name = string.Format("wh.{0}", new Random().Next(1000)),
+                Description = "test",
+                HookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000)),
+                AllEvent = false
+            };
+            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
+            var added = backlog.AddProjectWebHook(projectKey, wh);
+
+            var newHook = new WebHook
+            {
+                Id = added.Id,
+                AllEvent = true,
+                Description = added.Description,
+                Name = added.Name
+            };
+
+            var actual = backlog.UpdateProjectWebHook(projectKey, newHook);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(added.Name, actual.Name);
+            Assert.Equal(wh.Description, actual.Description);
+
+            Assert.True(actual.AllEvent);
+
+            // XXX: API Server does not clear ActivityTypeIds when AllEvent has changed to true
+            // Assert.Equal(2, added.ActivityTypeIds.Count);
+
+            Assert.True(actual.CreatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Created.ToUniversalTime().Date);
+            Assert.True(actual.UpdatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Updated.ToUniversalTime().Date);
+        }
+
         #endregion
 
         #endregion
