@@ -6,7 +6,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+
 using System.Collections.Generic;
+
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -1783,6 +1785,39 @@ namespace BL4N.Tests
             Assert.Equal(wh.Description, actual.Description);
             Assert.False(actual.AllEvent);
             Assert.Equal(wh.ActivityTypeIds.ToArray(), actual.ActivityTypeIds.ToArray());
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(10000);
+            var actual = backlog.GetProjectWebHook("projectKey", id);
+            /*
+                    id = 3,
+                    name = "webhook",
+                    description = "",
+                    hookUrl = "http://nulab.test/",
+                    allEvent = false,
+                    activityTypeIds = new[] { 1, 2, 3, 4, 5 },
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2014-11-30T01:22:21Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2014-11-30T01:22:21Z"*/
+            Assert.Equal(id, actual.Id);
+            Assert.Equal("webhook", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.Equal("http://nulab.test/", actual.HookUrl);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, actual.ActivityTypeIds.ToArray());
             Assert.Equal(1, actual.CreatedUser.Id);
             Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
             Assert.Equal(1, actual.UpdatedUser.Id);

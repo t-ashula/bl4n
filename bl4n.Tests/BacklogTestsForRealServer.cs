@@ -1396,6 +1396,29 @@ namespace BL4N.Tests
             Assert.Equal(DateTime.UtcNow.Date, actual.Updated.ToUniversalTime().Date);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var hooks = backlog.GetProjectWebHooks(projectKey);
+
+            Assert.True(hooks.Count > 0);
+            var wh1 = hooks.OrderBy(w => w.Id).FirstOrDefault();
+
+            Assert.NotNull(wh1);
+            Assert.True(wh1.Id > 0);
+
+            var actual = backlog.GetProjectWebHook(projectKey, wh1.Id);
+            Assert.Equal(wh1.Id, actual.Id);
+            Assert.Equal(wh1.Name, actual.Name);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(new[] { 13 }, actual.ActivityTypeIds.ToArray()); // 13 : git repository created
+        }
+
         #endregion
 
         #endregion

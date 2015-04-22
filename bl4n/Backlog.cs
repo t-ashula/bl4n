@@ -1564,6 +1564,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Webhook
+        /// Returns information about webhook.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="id">webhook id</param>
+        /// <returns><see cref="IWebHook"/></returns>
+        public IWebHook GetProjectWebHook(string projectKey, long id)
+        {
+            var api = GetApiUri(string.Format("/projects/{0}/webhooks/{1}", projectKey, id));
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<WebHook>(api, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion
