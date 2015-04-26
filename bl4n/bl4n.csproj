@@ -96,7 +96,7 @@
     <Compile Include="Data\ISpace.cs" />
     <Compile Include="Data\Activity\IssueActivity.cs" />
     <Compile Include="Data\Activity\ActivityContent\ISVNRepositoryActivityContent.cs" />
-    <Compile Include="Data\IssueSearchOptions.cs" />
+    <Compile Include="Data\IssueSearchConditions.cs" />
     <Compile Include="Data\IStar.cs" />
     <Compile Include="Data\IStatus.cs" />
     <Compile Include="Data\ITag.cs" />
@@ -119,6 +119,7 @@
     <Compile Include="Data\TextTypeCustomField.cs" />
     <Compile Include="Data\TypedCustomField.cs" />
     <Compile Include="Data\ISharedFileData.cs" />
+    <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

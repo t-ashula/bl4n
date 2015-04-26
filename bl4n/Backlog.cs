@@ -22,6 +22,8 @@ namespace BL4N
     /// <summary> The backlog. </summary>
     public class Backlog
     {
+        public const string DateFormat = "yyyy-MM-dd";
+
         /// <summary> API タイプを取得します</summary>
         public APIType APIType
         {
@@ -141,7 +143,7 @@ namespace BL4N
 
             if (_settings.APIType == APIType.APIKey)
             {
-                query.Add(new KeyValuePair<string, string>("apikey", APIKey));
+                query.Add(new KeyValuePair<string, string>("apiKey", APIKey));
             }
 
             var builder = new UriBuilder
@@ -1096,12 +1098,12 @@ namespace BL4N
             // date string format is 2015-04-25?
             if (newVersion.StartDate != default(DateTime))
             {
-                kvs.Add(new KeyValuePair<string, string>("startDate", newVersion.StartDate.Date.ToString("yyyy-MM-dd")));
+                kvs.Add(new KeyValuePair<string, string>("startDate", newVersion.StartDate.Date.ToString(DateFormat)));
             }
 
             if (newVersion.ReleaseDueDate != default(DateTime))
             {
-                kvs.Add(new KeyValuePair<string, string>("releaseDueDate", newVersion.ReleaseDueDate.Date.ToString("yyyy-MM-dd")));
+                kvs.Add(new KeyValuePair<string, string>("releaseDueDate", newVersion.ReleaseDueDate.Date.ToString(DateFormat)));
             }
 
             var hc = new FormUrlEncodedContent(kvs);
@@ -1689,13 +1691,13 @@ namespace BL4N
         /// Returns list of issues.
         /// </summary>
         /// <param name="projectIds">Project Ids</param>
-        /// <param name="options">search option</param>
+        /// <param name="conditions">search option</param>
         /// <returns>list of <see cref="IIssue"/></returns>
-        public IList<IIssue> GetIssues(long[] projectIds, IssueSearchOptions options)
+        public IList<IIssue> GetIssues(long[] projectIds, IssueSearchConditions conditions)
         {
             var query = new List<KeyValuePair<string, string>>();
-            query.AddRange(projectIds.Select(pid => new KeyValuePair<string, string>("projectIds[]", string.Format("{0}", pid))));
-            query.AddRange(options.ToKeyValues());
+            query.AddRange(projectIds.ToKeyValuePairs("projectId[]"));
+            query.AddRange(conditions.ToKeyValuePairs());
 
             var api = GetApiUri(new[] { "issues" }, query);
             var jss = new JsonSerializerSettings

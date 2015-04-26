@@ -1894,11 +1894,19 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var options = new IssueSearchOptions();
+            var r = new Random();
+            var options = new IssueSearchConditions();
+            options.AssignerIds.Add(r.Next(2000));
+            options.CreateUserIds.Add(r.Next(1000));
+            options.IssueTypeIds.Add(r.Next(1000));
             var actual = backlog.GetIssues(new long[] { 1 }, options);
             Assert.Equal(1, actual.Count);
             var issue = actual[0];
             Assert.Equal(1, issue.Id);
+            Assert.Equal(1, issue.ProjectId);
+            Assert.Equal(options.IssueTypeIds[0], issue.IssueType.Id);
+            Assert.Equal(options.AssignerIds[0], issue.Assignee.Id);
+            Assert.Equal(options.CreateUserIds[0], issue.CreatedUser.Id);
         }
 
         #endregion

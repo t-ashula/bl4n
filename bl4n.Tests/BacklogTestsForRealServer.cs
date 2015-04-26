@@ -1504,7 +1504,15 @@ namespace BL4N.Tests
         [Fact]
         public override void GetIssuesTest()
         {
-            throw new NotImplementedException();
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var condition = new IssueSearchConditions();
+            var actual = backlog.GetIssues(new[] { projectId }, condition);
+            Assert.True(actual.Count > 0);
+            Assert.Equal(projectId, actual[0].ProjectId);
         }
 
         #endregion
