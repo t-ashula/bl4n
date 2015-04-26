@@ -1909,6 +1909,19 @@ namespace BL4N.Tests
             Assert.Equal(options.CreateUserIds[0], issue.CreatedUser.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssuesCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var conditions = new IssueSearchConditions();
+            var actual = backlog.GetIssuesCount(new long[] { 1 }, conditions);
+            Assert.Equal(42, actual.Count);
+        }
+
         #endregion
     }
 }

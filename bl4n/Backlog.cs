@@ -1709,6 +1709,25 @@ namespace BL4N
             return res.Result.ToList<IIssue>();
         }
 
+        /// <summary>
+        /// Count Issue
+        /// Returns number of issues.
+        /// </summary>
+        /// <param name="projectIds">Project Ids</param>
+        /// <param name="conditions">search condtions</param>
+        /// <returns>issue count as <see cref="ICounter"/></returns>
+        public ICounter GetIssuesCount(long[] projectIds, IssueSearchConditions conditions)
+        {
+            var query = new List<KeyValuePair<string, string>>();
+            query.AddRange(projectIds.ToKeyValuePairs("projectId[]"));
+            query.AddRange(conditions.ToKeyValuePairs());
+
+            var api = GetApiUri(new[] { "issues", "count" }, query);
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

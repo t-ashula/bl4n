@@ -37,6 +37,8 @@ namespace BL4N.Tests
         public BacklogIssueMockupModule()
             : base("/api/v2/issues")
         {
+            #region /api/v2/issues
+
             Get[""] = p =>
             {
                 var pids = ToIds("projectId[]");
@@ -97,6 +99,23 @@ namespace BL4N.Tests
                                        + @"  ""created"":""2013-07-08T10:24:28Z"" } ] "
                                        + "}" + "]");
             };
+
+            #endregion
+
+            #region /api/v2/issues/count
+
+            Get["/count"] = p =>
+            {
+                var pids = ToIds("projectId[]");
+                if (pids.Count == 0)
+                {
+                    // TODO: error handling
+                }
+
+                return Response.AsJson(new { count = 42 });
+            };
+
+            #endregion
         }
     }
 }
