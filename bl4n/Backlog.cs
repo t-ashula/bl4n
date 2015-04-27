@@ -1728,6 +1728,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Add Issue
+        /// Adds new issue.
+        /// </summary>
+        /// <param name="settings">new issue setting</param>
+        /// <returns>created <see cref="IIssue"/></returns>
+        public IIssue AddIssue(NewIssueSettings settings)
+        {
+            var api = GetApiUri(new[] { "issues" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var hc = new FormUrlEncodedContent(settings.ToKeyValuePairs());
+            var res = PostApiResult<Issue>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

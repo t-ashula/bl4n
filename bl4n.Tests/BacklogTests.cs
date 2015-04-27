@@ -274,6 +274,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/count </summary>
         public abstract void GetIssuesCountTest();
 
+        /// <summary> POST /api/v2/issues </summary>
+        public abstract void AddIssueTest();
+
         #endregion
     }
 }

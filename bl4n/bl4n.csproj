@@ -112,6 +112,7 @@
     <Compile Include="Data\IWikiPageUpdate.cs" />
     <Compile Include="Data\ListTypeCustomField.cs" />
     <Compile Include="Data\MultiListTypeCustomField.cs" />
+    <Compile Include="Data\NewIssueSettings.cs" />
     <Compile Include="Data\NumberTypeCustomField.cs" />
     <Compile Include="Data\RadioButtonTypeCustomField.cs" />
     <Compile Include="Data\SentenceTypeCustomField.cs" />

@@ -1922,6 +1922,61 @@ namespace BL4N.Tests
             Assert.Equal(42, actual.Count);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long projectId = r.Next(1000);
+            long issueTypeId = r.Next(1000);
+            long priorytyId = r.Next(1000);
+            var summary = string.Format("summary {0}", r.NextDouble());
+            var startDate = DateTime.Now;
+            var dueDate = startDate.AddDays(r.Next(20));
+            var actualHours = r.Next(1000) / 10.0;
+            var estimatedHours = r.Next(1000) / 10.0;
+            var assignee = r.Next(1000);
+            var parentIssueId = r.Next();
+            var options = new NewIssueSettings(projectId, issueTypeId, priorytyId, summary)
+            {
+                StartDate = startDate,
+                DueDate = dueDate,
+                ActualHours = actualHours,
+                EstimatedHours = estimatedHours,
+                AssigneeId = assignee,
+                Description = string.Format("desc.{0}", r.NextDouble()),
+                ParentIssueId = parentIssueId
+            };
+            options.AttachmentIds.Add(r.Next(100));
+            options.CategoryIds.Add(r.Next(100));
+
+            var actual = backlog.AddIssue(options);
+
+            Assert.Equal(projectId, actual.ProjectId);
+            Assert.Equal(issueTypeId, actual.IssueType.Id);
+            Assert.Equal(priorytyId, actual.Priority.Id);
+            Assert.Equal(summary, actual.Summary);
+            Assert.NotNull(actual.StartDate);
+            Assert.Equal(startDate.ToString(Backlog.DateFormat), ((DateTime)actual.StartDate).ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.DueDate);
+            Assert.Equal(dueDate.ToString(Backlog.DateFormat), ((DateTime)actual.DueDate).ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.ActualHours);
+            Assert.Equal(actualHours, (double)actual.ActualHours); // XXX:
+            Assert.NotNull(actual.EstimatedHours);
+            Assert.Equal(estimatedHours, (double)actual.EstimatedHours); // XXX:
+            Assert.Equal(options.Description, actual.Description);
+            Assert.NotNull(actual.Assignee);
+            Assert.Equal(assignee, actual.Assignee.Id);
+            Assert.Equal(parentIssueId, actual.ParentIssueId);
+            Assert.Equal(1, actual.Attachments.Count);
+            Assert.Equal(options.AttachmentIds[0], actual.Attachments[0].Id);
+            Assert.Equal(options.CategoryIds[0], actual.Categories[0].Id);
+        }
+
         #endregion
     }
 }

@@ -1529,6 +1529,31 @@ namespace BL4N.Tests
             Assert.True(actual.Count > 0);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var issueTypeId = backlog.GetProjectIssueTypes(projectId.ToString())[0].Id;
+            Assert.True(issueTypeId > 0);
+            var priorityId = backlog.GetPriorities()[0].Id;
+            Assert.True(priorityId > 0);
+            var sumary = string.Format("test issue.{0:R}", DateTime.Now);
+            var settings = new NewIssueSettings(projectId, issueTypeId, priorityId, sumary);
+
+            var actual = backlog.AddIssue(settings);
+            Assert.NotNull(actual);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(projectId, actual.ProjectId);
+            Assert.Equal(issueTypeId, actual.IssueType.Id);
+            Assert.Equal(priorityId, actual.Priority.Id);
+            Assert.Equal(sumary, actual.Summary);
+        }
+
         #endregion
     }
 }

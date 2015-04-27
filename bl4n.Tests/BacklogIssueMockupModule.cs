@@ -6,9 +6,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BL4N.Data;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace BL4N.Tests
 {
@@ -116,6 +119,112 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region POST /api/v2/issues
+
+            Post[""] = p =>
+            {
+                dynamic req = Request.Form;
+                var setting = this.Bind<NewIssueSettings>();
+                var keys = req.Keys;
+
+                var summary = setting.Summary;
+                var pryid = setting.PriorityId;
+                var pid = setting.ProjectId;
+                var itid = setting.IssueTypeId; // issueTypeId
+                return Response.AsJson(new
+                {
+                    id = 1,
+                    projectId = pid,
+                    issueKey = "BLG-1",
+                    keyId = 1,
+                    issueType = new
+                    {
+                        id = itid,
+                        projectId = pid,
+                        name = itid == 0 ? "Task" : "Bug",
+                        color = "#7ea800",
+                        displayOrder = 0
+                    },
+                    summary = summary,
+                    description = req["description"],
+                    //// resolutions= null,
+                    priority = new { id = pryid, name = "Normal" },
+                    status = new { id = 1, name = "Open" },
+                    assignee = new
+                    {
+                        id = req["assigneeId"],
+                        userId = "eguchi",
+                        name = "eguchi",
+                        roleType = 2,
+                        //// lang= null,
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    category = new[]
+                    {
+                        new
+                        {
+                            id = RequestUtils.ToIds((string)req["categoryId[]"]).FirstOrDefault(),
+                            name = "API",
+                            displayOrder = 2147483646
+                        }
+                    },
+                    //// versions = new[],
+                    milestone = new[]
+                    {
+                        new
+                        {
+                            id = RequestUtils.ToIds((string)req["milestoneId[]"]).FirstOrDefault(),
+                            projectId = pid,
+                            name = "wait for release",
+                            description = string.Empty,
+                            //// startDate= null,
+                            //// releaseDueDate= null,
+                            archived = false,
+                            displayOrder = 0
+                        }
+                    },
+                    startDate = req["startDate"],
+                    dueDate = req["dueDate"],
+                    estimatedHours = req["estimatedHours"],
+                    actualHours = req["actualHours"],
+                    parentIssueId = req["parentIssueId"],
+                    createdUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2012-07-23T06:10:15Z",
+                    updatedUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    updated = "2012-07-23T06:10:15Z",
+                    //// customFields = new[],
+                    attachments = new[]
+                    {
+                        new
+                        {
+                            id = RequestUtils.ToIds((string)req["attachmentId[]"]).FirstOrDefault(),
+                            name = "IMGP0088.JPG",
+                            size = 85079
+                        }
+                    }
+                    //// sharedFiles= new [],
+                    //// stars= []
+                });
+
+            #endregion
+            };
         }
     }
 }
