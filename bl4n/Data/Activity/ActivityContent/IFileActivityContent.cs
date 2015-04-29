@@ -14,12 +14,16 @@ namespace BL4N.Data
     /// <summary> content for type  8, 9, 10 </summary>
     public interface IFileActivityContent : IActivityContent
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> ディレクトリ名を取得します． </summary>
         string Dir { get; }
 
+        /// <summary> 名前を取得します． </summary>
         string Name { get; }
 
+        /// <summary> ファイルサイズを取得します． </summary>
         long Size { get; }
     }
 

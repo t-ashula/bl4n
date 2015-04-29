@@ -6,7 +6,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BL4N.Data;
@@ -15,14 +14,6 @@ using Nancy.ModelBinding;
 
 namespace BL4N.Tests
 {
-    internal static class RequestUtils
-    {
-        public static IEnumerable<long> ToIds(string req)
-        {
-            return string.IsNullOrEmpty(req) ? new long[] { 0 } : req.Split(',').Select(long.Parse);
-        }
-    }
-
     /// <summary>
     /// /api/v2/issues routeing module
     /// </summary>
@@ -125,13 +116,11 @@ namespace BL4N.Tests
             Post[""] = p =>
             {
                 dynamic req = Request.Form;
-                var setting = this.Bind<NewIssueSettings>();
-                var keys = req.Keys;
 
-                var summary = setting.Summary;
-                var pryid = setting.PriorityId;
-                var pid = setting.ProjectId;
-                var itid = setting.IssueTypeId; // issueTypeId
+                string summary = req.Summary;
+                long pryid = req.PriorityId;
+                long pid = req.ProjectId;
+                long itid = req.IssueTypeId;
                 return Response.AsJson(new
                 {
                     id = 1,

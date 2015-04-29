@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractJsonConverter.cs" />
     <Compile Include="ActivityConverter.cs" />
     <Compile Include="Backlog.cs" />
     <Compile Include="APIType.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Data\ICategory.cs" />
     <Compile Include="Data\ICustomField.cs" />
     <Compile Include="Data\ICustomFieldItem.cs" />
+    <Compile Include="Data\IDiskUsageDetail.cs" />
     <Compile Include="Data\IGroup.cs" />
     <Compile Include="Data\IIssue.cs" />
     <Compile Include="Data\IIssueType.cs" />

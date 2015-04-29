@@ -15,18 +15,25 @@ namespace BL4N.Data
     /// <summary> activity </summary>
     public interface IActivity
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> プロジェクトを取得します． </summary>
         IProject Project { get; }
 
+        /// <summary> 種別を取得します． </summary>
         int Type { get; }
 
+        /// <summary> 更新内容を取得します． </summary>
         IActivityContent Content { get; }
 
+        /// <summary> 通知の一覧を取得します． </summary>
         IList<INotification> Notifications { get; }
 
+        /// <summary> 作成ユーザを取得します． </summary>
         IUser CreatedUser { get; }
 
+        /// <summary> 作成日時を取得します． </summary>
         DateTime Created { get; }
     }
 

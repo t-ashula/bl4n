@@ -6,7 +6,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace BL4N.Data
@@ -14,10 +13,13 @@ namespace BL4N.Data
     /// <summary> bulk update linkage info </summary>
     public interface ILink
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> キー文字列を取得します． </summary>
         long KeyId { get; }
 
+        /// <summary> タイトル文字列を取得します． </summary>
         string Title { get; }
     }
 

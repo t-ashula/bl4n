@@ -10,10 +10,13 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> 解決理由を表します </summary>
     public interface IResolution
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 名称を取得します． </summary>
         string Name { get; }
     }
 

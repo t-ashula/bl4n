@@ -11,11 +11,13 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
-    /// <summary> </summary>
+    /// <summary> グループの更新情報を表します </summary>
     public interface IGroupProjectActivity
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 種別を取得します． </summary>
         int Type { get; }
     }
 

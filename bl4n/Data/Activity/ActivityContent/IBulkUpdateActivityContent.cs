@@ -14,13 +14,16 @@ namespace BL4N.Data
     /// <summary> content for type 14 </summary>
     public interface IBulkUpdateActivityContent : IActivityContent
     {
+        /// <summary> トランザクション ID を取得します． </summary>
         long TxId { get; }
 
-        // comment but no id
+        /// <summary> コメント（IDなし）を取得します． </summary>
         IComment Comment { get; }
 
+        /// <summary> リンクの一覧を取得します． </summary>
         IList<ILink> Link { get; }
 
+        /// <summary> 更新内容の一覧を取得します． </summary>
         IList<IChange> Changes { get; }
     }
 

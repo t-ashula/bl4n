@@ -10,16 +10,22 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> 課題種別を表します </summary>
     public interface IIssueType
     {
+        /// <summary> IDを取得します． </summary>
         long Id { get; }
 
+        /// <summary> プロジェクトIDを取得します． </summary>
         long ProjectId { get; }
 
+        /// <summary> 名称を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 背景色を取得します． </summary>
         string Color { get; }
 
+        /// <summary> 表示順を取得します． </summary>
         int DisplayOrder { get; }
     }
 

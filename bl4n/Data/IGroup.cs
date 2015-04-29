@@ -1,3 +1,10 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IGroup.cs" company="">
+//   bl4n - Backlog.jp API Client library
+//   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,22 +12,31 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> ユーザグループを表します． </summary>
     public interface IGroup
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> グループ名を取得します． </summary>
         string Name { get; }
 
+        /// <summary> グループのメンバーリストを取得します． </summary>
         IList<IUser> Members { get; }
 
-        IUser CreatedUser { get; }
-
+        /// <summary> 表示順を取得します． </summary>
         int DisplayOrder { get; }
 
+        /// <summary> 作成ユーザを取得します． </summary>
+        IUser CreatedUser { get; }
+
+        /// <summary> 作成日時を取得します． </summary>
         DateTime Created { get; }
 
+        /// <summary> 更新ユーザを取得します． </summary>
         IUser UpdatedUser { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
     }
 

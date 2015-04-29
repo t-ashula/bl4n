@@ -10,22 +10,31 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> ヴァージョン情報を表します </summary>
     public interface IVersion
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> プロジェクトID を取得します． </summary>
         long ProjectId { get; }
 
+        /// <summary> 名称を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 説明を取得します． </summary>
         string Description { get; }
 
+        /// <summary> 開始日を取得します． </summary>
         DateTime StartDate { get; }
 
+        /// <summary> 期限日を取得します． </summary>
         DateTime ReleaseDueDate { get; }
 
+        /// <summary> アーカイブ済かどうかを取得します． </summary>
         bool Archived { get; }
 
+        /// <summary> 表示順を取得します． </summary>
         int DisplayOrder { get; }
     }
 

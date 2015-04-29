@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CollectionExtensionsTests.cs">
 //   bl4n - Backlog.jp API Client library
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015
@@ -12,8 +12,10 @@ using Xunit;
 
 namespace BL4N.Tests
 {
+    /// <summary> コレクションの拡張子のテストを表します </summary>
     public class CollectionExtensionsTests
     {
+        /// <summary> ToKeyValuePairs のテスト </summary>
         [Fact]
         public void ToKeyValuePairsTest()
         {

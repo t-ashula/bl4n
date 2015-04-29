@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+ï»¿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="NewIssueSettings.cs">
 //   bl4n - Backlog.jp API Client library
 //   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    /// <summary> ‰Û‘è’Ç‰Á—p‚ÌƒIƒvƒVƒ‡ƒ“‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> èª²é¡Œã®è¿½åŠ ç”¨ã®è¨­å®šå€¤ã‚’è¡¨ã—ã¾ã™ï¼ </summary>
     public class NewIssueSettings
     {
         private readonly List<KeyValuePair<string, string>> _customFieldValues;

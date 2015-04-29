@@ -13,12 +13,16 @@ namespace BL4N.Data
     /// <summary> issue change info </summary>
     public interface IChange
     {
+        /// <summary> 変更されたフィールド名を取得します． </summary>
         string Field { get; }
 
+        /// <summary> 変更後の値を取得します． </summary>
         string NewValue { get; }
 
+        /// <summary> 変更前の値を取得します． </summary>
         string OldValue { get; }
 
+        /// <summary> 種別を取得します． </summary>
         string Type { get; }
     }
 

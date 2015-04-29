@@ -29,6 +29,8 @@ namespace BL4N.Tests
             get { return _fixture.MockServer; }
         }
 
+        /// <summary> <see cref="BacklogTestsForMockServer"/> のインスタンスを初期化します </summary>
+        /// <param name="fixture"> テストフィクスチャ </param>
         public BacklogTestsForMockServer(BacklogMockServerFixture fixture)
             : base(new BacklogConnectionSettings("mock", APIType.APIKey, "dummyapikey", "localhost", 34567, false))
         {
@@ -116,6 +118,7 @@ namespace BL4N.Tests
             // type = 1,2,3,4
             // Assert.InRange(1, 4, activity.Type);
             Assert.Equal(2, activity.Type);
+
             // project = new { id = 92, projectKey = "SUB", name = "サブタスク", chartEnabled = true },
             Assert.Equal(92, activity.Project.Id);
             Assert.Equal("SUB", activity.Project.ProjectKey);
@@ -363,6 +366,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var actual = backlog.GetSpaceNotifiacation();
+
             // {"content":"お知らせの追加\":-)\"","updated":"2015-03-26T06:37:37Z"}
             Assert.Equal("お知らせの追加\":-)\"", actual.Content);
             Assert.Equal(new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Utc), actual.Updated);
@@ -484,6 +488,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+
             // { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" }
             var user = new User
             {
@@ -500,7 +505,7 @@ namespace BL4N.Tests
             Assert.True(actual.Id > 0);
             Assert.Equal(user.UserId, actual.UserId);
             Assert.Equal(user.Name, actual.Name);
-            // Assert.Equal(user.Lang, actual.Lang);
+            //// Assert.Equal(user.Lang, actual.Lang);
             Assert.Equal(user.MailAddress, actual.MailAddress);
             Assert.Equal(user.RoleType, actual.RoleType);
         }
@@ -526,9 +531,9 @@ namespace BL4N.Tests
 
             var actual = backlog.UpdateUser(user, password);
             Assert.True(actual.Id > 0);
-            // Assert.Equal(user.UserId, actual.UserId); // userId does not provide?
+            //// Assert.Equal(user.UserId, actual.UserId); // userId does not provide?
             Assert.Equal(user.Name, actual.Name);
-            // Assert.Equal(user.Lang, actual.Lang);
+            //// Assert.Equal(user.Lang, actual.Lang);
             Assert.Equal(user.MailAddress, actual.MailAddress);
             Assert.Equal(user.RoleType, actual.RoleType);
         }
@@ -934,7 +939,8 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            IList<IPriority> actual = backlog.GetPriorities();
+            var actual = backlog.GetPriorities();
+
             // [ { "id": 2, "name": "High" }, { "id": 3, "name": "Normal" }, { "id": 4, "name": "Low" } ]
             Assert.Equal(3, actual.Count);
             Assert.Equal(2, actual[0].Id);
@@ -1111,7 +1117,7 @@ namespace BL4N.Tests
             Assert.Equal(2, activities[0].Type);
         }
 
-        /// inheritdoc/>
+        /// <inheritdoc/>
         [Fact]
         public override void GetProjectDiskUsageTest()
         {
@@ -1603,7 +1609,7 @@ namespace BL4N.Tests
             Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
             Assert.Equal(1, actual.Items.Count);
             Assert.Equal(2, actual.Items[0].Id);
-            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
@@ -1627,7 +1633,7 @@ namespace BL4N.Tests
             Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
             Assert.Equal(1, actual.Items.Count);
             Assert.Equal(itemId, actual.Items[0].Id);
-            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
@@ -1651,7 +1657,7 @@ namespace BL4N.Tests
             Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
             Assert.Equal(1, actual.Items.Count);
             Assert.Equal(itemId, actual.Items[0].Id);
-            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
@@ -1688,7 +1694,7 @@ namespace BL4N.Tests
                     mailAddress = "eguchi@nulab.example"
                 },
                 created = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc),
-                // "updatedUser": null,
+                //// "updatedUser": null,
                 updated = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc)
             };
             Assert.Equal(expected.id, file.Id);
@@ -1710,7 +1716,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var id = (long)(new Random().Next());
+            long id = new Random().Next();
             var actual = backlog.GetProjectSharedFile("projectKey", id);
             Assert.NotNull(actual);
             Assert.Equal("logo_mark.png", actual.FileName);

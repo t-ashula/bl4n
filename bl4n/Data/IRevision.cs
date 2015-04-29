@@ -14,8 +14,10 @@ namespace BL4N.Data
     /// <summary> revision info (git) </summary>
     public interface IRevision
     {
+        /// <summary> リビジョン文字列を取得します． </summary>
         string Rev { get; }
 
+        /// <summary> コミットメッセージを取得します． </summary>
         string Comment { get; }
     }
 

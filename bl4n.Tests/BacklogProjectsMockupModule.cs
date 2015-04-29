@@ -143,8 +143,8 @@ namespace BL4N.Tests
 
             Get["/{projectKey}/image"] = p =>
             {
-                // Content-Type:application/octet-stream
-                // Content-Disposition:attachment;filename="logo_mark.png"
+                //// Content-Type:application/octet-stream
+                //// Content-Disposition:attachment;filename="logo_mark.png"
 
                 var response = new Response
                 {
@@ -479,8 +479,8 @@ namespace BL4N.Tests
                     projectId = 1,
                     name = "wait for release",
                     description = "",
-                    // startDate = null,
-                    // releaseDueDate = null,
+                    //// startDate = null,
+                    //// releaseDueDate = null,
                     archived = false,
                     displayOrder = 0
                 }
@@ -528,8 +528,8 @@ namespace BL4N.Tests
                 projectId = 1,
                 name = "wait for release",
                 description = "",
-                // startDate = null,
-                // releaseDueDate = null,
+                //// startDate = null,
+                //// releaseDueDate = null,
                 archived = false,
                 displayOrder = 0
             });
@@ -651,7 +651,7 @@ namespace BL4N.Tests
 
             #region /projects/:projectIdOrKey/files/metadata/:path
 
-            // path –³‚¢‚Æ Get["/{path}"] ‚É‚Í“ü‚ç‚È‚¢?
+            // root ã«å¯¾ã—ã¦æ‰±ãˆãªã„ã®ã§
             Get["/{projectKey}/files/metadata/"] = p => GetFilesResponse(string.Empty);
 
             Get["/{projectKey}/files/metadata/{path}"] = p => GetFilesResponse(p.path);
@@ -662,8 +662,8 @@ namespace BL4N.Tests
 
             Get["/{projectKey}/files/{id}"] = p =>
             {
-                // Content-Type:application/octet-stream
-                // Content-Disposition:attachment;filename="logo_mark.png"
+                //// Content-Type:application/octet-stream
+                //// Content-Disposition:attachment;filename="logo_mark.png"
 
                 var response = new Response
                 {
@@ -807,7 +807,7 @@ namespace BL4N.Tests
                         id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example"
                     },
                     created = "2009-11-30T01:22:21Z",
-                    // "updatedUser": null,
+                    //// "updatedUser": null,
                     updated = "2009-11-30T01:22:21Z"
                 }
             });

@@ -14,8 +14,10 @@ namespace BL4N.Data
     /// <summary> content for type 11 </summary>
     public interface ISVNRepositoryActivityContent : IActivityContent
     {
+        /// <summary> リビジョン番号を取得します． </summary>
         long Rev { get; }
 
+        /// <summary> コミットのコメントを取得します． </summary>
         string Comment { get; }
     }
 

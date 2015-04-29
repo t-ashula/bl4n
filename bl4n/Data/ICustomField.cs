@@ -12,22 +12,31 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> カスタムフィールドを表します </summary>
     public interface ICustomField
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> フィールドの種別を取得します． </summary>
         long TypeId { get; }
 
+        /// <summary> フィールド名を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 説明を取得します． </summary>
         string Description { get; }
 
+        /// <summary> 必須かどうかを取得します． </summary>
         bool Required { get; }
 
+        /// <summary> 適用可能な課題種別のリストを取得します． </summary>
         IList<long> ApplicableIssueTypes { get; }
 
+        /// <summary> 追加可能かどうかを取得します． </summary>
         bool AllowAddItem { get; }
 
+        /// <summary> カスタムフィールドの項目のリストを取得します． </summary>
         IList<ICustomFieldItem> Items { get; }
     }
 

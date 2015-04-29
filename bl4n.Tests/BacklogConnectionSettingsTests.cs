@@ -13,12 +13,14 @@ using Xunit;
 
 namespace BL4N.Tests
 {
+    /// <summary> 接続設定に関するテストを表します </summary>
     public class BacklogConnectionSettingsTests
     {
         private const string TestSettings = @"{""APIKey"":""abcdefghijklmn"",""APIType"":""APIKey"",""HostName"":""localhost"",""Port"":34567,""SpaceName"":""example"",""UseSSL"":false}";
 
         private const string SettingPath = "test.json";
 
+        /// <summary> <see cref="BacklogConnectionSettingsTests"/> のインスタンスを初期化します． </summary>
         public BacklogConnectionSettingsTests()
         {
             if (File.Exists(SettingPath))
@@ -34,7 +36,7 @@ namespace BL4N.Tests
             }
         }
 
-        /// <summary> </summary>
+        /// <summary> ディスクからの読み込みのテスト </summary>
         [Fact]
         public void Load_Path_Test()
         {
@@ -50,7 +52,7 @@ namespace BL4N.Tests
             Assert.Equal("abcdefghijklmn", saved.APIKey);
         }
 
-        /// <summary> </summary>
+        /// <summary> ストリームからの読み込みのテスト </summary>
         [Fact]
         public void Load_Stream_Test()
         {
@@ -67,6 +69,7 @@ namespace BL4N.Tests
             }
         }
 
+        /// <summary> Host の取得のテスト </summary>
         [Fact]
         public void HostTest()
         {
@@ -82,6 +85,7 @@ namespace BL4N.Tests
             }
         }
 
+        /// <summary> ストリームへの書き出しのテスト </summary>
         [Fact]
         public void Save_Stream_Test()
         {
@@ -102,6 +106,7 @@ namespace BL4N.Tests
             }
         }
 
+        /// <summary> ディスクへの保存のテスト </summary>
         [Fact]
         public void Save_Path_Test()
         {

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BacklogConnectionSettings.cs">
 // bl4n - Backlog.jp API Client library
 // this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -13,6 +13,7 @@ using System.Runtime.Serialization.Json;
 
 namespace BL4N
 {
+    /// <summary> backlog( .jp / tools.com ) の接続設定を表します </summary>
     [DataContract]
     [KnownType(typeof(BacklogJPConnectionSettings))]
     public class BacklogConnectionSettings

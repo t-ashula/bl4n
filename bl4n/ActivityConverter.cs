@@ -8,21 +8,22 @@
 using System;
 using System.Linq;
 using BL4N.Data;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace BL4N
 {
+    /// <summary> <see cref="Activity"/> へのコンバータを表します </summary>
     internal class ActivityConverter : AbstractJsonConverter<Activity>
     {
-        protected override Activity Create(Type objectType, JObject jObject)
+        /// <inheritdoc/>
+        protected override Activity Create(Type objectType, JObject jobj)
         {
-            if (!FieldExists(jObject, "type", JTokenType.Integer))
+            if (!FieldExists(jobj, "type", JTokenType.Integer))
             {
                 throw new InvalidOperationException();
             }
 
-            var activityType = jObject["type"].Value<int>();
+            var activityType = jobj["type"].Value<int>();
 
             // XXX: use enum?
             switch (activityType)
@@ -62,35 +63,6 @@ namespace BL4N
             }
 
             throw new InvalidOperationException();
-        }
-    }
-
-    internal abstract class AbstractJsonConverter<T> : JsonConverter
-    {
-        protected abstract T Create(Type objectType, JObject jObject);
-
-        public override bool CanConvert(Type objectType)
-        {
-            return typeof(T).IsAssignableFrom(objectType);
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            var jObject = JObject.Load(reader);
-            var target = Create(objectType, jObject);
-            serializer.Populate(jObject.CreateReader(), target);
-            return target;
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected static bool FieldExists(JObject jObject, string name, JTokenType type)
-        {
-            JToken token;
-            return jObject.TryGetValue(name, out token) && token.Type == type;
         }
     }
 }

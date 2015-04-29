@@ -10,10 +10,13 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> スペースのお知らせを表します </summary>
     public interface ISpaceNotification
     {
+        /// <summary> お知らせ文字列を取得します． </summary>
         string Content { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
     }
 

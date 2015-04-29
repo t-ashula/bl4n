@@ -14,22 +14,31 @@ namespace BL4N.Data
     /// <summary> shared_files; library / user app </summary>
     public interface ISharedFile
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 種類を取得します． </summary>
         string Type { get; }
 
+        /// <summary> ファイル名を取得します． </summary>
         string Name { get; }
 
+        /// <summary> ディレクトリ名を取得します． </summary>
         string Dir { get; }
 
+        /// <summary> ファイルサイズを取得します． </summary>
         long Size { get; }
 
+        /// <summary> 作成ユーザを取得します． </summary>
         IUser CreatedUser { get; }
 
+        /// <summary> 作成日時を取得します． </summary>
         DateTime Created { get; }
 
+        /// <summary> 更新ユーザを取得します． </summary>
         IUser UpdatedUser { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
     }
 
@@ -68,7 +77,10 @@ namespace BL4N.Data
         private User _updatedUser;
 
         [IgnoreDataMember]
-        public IUser UpdatedUser { get { return _updatedUser; } }
+        public IUser UpdatedUser
+        {
+            get { return _updatedUser; }
+        }
 
         [DataMember(Name = "updated")]
         public DateTime Updated { get; private set; }

@@ -10,12 +10,16 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> カスタムフィールドの項目を表します． </summary>
     public interface ICustomFieldItem
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 名前を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 表示順を取得します． </summary>
         int DisplayOrder { get; }
     }
 

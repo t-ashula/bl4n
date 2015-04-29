@@ -12,22 +12,31 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> 課題に関するアクティビティを表します． </summary>
     public interface IIssueActivityContent : IActivityContent
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> KeyId を取得します． </summary>
         long KeyId { get; }
 
+        /// <summary> サマリー を取得します． </summary>
         string Sumary { get; }
 
+        /// <summary> 説明文字列 を取得します． </summary>
         string Description { get; }
 
+        /// <summary> コメント を取得します． </summary>
         IComment Comment { get; }
 
+        /// <summary> 差分情報のリスト を取得します． </summary>
         IList<IChange> Changes { get; }
 
+        /// <summary> 添付ファイルのリスト を取得します． </summary>
         IList<IAttachment> Attachments { get; }
 
+        /// <summary> リンクされた共有ファイルのリストを取得します． </summary>
         IList<ISharedFile> SharedFiles { get; }
     }
 

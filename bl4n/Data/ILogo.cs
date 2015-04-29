@@ -12,10 +12,13 @@ using System.Linq;
 
 namespace BL4N.Data
 {
+    /// <summary> ロゴ（画像）を表します </summary>
     public interface ILogo
     {
+        /// <summary> ファイル名を取得します． </summary>
         string FileName { get; }
 
+        /// <summary> ロゴ画像を取得します． </summary>
         Image Content { get; }
     }
 

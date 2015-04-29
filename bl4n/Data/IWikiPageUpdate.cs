@@ -10,10 +10,13 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> Wiki ページの更新情報を表します </summary>
     public interface IWikiPageUpdate
     {
+        /// <summary> Wiki ページを取得します． </summary>
         IWikiPage WikiPage { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
     }
 

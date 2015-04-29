@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Backlog.cs">
 //   bl4n - Backlog.jp API Client library
 //   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -22,6 +22,7 @@ namespace BL4N
     /// <summary> The backlog. </summary>
     public class Backlog
     {
+        /// <summary> 日付のフォーマット文字列を表します． </summary>
         public const string DateFormat = "yyyy-MM-dd";
 
         /// <summary> API タイプを取得します</summary>
@@ -62,7 +63,7 @@ namespace BL4N
             _settings = settings;
         }
 
-        public async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
+        private async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
         {
             // TODO: default JSS
             var ua = new HttpClient();

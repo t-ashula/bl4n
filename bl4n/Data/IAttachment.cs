@@ -14,14 +14,19 @@ namespace BL4N.Data
     /// <summary> attachments, </summary>
     public interface IAttachment
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> ファイル名を取得します． </summary>
         string Name { get; }
 
+        /// <summary> ファイルサイズを取得します． </summary>
         long Size { get; }
 
+        /// <summary> 作成者を表す <see cref="IUser"/> を取得します． </summary>
         IUser CreatedUser { get; }
 
+        /// <summary> 作成日時を取得します． </summary>
         DateTime Created { get; }
     }
 

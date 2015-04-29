@@ -12,16 +12,22 @@ namespace BL4N.Data
     /// <summary> user </summary>
     public interface IUser
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> ユーザーID を取得します． </summary>
         string UserId { get; }
 
+        /// <summary> 名前を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 権限を取得します． </summary>
         int RoleType { get; }
 
+        /// <summary> UI の言語を取得します． </summary>
         string Lang { get; }
 
+        /// <summary> メールアドレスを取得します． </summary>
         string MailAddress { get; }
     }
 

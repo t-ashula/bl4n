@@ -87,6 +87,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RequestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
