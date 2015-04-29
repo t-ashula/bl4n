@@ -1748,6 +1748,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Issue
+        /// Returns information about issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <remarks>TODO: add Key-ID type api</remarks>
+        /// <returns><see cref="IIssue"/></returns>
+        public IIssue GetIssue(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<Issue>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

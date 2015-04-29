@@ -1983,6 +1983,20 @@ namespace BL4N.Tests
             Assert.Equal(options.CategoryIds[0], actual.Categories[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long issueId = new Random().Next(1000);
+            var actual = backlog.GetIssue(issueId);
+
+            Assert.Equal(issueId, actual.Id);
+        }
+
         #endregion
     }
 }

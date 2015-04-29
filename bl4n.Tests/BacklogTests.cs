@@ -292,6 +292,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/issues </summary>
         public abstract void AddIssueTest();
 
+        /// <summary> GET /api/v2/issues/:idOrKey </summary>
+        public abstract void GetIssueTest();
+
         #endregion
     }
 }

@@ -1560,6 +1560,23 @@ namespace BL4N.Tests
             Assert.Equal(sumary, actual.Summary);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[new Random().Next(issues.Count - 1)].Id;
+            var actual = backlog.GetIssue(issueId);
+            Assert.NotNull(actual);
+            Assert.Equal(issueId, actual.Id);
+            Assert.Equal(projectId, actual.ProjectId);
+        }
+
         #endregion
     }
 }
