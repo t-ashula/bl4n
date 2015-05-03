@@ -99,6 +99,7 @@
     <Compile Include="Data\Activity\IssueActivity.cs" />
     <Compile Include="Data\Activity\ActivityContent\ISVNRepositoryActivityContent.cs" />
     <Compile Include="Data\IssueSearchConditions.cs" />
+    <Compile Include="Data\IssueUpdateSettings.cs" />
     <Compile Include="Data\IStar.cs" />
     <Compile Include="Data\IStatus.cs" />
     <Compile Include="Data\ITag.cs" />

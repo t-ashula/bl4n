@@ -295,6 +295,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/:idOrKey </summary>
         public abstract void GetIssueTest();
 
+        /// <summary> PATCH /api/v2/issues/:idOrKey </summary>
+        public abstract void UpdateIssueTest();
+
         #endregion
     }
 }

@@ -1577,6 +1577,46 @@ namespace BL4N.Tests
             Assert.Equal(projectId, actual.ProjectId);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issue = issues[new Random().Next(issues.Count - 1)];
+
+            var issueTypeId = issue.IssueType.Id;
+            var priorityId = issue.Priority.Id;
+            var startDate = DateTime.Now;
+            var dueDate = DateTime.Now.AddDays(20);
+            var description = issue.Description + "\nupdated " + DateTime.Now.ToString("F");
+            var updateSettings = new IssueUpdateSettings(issueTypeId, priorityId)
+            {
+                StartDate = startDate,
+                DueDate = dueDate,
+                Description = description
+            };
+
+            var actual = backlog.UpdateIssue(issue.Id, updateSettings);
+            Assert.Equal(issue.Id, actual.Id);
+            Assert.Equal(issue.Summary, actual.Summary);
+            Assert.Equal(issue.IssueType.Id, actual.IssueType.Id);
+            Assert.Equal(issue.Priority.Id, actual.Priority.Id);
+            Assert.Equal(issue.ParentIssueId, actual.ParentIssueId);
+
+            // free plan can not set StartDate
+            //// Assert.NotNull(actual.StartDate);
+            //// Assert.Equal(startDate.ToString(Backlog.DateFormat), actual.StartDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.DueDate);
+            Assert.Equal(dueDate.ToString(Backlog.DateFormat), actual.DueDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.Description);
+            Assert.Equal(description, actual.Description);
+        }
+
         #endregion
     }
 }

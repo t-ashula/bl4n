@@ -1767,6 +1767,28 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Update Issue
+        /// Updates information about issue.
+        /// </summary>
+        /// <param name="issueId"></param>
+        /// <param name="issueUpdateSettings"></param>
+        /// <remarks>TODO: add Key-ID type api</remarks>
+        /// <returns>updated <see cref="IIssue"/></returns>
+        public IIssue UpdateIssue(long issueId, IssueUpdateSettings issueUpdateSettings)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = issueUpdateSettings.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<Issue>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
