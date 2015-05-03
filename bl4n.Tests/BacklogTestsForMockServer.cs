@@ -2053,6 +2053,19 @@ namespace BL4N.Tests
             Assert.Equal(updateSettings.StatusId, actual.Status.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long issueId = new Random().Next();
+            var actual = backlog.DeleteIssue(issueId);
+            Assert.Equal(issueId, actual.Id);
+        }
+
         #endregion
     }
 }

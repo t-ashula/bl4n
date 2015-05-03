@@ -1789,6 +1789,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Issue
+        /// Deletes issue.
+        /// </summary>
+        /// <param name="issueId">issue id to delete</param>
+        /// <remarks>TODO: add Key-ID type api</remarks>
+        /// <returns>deleted <see cref="IIssue"/></returns>
+        public IIssue DeleteIssue(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = DeleteApiResult<Issue>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

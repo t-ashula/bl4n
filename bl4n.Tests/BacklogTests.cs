@@ -298,6 +298,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/issues/:idOrKey </summary>
         public abstract void UpdateIssueTest();
 
+        /// <summary> DELETE /api/v2/issues/:idOrKey </summary>
+        public abstract void DeleteIssueTest();
+
         #endregion
     }
 }

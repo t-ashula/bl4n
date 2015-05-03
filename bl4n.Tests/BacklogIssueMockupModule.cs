@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BL4N.Data;
 using Nancy;
 
 namespace BL4N.Tests
@@ -378,6 +377,100 @@ namespace BL4N.Tests
                             url = "https://xx.backlogtool.com/view/BLG-1",
                             title = "[BLG-1] first issue | Show issue - Backlog",
                             presenter = new { id = 2, userId = "eguchi", name = "eguchi", roleType = 2, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                            created = "2013-07-08T10:24:28Z"
+                        }
+                    }
+                });
+            };
+
+            #endregion
+
+            #region DELETE /api/v2/issues/:idOrKey
+
+            Delete["/{id}"] = p =>
+            {
+                long iid = p.id;
+                return Response.AsJson(new
+                {
+                    id = iid,
+                    projectId = 1,
+                    issueKey = "BLG-1",
+                    keyId = 1,
+                    issueType = new { id = 2, projectId = 1, name = "Task", color = "#7ea800", displayOrder = 0 },
+                    summary = "first issue",
+                    description = "",
+                    //// resolutions= null,
+                    priority = new { id = 3, name = "Normal" },
+                    status = new { id = 1, name = "Open" },
+                    assignee = new
+                    {
+                        id = 2,
+                        name = "eguchi",
+                        roleType = 2,
+                        //// lang= null,
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    //// category= [],
+                    //// versions= [],
+                    milestone = new[]
+                    {
+                        new
+                        {
+                            id = 30,
+                            projectId = 1,
+                            name = "wait for release",
+                            description = "",
+                            //// startDate= null,
+                            //// releaseDueDate= null,
+                            archived = false,
+                            displayOrder = 0
+                        }
+                    },
+                    //// startDate= null,
+                    //// dueDate= null,
+                    //// estimatedHours= null,
+                    //// actualHours= null,
+                    //// parentIssueId= null,
+                    createdUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2012-07-23T06:10:15Z",
+                    updatedUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    updated = "2013-02-07T08:09:49Z",
+                    //// customFields= [],
+                    attachments = new[] { new { id = 1, name = "IMGP0088.JPG", size = 85079 } },
+                    //// sharedFiles= [],
+                    stars = new[]
+                    {
+                        new
+                        {
+                            id = 10,
+                            //// comment= null,
+                            url = "https://xx.backlogtool.com/view/BLG-1",
+                            title = "[BLG-1] first issue | Show issue - Backlog",
+                            presenter = new
+                            {
+                                id = 2,
+                                userId = "eguchi",
+                                name = "eguchi",
+                                roleType = 2,
+                                lang = "ja",
+                                mailAddress = "eguchi@nulab.example"
+                            },
                             created = "2013-07-08T10:24:28Z"
                         }
                     }
