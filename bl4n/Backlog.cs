@@ -1771,8 +1771,8 @@ namespace BL4N
         /// Update Issue
         /// Updates information about issue.
         /// </summary>
-        /// <param name="issueId"></param>
-        /// <param name="issueUpdateSettings"></param>
+        /// <param name="issueId">issue id to update</param>
+        /// <param name="issueUpdateSettings">update settings</param>
         /// <remarks>TODO: add Key-ID type api</remarks>
         /// <returns>updated <see cref="IIssue"/></returns>
         public IIssue UpdateIssue(long issueId, IssueUpdateSettings issueUpdateSettings)
