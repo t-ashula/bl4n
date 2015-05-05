@@ -1514,6 +1514,8 @@ namespace BL4N.Tests
             Assert.Equal(projectId, actual[0].ProjectId);
         }
 
+        #region issue/comment
+
         /// <inheritdoc/>
         [Fact]
         public override void GetIssueCommentsTest()
@@ -1639,6 +1641,27 @@ namespace BL4N.Tests
             var actual = backlog.AddIssueCommentNotification(issueId, commentId, userIds);
             Assert.Equal(commentId, actual.Id);
         }
+
+        #endregion
+
+        #region issue/attachment
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issueId = 992829; // BL4N-2
+            var actual = backlog.GetIssueAttachments(issueId);
+            Assert.True(actual.Count > 0);
+            var attachment = actual[0];
+            Assert.True(attachment.Id > 0);
+        }
+
+        #endregion
 
         #endregion
     }

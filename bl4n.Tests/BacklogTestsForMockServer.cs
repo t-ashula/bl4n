@@ -1909,6 +1909,8 @@ namespace BL4N.Tests
             Assert.Equal(options.CreateUserIds[0], issue.CreatedUser.Id);
         }
 
+        #region issue/comment
+
         /// <inheritdoc/>
         [Fact]
         public override void GetIssueCommentsTest()
@@ -2022,6 +2024,27 @@ namespace BL4N.Tests
             var actual = backlog.AddIssueCommentNotification(issueId, commentId, userIds);
             Assert.Equal(commentId, actual.Id);
         }
+
+        #endregion
+
+        #region issue/attachment
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var actual = backlog.GetIssueAttachments(issueId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(8, actual[0].Id);
+        }
+
+        #endregion
 
         #endregion
     }

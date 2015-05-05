@@ -1861,6 +1861,28 @@ namespace BL4N
 
         #endregion
 
+        #region issues/attachments
+
+        /// <summary>
+        /// Get List of Issue Attachments
+        /// Returns the list of issue attachments.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        public IList<IAttachment> GetIssueAttachments(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Attachment>>(api, jss);
+            return res.Result.ToList<IAttachment>();
+        }
+
+        #endregion
+
         #endregion
     }
 }

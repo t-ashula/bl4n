@@ -253,6 +253,22 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /api/v2/issues/:issueIdOrKey/attachments
+
+            Get["/{issueid}/attachments"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 8,
+                    name = "IMG0088.png",
+                    size = 5563,
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2013-08-05T06:15:06Z"
+                }
+            });
+
+            #endregion
         }
     }
 }
