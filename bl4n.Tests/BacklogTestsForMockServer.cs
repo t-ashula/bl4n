@@ -1928,6 +1928,24 @@ namespace BL4N.Tests
             Assert.True(comment.ChangeLog[0].AttachmentInfo.Id > 0);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var content = string.Format("comment.{0}", r.NextDouble());
+            var options = new CommentAddContent(content);
+            options.AttachmentIds.Add(r.Next(10000));
+            var actual = backlog.AddIssueComment(issueId, options);
+            Assert.Equal(content, actual.Content);
+            Assert.Equal(options.AttachmentIds[0], actual.ChangeLog[0].AttachmentInfo.Id);
+        }
+
         #endregion
     }
 }

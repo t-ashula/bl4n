@@ -1709,6 +1709,8 @@ namespace BL4N
             return res.Result.ToList<IIssue>();
         }
 
+        #region issues/comments
+
         /// <summary>
         /// Get Comment List
         /// Returns list of comments in issue.
@@ -1728,6 +1730,31 @@ namespace BL4N
             var res = GetApiResult<List<IssueComment>>(api, jss);
             return res.Result.ToList<IIssueComment>();
         }
+
+        /// <summary>
+        /// Add Comment
+        /// Adds a comment to the issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="options">comment content</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IIssueComment AddIssueComment(long issueId, CommentAddContent options)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var kvs = options.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
+        #endregion
 
         #endregion
     }
