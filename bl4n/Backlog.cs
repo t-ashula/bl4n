@@ -1709,6 +1709,26 @@ namespace BL4N
             return res.Result.ToList<IIssue>();
         }
 
+        /// <summary>
+        /// Get Comment List
+        /// Returns list of comments in issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: add more parameters</remarks>
+        public IList<IIssueComment> GetIssueComments(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = GetApiResult<List<IssueComment>>(api, jss);
+            return res.Result.ToList<IIssueComment>();
+        }
+
         #endregion
     }
 }

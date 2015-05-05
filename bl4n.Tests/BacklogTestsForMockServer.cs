@@ -1909,6 +1909,25 @@ namespace BL4N.Tests
             Assert.Equal(options.CreateUserIds[0], issue.CreatedUser.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var actual = backlog.GetIssueComments(issueId);
+            Assert.Equal(1, actual.Count);
+            var comment = actual[0];
+            Assert.Equal(6586, comment.Id);
+            Assert.Equal("test", comment.Content);
+            Assert.Equal(1, comment.ChangeLog.Count);
+            Assert.True(comment.ChangeLog[0].AttachmentInfo.Id > 0);
+        }
+
         #endregion
     }
 }

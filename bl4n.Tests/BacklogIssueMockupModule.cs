@@ -97,6 +97,36 @@ namespace BL4N.Tests
                                        + @"  ""created"":""2013-07-08T10:24:28Z"" } ] "
                                        + "}" + "]");
             };
+
+            #region /api/v2/issues/:issueIdOrKey/comments
+
+            Get["/{id}/comments"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 6586,
+                    content = "test",
+                    changeLog = new[]
+                    {
+                        new
+                        {
+                            field = "attachment",
+                            newValue = "2013-07-20-kyotosuizokukan2.jpeg",
+                            originalValue = string.Empty,
+                            attachmentInfo = new { id = 437736, name = "2013-07-20-kyotosuizokukan2.jpeg" },
+                            //// attributeInfo = null,
+                            notificationInfo = new { type = "issue.create" }
+                        }
+                    },
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2013-08-05T06:15:06Z",
+                    updated = "2013-08-05T06:15:06Z",
+                    //// stars= [],
+                    //// notifications= []
+                }
+            });
+
+            #endregion
         }
     }
 }

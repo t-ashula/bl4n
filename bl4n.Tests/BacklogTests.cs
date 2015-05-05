@@ -271,6 +271,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues </summary>
         public abstract void GetIssuesTest();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments </summary>
+        public abstract void GetIssueCommentsTest();
+
         #endregion
     }
 }

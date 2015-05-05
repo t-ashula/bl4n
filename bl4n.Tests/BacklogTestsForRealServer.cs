@@ -6,7 +6,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -1513,6 +1512,23 @@ namespace BL4N.Tests
             var actual = backlog.GetIssues(new[] { projectId }, condition);
             Assert.True(actual.Count > 0);
             Assert.Equal(projectId, actual[0].ProjectId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var actual = backlog.GetIssueComments(issueId);
+            Assert.True(actual.Count > 0);
+            var comment = actual[0];
+            Assert.True(comment.Id > 0);
         }
 
         #endregion
