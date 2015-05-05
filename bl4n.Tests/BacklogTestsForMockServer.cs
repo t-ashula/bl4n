@@ -1892,6 +1892,8 @@ namespace BL4N.Tests
 
         #region /api/v2/issues
 
+        #region issues
+
         /// <inheritdoc/>
         [Fact]
         public override void GetIssuesTest()
@@ -2065,6 +2067,8 @@ namespace BL4N.Tests
             var actual = backlog.DeleteIssue(issueId);
             Assert.Equal(issueId, actual.Id);
         }
+
+        #endregion
 
         #endregion
     }
