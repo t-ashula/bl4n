@@ -1789,6 +1789,30 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Update comment
+        /// Updates content of comment.
+        /// User can update own comment.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="content">comment content</param>
+        /// <returns>updated <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IIssueComment UpdateIssueComment(long issueId, long commentId, string content)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new[] { new KeyValuePair<string, string>("content", content) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

@@ -1975,6 +1975,23 @@ namespace BL4N.Tests
             Assert.Equal(commentId, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long commentId = r.Next();
+            var content = string.Format("new content.{0}", DateTime.Now);
+            var actual = backlog.UpdateIssueComment(issueId, commentId, content);
+            Assert.Equal(commentId, actual.Id);
+            Assert.Equal(content, actual.Content);
+        }
+
         #endregion
     }
 }
