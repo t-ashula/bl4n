@@ -26,6 +26,7 @@ namespace BL4N.Tests
         {
         }
 
+        /// <inheritdoc/>
         [Fact]
         public override void BacklogConstructorTest()
         {
@@ -37,6 +38,7 @@ namespace BL4N.Tests
 
         #region /api/v2/space
 
+        /// <inheritdoc/>
         [Fact]
         public override void GetSpaceTest()
         {
@@ -105,9 +107,10 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var actual = backlog.GetSpaceNotifiacation();
+
             // UpdateSpaceNotificationTest update real data
             Assert.True(actual.Content.EndsWith(" に更新しました．"));
-            // Assert.Equal(new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Utc), actual.Updated);
+            //// Assert.Equal(new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Utc), actual.Updated);
         }
 
         /// <inheritdoc/>
@@ -120,7 +123,7 @@ namespace BL4N.Tests
             var content = string.Format("{0:F} に更新しました．", DateTime.Now);
             var actual = backlog.UpdateSpaceNotification(content);
             Assert.Equal(content, actual.Content);
-            // Assert.Equal(new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Utc), actual.Updated);
+            //// Assert.Equal(new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Utc), actual.Updated);
         }
 
         /// <inheritdoc/>
@@ -249,7 +252,7 @@ namespace BL4N.Tests
             Assert.True(actual.Id > 0);
             Assert.Equal(user.UserId, actual.UserId);
             Assert.Equal(user.Name, actual.Name);
-            // Assert.Equal(user.Lang, actual.Lang);
+            //// Assert.Equal(user.Lang, actual.Lang);
             Assert.Equal(user.MailAddress, actual.MailAddress);
             Assert.Equal(user.RoleType, actual.RoleType);
         }
@@ -305,7 +308,7 @@ namespace BL4N.Tests
             Assert.Equal(del.Id, deleted.Id);
         }
 
-        /// <inhertidoc/>
+        /// <inheritdoc/>
         [Fact]
         public override void GetOwnUserTest()
         {
@@ -313,14 +316,14 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var myself = backlog.GetOwnUser();
-            // {"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"}
+            //// {"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"}
             var dummySelf = new
             {
                 id = 60965,
                 userId = "bl4n.admin",
                 name = "bl4n.admin",
                 roleType = 1,
-                // lang = null,
+                //// lang = null,
                 mailAddress = "t.ashula+nulab@gmail.com"
             };
 
@@ -370,7 +373,7 @@ namespace BL4N.Tests
             Assert.StartsWith("https://bl4n.backlog.jp/view/BL4N", actual[0].Url);
             Assert.StartsWith("[BL4N-", actual[0].Title);
             Assert.Equal(60965, actual[0].Presenter.Id);
-            // Assert.Equal(new DateTime(2015, 4, 6, 5, 52, 46, DateTimeKind.Utc), actual[0].Created);
+            //// Assert.Equal(new DateTime(2015, 4, 6, 5, 52, 46, DateTimeKind.Utc), actual[0].Created);
         }
 
         /// <inheritdoc/>
@@ -469,6 +472,7 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
 
             var actual = backlog.GetGroup(3377);
+
             // {"id":3377,
             //  "name":"g1",
             //  "members":[{"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}],
@@ -521,9 +525,9 @@ namespace BL4N.Tests
             Assert.Equal(added.Members.Count, actual.Members.Count);
             Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
             Assert.Equal(added.CreatedUser.Id, actual.CreatedUser.Id);
-            // Assert.Equal(added.Created, actual.Created); // ???
-            // Assert.Equal(1, actual.UpdatedUser.Id);
-            // Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Updated);
+            //// Assert.Equal(added.Created, actual.Created); // ???
+            //// Assert.Equal(1, actual.UpdatedUser.Id);
+            //// Assert.Equal(new DateTime(2013, 05, 30, 09, 11, 36, DateTimeKind.Utc), actual.Updated);
         }
 
         #endregion
@@ -647,6 +651,7 @@ namespace BL4N.Tests
                 TextFormattingRule = "markdown"
             };
             var actual = backlog.AddProject(np);
+
             // プランの都合上プロジェクトの追加ができないのでテスト不可
             // Assert.Equal("newproject", actual.Name);
             Assert.True(true, "cant add new project on free plan.");
@@ -705,7 +710,6 @@ namespace BL4N.Tests
         {
             // プランの都合上プロジェクトの追加ができないのでテスト不可
             // Assert.Equal("newproject", actual.Name);
-
             Assert.True(true, "cant del project on free plan.");
         }
 
@@ -1046,6 +1050,7 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectCategories(projectKey);
             Assert.True(actual.Count >= 1);
+
             // [{"id":61309,"name":"API","displayOrder":2147483646}]
             var apiCat = actual.OrderBy(p => p.Id).First();
             Assert.Equal(61309, apiCat.Id);
@@ -1136,6 +1141,7 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectVersions(projectKey);
             Assert.True(actual.Count >= 1);
+
             // [{"id":33856,
             //   "projectId":26476,
             //   "name":"1.0.0",
@@ -1311,6 +1317,7 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectSharedFiles(projectKey);
             Assert.True(actual.Count > 0);
+
             // [{"id":2585041,"type":"directory","dir":"/","name":"dir1","size":null,
             //   "createdUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
             //   "created":"2015-04-20T00:10:21Z",
@@ -1452,7 +1459,7 @@ namespace BL4N.Tests
             Assert.True(actual.AllEvent);
 
             // XXX: API Server does not clear ActivityTypeIds when AllEvent has changed to true
-            // Assert.Equal(2, added.ActivityTypeIds.Count);
+            //// Assert.Equal(2, added.ActivityTypeIds.Count);
 
             Assert.True(actual.CreatedUser.Id > 0);
             Assert.Equal(DateTime.UtcNow.Date, actual.Created.ToUniversalTime().Date);
@@ -1499,6 +1506,8 @@ namespace BL4N.Tests
 
         #region /api/v2/issues
 
+        #region issues
+
         /// <inheritdoc/>
         [Fact]
         public override void GetIssuesTest()
@@ -1513,6 +1522,127 @@ namespace BL4N.Tests
             Assert.True(actual.Count > 0);
             Assert.Equal(projectId, actual[0].ProjectId);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssuesCountTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var condition = new IssueSearchConditions();
+            var actual = backlog.GetIssuesCount(new[] { projectId }, condition);
+            Assert.True(actual.Count > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var issueTypeId = backlog.GetProjectIssueTypes(projectId.ToString())[0].Id;
+            Assert.True(issueTypeId > 0);
+            var priorityId = backlog.GetPriorities()[0].Id;
+            Assert.True(priorityId > 0);
+            var sumary = string.Format("test issue.{0:R}", DateTime.Now);
+            var settings = new NewIssueSettings(projectId, issueTypeId, priorityId, sumary);
+
+            var actual = backlog.AddIssue(settings);
+            Assert.NotNull(actual);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(projectId, actual.ProjectId);
+            Assert.Equal(issueTypeId, actual.IssueType.Id);
+            Assert.Equal(priorityId, actual.Priority.Id);
+            Assert.Equal(sumary, actual.Summary);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[new Random().Next(issues.Count - 1)].Id;
+            var actual = backlog.GetIssue(issueId);
+            Assert.NotNull(actual);
+            Assert.Equal(issueId, actual.Id);
+            Assert.Equal(projectId, actual.ProjectId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issue = issues[new Random().Next(issues.Count - 1)];
+
+            var issueTypeId = issue.IssueType.Id;
+            var priorityId = issue.Priority.Id;
+            var startDate = DateTime.Now;
+            var dueDate = DateTime.Now.AddDays(20);
+            var description = issue.Description + "\nupdated " + DateTime.Now.ToString("F");
+            var updateSettings = new IssueUpdateSettings(issueTypeId, priorityId)
+            {
+                StartDate = startDate,
+                DueDate = dueDate,
+                Description = description
+            };
+
+            var actual = backlog.UpdateIssue(issue.Id, updateSettings);
+            Assert.Equal(issue.Id, actual.Id);
+            Assert.Equal(issue.Summary, actual.Summary);
+            Assert.Equal(issue.IssueType.Id, actual.IssueType.Id);
+            Assert.Equal(issue.Priority.Id, actual.Priority.Id);
+            Assert.Equal(issue.ParentIssueId, actual.ParentIssueId);
+
+            // free plan can not set StartDate
+            //// Assert.NotNull(actual.StartDate);
+            //// Assert.Equal(startDate.ToString(Backlog.DateFormat), actual.StartDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.DueDate);
+            Assert.Equal(dueDate.ToString(Backlog.DateFormat), actual.DueDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.Description);
+            Assert.Equal(description, actual.Description);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var issueTypeId = backlog.GetProjectIssueTypes(projectId.ToString())[0].Id;
+            Assert.True(issueTypeId > 0);
+            var priorityId = backlog.GetPriorities()[0].Id;
+            Assert.True(priorityId > 0);
+            var sumary = string.Format("test issue.{0:R}", DateTime.Now);
+            var settings = new NewIssueSettings(projectId, issueTypeId, priorityId, sumary);
+
+            var added = backlog.AddIssue(settings);
+            Assert.True(added.Id > 0);
+
+            var actual = backlog.DeleteIssue(added.Id);
+            Assert.Equal(added.Id, actual.Id);
+        }
+
+        #endregion
 
         #region issue/comment
 

@@ -12,26 +12,37 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> webhook を表します </summary>
     public interface IWebHook
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 名前を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 説明を取得します． </summary>
         string Description { get; }
 
+        /// <summary> フック URL を取得します． </summary>
         string HookUrl { get; }
 
+        /// <summary> すべてのイベントで反応するかどうかを取得します． </summary>
         bool AllEvent { get; }
 
+        /// <summary> 対象のイベントID の一覧を取得します． </summary>
         IList<int> ActivityTypeIds { get; }
 
+        /// <summary> 作成ユーザを取得します． </summary>
         IUser CreatedUser { get; }
 
+        /// <summary> 作成日時を取得します． </summary>
         DateTime Created { get; }
 
+        /// <summary> 更新ユーザを取得します． </summary>
         IUser UpdatedUser { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
     }
 

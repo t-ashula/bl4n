@@ -15,16 +15,22 @@ namespace BL4N.Data
     /// <summary> content for type 12, 13 </summary>
     public interface IGitRepositoryActivityContent : IActivityContent
     {
+        /// <summary> リポジトリ情報を取得します． </summary>
         IRepository Repository { get; }
 
+        /// <summary> 変更内容を取得します． </summary>
         string ChangeType { get; }
 
+        /// <summary> リビジョンの種別を取得します． </summary>
         string RevisionType { get; }
 
+        /// <summary> 参照先を取得します． </summary>
         string Ref { get; }
 
+        /// <summary> リビジョン数を取得します． </summary>
         long RevisionCount { get; }
 
+        /// <summary> リビジョンの一覧を取得します． </summary>
         IList<IRevision> Revisions { get; }
     }
 

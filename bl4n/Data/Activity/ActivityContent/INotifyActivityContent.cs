@@ -15,20 +15,28 @@ namespace BL4N.Data
     /// <summary> content for type 17 </summary>
     public interface INotifyActivityContent : IActivityContent
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> キーID を取得します． </summary>
         long KeyId { get; }
 
+        /// <summary> サマリーを取得します． </summary>
         string Summary { get; }
 
+        /// <summary> 説明を取得します． </summary>
         string Description { get; }
 
+        /// <summary> コメントを取得します． </summary>
         IComment Comment { get; }
 
+        /// <summary> 変更内容の一覧を取得します． </summary>
         IList<IChange> Changes { get; }
 
+        /// <summary> 添付ファイルの一覧を取得します． </summary>
         IList<IAttachment> Attachments { get; }
 
+        /// <summary> 共有ファイルへの参照の一覧を取得します． </summary>
         IList<ISharedFile> SharedFiles { get; }
     }
 

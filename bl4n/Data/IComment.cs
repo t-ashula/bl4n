@@ -13,8 +13,10 @@ namespace BL4N.Data
     /// <summary> comment with id for type 17 </summary>
     public interface IComment
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> コメント文字列を取得します． </summary>
         string Content { get; }
     }
 

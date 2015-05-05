@@ -15,18 +15,25 @@ namespace BL4N.Data
     /// <summary> content for type 5, 6, 7 </summary>
     public interface IWikiActivityContent : IActivityContent
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> ページ名を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 内容を取得します． </summary>
         string Content { get; }
 
+        /// <summary> 差分を取得します． </summary>
         string Diff { get; }
 
+        /// <summary> ヴァージョン文字列を取得します． </summary>
         long Version { get; }
 
+        /// <summary> 添付ファイルの一覧を取得します． </summary>
         IList<IAttachment> Attachments { get; }
 
+        /// <summary> 共有ファイルへの参照の一覧を取得します． </summary>
         IList<ISharedFile> SharedFiles { get; }
     }
 

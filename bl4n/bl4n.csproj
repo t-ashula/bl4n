@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractJsonConverter.cs" />
     <Compile Include="ActivityConverter.cs" />
     <Compile Include="Backlog.cs" />
     <Compile Include="APIType.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Data\IChangeLogDetail.cs" />
     <Compile Include="Data\ICustomField.cs" />
     <Compile Include="Data\ICustomFieldItem.cs" />
+    <Compile Include="Data\IDiskUsageDetail.cs" />
     <Compile Include="Data\IGroup.cs" />
     <Compile Include="Data\IIssue.cs" />
     <Compile Include="Data\IIssueComment.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="Data\Activity\IssueActivity.cs" />
     <Compile Include="Data\Activity\ActivityContent\ISVNRepositoryActivityContent.cs" />
     <Compile Include="Data\IssueSearchConditions.cs" />
+    <Compile Include="Data\IssueUpdateSettings.cs" />
     <Compile Include="Data\IStar.cs" />
     <Compile Include="Data\IStatus.cs" />
     <Compile Include="Data\ITag.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Data\IWikiPageUpdate.cs" />
     <Compile Include="Data\ListTypeCustomField.cs" />
     <Compile Include="Data\MultiListTypeCustomField.cs" />
+    <Compile Include="Data\NewIssueSettings.cs" />
     <Compile Include="Data\NumberTypeCustomField.cs" />
     <Compile Include="Data\RadioButtonTypeCustomField.cs" />
     <Compile Include="Data\SentenceTypeCustomField.cs" />

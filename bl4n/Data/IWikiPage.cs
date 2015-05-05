@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IWikiPage.cs">
 //   bl4n - Backlog.jp API Client library
 //   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -12,22 +12,31 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> Wiki のページを表します． </summary>
     public interface IWikiPage
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> プロジェクト ID を取得します． </summary>
         long ProjectId { get; }
 
+        /// <summary> 名称を取得します． </summary>
         string Name { get; }
 
+        /// <summary> タグの一覧を取得します． </summary>
         IList<ITag> Tags { get; }
 
+        /// <summary> 作成者を取得します． </summary>
         IUser CreatedUser { get; }
 
+        /// <summary> 作成日時を取得します． </summary>
         DateTime Created { get; }
 
+        /// <summary> 更新ユーザを取得します． </summary>
         IUser UpdatedUser { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
     }
 

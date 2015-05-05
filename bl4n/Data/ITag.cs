@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ITag.cs">
 //   bl4n - Backlog.jp API Client library
 //   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -10,10 +10,13 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> タグを表します </summary>
     public interface ITag
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 名称を取得します． </summary>
         string Name { get; }
     }
 

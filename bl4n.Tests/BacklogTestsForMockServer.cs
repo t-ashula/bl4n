@@ -29,6 +29,8 @@ namespace BL4N.Tests
             get { return _fixture.MockServer; }
         }
 
+        /// <summary> <see cref="BacklogTestsForMockServer"/> のインスタンスを初期化します </summary>
+        /// <param name="fixture"> テストフィクスチャ </param>
         public BacklogTestsForMockServer(BacklogMockServerFixture fixture)
             : base(new BacklogConnectionSettings("mock", APIType.APIKey, "dummyapikey", "localhost", 34567, false))
         {
@@ -116,6 +118,7 @@ namespace BL4N.Tests
             // type = 1,2,3,4
             // Assert.InRange(1, 4, activity.Type);
             Assert.Equal(2, activity.Type);
+
             // project = new { id = 92, projectKey = "SUB", name = "サブタスク", chartEnabled = true },
             Assert.Equal(92, activity.Project.Id);
             Assert.Equal("SUB", activity.Project.ProjectKey);
@@ -363,6 +366,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var actual = backlog.GetSpaceNotifiacation();
+
             // {"content":"お知らせの追加\":-)\"","updated":"2015-03-26T06:37:37Z"}
             Assert.Equal("お知らせの追加\":-)\"", actual.Content);
             Assert.Equal(new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Utc), actual.Updated);
@@ -484,6 +488,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+
             // { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" }
             var user = new User
             {
@@ -500,7 +505,7 @@ namespace BL4N.Tests
             Assert.True(actual.Id > 0);
             Assert.Equal(user.UserId, actual.UserId);
             Assert.Equal(user.Name, actual.Name);
-            // Assert.Equal(user.Lang, actual.Lang);
+            //// Assert.Equal(user.Lang, actual.Lang);
             Assert.Equal(user.MailAddress, actual.MailAddress);
             Assert.Equal(user.RoleType, actual.RoleType);
         }
@@ -526,9 +531,9 @@ namespace BL4N.Tests
 
             var actual = backlog.UpdateUser(user, password);
             Assert.True(actual.Id > 0);
-            // Assert.Equal(user.UserId, actual.UserId); // userId does not provide?
+            //// Assert.Equal(user.UserId, actual.UserId); // userId does not provide?
             Assert.Equal(user.Name, actual.Name);
-            // Assert.Equal(user.Lang, actual.Lang);
+            //// Assert.Equal(user.Lang, actual.Lang);
             Assert.Equal(user.MailAddress, actual.MailAddress);
             Assert.Equal(user.RoleType, actual.RoleType);
         }
@@ -934,7 +939,8 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            IList<IPriority> actual = backlog.GetPriorities();
+            var actual = backlog.GetPriorities();
+
             // [ { "id": 2, "name": "High" }, { "id": 3, "name": "Normal" }, { "id": 4, "name": "Low" } ]
             Assert.Equal(3, actual.Count);
             Assert.Equal(2, actual[0].Id);
@@ -1111,7 +1117,7 @@ namespace BL4N.Tests
             Assert.Equal(2, activities[0].Type);
         }
 
-        /// inheritdoc/>
+        /// <inheritdoc/>
         [Fact]
         public override void GetProjectDiskUsageTest()
         {
@@ -1603,7 +1609,7 @@ namespace BL4N.Tests
             Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
             Assert.Equal(1, actual.Items.Count);
             Assert.Equal(2, actual.Items[0].Id);
-            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
@@ -1627,7 +1633,7 @@ namespace BL4N.Tests
             Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
             Assert.Equal(1, actual.Items.Count);
             Assert.Equal(itemId, actual.Items[0].Id);
-            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
@@ -1651,7 +1657,7 @@ namespace BL4N.Tests
             Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
             Assert.Equal(1, actual.Items.Count);
             Assert.Equal(itemId, actual.Items[0].Id);
-            Assert.Equal(1, actual.Items[0].DisplayOrder); //
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
             Assert.Equal("fsharp", actual.Items[0].Name);
         }
 
@@ -1688,7 +1694,7 @@ namespace BL4N.Tests
                     mailAddress = "eguchi@nulab.example"
                 },
                 created = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc),
-                // "updatedUser": null,
+                //// "updatedUser": null,
                 updated = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc)
             };
             Assert.Equal(expected.id, file.Id);
@@ -1710,7 +1716,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var id = (long)(new Random().Next());
+            long id = new Random().Next();
             var actual = backlog.GetProjectSharedFile("projectKey", id);
             Assert.NotNull(actual);
             Assert.Equal("logo_mark.png", actual.FileName);
@@ -1886,6 +1892,8 @@ namespace BL4N.Tests
 
         #region /api/v2/issues
 
+        #region issues
+
         /// <inheritdoc/>
         [Fact]
         public override void GetIssuesTest()
@@ -1908,6 +1916,159 @@ namespace BL4N.Tests
             Assert.Equal(options.AssignerIds[0], issue.Assignee.Id);
             Assert.Equal(options.CreateUserIds[0], issue.CreatedUser.Id);
         }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssuesCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var conditions = new IssueSearchConditions();
+            var actual = backlog.GetIssuesCount(new long[] { 1 }, conditions);
+            Assert.Equal(42, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long projectId = r.Next(1000);
+            long issueTypeId = r.Next(1000);
+            long priorytyId = r.Next(1000);
+            var summary = string.Format("summary {0}", r.NextDouble());
+            var startDate = DateTime.Now;
+            var dueDate = startDate.AddDays(r.Next(20));
+            var actualHours = r.Next(1000) / 10.0;
+            var estimatedHours = r.Next(1000) / 10.0;
+            var assignee = r.Next(1000);
+            var parentIssueId = r.Next();
+            var options = new NewIssueSettings(projectId, issueTypeId, priorytyId, summary)
+            {
+                StartDate = startDate,
+                DueDate = dueDate,
+                ActualHours = actualHours,
+                EstimatedHours = estimatedHours,
+                AssigneeId = assignee,
+                Description = string.Format("desc.{0}", r.NextDouble()),
+                ParentIssueId = parentIssueId
+            };
+            options.AttachmentIds.Add(r.Next(100));
+            options.CategoryIds.Add(r.Next(100));
+
+            var actual = backlog.AddIssue(options);
+
+            Assert.Equal(projectId, actual.ProjectId);
+            Assert.Equal(issueTypeId, actual.IssueType.Id);
+            Assert.Equal(priorytyId, actual.Priority.Id);
+            Assert.Equal(summary, actual.Summary);
+            Assert.NotNull(actual.StartDate);
+            Assert.Equal(startDate.ToString(Backlog.DateFormat), ((DateTime)actual.StartDate).ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.DueDate);
+            Assert.Equal(dueDate.ToString(Backlog.DateFormat), ((DateTime)actual.DueDate).ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.ActualHours);
+            Assert.Equal(actualHours, (double)actual.ActualHours); // XXX:
+            Assert.NotNull(actual.EstimatedHours);
+            Assert.Equal(estimatedHours, (double)actual.EstimatedHours); // XXX:
+            Assert.Equal(options.Description, actual.Description);
+            Assert.NotNull(actual.Assignee);
+            Assert.Equal(assignee, actual.Assignee.Id);
+            Assert.Equal(parentIssueId, actual.ParentIssueId);
+            Assert.Equal(1, actual.Attachments.Count);
+            Assert.Equal(options.AttachmentIds[0], actual.Attachments[0].Id);
+            Assert.Equal(options.CategoryIds[0], actual.Categories[0].Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long issueId = new Random().Next(1000);
+            var actual = backlog.GetIssue(issueId);
+
+            Assert.Equal(issueId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next(1000);
+            long issueTypeId = r.Next(10);
+            long priorityId = r.Next(10);
+            var updateSettings = new IssueUpdateSettings(issueTypeId, priorityId)
+            {
+                AssigneeId = r.Next(),
+                ActualHour = (int)(r.NextDouble() * 10),
+                AttachmentIds = new List<long> { r.Next() },
+                CategoryIds = new List<long> { r.Next() },
+                Description = string.Format("desc.{0}", r.NextDouble()),
+                EstimatedHours = (int)(r.NextDouble() * 10),
+                DueDate = DateTime.Now.AddDays(r.Next(20)),
+                StartDate = DateTime.Now.AddDays(r.Next(20)),
+                ParentIssueId = r.Next(),
+                VersionIds = new List<long> { r.Next() },
+                ResolutionId = r.Next(),
+                MilestoneIds = new List<long> { r.Next() },
+                Summary = string.Format("sum.{0}", DateTime.Now),
+                StatusId = r.Next()
+            };
+
+            var actual = backlog.UpdateIssue(issueId, updateSettings);
+
+            Assert.Equal(issueId, actual.Id);
+            Assert.Equal(issueTypeId, actual.IssueType.Id);
+            Assert.Equal(priorityId, actual.Priority.Id);
+            Assert.Equal(updateSettings.AssigneeId, actual.Assignee.Id);
+            Assert.Equal(updateSettings.ActualHour, actual.ActualHours);
+            Assert.Equal(updateSettings.AttachmentIds[0], actual.Attachments[0].Id);
+            Assert.Equal(updateSettings.CategoryIds[0], actual.Categories[0].Id);
+            Assert.Equal(updateSettings.Description, actual.Description);
+            Assert.Equal(updateSettings.EstimatedHours, actual.EstimatedHours);
+            Assert.NotNull(updateSettings.DueDate);
+            Assert.NotNull(actual.DueDate);
+            Assert.Equal(updateSettings.DueDate.Value.ToString(Backlog.DateFormat), actual.DueDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(updateSettings.StartDate);
+            Assert.NotNull(actual.StartDate);
+            Assert.Equal(updateSettings.StartDate.Value.ToString(Backlog.DateFormat), actual.StartDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.ParentIssueId);
+            Assert.Equal(updateSettings.ParentIssueId, actual.ParentIssueId);
+            Assert.Equal(updateSettings.VersionIds[0], actual.Versions[0].Id);
+            Assert.Equal(updateSettings.ResolutionId, actual.Resolutions.Id);
+            Assert.Equal(updateSettings.MilestoneIds[0], actual.Milestones[0].Id);
+            Assert.Equal(updateSettings.Summary, actual.Summary);
+            Assert.Equal(updateSettings.StatusId, actual.Status.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long issueId = new Random().Next();
+            var actual = backlog.DeleteIssue(issueId);
+            Assert.Equal(issueId, actual.Id);
+        }
+
+        #endregion
 
         #region issue/comment
 

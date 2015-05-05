@@ -10,10 +10,13 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> プロジェクトの更新情報を表します </summary>
     public interface IProjectUpdate
     {
+        /// <summary> プロジェクトを取得します． </summary>
         IProject Project { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
     }
 

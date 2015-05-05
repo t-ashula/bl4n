@@ -1,22 +1,21 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IDiskUsage.cs">
+// <copyright file="IDiskUsageDetail.cs">
 //   bl4n - Backlog.jp API Client library
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
-    /// <summary> 総ディスク使用量を表します． </summary>
-    public interface IDiskUsage
+    /// <summary> プロジェクトごとのディスク使用量を表します． </summary>
+    public interface IDiskUsageDetail
     {
-        /// <summary> キャパシティを取得します． </summary>
-        long Capacity { get; }
+        /// <summary> プロジェクトIDを取得します． </summary>
+        long ProjectId { get; }
 
         /// <summary> 課題の総使用量を取得します． </summary>
         long Issue { get; }
@@ -32,16 +31,13 @@ namespace BL4N.Data
 
         /// <summary> git リポジトリの総使用量を取得します． </summary>
         long Git { get; }
-
-        /// <summary> プロジェクトごとの内訳のリストを取得します． </summary>
-        IList<IDiskUsageDetail> Details { get; }
     }
 
     [DataContract]
-    internal sealed class DiskUsage : IDiskUsage
+    internal sealed class DiskUsageDetail : IDiskUsageDetail
     {
-        [DataMember(Name = "capacity")]
-        public long Capacity { get; private set; }
+        [DataMember(Name = "projectId")]
+        public long ProjectId { get; private set; }
 
         [DataMember(Name = "issue")]
         public long Issue { get; private set; }
@@ -57,13 +53,5 @@ namespace BL4N.Data
 
         [DataMember(Name = "git")]
         public long Git { get; private set; }
-
-        [DataMember(Name = "details")]
-        private List<DiskUsageDetail> _details;
-
-        public IList<IDiskUsageDetail> Details
-        {
-            get { return _details.ToList<IDiskUsageDetail>(); }
-        }
     }
 }

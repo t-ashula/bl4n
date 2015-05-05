@@ -13,14 +13,19 @@ namespace BL4N.Data
     /// <summary> notification </summary>
     public interface INotification
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 既読かどうかを取得します． </summary>
         bool AlreadyRead { get; }
 
+        /// <summary> 理由を取得します． </summary>
         int Reason { get; }
 
+        /// <summary> ユーザーを取得します． </summary>
         IUser User { get; }
 
+        /// <summary> 対象を既読かどうかを取得します． </summary>
         bool ResouceAlreadyRead { get; }
     }
 

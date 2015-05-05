@@ -15,10 +15,13 @@ namespace BL4N.Data
     /// <summary> content for type 15, 16 </summary>
     public interface IProjectActivityContent : IActivityContent
     {
+        /// <summary> 関係するユーザの一覧を取得します． </summary>
         IList<IUser> Users { get; }
 
+        /// <summary> グループの更新情報の一覧を取得します． </summary>
         IList<IGroupProjectActivity> GroupProjectActivites { get; }
 
+        /// <summary> コメントを取得します． </summary>
         string Comment { get; }
     }
 

@@ -11,20 +11,33 @@ using Xunit;
 
 namespace BL4N.Tests
 {
+    /// <summary>
+    /// test base class
+    /// </summary>
     public abstract class BacklogTests
     {
         private readonly BacklogConnectionSettings _settings;
 
+        /// <summary>
+        /// gets ConnectionSettings
+        /// </summary>
         public BacklogConnectionSettings Settings
         {
             get { return _settings; }
         }
 
+        /// <summary>
+        /// initialzie <see cref="BacklogTests"/> instance
+        /// </summary>
+        /// <param name="settings"></param>
         protected BacklogTests(BacklogConnectionSettings settings)
         {
             _settings = settings;
         }
 
+        /// <summary>
+        /// skip test fact when connection setting is not valid
+        /// </summary>
         protected void SkipIfSettingIsBroken()
         {
             if (Settings == null || !Settings.IsValid())
@@ -33,7 +46,7 @@ namespace BL4N.Tests
             }
         }
 
-        /// <summary> </summary>
+        /// <summary> test for new Backlog()</summary>
         public abstract void BacklogConstructorTest();
 
         #region /api/v2/space
@@ -125,12 +138,14 @@ namespace BL4N.Tests
 
         #region /api/v2/statuses
 
+        /// <summary> GET /api/v2/statuses のテスト </summary>
         public abstract void GetStatusesTest();
 
         #endregion
 
         #region /api/v2/resolutions
 
+        /// <summary> GET /api/v2/resolutions のテスト </summary>
         public abstract void GetResolutionsTest();
 
         #endregion
@@ -270,6 +285,21 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/issues </summary>
         public abstract void GetIssuesTest();
+
+        /// <summary> GET /api/v2/issues/count </summary>
+        public abstract void GetIssuesCountTest();
+
+        /// <summary> POST /api/v2/issues </summary>
+        public abstract void AddIssueTest();
+
+        /// <summary> GET /api/v2/issues/:idOrKey </summary>
+        public abstract void GetIssueTest();
+
+        /// <summary> PATCH /api/v2/issues/:idOrKey </summary>
+        public abstract void UpdateIssueTest();
+
+        /// <summary> DELETE /api/v2/issues/:idOrKey </summary>
+        public abstract void DeleteIssueTest();
 
         /// <summary> GET /api/v2/issues/:issueIdOrKey/comments </summary>
         public abstract void GetIssueCommentsTest();

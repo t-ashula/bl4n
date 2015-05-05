@@ -138,9 +138,8 @@ namespace BL4N.Tests
 
             Get["/{userId}/icon"] = p =>
             {
-                // Content-Type:application/octet-stream
-                // Content-Disposition:attachment;filename="person_168.gif"
-
+                //// Content-Type:application/octet-stream
+                //// Content-Disposition:attachment;filename="person_168.gif"
                 var response = new Response
                 {
                     ContentType = "application/octet-stream",
@@ -179,7 +178,7 @@ namespace BL4N.Tests
                         name = "Subtasking",
                         chartEnabled = true,
                         subtaskingEnabled = true,
-                        // textFormattingRule = null,
+                        //// textFormattingRule = null,
                         archived = false,
                         displayOrder = 0
                     },
@@ -242,7 +241,7 @@ namespace BL4N.Tests
                 new
                 {
                     id = 75,
-                    // comment = null,
+                    //// comment = null,
                     url = "https://xx.backlogtool.com/view/BLG-1",
                     title = "[BLG-1] first issue | Show issue - Backlog",
                     presenter = new

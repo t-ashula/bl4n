@@ -12,60 +12,88 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
+    /// <summary> 課題を表します． </summary>
     public interface IIssue
     {
+        /// <summary> IDを取得します． </summary>
         long Id { get; }
 
+        /// <summary> プロジェクトIDを取得します． </summary>
         long ProjectId { get; }
 
+        /// <summary> キー文字列を取得します． </summary>
         string IssueKey { get; }
 
+        /// <summary> キーIDを取得します． </summary>
         long KeyId { get; }
 
+        /// <summary> 課題種別を取得します． </summary>
         IIssueType IssueType { get; }
 
+        /// <summary> サマリを取得します． </summary>
         string Summary { get; }
 
+        /// <summary> 説明を取得します． </summary>
         string Description { get; }
 
+        /// <summary> 解決理由を取得します． </summary>
         IResolution Resolutions { get; }
 
+        /// <summary> 優先度を取得します． </summary>
         IPriority Priority { get; }
 
+        /// <summary> ステータスを取得します． </summary>
         IStatus Status { get; }
 
+        /// <summary> 担当者を取得します． </summary>
         IUser Assignee { get; }
 
+        /// <summary> カテゴリーの一覧を取得します． </summary>
         IList<ICategory> Categories { get; }
 
+        /// <summary> バージョンの一覧を取得します． </summary>
         IList<IVersion> Versions { get; }
 
+        /// <summary> マイルストーンの一覧を取得します． </summary>
         IList<IVersion> Milestones { get; }
 
+        /// <summary> 開始日を取得します． </summary>
         DateTime? StartDate { get; }
 
+        /// <summary> 期限日を取得します． </summary>
         DateTime? DueDate { get; }
 
+        /// <summary> 予想作業時間を取得します． </summary>
         double? EstimatedHours { get; }
 
+        /// <summary> 実作業時間を取得します． </summary>
         double? ActualHours { get; }
 
+        /// <summary> 親課題のIDを取得します． </summary>
         long? ParentIssueId { get; }
 
+        /// <summary> 作成ユーザを取得します． </summary>
         IUser CreatedUser { get; }
 
+        /// <summary> 作成日時を取得します． </summary>
         DateTime Created { get; }
 
+        /// <summary> 更新ユーザを取得します． </summary>
         IUser UpdatedUser { get; }
 
+        /// <summary> 更新日時を取得します． </summary>
         DateTime Updated { get; }
 
+        /// <summary> カスタムフィールドの一覧を取得します． </summary>
         IList<ICustomField> CustomFields { get; }
 
+        /// <summary> 添付ファイルの一覧を取得します． </summary>
         IList<IAttachment> Attachments { get; }
 
+        /// <summary> 共有ファイルへの参照の一覧を取得します． </summary>
         IList<ISharedFile> SharedFiles { get; }
 
+        /// <summary> スターの一覧を取得します． </summary>
         IList<IStar> Stars { get; }
     }
 

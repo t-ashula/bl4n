@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Backlog.cs">
 //   bl4n - Backlog.jp API Client library
 //   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -22,6 +22,7 @@ namespace BL4N
     /// <summary> The backlog. </summary>
     public class Backlog
     {
+        /// <summary> 日付のフォーマット文字列を表します． </summary>
         public const string DateFormat = "yyyy-MM-dd";
 
         /// <summary> API タイプを取得します</summary>
@@ -62,7 +63,7 @@ namespace BL4N
             _settings = settings;
         }
 
-        public async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
+        private async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
         {
             // TODO: default JSS
             var ua = new HttpClient();
@@ -1709,6 +1710,107 @@ namespace BL4N
             return res.Result.ToList<IIssue>();
         }
 
+        /// <summary>
+        /// Count Issue
+        /// Returns number of issues.
+        /// </summary>
+        /// <param name="projectIds">Project Ids</param>
+        /// <param name="conditions">search condtions</param>
+        /// <returns>issue count as <see cref="ICounter"/></returns>
+        public ICounter GetIssuesCount(long[] projectIds, IssueSearchConditions conditions)
+        {
+            var query = new List<KeyValuePair<string, string>>();
+            query.AddRange(projectIds.ToKeyValuePairs("projectId[]"));
+            query.AddRange(conditions.ToKeyValuePairs());
+
+            var api = GetApiUri(new[] { "issues", "count" }, query);
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Add Issue
+        /// Adds new issue.
+        /// </summary>
+        /// <param name="settings">new issue setting</param>
+        /// <returns>created <see cref="IIssue"/></returns>
+        public IIssue AddIssue(NewIssueSettings settings)
+        {
+            var api = GetApiUri(new[] { "issues" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var hc = new FormUrlEncodedContent(settings.ToKeyValuePairs());
+            var res = PostApiResult<Issue>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Get Issue
+        /// Returns information about issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <remarks>TODO: add Key-ID type api</remarks>
+        /// <returns><see cref="IIssue"/></returns>
+        public IIssue GetIssue(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<Issue>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Issue
+        /// Updates information about issue.
+        /// </summary>
+        /// <param name="issueId"></param>
+        /// <param name="issueUpdateSettings"></param>
+        /// <remarks>TODO: add Key-ID type api</remarks>
+        /// <returns>updated <see cref="IIssue"/></returns>
+        public IIssue UpdateIssue(long issueId, IssueUpdateSettings issueUpdateSettings)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var kvs = issueUpdateSettings.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<Issue>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Delete Issue
+        /// Deletes issue.
+        /// </summary>
+        /// <param name="issueId">issue id to delete</param>
+        /// <remarks>TODO: add Key-ID type api</remarks>
+        /// <returns>deleted <see cref="IIssue"/></returns>
+        public IIssue DeleteIssue(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = DeleteApiResult<Issue>(api, jss);
+            return res.Result;
+        }
+
         #region issues/comments
 
         /// <summary>
@@ -1784,7 +1886,6 @@ namespace BL4N
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 NullValueHandling = NullValueHandling.Ignore
             };
-
             var res = GetApiResult<IssueComment>(api, jss);
             return res.Result;
         }

@@ -45,19 +45,20 @@ namespace BL4N.Tests
             #region /space/activities
 
             // TODO: test data file
-            Get["/activities"] = _ => Response.AsText(@"["
-                                                      + /* 1, 2, 3, 4 */
-                                                      @"{
+            Get["/activities"] = _ => Response.AsText(
+                @"["
+                + /* 1, 2, 3, 4 */
+                @"{
                     ""id"": 3153,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 2,
                     ""content"": {
                         ""id"": 4809,
                         ""key_id"": 121,
-                        ""summary"": ""ƒRƒƒ“ƒg"",
+                        ""summary"": ""ã‚³ãƒ¡ãƒ³ãƒˆ"",
                         ""description"": """",
                         ""comment"": { ""id"": 7237,""content"": """" },
                         ""changes"": [
@@ -75,11 +76,11 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
                 }"
-                                                      + /* 5, 6, 7 */
-                                                      @",{
+                + /* 5, 6, 7 */
+                @",{
                     ""id"": 3153,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 6,
@@ -102,11 +103,11 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
                 }"
-                                                      + /* 8, 9, 10 */
-                                                      @",{
+                + /* 8, 9, 10 */
+                @",{
                     ""id"": 3153,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 8,
@@ -121,11 +122,11 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2013-12-27T07:50:44Z""
                 }"
-                                                      + /* 11 */
-                                                      @",{
+                + /* 11 */
+                @",{
                     ""id"": 57269265,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 11,
@@ -134,11 +135,11 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2015-03-26T00:15:35Z""
                 }"
-                                                      + /* 12, 13 */
-                                                      @",{
+                + /* 12, 13 */
+                @",{
                     ""id"": 57269265,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 12,
@@ -154,21 +155,21 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": ""admin"", ""name"": ""admin"", ""roleType"": 1, ""lang"": ""ja"", ""mailAddress"": ""eguchi@nulab.example"" },
                     ""created"": ""2015-03-26T00:15:35Z""
                 }"
-                                                      + /* 14 */
-                                                      @",{
+                + /* 14 */
+                @",{
                     ""id"": 3254,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 14,
                     ""content"": {
                         ""tx_id"": 1,
-                        ""comment"": { ""content"": ""‚¨¢˜b‚É‚È‚Á‚Ä‚¨‚è‚Ü‚·D"" },
+                        ""comment"": { ""content"": ""ãŠä¸–è©±ã«ãªã£ã¦ãŠã‚Šã¾ã™ï¼Ž"" },
                         ""link"": [
-                            { ""id"": 2, ""key_id"": 10, ""title"": ""[Ž¿–â] ‰Â”\‚Å‚µ‚å‚¤‚©H"" },
-                            { ""id"": 3, ""key_id"": 20, ""title"": ""[Ž¿–â] F‚É‚Â‚¢‚Ä"" },
-                            { ""id"": 4, ""key_id"": 30, ""title"": ""[Ž¿–â] Ž¿–â"" }
+                            { ""id"": 2, ""key_id"": 10, ""title"": ""[è³ªå•] å¯èƒ½ã§ã—ã‚‡ã†ã‹ï¼Ÿ"" },
+                            { ""id"": 3, ""key_id"": 20, ""title"": ""[è³ªå•] è‰²ã«ã¤ã„ã¦"" },
+                            { ""id"": 4, ""key_id"": 30, ""title"": ""[è³ªå•] è³ªå•"" }
                         ],
                         ""changes"": [
                             { ""field"": ""status"",""new_value"": ""2"", ""type"": ""standard"" }
@@ -178,11 +179,11 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 1, ""userId"": null, ""name"": ""user2"", ""roleType"": 2, ""lang"": null, ""mailAddress"": null },
                     ""created"": ""2015-03-17T09:56:16Z""
                 }"
-                                                      + /* 15, 16 */
-                                                      @",{
+                + /* 15, 16 */
+                @",{
                     ""id"": 8159779,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 15,
@@ -202,22 +203,22 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
                     ""created"": ""2015-03-26T09:28:33Z""
                 }"
-                                                      + /* 17 */
-                                                      @",{
+                + /* 17 */
+                @",{
                     ""id"": 8159779,
                     ""project"": {
-                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ƒTƒuƒ^ƒXƒN"",
+                        ""id"": 92, ""projectKey"": ""SUB"", ""name"": ""ã‚µãƒ–ã‚¿ã‚¹ã‚¯"",
                         ""chartEnabled"": true, ""subtaskingEnabled"": true, ""textFormattingRule"": null, ""archived"": false, ""displayOrder"": 0
                     },
                     ""type"": 17,
                     ""content"": {
                         ""id"": 1,
                         ""key_id"": 2,
-                        ""summary"": ""ƒTƒ}ƒŠ["",
-                        ""description"": ""’Ç‹L‚ð‚¨Šè‚¢‚µ‚Ü‚·D"",
+                        ""summary"": ""ã‚µãƒžãƒªãƒ¼"",
+                        ""description"": ""è¿½è¨˜ã‚’ãŠé¡˜ã„ã—ã¾ã™ï¼Ž"",
                         ""comment"": {
                             ""id"": 1115392520,
-                            ""content"": ""‚æ‚ë‚µ‚­‚¨Šè‚¢’v‚µ‚Ü‚·D""
+                            ""content"": ""ã‚ˆã‚ã—ããŠé¡˜ã„è‡´ã—ã¾ã™ï¼Ž""
                         },
                         ""changes"": [ ],
                         ""attachments"": [ ],
@@ -227,8 +228,8 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
                     ""created"": ""2015-03-26T09:28:33Z""
                 }"
-                                                      +
-                                                      @"]", "application/json;charset=utf-8");
+                +
+                @"]", "application/json;charset=utf-8");
 
             #endregion
 
@@ -262,10 +263,10 @@ namespace BL4N.Tests
 
             #region /space/notification
 
-            // {"content":"‚¨’m‚ç‚¹‚Ì’Ç‰Á\":-)\"","updated":"2015-03-26T06:37:37Z"}"
+            // {"content":"ãŠçŸ¥ã‚‰ã›ã®è¿½åŠ \":-)\"","updated":"2015-03-26T06:37:37Z"}"
             Get["/notification"] = _ => Response.AsJson(new
             {
-                content = "‚¨’m‚ç‚¹‚Ì’Ç‰Á\":-)\"",
+                content = "ãŠçŸ¥ã‚‰ã›ã®è¿½åŠ \":-)\"",
                 updated = new DateTime(2015, 3, 26, 6, 37, 37, DateTimeKind.Unspecified)
             });
 
@@ -317,10 +318,10 @@ namespace BL4N.Tests
             Post["/attachment"] = _ =>
             {
                 var file = Request.Files.FirstOrDefault();
+
                 // TODO: error response, Key should be "file"
                 // var key = file == null ? "" : file.Key;
-
-                var name = file == null ? "" : file.Name;
+                var name = file == null ? string.Empty : file.Name;
                 var size = file == null ? 0 : file.Value.Length;
                 return Response.AsJson(new
                 {

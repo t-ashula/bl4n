@@ -10,10 +10,13 @@ using System.Linq;
 
 namespace BL4N.Data
 {
+    /// <summary> 共有ファイルを表します </summary>
     public interface ISharedFileData
     {
+        /// <summary> ファイル名を取得します． </summary>
         string FileName { get; }
 
+        /// <summary> ファイル内容を取得します． </summary>
         byte[] Content { get; }
     }
 

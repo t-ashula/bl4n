@@ -12,10 +12,13 @@ namespace BL4N.Data
     /// <summary> repository (git) </summary>
     public interface IRepository
     {
+        /// <summary> ID を取得します． </summary>
         long Id { get; }
 
+        /// <summary> 名称を取得します． </summary>
         string Name { get; }
 
+        /// <summary> 説明を取得します． </summary>
         string Description { get; }
     }
 
