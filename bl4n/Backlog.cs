@@ -1820,6 +1820,7 @@ namespace BL4N
         /// <param name="issueId">issue id</param>
         /// <param name="commentId">comment id</param>
         /// <returns>list of <see cref="INotification"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
         public IList<INotification> GetIssuecommentNotifications(long issueId, long commentId)
         {
             var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D"), "notifications" });
@@ -1869,6 +1870,7 @@ namespace BL4N
         /// </summary>
         /// <param name="issueId">issue id</param>
         /// <returns>list of <see cref="IAttachment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
         public IList<IAttachment> GetIssueAttachments(long issueId)
         {
             var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments" });
