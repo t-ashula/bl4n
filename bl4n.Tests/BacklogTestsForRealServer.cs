@@ -1693,6 +1693,7 @@ namespace BL4N.Tests
                 attachmentId = added.Id;
                 Assert.True(attachmentId > 0);
             }
+
             var projectId = backlog.GetProjects()[0].Id;
             var issueIds = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
             Assert.True(issueIds.Any());
@@ -1706,6 +1707,20 @@ namespace BL4N.Tests
             var id = changlog.AttachmentInfo.Id;
             var actual = backlog.DeleteIssueAttachment(issueId, id);
             Assert.Equal(id, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueLinkedSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var issueId = 1157540; // BL4N-6
+            var actual = backlog.GetIssueLinkedSharedFiles(issueId);
+            Assert.True(actual.Count > 0);
+            var sharedFile = actual[0];
+            Assert.True(sharedFile.Id > 0);
         }
 
         #endregion

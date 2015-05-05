@@ -1922,6 +1922,29 @@ namespace BL4N
 
         #endregion
 
+        #region issues/sharedfiles
+
+        /// <summary>
+        /// Get List of Linked Shared Files
+        /// Returns the list of linked Shared Files to issues.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>list of <see cref="ISharedFile"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IList<ISharedFile> GetIssueLinkedSharedFiles(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "sharedFiles" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<SharedFile>>(api, jss);
+            return res.Result.ToList<ISharedFile>();
+        }
+
+        #endregion
+
         #endregion
     }
 }

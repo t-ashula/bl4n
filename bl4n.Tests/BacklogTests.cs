@@ -301,6 +301,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/issues/:issueIdOrKey/attachments/:attachmentId </summary>
         public abstract void DeleteIssueAttachmentTest();
 
+        /// <summary> /api/v2/issues/:issueIdOrKey/sharedFiles </summary>
+        public abstract void GetIssueLinkedSharedFilesTest();
+
         #endregion
     }
 }
