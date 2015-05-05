@@ -206,6 +206,22 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /api/v2/issues/:issueIdOrKey/comments/:id/notifications
+
+            Get["/{issueid}/comments/{commentid}/notifications"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 22,
+                    alreadyRead = false,
+                    reason = 2,
+                    user = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    resourceAlreadyRead = false
+                }
+            });
+
+            #endregion
         }
     }
 }

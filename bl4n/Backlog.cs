@@ -1813,6 +1813,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get List of Comment Notifications
+        /// Returns the list of comment notifications.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="commentId">comment id</param>
+        /// <returns>list of <see cref="INotification"/></returns>
+        public IList<INotification> GetIssuecommentNotifications(long issueId, long commentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D"), "notifications" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Notification>>(api, jss);
+            return res.Result.ToList<INotification>();
+        }
+
         #endregion
 
         #endregion

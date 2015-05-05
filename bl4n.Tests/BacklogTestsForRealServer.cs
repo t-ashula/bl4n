@@ -1602,6 +1602,25 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentNotificationsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var comments = backlog.GetIssueComments(issueId);
+            Assert.True(comments.Count > 0);
+            var commentId = comments[0].Id;
+            var actual = backlog.GetIssuecommentNotifications(issueId, commentId);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual[0].Id > 0);
+        }
+
         #endregion
     }
 }

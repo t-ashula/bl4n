@@ -286,6 +286,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/issues/:issueIdOrKey/comments/:id </summary>
         public abstract void UpdateIssueCommentTest();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/:commentId/notifications </summary>
+        public abstract void GetIssueCommentNotificationsTest();
+
         #endregion
     }
 }
