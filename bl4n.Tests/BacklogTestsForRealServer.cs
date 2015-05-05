@@ -1621,6 +1621,25 @@ namespace BL4N.Tests
             Assert.True(actual[0].Id > 0);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var added = backlog.AddIssueComment(issueId, new CommentAddContent(string.Format("new comment.{0}", DateTime.Now)));
+            Assert.True(added.Id > 0);
+            var commentId = added.Id;
+            var userIds = backlog.GetProjectUsers(projectId.ToString()).Where(_ => _.Id != added.CreatedUser.Id).Select(_ => _.Id).ToList();
+            var actual = backlog.AddIssueCommentNotification(issueId, commentId, userIds);
+            Assert.Equal(commentId, actual.Id);
+        }
+
         #endregion
     }
 }

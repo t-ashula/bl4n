@@ -1832,6 +1832,33 @@ namespace BL4N
             return res.Result.ToList<INotification>();
         }
 
+        /// <summary>
+        /// Add Comment Notification
+        /// Adds notifications to the comment.
+        /// Only the user who added the comment can add notifications.
+        /// </summary>
+        /// <param name="issueId">issue id </param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="userIds">user id who to notify</param>
+        /// <returns>comment id <see cref="IIssueComment"/></returns>
+        /// <remarks>
+        /// <paramref name="userIds"/> shall not contain comment created user.
+        /// TODO: issueKey API.
+        /// </remarks>
+        public IIssueComment AddIssueCommentNotification(long issueId, long commentId, List<long> userIds)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString(), "comments", commentId.ToString(), "notifications" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = userIds.ToKeyValuePairs("notifiedUserId[]");
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

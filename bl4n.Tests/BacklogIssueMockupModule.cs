@@ -222,6 +222,37 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region POST /api/v2/issues/:issueIdOrKey/comments/:id/notifications
+
+            Post["/{issueid}/comments/{commentid}/notifications"] = p =>
+            {
+                //// string reqNotifiedIds = Request.Form["notifiedUserId[]"];
+                //// var notifiedIds = RequestUtils.ToIds(reqNotifiedIds).ToList();
+                return Response.AsJson(new
+                {
+                    id = p.commentid,
+                    content = "This is a comment",
+                    //// changeLog = null,
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2013-08-05T06:15:06Z",
+                    updated = "2013-08-05T06:15:06Z",
+                    //// stars = [],
+                    notifications = new[]
+                    {
+                        new
+                        {
+                            id = 22,
+                            alreadyRead = false,
+                            reason = 2,
+                            createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                            resourceAlreadyRead = false
+                        }
+                    }
+                });
+            };
+
+            #endregion
         }
     }
 }

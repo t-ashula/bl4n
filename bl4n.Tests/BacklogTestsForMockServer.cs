@@ -2007,6 +2007,22 @@ namespace BL4N.Tests
             Assert.Equal(1, actual.Count);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long commentId = r.Next();
+            var userIds = new List<long>(Enumerable.Range(1, 10).Select(_ => (long)r.Next(100)));
+            var actual = backlog.AddIssueCommentNotification(issueId, commentId, userIds);
+            Assert.Equal(commentId, actual.Id);
+        }
+
         #endregion
     }
 }
