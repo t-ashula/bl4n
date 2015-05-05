@@ -2060,6 +2060,21 @@ namespace BL4N.Tests
             Assert.Equal(fileName, actual.FileName); // just only test,
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long attachmentId = r.Next();
+            var actual = backlog.DeleteIssueAttachment(issueId, attachmentId);
+            Assert.Equal(attachmentId, actual.Id);
+        }
+
         #endregion
 
         #endregion

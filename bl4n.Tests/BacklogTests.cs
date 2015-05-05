@@ -298,6 +298,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/:issueIdOrKey/attachments/:attachmentId </summary>
         public abstract void GetIssueAttachmentTest();
 
+        /// <summary> DELETE /api/v2/issues/:issueIdOrKey/attachments/:attachmentId </summary>
+        public abstract void DeleteIssueAttachmentTest();
+
         #endregion
     }
 }

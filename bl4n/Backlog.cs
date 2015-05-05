@@ -1900,6 +1900,26 @@ namespace BL4N
             return new SharedFileData(fileName, content);
         }
 
+        /// <summary>
+        /// Delete Issue Attachment
+        /// Deletes an attachment of issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="attachmentId">attachment id</param>
+        /// <returns>deleted <see cref="IAttachment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IAttachment DeleteIssueAttachment(long issueId, long attachmentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments", attachmentId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = DeleteApiResult<Attachment>(api, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

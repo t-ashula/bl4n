@@ -1677,6 +1677,37 @@ namespace BL4N.Tests
             Assert.Equal("2013-07-20-kyotosuizokukan2.jpeg", actual.FileName);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            long attachmentId = 0;
+            using (var ms = new MemoryStream())
+            {
+                var bmp = Resources.logo;
+                bmp.Save(ms, bmp.RawFormat);
+                ms.Position = 0;
+                var added = backlog.AddAttachment(string.Format("logo.{0}.png", new Random().Next(1000)), ms);
+                attachmentId = added.Id;
+                Assert.True(attachmentId > 0);
+            }
+            var projectId = backlog.GetProjects()[0].Id;
+            var issueIds = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issueIds.Any());
+            var issueId = issueIds[0].Id;
+            var content = new CommentAddContent("attachment test");
+            content.AttachmentIds.Add(attachmentId);
+            var comment = backlog.AddIssueComment(issueId, content);
+            Assert.True(comment.Id > 0);
+            var changlog = comment.ChangeLog.FirstOrDefault(c => c.AttachmentInfo != null && c.AttachmentInfo.Id > 0);
+            Assert.NotNull(changlog);
+            var id = changlog.AttachmentInfo.Id;
+            var actual = backlog.DeleteIssueAttachment(issueId, id);
+            Assert.Equal(id, actual.Id);
+        }
+
         #endregion
 
         #endregion

@@ -301,6 +301,19 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region DELETE /api/v2/issues/:issueIdOrKey/attachments/:attachmentId
+
+            Delete["/{issueid}/attachments/{attachmentid}"] = p => Response.AsJson(new
+            {
+                id = p.attachmentid,
+                name = "IMG0088.png",
+                size = 5563,
+                createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                created = "2013-08-05T06:15:06Z"
+            });
+
+            #endregion
         }
     }
 }
