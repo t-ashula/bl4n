@@ -2044,6 +2044,22 @@ namespace BL4N.Tests
             Assert.Equal(8, actual[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long attachmentId = r.Next();
+            var actual = backlog.GetIssueAttachment(issueId, attachmentId);
+            var fileName = string.Format("{0}.{1}.dat", issueId, attachmentId);
+            Assert.Equal(fileName, actual.FileName); // just only test,
+        }
+
         #endregion
 
         #endregion

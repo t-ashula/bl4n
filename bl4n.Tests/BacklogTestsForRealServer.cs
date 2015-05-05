@@ -1661,6 +1661,22 @@ namespace BL4N.Tests
             Assert.True(attachment.Id > 0);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var issueId = 992829; // BL4N-2
+            var attachments = backlog.GetIssueAttachments(issueId);
+            Assert.True(attachments.Count > 0);
+            var attachment = attachments[0];
+            Assert.True(attachment.Id > 0);
+            var actual = backlog.GetIssueAttachment(issueId, attachment.Id);
+            Assert.Equal("2013-07-20-kyotosuizokukan2.jpeg", actual.FileName);
+        }
+
         #endregion
 
         #endregion

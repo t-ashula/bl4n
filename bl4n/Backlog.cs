@@ -1881,6 +1881,23 @@ namespace BL4N
             return res.Result.ToList<IAttachment>();
         }
 
+        /// <summary>
+        /// Get Issue Attachment
+        /// Downloads issue's attachment file.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="attachmentId">attachment id</param>
+        /// <returns>file content and name</returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public ISharedFileData GetIssueAttachment(long issueId, long attachmentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments", attachmentId.ToString("D") });
+            var res = GetApiResultAsFile(api);
+            var fileName = res.Result.Item1;
+            var content = res.Result.Item2;
+            return new SharedFileData(fileName, content);
+        }
+
         #endregion
 
         #endregion
