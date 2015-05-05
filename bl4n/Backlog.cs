@@ -1743,6 +1743,7 @@ namespace BL4N
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 NullValueHandling = NullValueHandling.Ignore
             };
+
             var hc = new FormUrlEncodedContent(settings.ToKeyValuePairs());
             var res = PostApiResult<Issue>(api, hc, jss);
             return res.Result;
@@ -1783,6 +1784,7 @@ namespace BL4N
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 NullValueHandling = NullValueHandling.Ignore
             };
+
             var kvs = issueUpdateSettings.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PatchApiResult<Issue>(api, hc, jss);
@@ -1804,9 +1806,245 @@ namespace BL4N
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 NullValueHandling = NullValueHandling.Ignore
             };
+
             var res = DeleteApiResult<Issue>(api, jss);
             return res.Result;
         }
+
+        #region issues/comments
+
+        /// <summary>
+        /// Get Comment List
+        /// Returns list of comments in issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: add more parameters</remarks>
+        public IList<IIssueComment> GetIssueComments(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = GetApiResult<List<IssueComment>>(api, jss);
+            return res.Result.ToList<IIssueComment>();
+        }
+
+        /// <summary>
+        /// Add Comment
+        /// Adds a comment to the issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="options">comment content</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IIssueComment AddIssueComment(long issueId, CommentAddContent options)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var kvs = options.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Count Comment
+        /// Returns number of comments in issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>number of comments</returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public ICounter GetIssueCommentCount(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", "count" });
+            var res = GetApiResult<Counter>(api, new JsonSerializerSettings());
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Get Comment
+        /// Returns information about comment.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="commentId">comment id</param>
+        /// <returns>comment <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IIssueComment GetIssueComment(long issueId, long commentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<IssueComment>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update comment
+        /// Updates content of comment.
+        /// User can update own comment.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="content">comment content</param>
+        /// <returns>updated <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IIssueComment UpdateIssueComment(long issueId, long commentId, string content)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new[] { new KeyValuePair<string, string>("content", content) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Get List of Comment Notifications
+        /// Returns the list of comment notifications.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="commentId">comment id</param>
+        /// <returns>list of <see cref="INotification"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IList<INotification> GetIssuecommentNotifications(long issueId, long commentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D"), "notifications" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Notification>>(api, jss);
+            return res.Result.ToList<INotification>();
+        }
+
+        /// <summary>
+        /// Add Comment Notification
+        /// Adds notifications to the comment.
+        /// Only the user who added the comment can add notifications.
+        /// </summary>
+        /// <param name="issueId">issue id </param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="userIds">user id who to notify</param>
+        /// <returns>comment id <see cref="IIssueComment"/></returns>
+        /// <remarks>
+        /// <paramref name="userIds"/> shall not contain comment created user.
+        /// TODO: issueKey API.
+        /// </remarks>
+        public IIssueComment AddIssueCommentNotification(long issueId, long commentId, List<long> userIds)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString(), "comments", commentId.ToString(), "notifications" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = userIds.ToKeyValuePairs("notifiedUserId[]");
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
+        #endregion
+
+        #region issues/attachments
+
+        /// <summary>
+        /// Get List of Issue Attachments
+        /// Returns the list of issue attachments.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IList<IAttachment> GetIssueAttachments(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Attachment>>(api, jss);
+            return res.Result.ToList<IAttachment>();
+        }
+
+        /// <summary>
+        /// Get Issue Attachment
+        /// Downloads issue's attachment file.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="attachmentId">attachment id</param>
+        /// <returns>file content and name</returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public ISharedFileData GetIssueAttachment(long issueId, long attachmentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments", attachmentId.ToString("D") });
+            var res = GetApiResultAsFile(api);
+            var fileName = res.Result.Item1;
+            var content = res.Result.Item2;
+            return new SharedFileData(fileName, content);
+        }
+
+        /// <summary>
+        /// Delete Issue Attachment
+        /// Deletes an attachment of issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="attachmentId">attachment id</param>
+        /// <returns>deleted <see cref="IAttachment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IAttachment DeleteIssueAttachment(long issueId, long attachmentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments", attachmentId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = DeleteApiResult<Attachment>(api, jss);
+            return res.Result;
+        }
+
+        #endregion
+
+        #region issues/sharedfiles
+
+        /// <summary>
+        /// Get List of Linked Shared Files
+        /// Returns the list of linked Shared Files to issues.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>list of <see cref="ISharedFile"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IList<ISharedFile> GetIssueLinkedSharedFiles(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "sharedFiles" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<SharedFile>>(api, jss);
+            return res.Result.ToList<ISharedFile>();
+        }
+
+        #endregion
 
         #endregion
     }

@@ -2070,6 +2070,188 @@ namespace BL4N.Tests
 
         #endregion
 
+        #region issue/comment
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var actual = backlog.GetIssueComments(issueId);
+            Assert.Equal(1, actual.Count);
+            var comment = actual[0];
+            Assert.Equal(6586, comment.Id);
+            Assert.Equal("test", comment.Content);
+            Assert.Equal(1, comment.ChangeLog.Count);
+            Assert.True(comment.ChangeLog[0].AttachmentInfo.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var content = string.Format("comment.{0}", r.NextDouble());
+            var options = new CommentAddContent(content);
+            options.AttachmentIds.Add(r.Next(10000));
+            var actual = backlog.AddIssueComment(issueId, options);
+            Assert.Equal(content, actual.Content);
+            Assert.Equal(options.AttachmentIds[0], actual.ChangeLog[0].AttachmentInfo.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var actual = backlog.GetIssueCommentCount(issueId);
+            Assert.Equal(10, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long commentId = r.Next();
+            var actual = backlog.GetIssueComment(issueId, commentId);
+            Assert.Equal(commentId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long commentId = r.Next();
+            var content = string.Format("new content.{0}", DateTime.Now);
+            var actual = backlog.UpdateIssueComment(issueId, commentId, content);
+            Assert.Equal(commentId, actual.Id);
+            Assert.Equal(content, actual.Content);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentNotificationsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long commentId = r.Next();
+            var actual = backlog.GetIssuecommentNotifications(issueId, commentId);
+            Assert.Equal(1, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long commentId = r.Next();
+            var userIds = new List<long>(Enumerable.Range(1, 10).Select(_ => (long)r.Next(100)));
+            var actual = backlog.AddIssueCommentNotification(issueId, commentId, userIds);
+            Assert.Equal(commentId, actual.Id);
+        }
+
+        #endregion
+
+        #region issue/attachment
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var actual = backlog.GetIssueAttachments(issueId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(8, actual[0].Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long attachmentId = r.Next();
+            var actual = backlog.GetIssueAttachment(issueId, attachmentId);
+            var fileName = string.Format("{0}.{1}.dat", issueId, attachmentId);
+            Assert.Equal(fileName, actual.FileName); // just only test,
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long attachmentId = r.Next();
+            var actual = backlog.DeleteIssueAttachment(issueId, attachmentId);
+            Assert.Equal(attachmentId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueLinkedSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var actual = backlog.GetIssueLinkedSharedFiles(issueId);
+            Assert.Equal(1, actual.Count);
+        }
+
+        #endregion
+
         #endregion
     }
 }

@@ -47,6 +47,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions">
+      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractJsonConverter.cs" />
@@ -64,18 +67,24 @@
     <Compile Include="Data\Activity\ProjectActivity.cs" />
     <Compile Include="Data\Activity\SVNRepositoryActivity.cs" />
     <Compile Include="Data\Activity\WikiActivity.cs" />
+    <Compile Include="Data\CommentAddContent.cs" />
     <Compile Include="Data\CheckBoxTypeCustomField.cs" />
     <Compile Include="Data\CustomFieldTypes.cs" />
     <Compile Include="Data\DateTypeCustomField.cs" />
+    <Compile Include="Data\IAttachmentInfo.cs" />
+    <Compile Include="Data\IAttributeInfo.cs" />
     <Compile Include="Data\ICategory.cs" />
+    <Compile Include="Data\IChangeLogDetail.cs" />
     <Compile Include="Data\ICustomField.cs" />
     <Compile Include="Data\ICustomFieldItem.cs" />
     <Compile Include="Data\IDiskUsageDetail.cs" />
     <Compile Include="Data\IGroup.cs" />
     <Compile Include="Data\IIssue.cs" />
+    <Compile Include="Data\IIssueComment.cs" />
     <Compile Include="Data\IIssueType.cs" />
     <Compile Include="Data\IIssueUpdate.cs" />
     <Compile Include="Data\INotification.cs" />
+    <Compile Include="Data\INotificationInfo.cs" />
     <Compile Include="Data\IPriority.cs" />
     <Compile Include="Data\IProject.cs" />
     <Compile Include="Data\Activity\IActivity.cs" />

@@ -1644,6 +1644,217 @@ namespace BL4N.Tests
 
         #endregion
 
+        #region issue/comment
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var actual = backlog.GetIssueComments(issueId);
+            Assert.True(actual.Count > 0);
+            var comment = actual[0];
+            Assert.True(comment.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var content = string.Format("content.{0}", DateTime.Now);
+            var options = new CommentAddContent(content);
+            var users = backlog.GetProjectUsers(projectId.ToString());
+            options.NotifiedUserIds.AddRange(users.Select(u => u.Id));
+            var actual = backlog.AddIssueComment(issueId, options);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(content, actual.Content);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentCountTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var actual = backlog.GetIssueCommentCount(issueId);
+            Assert.True(actual.Count > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var comments = backlog.GetIssueComments(issueId);
+            Assert.True(comments.Count > 0);
+            var commentId = comments[0].Id;
+            var actual = backlog.GetIssueComment(issueId, commentId);
+            Assert.Equal(commentId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateIssueCommentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var comments = backlog.GetIssueComments(issueId);
+            Assert.True(comments.Count > 0);
+            var commentId = comments[0].Id;
+            var content = string.Format("new comment.{0}", DateTime.Now);
+            var actual = backlog.UpdateIssueComment(issueId, commentId, content);
+            Assert.Equal(commentId, actual.Id);
+            Assert.Equal(content, actual.Content);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentNotificationsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var comments = backlog.GetIssueComments(issueId);
+            Assert.True(comments.Count > 0);
+            var commentId = comments[0].Id;
+            var actual = backlog.GetIssuecommentNotifications(issueId, commentId);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual[0].Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var added = backlog.AddIssueComment(issueId, new CommentAddContent(string.Format("new comment.{0}", DateTime.Now)));
+            Assert.True(added.Id > 0);
+            var commentId = added.Id;
+            var userIds = backlog.GetProjectUsers(projectId.ToString()).Where(_ => _.Id != added.CreatedUser.Id).Select(_ => _.Id).ToList();
+            var actual = backlog.AddIssueCommentNotification(issueId, commentId, userIds);
+            Assert.Equal(commentId, actual.Id);
+        }
+
+        #endregion
+
+        #region issue/attachment
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issueId = 992829; // BL4N-2
+            var actual = backlog.GetIssueAttachments(issueId);
+            Assert.True(actual.Count > 0);
+            var attachment = actual[0];
+            Assert.True(attachment.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var issueId = 992829; // BL4N-2
+            var attachments = backlog.GetIssueAttachments(issueId);
+            Assert.True(attachments.Count > 0);
+            var attachment = attachments[0];
+            Assert.True(attachment.Id > 0);
+            var actual = backlog.GetIssueAttachment(issueId, attachment.Id);
+            Assert.Equal("2013-07-20-kyotosuizokukan2.jpeg", actual.FileName);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssueAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            long attachmentId = 0;
+            using (var ms = new MemoryStream())
+            {
+                var bmp = Resources.logo;
+                bmp.Save(ms, bmp.RawFormat);
+                ms.Position = 0;
+                var added = backlog.AddAttachment(string.Format("logo.{0}.png", new Random().Next(1000)), ms);
+                attachmentId = added.Id;
+                Assert.True(attachmentId > 0);
+            }
+
+            var projectId = backlog.GetProjects()[0].Id;
+            var issueIds = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issueIds.Any());
+            var issueId = issueIds[0].Id;
+            var content = new CommentAddContent("attachment test");
+            content.AttachmentIds.Add(attachmentId);
+            var comment = backlog.AddIssueComment(issueId, content);
+            Assert.True(comment.Id > 0);
+            var changlog = comment.ChangeLog.FirstOrDefault(c => c.AttachmentInfo != null && c.AttachmentInfo.Id > 0);
+            Assert.NotNull(changlog);
+            var id = changlog.AttachmentInfo.Id;
+            var actual = backlog.DeleteIssueAttachment(issueId, id);
+            Assert.Equal(id, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueLinkedSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var issueId = 1157540; // BL4N-6
+            var actual = backlog.GetIssueLinkedSharedFiles(issueId);
+            Assert.True(actual.Count > 0);
+            var sharedFile = actual[0];
+            Assert.True(sharedFile.Id > 0);
+        }
+
+        #endregion
+
         #endregion
     }
 }

@@ -301,6 +301,39 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/issues/:idOrKey </summary>
         public abstract void DeleteIssueTest();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments </summary>
+        public abstract void GetIssueCommentsTest();
+
+        /// <summary> POST /api/v2/issues/:issueIdOrKey/comments </summary>
+        public abstract void AddIssueCommentTest();
+
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/count </summary>
+        public abstract void GetIssueCommentCountTest();
+
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/:id </summary>
+        public abstract void GetIssueCommentTest();
+
+        /// <summary> PATCH /api/v2/issues/:issueIdOrKey/comments/:id </summary>
+        public abstract void UpdateIssueCommentTest();
+
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/:commentId/notifications </summary>
+        public abstract void GetIssueCommentNotificationsTest();
+
+        /// <summary> POST /api/v2/issues/:issueIdOrKey/comments/:commentId/notifications </summary>
+        public abstract void AddIssueCommentNotificationTest();
+
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/attachments </summary>
+        public abstract void GetIssueAttachmentsTest();
+
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/attachments/:attachmentId </summary>
+        public abstract void GetIssueAttachmentTest();
+
+        /// <summary> DELETE /api/v2/issues/:issueIdOrKey/attachments/:attachmentId </summary>
+        public abstract void DeleteIssueAttachmentTest();
+
+        /// <summary> /api/v2/issues/:issueIdOrKey/sharedFiles </summary>
+        public abstract void GetIssueLinkedSharedFilesTest();
+
         #endregion
     }
 }
