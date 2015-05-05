@@ -166,6 +166,26 @@ namespace BL4N.Tests
             Get["/{id}/comments/count"] = _ => Response.AsJson(new { count = 10 });
 
             #endregion
+
+            #region /api/v2/issues/:issueIdOrKey/comments/:id
+
+            Get["/{issueid}/comments/{commentid}"] = p =>
+            {
+                var cid = p.commentid;
+                return Response.AsJson(new
+                {
+                    id = cid,
+                    content = "test",
+                    //// changeLog = [],
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2013-08-05T06:15:06Z",
+                    updated = "2013-08-05T06:15:06Z",
+                    //// stars= [],
+                    //// notifications= []
+                });
+            };
+
+            #endregion
         }
     }
 }

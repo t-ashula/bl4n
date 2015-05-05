@@ -1768,6 +1768,27 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Comment
+        /// Returns information about comment.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="commentId">comment id</param>
+        /// <returns>comment <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IIssueComment GetIssueComment(long issueId, long commentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = GetApiResult<IssueComment>(api, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

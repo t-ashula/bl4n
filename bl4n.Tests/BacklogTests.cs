@@ -280,6 +280,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/count </summary>
         public abstract void GetIssueCommentCountTest();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/:id </summary>
+        public abstract void GetIssueCommentTest();
+
         #endregion
     }
 }
