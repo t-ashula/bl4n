@@ -1946,6 +1946,20 @@ namespace BL4N.Tests
             Assert.Equal(options.AttachmentIds[0], actual.ChangeLog[0].AttachmentInfo.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var actual = backlog.GetIssueCommentCount(issueId);
+            Assert.Equal(10, actual.Count);
+        }
+
         #endregion
     }
 }

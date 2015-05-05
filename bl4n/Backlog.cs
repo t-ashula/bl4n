@@ -1754,6 +1754,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Count Comment
+        /// Returns number of comments in issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <returns>number of comments</returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public ICounter GetIssueCommentCount(long issueId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", "count" });
+            var res = GetApiResult<Counter>(api, new JsonSerializerSettings());
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

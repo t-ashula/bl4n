@@ -160,6 +160,12 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /api/v2/issues/:issueIdOrKey/comments/count
+
+            Get["/{id}/comments/count"] = _ => Response.AsJson(new { count = 10 });
+
+            #endregion
         }
     }
 }

@@ -1550,6 +1550,20 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueCommentCountTest()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            var actual = backlog.GetIssueCommentCount(issueId);
+            Assert.True(actual.Count > 0);
+        }
+
         #endregion
     }
 }
