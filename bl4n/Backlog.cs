@@ -2066,6 +2066,25 @@ namespace BL4N
             return res.Result.ToList<ISharedFile>();
         }
 
+        /// <summary>
+        /// Remove Link to Shared File from Issue
+        /// Removes link to shared file from issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="fileId">shared file id</param>
+        /// <returns>removed <see cref="ISharedFile"/></returns>
+        public ISharedFile RemoveIssueLinkedSharedFile(long issueId, long fileId)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "sharedFiles", fileId.ToString("D") });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = DeleteApiResult<SharedFile>(api, jss);
+            return res.Result;
+        }
+
         #endregion
 
         #endregion

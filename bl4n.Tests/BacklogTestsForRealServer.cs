@@ -1871,6 +1871,31 @@ namespace BL4N.Tests
             Assert.Equal(1, actual.Count);
             var sharedFile = actual[0];
             Assert.Equal(sharedFile.Id, fileId);
+            //// backlog.DeleteIssue(issue.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void RemoveIssueLinkedSharedFileTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var fileId = backlog.GetProjectSharedFiles(projectId.ToString()).Select(s => s.Id).First();
+            var types = backlog.GetProjectIssueTypes(projectId.ToString());
+            var priorityes = backlog.GetPriorities();
+            var newIssue = new NewIssueSettings(projectId, types[0].Id, priorityes[0].Id, "shared file test");
+            var issue = backlog.AddIssue(newIssue);
+            Assert.True(issue.Id > 0);
+            var added = backlog.AddIssueLinkedSharedFiles(issue.Id, new[] { fileId });
+            Assert.Equal(1, added.Count);
+            var sharedFile = added[0];
+            Assert.Equal(sharedFile.Id, fileId);
+
+            var actual = backlog.RemoveIssueLinkedSharedFile(issue.Id, sharedFile.Id);
+            Assert.Equal(sharedFile.Id, actual.Id);
+
             backlog.DeleteIssue(issue.Id);
         }
 

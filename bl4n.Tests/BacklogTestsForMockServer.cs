@@ -2266,6 +2266,21 @@ namespace BL4N.Tests
             Assert.Equal(fileId, actual[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void RemoveIssueLinkedSharedFileTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            long fileId = r.Next();
+            var actual = backlog.RemoveIssueLinkedSharedFile(issueId, fileId);
+            Assert.Equal(fileId, actual.Id);
+        }
+
         #endregion
 
         #endregion
