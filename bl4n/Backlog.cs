@@ -1772,8 +1772,8 @@ namespace BL4N
         /// Update Issue
         /// Updates information about issue.
         /// </summary>
-        /// <param name="issueId"></param>
-        /// <param name="issueUpdateSettings"></param>
+        /// <param name="issueId">issue id to update</param>
+        /// <param name="issueUpdateSettings">update settings</param>
         /// <remarks>TODO: add Key-ID type api</remarks>
         /// <returns>updated <see cref="IIssue"/></returns>
         public IIssue UpdateIssue(long issueId, IssueUpdateSettings issueUpdateSettings)
@@ -2041,6 +2041,28 @@ namespace BL4N
                 NullValueHandling = NullValueHandling.Ignore
             };
             var res = GetApiResult<List<SharedFile>>(api, jss);
+            return res.Result.ToList<ISharedFile>();
+        }
+
+        /// <summary>
+        /// Link Shared Files to Issue
+        /// Links shared files to issue.
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        /// <param name="fileIds">shared file ids</param>
+        /// <returns>list of linked <see cref="ISharedFile"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IList<ISharedFile> AddIssueLinkedSharedFiles(long issueId, IEnumerable<long> fileIds)
+        {
+            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "sharedFiles" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = fileIds.ToKeyValuePairs("fileId[]");
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<List<SharedFile>>(api, hc, jss);
             return res.Result.ToList<ISharedFile>();
         }
 

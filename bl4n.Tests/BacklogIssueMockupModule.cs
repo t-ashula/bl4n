@@ -715,6 +715,31 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region POST /api/v2/issues/:issueIdOrKey/sharedFiles
+
+            Post["/{issueid}/sharedFiles"] = p =>
+            {
+                string reqFileIds = Request.Form["fileId[]"];
+                var fileIds = RequestUtils.ToIds(reqFileIds).ToList();
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = fileIds[0],
+                        type = "file",
+                        dir = "/design/",
+                        name = "site.png",
+                        size = 2735,
+                        createdUser = new { id = 5686, userId = "takada", name = "takada", roleType = 2, lang = "ja", mailAddress = "takada@nulab.example" },
+                        created = "2009-02-27T03:26:15Z",
+                        updatedUser = new { id = 5686, userId = "takada", name = "takada", roleType = 2, lang = "ja", mailAddress = "takada@nulab.example" },
+                        updated = "2010-05-02T17:37:10Z"
+                    }
+                });
+            };
+
+            #endregion
         }
     }
 }
