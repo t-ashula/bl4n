@@ -2303,6 +2303,26 @@ namespace BL4N
             return file;
         }
 
+        /// <summary>
+        /// Remove Wiki Attachment
+        /// Removes files attached to Wiki.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="fileId">attachment file id</param>
+        /// <returns>removed file <see cref="IAttachment"/></returns>
+        public IAttachment RemoveWikiPageAttachment(long wikiId, long fileId)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "attachments", fileId.ToString() });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = DeleteApiResult<Attachment>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

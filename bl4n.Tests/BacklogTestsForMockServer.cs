@@ -2447,6 +2447,21 @@ namespace BL4N.Tests
             Assert.Equal(expected, actual.FileName);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void RemoveWikiPageAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            long fileId = r.Next(10000);
+            var actual = backlog.RemoveWikiPageAttachment(wikiId, fileId);
+            Assert.Equal(fileId, actual.Id);
+        }
+
         #endregion
     }
 }

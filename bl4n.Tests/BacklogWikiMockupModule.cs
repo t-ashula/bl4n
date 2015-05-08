@@ -207,6 +207,19 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region DELETE /api/v2/wikis/:id/attachments/:attachmentid
+
+            Delete["/{wikiid}/attachments/{attachmentid}"] = p => Response.AsJson(new
+            {
+                id = p.attachmentid,
+                name = "Duke.png",
+                size = 196186,
+                createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                created = "2014-07-11T06:26:05Z"
+            });
+
+            #endregion
         }
     }
 }
