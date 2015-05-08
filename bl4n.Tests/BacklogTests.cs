@@ -355,6 +355,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/wikis/:pageId </summary>
         public abstract void GetWikiPageTest();
 
+        /// <summary> PATCH /api/v2/wikis/:pageId </summary>
+        public abstract void UpdateWikiPageTest();
+
         #endregion
     }
 }

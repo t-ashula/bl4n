@@ -2164,9 +2164,10 @@ namespace BL4N
         /// Add Wiki Page
         /// Adds new Wiki page.
         /// </summary>
+        /// <param name="projectId">project id</param>
         /// <param name="addWikiPageOptions">adding wikipage info</param>
         /// <returns>created <see cref="IWikiPage"/></returns>
-        public IWikiPage AddWikiPage(AddWikiPageOptions addWikiPageOptions)
+        public IWikiPage AddWikiPage(long projectId, AddWikiPageOptions addWikiPageOptions)
         {
             var api = GetApiUri(new[] { "wikis" });
             var jss = new JsonSerializerSettings
@@ -2175,7 +2176,13 @@ namespace BL4N
                 NullValueHandling = NullValueHandling.Ignore
             };
 
-            var hc = new FormUrlEncodedContent(addWikiPageOptions.ToKeyValuePairs());
+            var kvs = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("projectId", string.Format("{0}", projectId))
+            };
+            kvs.AddRange(addWikiPageOptions.ToKeyValuePairs());
+
+            var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<WikiPage>(api, hc, jss);
             return res.Result;
         }
@@ -2195,6 +2202,26 @@ namespace BL4N
                 NullValueHandling = NullValueHandling.Ignore
             };
             var res = GetApiResult<WikiPage>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Wiki Page
+        /// Updates information about Wiki page.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="updateOptions">update option</param>
+        /// <returns>updated <see cref="IWikiPage"/></returns>
+        public IWikiPage UpdateWikiPage(long wikiId, AddWikiPageOptions updateOptions)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString() });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var hc = new FormUrlEncodedContent(updateOptions.ToKeyValuePairs());
+            var res = PatchApiResult<WikiPage>(api, hc, jss);
             return res.Result;
         }
 

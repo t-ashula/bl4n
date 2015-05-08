@@ -2344,8 +2344,8 @@ namespace BL4N.Tests
             var name = string.Format("name.{0}", DateTime.Now);
             var content = string.Format("content.{0}", DateTime.UtcNow);
             var mailNotify = r.Next() % 2 == 0;
-            var addWikiPageOptions = new AddWikiPageOptions(projectId, name, content, mailNotify);
-            var actual = backlog.AddWikiPage(addWikiPageOptions);
+            var addWikiPageOptions = new AddWikiPageOptions(name, content, mailNotify);
+            var actual = backlog.AddWikiPage(projectId, addWikiPageOptions);
             Assert.Equal(projectId, actual.ProjectId);
             Assert.Equal(name, actual.Name);
             Assert.Equal(content, actual.Content);
@@ -2363,6 +2363,26 @@ namespace BL4N.Tests
             long pageId = r.Next(10000);
             var actual = backlog.GetWikiPage(pageId);
             Assert.Equal(pageId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateWikiPageTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            var name = string.Format("name.{0}", DateTime.Now);
+            var content = string.Format("content.{0}", DateTime.UtcNow);
+            var mailNotify = r.Next() % 2 == 0;
+            var addWikiPageOptions = new AddWikiPageOptions(name, content, mailNotify);
+            var actual = backlog.UpdateWikiPage(wikiId, addWikiPageOptions);
+            Assert.Equal(wikiId, actual.Id);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(content, actual.Content);
         }
 
         #endregion

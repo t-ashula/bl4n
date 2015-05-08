@@ -16,9 +16,6 @@ namespace BL4N.Data
     /// </summary>
     public class AddWikiPageOptions
     {
-        /// <summary> project id を取得します </summary>
-        public long ProjectId { get; private set; }
-
         /// <summary> ページ名を取得します </summary>
         public string Name { get; private set; }
 
@@ -31,13 +28,11 @@ namespace BL4N.Data
         /// <summary>
         /// <see cref="AddWikiPageOptions"/> のインスタンスを初期化します
         /// </summary>
-        /// <param name="projectId">project id</param>
         /// <param name="name">wiki page name</param>
         /// <param name="content">wiki page content</param>
         /// <param name="mailNotify">true: do notify </param>
-        public AddWikiPageOptions(long projectId, string name, string content, bool mailNotify = false)
+        public AddWikiPageOptions(string name, string content, bool mailNotify = false)
         {
-            ProjectId = projectId;
             Name = name;
             Content = content;
             Notify = mailNotify;
@@ -51,7 +46,6 @@ namespace BL4N.Data
         {
             var pairs = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("projectId", string.Format("{0}", ProjectId)),
                 new KeyValuePair<string, string>("name", Name),
                 new KeyValuePair<string, string>("content", Content)
             };
