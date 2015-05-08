@@ -1750,7 +1750,7 @@ namespace BL4N.Tests
             var comments = backlog.GetIssueComments(issueId);
             Assert.True(comments.Count > 0);
             var commentId = comments[0].Id;
-            var actual = backlog.GetIssuecommentNotifications(issueId, commentId);
+            var actual = backlog.GetIssueCommentNotifications(issueId, commentId);
             Assert.True(actual.Count > 0);
             Assert.True(actual[0].Id > 0);
         }

@@ -2166,7 +2166,7 @@ namespace BL4N.Tests
             var r = new Random();
             long issueId = r.Next();
             long commentId = r.Next();
-            var actual = backlog.GetIssuecommentNotifications(issueId, commentId);
+            var actual = backlog.GetIssueCommentNotifications(issueId, commentId);
             Assert.Equal(1, actual.Count);
         }
 

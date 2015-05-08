@@ -1922,7 +1922,7 @@ namespace BL4N
         /// <param name="commentId">comment id</param>
         /// <returns>list of <see cref="INotification"/></returns>
         /// <remarks>TODO: issueKey API</remarks>
-        public IList<INotification> GetIssuecommentNotifications(long issueId, long commentId)
+        public IList<INotification> GetIssueCommentNotifications(long issueId, long commentId)
         {
             var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D"), "notifications" });
             var jss = new JsonSerializerSettings
