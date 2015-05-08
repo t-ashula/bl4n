@@ -368,6 +368,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/wikis/:wikiId/attachments </summary>
         public abstract void GetWikiPageAttachmentsTest();
 
+        /// <summary> POST /api/v2/wikis/:wikiId/attachments </summary>
+        public abstract void AddWikiPageAttachmentTest();
+
         #endregion
     }
 }

@@ -154,6 +154,27 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region POST /api/v2/wikis/:id/attachments
+
+            Post["/{id}/attachments"] = p =>
+            {
+                string reqFileIds = Request.Form["attachmentId[]"];
+                var ids = RequestUtils.ToIds(reqFileIds).ToList();
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = ids[0],
+                        name = "Duke.png",
+                        size = 196186,
+                        createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        created = "2014-07-11T06:26:05Z"
+                    }
+                });
+            };
+
+            #endregion
         }
     }
 }

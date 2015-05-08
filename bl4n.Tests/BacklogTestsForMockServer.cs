@@ -2415,6 +2415,22 @@ namespace BL4N.Tests
             Assert.Equal(1, actual[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddWikiPageAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            long fileId = r.Next(10000);
+            var actual = backlog.AddWikiPageAttachment(wikiId, new[] { fileId });
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(fileId, actual[0].Id);
+        }
+
         #endregion
     }
 }

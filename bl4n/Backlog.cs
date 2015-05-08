@@ -2267,6 +2267,27 @@ namespace BL4N
             return res.Result.ToList<IAttachment>();
         }
 
+        /// <summary>
+        /// Attach File to Wiki
+        /// Attaches file to Wiki
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="fileIds">attachment file ids</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        public IList<IAttachment> AddWikiPageAttachment(long wikiId, IEnumerable<long> fileIds)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "attachments" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = fileIds.ToKeyValuePairs("attachmentId[]");
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<List<Attachment>>(api, hc, jss);
+            return res.Result.ToList<IAttachment>();
+        }
+
         #endregion
     }
 }

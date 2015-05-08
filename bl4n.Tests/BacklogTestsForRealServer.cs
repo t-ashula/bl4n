@@ -2038,6 +2038,14 @@ namespace BL4N.Tests
             Assert.True(true, "Free plan does not support wiki page attachment"); // TODO:
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddWikiPageAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support wiki page attachment"); // TODO:
+        }
+
         #endregion
     }
 }
