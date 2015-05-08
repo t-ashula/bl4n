@@ -2137,6 +2137,29 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Wiki Page Tag List
+        /// Returns list of tags that are used in the project.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="ITag"/></returns>
+        /// <remarks>TODO: add project Key type api</remarks>
+        public IList<ITag> GetWikiPageTags(long projectId)
+        {
+            var query = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("projectIdOrKey", projectId.ToString())
+            };
+            var api = GetApiUri(new[] { "wikis", "tags" }, query);
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Tag>>(api, jss);
+            return res.Result.ToList<ITag>();
+        }
+
         #endregion
     }
 }

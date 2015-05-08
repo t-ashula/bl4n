@@ -46,6 +46,12 @@ namespace BL4N.Tests
             Get["/count"] = p => Response.AsJson(new { count = 5 });
 
             #endregion
+
+            #region /api/v2/wikis/tags
+
+            Get["/tags"] = p => Response.AsJson(new[] { new { id = 1, name = "test" } });
+
+            #endregion
         }
     }
 }

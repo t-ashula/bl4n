@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -1938,6 +1939,19 @@ namespace BL4N.Tests
             Assert.True(pages.Count > 0);
             var actual = backlog.GetWikiPagesCount(projectId);
             Assert.Equal(pages.Count, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageTagsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetWikiPageTags(projectId);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual[0].Id > 0);
         }
 
         #endregion

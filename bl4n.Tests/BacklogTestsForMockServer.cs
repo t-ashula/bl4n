@@ -2316,6 +2316,21 @@ namespace BL4N.Tests
             Assert.Equal(5, actual.Count);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageTagsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long projectId = new Random().Next(1000);
+            var actual = backlog.GetWikiPageTags(projectId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal("test", actual[0].Name);
+        }
+
         #endregion
     }
 }
