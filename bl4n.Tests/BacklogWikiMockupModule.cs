@@ -145,6 +145,15 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /api/v2/wikis/:id/attachments
+
+            Get["/{id}/attachments"] = p => Response.AsJson(new[]
+            {
+                new { id = 1, name = "IMGP0088.JPG", size = 85079 }
+            });
+
+            #endregion
         }
     }
 }

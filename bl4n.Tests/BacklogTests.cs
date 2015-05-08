@@ -365,6 +365,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/wikis/:pageId </summary>
         public abstract void DeleteWikiPageTest();
 
+        /// <summary> GET /api/v2/wikis/:wikiId/attachments </summary>
+        public abstract void GetWikiPageAttachmentsTest();
+
         #endregion
     }
 }
