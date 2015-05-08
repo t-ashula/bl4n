@@ -24,6 +24,9 @@ namespace BL4N.Data
         /// <summary> 名称を取得します． </summary>
         string Name { get; }
 
+        /// <summary> ページ内容を取得します． </summary>
+        string Content { get; }
+
         /// <summary> タグの一覧を取得します． </summary>
         IList<ITag> Tags { get; }
 
@@ -51,6 +54,9 @@ namespace BL4N.Data
 
         [DataMember(Name = "name")]
         public string Name { get; private set; }
+
+        [DataMember(Name = "content")]
+        public string Content { get; private set; }
 
         [DataMember(Name = "tags")]
         private List<Tag> _tags;

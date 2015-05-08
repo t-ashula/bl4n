@@ -349,6 +349,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/wikis/tags </summary>
         public abstract void GetWikiPageTagsTest();
 
+        /// <summary> POST /api/v2/wikis/tags </summary>
+        public abstract void AddWikiPageTest();
+
         #endregion
     }
 }

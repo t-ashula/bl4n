@@ -2160,6 +2160,26 @@ namespace BL4N
             return res.Result.ToList<ITag>();
         }
 
+        /// <summary>
+        /// Add Wiki Page
+        /// Adds new Wiki page.
+        /// </summary>
+        /// <param name="addWikiPageOptions">adding wikipage info</param>
+        /// <returns>created <see cref="IWikiPage"/></returns>
+        public IWikiPage AddWikiPage(AddWikiPageOptions addWikiPageOptions)
+        {
+            var api = GetApiUri(new[] { "wikis" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var hc = new FormUrlEncodedContent(addWikiPageOptions.ToKeyValuePairs());
+            var res = PostApiResult<WikiPage>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

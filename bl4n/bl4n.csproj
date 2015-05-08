@@ -67,6 +67,7 @@
     <Compile Include="Data\Activity\ProjectActivity.cs" />
     <Compile Include="Data\Activity\SVNRepositoryActivity.cs" />
     <Compile Include="Data\Activity\WikiActivity.cs" />
+    <Compile Include="Data\AddwikiPageOptions.cs" />
     <Compile Include="Data\CommentAddContent.cs" />
     <Compile Include="Data\CheckBoxTypeCustomField.cs" />
     <Compile Include="Data\CustomFieldTypes.cs" />

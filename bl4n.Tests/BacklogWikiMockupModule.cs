@@ -52,6 +52,33 @@ namespace BL4N.Tests
             Get["/tags"] = p => Response.AsJson(new[] { new { id = 1, name = "test" } });
 
             #endregion
+
+            #region POST /api/v2/wikis
+
+            Post[string.Empty] = p =>
+            {
+                string projectId = Request.Form["projectId"];
+                string name = Request.Form["name"];
+                string content = Request.Form["content"];
+                //// bool notify = Request.Form["mailNotify"] != null;
+                return Response.AsJson(new
+                {
+                    id = 1,
+                    projectId = projectId,
+                    name = name,
+                    content = content,
+                    tags = new[] { new { id = 12, name = "prpceedings" } },
+                    //// attachments = [],
+                    //// sharedFiles = [],
+                    //// stars = [],
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleTyoe = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2012-07-23T06:09:48Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleTyoe = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2012-07-23T06:09:48Z"
+                });
+            };
+
+            #endregion
         }
     }
 }
