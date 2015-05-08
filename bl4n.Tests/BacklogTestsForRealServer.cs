@@ -2096,6 +2096,36 @@ namespace BL4N.Tests
             backlog.DeleteWikiPage(added.Id, false);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void RemoveWikiPageSharedFileTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
+            // Link Shared Files to WikiPage API (POST /api/v2/wikis/:wikiId/sharedFiles) is broken?
+            ////var projectId = backlog.GetProjects()[0].Id;
+            ////var name = string.Format("AddWikiPageSharedFilesTest.{0}", DateTime.Now.Ticks);
+            ////var options = new AddWikiPageOptions(name, "AddWikiPageSharedFilesTest");
+            ////var added = backlog.AddWikiPage(projectId, options);
+            ////Assert.True(added.Id > 0);
+
+            ////var sharedFiles = backlog.GetProjectSharedFiles(projectId.ToString());
+            ////Assert.True(sharedFiles.Count > 0);
+            ////var fileId = sharedFiles[0].Id;
+            ////var actual = backlog.AddWikiPageSharedFiles(added.Id, new[] { fileId });
+            ////Assert.Equal(1, actual.Count);
+
+            // link shared file manualy
+            long wikiId = 67261; // Home:67261; //
+            long sharedFileId = 2585042; // /dir1/26476.png:2585042
+            var actual = backlog.RemoveWikiPageSharedFile(wikiId, sharedFileId);
+            Assert.Equal(sharedFileId, actual.Id);
+
+            ////backlog.DeleteIssue(added.Id);
+        }
+
         #endregion
     }
 }

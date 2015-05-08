@@ -265,6 +265,23 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region DELETE /api/v2/wikis/:wikiid/sharedFiles/:id
+
+            Delete["/{wikiid}/sharedFiles/{fileid}"] = p => Response.AsJson(new
+            {
+                id = p.fileid,
+                type = "file",
+                dir = "/PressRelease/20091130/",
+                name = "20091130.txt",
+                size = 4836,
+                createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                created = "2009-11-30T01:22:21Z",
+                //// updatedUser = null,
+                updated = "2009-11-30T01:22:21Z"
+            });
+
+            #endregion
         }
     }
 }

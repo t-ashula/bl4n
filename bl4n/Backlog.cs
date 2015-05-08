@@ -2362,6 +2362,26 @@ namespace BL4N
             return res.Result.ToList<ISharedFile>();
         }
 
+        /// <summary>
+        /// Remove Link to Shared File from Wiki
+        /// Removes link to shared file from Wiki.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="fileId">shared file id</param>
+        /// <returns>deleted <see cref="ISharedFile"/></returns>
+        public ISharedFile RemoveWikiPageSharedFile(long wikiId, long fileId)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "sharedFiles", fileId.ToString() });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var res = DeleteApiResult<SharedFile>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
