@@ -386,6 +386,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/wikis/:wikiId/sharedFiles/:id </summary>
         public abstract void RemoveWikiPageSharedFileTest();
 
+        /// <summary> GET /api/v2/wikis/:wikiId/history </summary>
+        public abstract void GetWikiPageHistoryTest();
+
         #endregion
     }
 }

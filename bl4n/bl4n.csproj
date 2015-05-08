@@ -122,6 +122,7 @@
     <Compile Include="Data\IVersion.cs" />
     <Compile Include="Data\IWebHook.cs" />
     <Compile Include="Data\IWikiPage.cs" />
+    <Compile Include="Data\IWikiPageHistory.cs" />
     <Compile Include="Data\IWikiPageUpdate.cs" />
     <Compile Include="Data\ListTypeCustomField.cs" />
     <Compile Include="Data\MultiListTypeCustomField.cs" />

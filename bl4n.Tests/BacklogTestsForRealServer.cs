@@ -2126,6 +2126,22 @@ namespace BL4N.Tests
             ////backlog.DeleteIssue(added.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageHistoryTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var wikiPages = backlog.GetWikiPages(projectId);
+            Assert.True(wikiPages.Count > 0);
+            var pageId = wikiPages[0].Id;
+            var actual = backlog.GetWikiPageHistory(pageId);
+            Assert.True(actual.Count > 0);
+            Assert.Equal(pageId, actual[0].PageId);
+        }
+
         #endregion
     }
 }

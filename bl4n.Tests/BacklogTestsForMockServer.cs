@@ -2508,6 +2508,23 @@ namespace BL4N.Tests
             Assert.Equal(fileId, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageHistoryTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            var actual = backlog.GetWikiPageHistory(wikiId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(wikiId, actual[0].PageId);
+            Assert.Equal(1, actual[0].Version);
+            Assert.Equal("test", actual[0].Name);
+        }
+
         #endregion
     }
 }

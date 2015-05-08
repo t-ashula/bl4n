@@ -2382,6 +2382,25 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Wiki Page History
+        /// Returns history of Wiki page.
+        /// </summary>
+        /// <param name="wikiId">wiki [age id</param>
+        /// <returns>list of <see cref="IWikiPageHistory"/></returns>
+        /// <remarks>TODO: more parameters </remarks>
+        public IList<IWikiPageHistory> GetWikiPageHistory(long wikiId)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "history" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<WikiPageHistory>>(api, jss);
+            return res.Result.ToList<IWikiPageHistory>();
+        }
+
         #endregion
     }
 }

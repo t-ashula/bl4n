@@ -282,6 +282,23 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /api/v2/wikis/:wikiid/history
+
+            Get["/{wikiid}/history"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    pageId = p.wikiid,
+                    version = 1,
+                    name = "test",
+                    content = "hello world",
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2009-11-30T01:22:21Z",
+                }
+            });
+
+            #endregion
         }
     }
 }
