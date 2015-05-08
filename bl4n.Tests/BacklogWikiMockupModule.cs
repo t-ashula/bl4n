@@ -220,6 +220,51 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /api/v2/wikis/:wikiId/sharedFiles
+
+            Get["/{wikiid}/sharedFiles"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 825952,
+                    type = "file",
+                    dir = "/PressRelease/20091130/",
+                    name = "20091130.txt",
+                    size = 4836,
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2009-11-30T01:22:21Z",
+                    //// updatedUser = null,
+                    updated = "2009-11-30T01:22:21Z"
+                }
+            });
+
+            #endregion
+
+            #region POST /api/v2/wikis/:wikiid/sharedFiles
+
+            Post["/{wikiid}/sharedFiles"] = p =>
+            {
+                string reqFileIds = Request.Form["fileId[]"];
+                var ids = RequestUtils.ToIds(reqFileIds).ToList();
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = ids[0],
+                        type = "file",
+                        dir = "/PressRelease/20091130/",
+                        name = "20091130.txt",
+                        size = 4836,
+                        createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        created = "2009-11-30T01:22:21Z",
+                        //// updatedUser = null,
+                        updated = "2009-11-30T01:22:21Z"
+                    }
+                });
+            };
+
+            #endregion
         }
     }
 }

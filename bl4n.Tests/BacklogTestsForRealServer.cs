@@ -2062,6 +2062,40 @@ namespace BL4N.Tests
             Assert.True(true, "Free plan does not support wiki page attachment"); // TODO:
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            long wikiId = 67261;
+            var actual = backlog.GetWikiPageSharedFiles(wikiId);
+            Assert.Equal(1, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddWikiPageSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var name = string.Format("AddWikiPageSharedFilesTest.{0}", DateTime.Now.Ticks);
+            var options = new AddWikiPageOptions(name, "AddWikiPageSharedFilesTest");
+            var added = backlog.AddWikiPage(projectId, options);
+            Assert.True(added.Id > 0);
+
+            var sharedFiles = backlog.GetProjectSharedFiles(projectId.ToString());
+            Assert.True(sharedFiles.Count > 0);
+            var fileId = sharedFiles[0].Id;
+            var actual = backlog.AddWikiPageSharedFiles(added.Id, new[] { fileId });
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(fileId, actual[0].Id);
+            backlog.DeleteWikiPage(added.Id, false);
+        }
+
         #endregion
     }
 }

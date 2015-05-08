@@ -2323,6 +2323,45 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get List of Shared Files on Wiki
+        /// Returns the list of Shared Files on Wiki.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <returns>list of <see cref="ISharedFile"/></returns>
+        public IList<ISharedFile> GetWikiPageSharedFiles(long wikiId)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "sharedFiles" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<SharedFile>>(api, jss);
+            return res.Result.ToList<ISharedFile>();
+        }
+
+        /// <summary>
+        /// Link Shared Files to Wiki
+        /// Links Shared Files to Wiki.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="fileIds">shared file id</param>
+        /// <returns>list of linked <see cref="ISharedFile"/> </returns>
+        public IList<ISharedFile> AddWikiPageSharedFiles(long wikiId, IEnumerable<long> fileIds)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "sharedFiles" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = fileIds.ToKeyValuePairs("fileId[]");
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<List<SharedFile>>(api, hc, jss);
+            return res.Result.ToList<ISharedFile>();
+        }
+
         #endregion
     }
 }

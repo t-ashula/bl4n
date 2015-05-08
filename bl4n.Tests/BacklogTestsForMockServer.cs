@@ -2462,6 +2462,37 @@ namespace BL4N.Tests
             Assert.Equal(fileId, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            IList<ISharedFile> actual = backlog.GetWikiPageSharedFiles(wikiId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(825952, actual[0].Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddWikiPageSharedFilesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            long fileId = r.Next(10000);
+            var actual = backlog.AddWikiPageSharedFiles(wikiId, new[] { fileId });
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(fileId, actual[0].Id);
+        }
+
         #endregion
     }
 }
