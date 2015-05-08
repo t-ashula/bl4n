@@ -2417,7 +2417,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void AddWikiPageAttachmentTest()
+        public override void AddWikiPageAttachmentsTest()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
@@ -2426,7 +2426,7 @@ namespace BL4N.Tests
             var r = new Random();
             long wikiId = r.Next(1000);
             long fileId = r.Next(10000);
-            var actual = backlog.AddWikiPageAttachment(wikiId, new[] { fileId });
+            var actual = backlog.AddWikiPageAttachments(wikiId, new[] { fileId });
             Assert.Equal(1, actual.Count);
             Assert.Equal(fileId, actual[0].Id);
         }

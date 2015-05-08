@@ -2274,7 +2274,7 @@ namespace BL4N
         /// <param name="wikiId">wiki page id</param>
         /// <param name="fileIds">attachment file ids</param>
         /// <returns>list of <see cref="IAttachment"/></returns>
-        public IList<IAttachment> AddWikiPageAttachment(long wikiId, IEnumerable<long> fileIds)
+        public IList<IAttachment> AddWikiPageAttachments(long wikiId, IEnumerable<long> fileIds)
         {
             var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "attachments" });
             var jss = new JsonSerializerSettings
