@@ -2540,6 +2540,42 @@ namespace BL4N.Tests
             Assert.Equal(75, actual[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToIssueTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long issueId = new Random().Next(10000);
+            backlog.AddStarToIssue(issueId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long commentId = new Random().Next(10000);
+            backlog.AddStarToComment(commentId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToWikiPageTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long wikiId = new Random().Next(10000);
+            backlog.AddStarToWikiPage(wikiId);
+        }
+
         #endregion
     }
 }

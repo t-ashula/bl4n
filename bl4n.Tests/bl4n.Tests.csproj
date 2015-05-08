@@ -76,6 +76,7 @@
     <Compile Include="BacklogMockupModule.cs" />
     <Compile Include="BacklogProjectsMockupModule.cs" />
     <Compile Include="BacklogSpaceMockupModule.cs" />
+    <Compile Include="BacklogStarMockupModule.cs" />
     <Compile Include="BacklogTests.cs" />
     <Compile Include="BacklogTestsForMockServer.cs" />
     <Compile Include="BacklogTestsForRealServer.cs" />

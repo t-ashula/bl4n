@@ -78,6 +78,13 @@ namespace BL4N
             return JsonConvert.DeserializeObject<T>(await s.Content.ReadAsStringAsync(), jss);
         }
 
+        private async Task<string> PostApiResult(Uri uri, HttpContent c)
+        {
+            var ua = new HttpClient();
+            var s = await ua.PostAsync(uri, c);
+            return await s.Content.ReadAsStringAsync();
+        }
+
         private async Task<T> PostApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
         {
             var ua = new HttpClient();
@@ -2417,6 +2424,49 @@ namespace BL4N
             };
             var res = GetApiResult<List<Star>>(api, jss);
             return res.Result.ToList<IStar>();
+        }
+
+        #endregion
+
+        #region Stars API
+
+        private void AddStar(string key, long id)
+        {
+            var api = GetApiUri(new[] { "stars" });
+            var kvs = new[] { new KeyValuePair<string, string>(key, id.ToString()) };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult(api, hc);
+            System.Diagnostics.Trace.WriteLine(res);
+        }
+
+        /// <summary>
+        /// Add Star
+        /// Adds star to issue
+        /// </summary>
+        /// <param name="issueId">issue id</param>
+        public void AddStarToIssue(long issueId)
+        {
+            AddStar("issueId", issueId);
+        }
+
+        /// <summary>
+        /// Add Star
+        /// Adds star to comment
+        /// </summary>
+        /// <param name="commentId">comment id</param>
+        public void AddStarToComment(long commentId)
+        {
+            AddStar("commentId", commentId);
+        }
+
+        /// <summary>
+        /// Add Star
+        /// Adds star to wiki page
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        public void AddStarToWikiPage(long wikiId)
+        {
+            AddStar("wikiId", wikiId);
         }
 
         #endregion

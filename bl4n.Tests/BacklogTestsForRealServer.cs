@@ -2158,6 +2158,50 @@ namespace BL4N.Tests
             Assert.Equal("https://bl4n.backlog.jp/alias/wiki/80122", actual[0].Url);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToIssueTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[new Random().Next() % issues.Count].Id;
+            backlog.AddStarToIssue(issueId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToCommentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[new Random().Next() % issues.Count].Id;
+            var comment = backlog.AddIssueComment(issueId, new CommentAddContent("star test"));
+            Assert.True(comment.Id > 0);
+            backlog.AddStarToIssue(comment.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToWikiPageTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var pages = backlog.GetWikiPages(projectId);
+            Assert.True(pages.Count > 0);
+            var pageId = pages[(int)(DateTime.Now.Ticks % pages.Count)].Id;
+            backlog.AddStarToWikiPage(pageId);
+        }
+
         #endregion
     }
 }

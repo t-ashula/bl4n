@@ -393,5 +393,18 @@ namespace BL4N.Tests
         public abstract void GetWikiPageStarsTest();
 
         #endregion
+
+        #region /api/v2/stars
+
+        /// <summary> POST /api/v2/stars (issueId) </summary>
+        public abstract void AddStarToIssueTest();
+
+        /// <summary> POST /api/v2/stars (commentId) </summary>
+        public abstract void AddStarToCommentTest();
+
+        /// <summary> POST /api/v2/stars (wikiId) </summary>
+        public abstract void AddStarToWikiPageTest();
+
+        #endregion
     }
 }
