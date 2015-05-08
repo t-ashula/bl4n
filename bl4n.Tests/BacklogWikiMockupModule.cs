@@ -40,6 +40,12 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /api/v2/wikis/count
+
+            Get["/count"] = p => Response.AsJson(new { count = 5 });
+
+            #endregion
         }
     }
 }

@@ -2303,6 +2303,19 @@ namespace BL4N.Tests
             Assert.Equal("Home", actual[0].Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPagesCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long projectId = new Random().Next(1000);
+            var actual = backlog.GetWikiPagesCount(projectId);
+            Assert.Equal(5, actual.Count);
+        }
+
         #endregion
     }
 }

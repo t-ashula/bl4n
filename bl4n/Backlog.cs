@@ -2114,6 +2114,29 @@ namespace BL4N
             return res.Result.ToList<IWikiPage>();
         }
 
+        /// <summary>
+        /// Count Wiki Page
+        /// Returns number of Wiki pages.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="IWikiPage"/></returns>
+        /// <remarks>TODO: add project Key type api</remarks>
+        public ICounter GetWikiPagesCount(long projectId)
+        {
+            var query = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("projectIdOrKey", projectId.ToString())
+            };
+            var api = GetApiUri(new[] { "wikis", "count" }, query);
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

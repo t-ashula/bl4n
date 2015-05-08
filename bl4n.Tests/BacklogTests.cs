@@ -343,6 +343,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/wikis </summary>
         public abstract void GetWikiPagesTest();
 
+        /// <summary> GET /api/v2/wikis/count </summary>
+        public abstract void GetWikiPagesCountTest();
+
         #endregion
     }
 }

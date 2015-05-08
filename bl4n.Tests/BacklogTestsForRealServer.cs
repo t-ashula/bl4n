@@ -1926,6 +1926,20 @@ namespace BL4N.Tests
             Assert.True(actual[0].Id > 0);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPagesCountTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var pages = backlog.GetWikiPages(projectId);
+            Assert.True(pages.Count > 0);
+            var actual = backlog.GetWikiPagesCount(projectId);
+            Assert.Equal(pages.Count, actual.Count);
+        }
+
         #endregion
     }
 }
