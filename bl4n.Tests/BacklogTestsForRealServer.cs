@@ -1973,6 +1973,21 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var pages = backlog.GetWikiPages(projectId);
+            var r = new Random();
+            var wikiId = pages[r.Next(pages.Count - 1)].Id;
+            var actual = backlog.GetWikiPage(wikiId);
+            Assert.Equal(wikiId, actual.Id);
+        }
+
         #endregion
     }
 }

@@ -79,6 +79,26 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region GET /api/v2/wikis/:id
+
+            Get["/{id}"] = p => Response.AsJson(new
+            {
+                id = p.id,
+                projectId = 1,
+                name = "Home",
+                content = "Content",
+                tags = new[] { new { id = 12, name = "prpceedings" } },
+                //// attachments = [],
+                //// sharedFiles = [],
+                //// stars = [],
+                createdUser = new { id = 1, userId = "admin", name = "admin", roleTyoe = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                created = "2012-07-23T06:09:48Z",
+                updatedUser = new { id = 1, userId = "admin", name = "admin", roleTyoe = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                updated = "2012-07-23T06:09:48Z"
+            });
+
+            #endregion
         }
     }
 }

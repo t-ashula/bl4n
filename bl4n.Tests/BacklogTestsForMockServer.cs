@@ -2351,6 +2351,20 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long pageId = r.Next(10000);
+            var actual = backlog.GetWikiPage(pageId);
+            Assert.Equal(pageId, actual.Id);
+        }
+
         #endregion
     }
 }

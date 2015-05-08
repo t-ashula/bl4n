@@ -2180,6 +2180,24 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Wiki Page
+        /// Returns information about Wiki page.
+        /// </summary>
+        /// <param name="pageId">wiki page id</param>
+        /// <returns>wiki page</returns>
+        public IWikiPage GetWikiPage(long pageId)
+        {
+            var api = GetApiUri(new[] { "wikis", pageId.ToString() });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<WikiPage>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
