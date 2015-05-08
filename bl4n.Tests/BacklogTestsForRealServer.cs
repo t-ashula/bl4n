@@ -2142,6 +2142,22 @@ namespace BL4N.Tests
             Assert.Equal(pageId, actual[0].PageId);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageStarsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var wikiPages = backlog.GetWikiPages(projectId);
+            Assert.True(wikiPages.Count > 0);
+            var pageId = wikiPages.First(w => w.Name == "Stars").Id; // 80122
+            var actual = backlog.GetWikiPageStars(pageId);
+            Assert.True(actual.Count > 0);
+            Assert.Equal("https://bl4n.backlog.jp/alias/wiki/80122", actual[0].Url);
+        }
+
         #endregion
     }
 }

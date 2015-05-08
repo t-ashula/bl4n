@@ -2525,6 +2525,21 @@ namespace BL4N.Tests
             Assert.Equal("test", actual[0].Name);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageStarsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            var actual = backlog.GetWikiPageStars(wikiId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(75, actual[0].Id);
+        }
+
         #endregion
     }
 }

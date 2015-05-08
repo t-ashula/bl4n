@@ -299,6 +299,23 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /api/v2/wikis/:wikiid/stars
+
+            Get["/{wikiid}/stars"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 75,
+                    //// comment = null,
+                    url = "https://xx.backlogtool.com/alias/wiki/1",
+                    title = "[TEST1] Home | Wiki - Backlog",
+                    presenter = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2009-11-30T01:22:21Z"
+                }
+            });
+
+            #endregion
         }
     }
 }

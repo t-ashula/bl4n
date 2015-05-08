@@ -2401,6 +2401,24 @@ namespace BL4N
             return res.Result.ToList<IWikiPageHistory>();
         }
 
+        /// <summary>
+        /// Get Wiki Page Star
+        /// Returns list of stars received on the Wiki page.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <returns>list of <see cref="IStar"/></returns>
+        public IList<IStar> GetWikiPageStars(long wikiId)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "stars" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Star>>(api, jss);
+            return res.Result.ToList<IStar>();
+        }
+
         #endregion
     }
 }
