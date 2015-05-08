@@ -2431,6 +2431,22 @@ namespace BL4N.Tests
             Assert.Equal(fileId, actual[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            long fileId = r.Next(10000);
+            var actual = backlog.GetWikiPageAttachment(wikiId, fileId);
+            var expected = string.Format("{0}.{1}.dat", wikiId, fileId); // just test file name
+            Assert.Equal(expected, actual.FileName);
+        }
+
         #endregion
     }
 }

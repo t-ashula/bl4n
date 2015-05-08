@@ -2288,6 +2288,21 @@ namespace BL4N
             return res.Result.ToList<IAttachment>();
         }
 
+        /// <summary>
+        /// Get Wiki Page Attachment
+        /// Downloads Wiki page's attachment file.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="fileId">attachment file id</param>
+        /// <returns>downloaded file content and name as <see cref="ISharedFileData"/></returns>
+        public ISharedFileData GetWikiPageAttachment(long wikiId, long fileId)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "attachments", fileId.ToString() });
+            var res = GetApiResultAsFile(api);
+            var file = new SharedFileData(res.Result.Item1, res.Result.Item2);
+            return file;
+        }
+
         #endregion
     }
 }
