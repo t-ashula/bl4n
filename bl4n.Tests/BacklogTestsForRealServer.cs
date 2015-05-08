@@ -1903,7 +1903,7 @@ namespace BL4N.Tests
             var actual = backlog.RemoveIssueLinkedSharedFile(issueId, sharedFileId);
             Assert.Equal(sharedFileId, actual.Id);
 
-            //// backlog.DeleteIssue(issue.Id);
+            ////backlog.DeleteIssue(issue.Id);
         }
 
         #endregion
