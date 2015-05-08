@@ -358,6 +358,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/wikis/:pageId </summary>
         public abstract void UpdateWikiPageTest();
 
+        /// <summary> DELETE /api/v2/wikis/:pageId </summary>
+        public abstract void DeleteWikiPageTest();
+
         #endregion
     }
 }

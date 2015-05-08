@@ -2009,6 +2009,27 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteWikiPageTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var projectId = backlog.GetProjects()[0].Id;
+            var name = string.Format("name.{0}", DateTime.Now);
+            var content = string.Format("content.{0}", DateTime.UtcNow);
+            var mailNotify = r.Next() % 2 == 0;
+            var addWikiPageOptions = new AddWikiPageOptions("[delete] " + name, content, mailNotify);
+            var added = backlog.AddWikiPage(projectId, addWikiPageOptions);
+            Assert.Equal(projectId, added.ProjectId);
+            Assert.Equal(name, added.Name);
+            Assert.Equal(content, added.Content);
+            var actual = backlog.DeleteWikiPage(added.Id, mailNotify);
+            Assert.Equal(added.Id, actual.Id);
+        }
+
         #endregion
     }
 }

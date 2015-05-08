@@ -2225,6 +2225,30 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Delete Wiki Page
+        /// Deletes Wiki page.
+        /// </summary>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="doNotify">true: do mail notify</param>
+        /// <returns></returns>
+        public IWikiPage DeleteWikiPage(long wikiId, bool doNotify)
+        {
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString() });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("mailNotify", doNotify ? "true" : "false")
+            };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = DeleteApiResult<WikiPage>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

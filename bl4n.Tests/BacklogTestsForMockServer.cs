@@ -2385,6 +2385,21 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteWikiPageTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            var notify = r.Next() % 2 == 0;
+            var actual = backlog.DeleteWikiPage(wikiId, notify);
+            Assert.Equal(wikiId, actual.Id);
+        }
+
         #endregion
     }
 }
