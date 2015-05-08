@@ -2284,5 +2284,25 @@ namespace BL4N.Tests
         #endregion
 
         #endregion
+
+        #region /api/v2/wikis
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPagesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long projectId = new Random().Next(1000);
+            var actual = backlog.GetWikiPages(projectId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(projectId, actual[0].ProjectId);
+            Assert.Equal(112, actual[0].Id);
+            Assert.Equal("Home", actual[0].Name);
+        }
+
+        #endregion
     }
 }

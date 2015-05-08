@@ -80,6 +80,7 @@
     <Compile Include="BacklogTestsForMockServer.cs" />
     <Compile Include="BacklogTestsForRealServer.cs" />
     <Compile Include="BacklogUsersMockupModule.cs" />
+    <Compile Include="BacklogWikiMockupModule.cs" />
     <Compile Include="CollectionExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -2088,5 +2088,32 @@ namespace BL4N
         #endregion
 
         #endregion
+
+        #region Wikis API
+
+        /// <summary>
+        /// Get Wiki Page List
+        /// Returns list of Wiki pages.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="IWikiPage"/></returns>
+        /// <remarks>TODO: add project Key type api</remarks>
+        public IList<IWikiPage> GetWikiPages(long projectId)
+        {
+            var query = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("projectIdOrKey", projectId.ToString())
+            };
+            var api = GetApiUri(new[] { "wikis" }, query);
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<WikiPage>>(api, jss);
+            return res.Result.ToList<IWikiPage>();
+        }
+
+        #endregion
     }
 }

@@ -340,6 +340,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/issues/:issueIdOrKey/sharedFiles/:id </summary>
         public abstract void RemoveIssueLinkedSharedFileTest();
 
+        /// <summary> GET /api/v2/wikis </summary>
+        public abstract void GetWikiPagesTest();
+
         #endregion
     }
 }
