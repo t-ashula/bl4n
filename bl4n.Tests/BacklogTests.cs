@@ -415,6 +415,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/notifications/count </summary>
         public abstract void GetNotificationsCountTest();
 
+        /// <summary> POST /api/v2/notifications/markAsRead </summary>
+        public abstract void ResetUnreadNotificationCountTest();
+
         #endregion
     }
 }

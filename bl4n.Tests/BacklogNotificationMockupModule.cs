@@ -142,6 +142,12 @@ namespace BL4N.Tests
             Get["/count"] = p => Response.AsJson(new { count = 138 });
 
             #endregion
+
+            #region POST /api/v2/notifications/markAsRead
+
+            Post["/markAsRead"] = p => Response.AsJson(new { count = 42 });
+
+            #endregion
         }
     }
 }

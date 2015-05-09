@@ -2623,6 +2623,19 @@ namespace BL4N.Tests
             Assert.Equal(138, actual.Count);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void ResetUnreadNotificationCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
+            var actual = backlog.ResetUnreadNotificationCount();
+            Assert.Equal(42, actual.Count);
+        }
+
         #endregion
     }
 }

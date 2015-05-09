@@ -2506,6 +2506,20 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Reset Unread Notification Count
+        /// Resets unread Notification count.
+        /// </summary>
+        /// <returns>count of notifications</returns>
+        public ICounter ResetUnreadNotificationCount()
+        {
+            var api = GetApiUri(new[] { "notifications", "markAsRead" });
+            var jss = new JsonSerializerSettings();
+            var hc = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>());
+            var res = PostApiResult<Counter>(api, hc, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }
