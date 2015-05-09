@@ -422,5 +422,12 @@ namespace BL4N.Tests
         public abstract void ReadNotificationTest();
 
         #endregion
+
+        #region /api/v2/git
+
+        /// <summary> GET /api/v2/git/repositories </summary>
+        public abstract void GetGitRepositoriesTest();
+
+        #endregion
     }
 }

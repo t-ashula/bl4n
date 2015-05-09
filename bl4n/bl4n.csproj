@@ -102,6 +102,7 @@
     <Compile Include="Data\Activity\ActivityContent\INotifyActivityContent.cs" />
     <Compile Include="Data\Activity\ActivityContent\IProjectActivityContent.cs" />
     <Compile Include="Data\IProjectUpdate.cs" />
+    <Compile Include="Data\IRepositoryDetail.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\IResolution.cs" />
     <Compile Include="Data\IRevision.cs" />

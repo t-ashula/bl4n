@@ -2536,5 +2536,32 @@ namespace BL4N
         }
 
         #endregion
+
+        #region Git API
+
+        /// <summary>
+        /// Get List of Git Repositories
+        /// Returns list of Git repositories.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        /// <remarks>TODO: issueKey API</remarks>
+        public IList<IRepositoryDetail> GetGitRepositories(long projectId)
+        {
+            var query = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("projectIdOrKey", string.Format("{0}", projectId))
+            };
+            var api = GetApiUri(new[] { "git", "repositories" }, query);
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<RepositoryDetail>>(api, jss);
+            return res.Result.ToList<IRepositoryDetail>();
+        }
+
+        #endregion
     }
 }

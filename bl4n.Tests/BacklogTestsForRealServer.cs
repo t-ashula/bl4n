@@ -2261,5 +2261,23 @@ namespace BL4N.Tests
         }
 
         #endregion
+
+        #region /api/v2/git/repositories
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetGitRepositoriesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var actual = backlog.GetGitRepositories(projectId);
+            Assert.True(actual.Count > 0);
+            Assert.Equal(projectId, actual[0].ProjectId);
+        }
+
+        #endregion
     }
 }

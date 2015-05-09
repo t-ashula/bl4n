@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using BL4N.Data;
 using BL4N.Tests.Properties;
+using Nancy.Bootstrapper;
 using Nancy.Hosting.Self;
 using Xunit;
 
@@ -2646,6 +2647,24 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             long id = new Random().Next(10000);
             backlog.ReadNotification(id);
+        }
+
+        #endregion
+
+        #region /api/v2/git/repositories
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetGitRepositoriesTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectId = new Random().Next(10000);
+            var actual = backlog.GetGitRepositories(projectId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(projectId, actual[0].ProjectId);
         }
 
         #endregion

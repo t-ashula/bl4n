@@ -70,6 +70,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BacklogConnectionSettingsTests.cs" />
+    <Compile Include="BacklogGitMockupModule.cs" />
     <Compile Include="BacklogGroupsMockupModule.cs" />
     <Compile Include="BacklogIssueMockupModule.cs" />
     <Compile Include="BacklogMockServerFixture.cs" />
