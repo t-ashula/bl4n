@@ -387,7 +387,7 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var uid = backlog.GetOwnUser().Id;
             var actual = backlog.CountUserReceivedStars(uid);
-            Assert.Equal(2, actual.Count);
+            Assert.True(actual.Count > 0);
         }
 
         /// <inheritdoc/>
