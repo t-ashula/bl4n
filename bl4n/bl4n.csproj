@@ -128,8 +128,10 @@
     <Compile Include="Data\ListTypeCustomField.cs" />
     <Compile Include="Data\MultiListTypeCustomField.cs" />
     <Compile Include="Data\NewIssueSettings.cs" />
+    <Compile Include="Data\NotificationsCountOptions.cs" />
     <Compile Include="Data\NumberTypeCustomField.cs" />
     <Compile Include="Data\RadioButtonTypeCustomField.cs" />
+    <Compile Include="Data\OptionalParams.cs" />
     <Compile Include="Data\SentenceTypeCustomField.cs" />
     <Compile Include="Data\SingleListTypeCustomeField.cs" />
     <Compile Include="Data\TextTypeCustomField.cs" />

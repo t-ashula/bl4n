@@ -412,6 +412,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/notifications </summary>
         public abstract void GetNotificationsTest();
 
+        /// <summary> GET /api/v2/notifications/count </summary>
+        public abstract void GetNotificationsCountTest();
+
         #endregion
     }
 }

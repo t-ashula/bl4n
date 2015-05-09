@@ -2224,6 +2224,18 @@ namespace BL4N.Tests
             Assert.NotNull(notifications[0].Project);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetNotificationsCountTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var optinos = new NotificationsCountOptions();
+            var actual = backlog.GetNotificationsCount(optinos);
+            Assert.True(actual.Count > 0);
+        }
+
         #endregion
     }
 }

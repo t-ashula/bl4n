@@ -136,6 +136,12 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /api/v2/notifications/count
+
+            Get["/count"] = p => Response.AsJson(new { count = 138 });
+
+            #endregion
         }
     }
 }

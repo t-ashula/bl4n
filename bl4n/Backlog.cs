@@ -142,16 +142,17 @@ namespace BL4N
                 : new Uri(endpoint);
         }
 
-        private Uri GetApiUri(string[] subjects, List<KeyValuePair<string, string>> query = null)
+        private Uri GetApiUri(string[] subjects, IEnumerable<KeyValuePair<string, string>> query = null)
         {
-            if (query == null)
+            var kvs = new List<KeyValuePair<string, string>>();
+            if (query != null)
             {
-                query = new List<KeyValuePair<string, string>>();
+                kvs.AddRange(query);
             }
 
             if (_settings.APIType == APIType.APIKey)
             {
-                query.Add(new KeyValuePair<string, string>("apiKey", APIKey));
+                kvs.Add(new KeyValuePair<string, string>("apiKey", APIKey));
             }
 
             var builder = new UriBuilder
@@ -160,7 +161,7 @@ namespace BL4N
                 Host = _settings.HostName,
                 Port = _settings.Port,
                 Path = "/api/v2/" + string.Join("/", subjects),
-                Query = string.Join("&", query.Select(kv => string.Format("{0}={1}", Uri.EscapeUriString(kv.Key), Uri.EscapeUriString(kv.Value))))
+                Query = string.Join("&", kvs.Select(kv => string.Format("{0}={1}", Uri.EscapeUriString(kv.Key), Uri.EscapeUriString(kv.Value))))
             };
             return builder.Uri;
         }
@@ -2488,6 +2489,21 @@ namespace BL4N
             };
             var res = GetApiResult<List<Notification>>(api, jss);
             return res.Result.ToList<INotification>();
+        }
+
+        /// <summary>
+        /// Count Notification
+        /// Returns number of Notifications.
+        /// </summary>
+        /// <param name="options">filter option</param>
+        /// <returns>count of notifications</returns>
+        public ICounter GetNotificationsCount(NotificationsCountOptions options)
+        {
+            var query = options.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "notifications", "count" }, query);
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
         }
 
         #endregion

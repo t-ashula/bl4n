@@ -2600,6 +2600,29 @@ namespace BL4N.Tests
             Assert.NotNull(actual[0].Project);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetNotificationsCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var options = new NotificationsCountOptions();
+            if (DateTime.Now.Ticks % 2 == 0)
+            {
+                options.AlreadyRead = true;
+            }
+
+            if (DateTime.Now.Ticks % 11 == 0)
+            {
+                options.ResourceAlreadyRead = true;
+            }
+
+            var actual = backlog.GetNotificationsCount(options);
+            Assert.Equal(138, actual.Count);
+        }
+
         #endregion
     }
 }
