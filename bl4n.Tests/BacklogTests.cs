@@ -406,5 +406,12 @@ namespace BL4N.Tests
         public abstract void AddStarToWikiPageTest();
 
         #endregion
+
+        #region /api/v2/notifications
+
+        /// <summary> GET /api/v2/notifications </summary>
+        public abstract void GetNotificationsTest();
+
+        #endregion
     }
 }

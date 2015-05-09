@@ -1927,9 +1927,9 @@ namespace BL4N
         /// </summary>
         /// <param name="issueId">issue id</param>
         /// <param name="commentId">comment id</param>
-        /// <returns>list of <see cref="INotification"/></returns>
+        /// <returns>list of <see cref="ICommentNotification"/></returns>
         /// <remarks>TODO: issueKey API</remarks>
-        public IList<INotification> GetIssueCommentNotifications(long issueId, long commentId)
+        public IList<ICommentNotification> GetIssueCommentNotifications(long issueId, long commentId)
         {
             var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D"), "notifications" });
             var jss = new JsonSerializerSettings
@@ -1937,8 +1937,8 @@ namespace BL4N
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 NullValueHandling = NullValueHandling.Ignore
             };
-            var res = GetApiResult<List<Notification>>(api, jss);
-            return res.Result.ToList<INotification>();
+            var res = GetApiResult<List<CommentNotification>>(api, jss);
+            return res.Result.ToList<ICommentNotification>();
         }
 
         /// <summary>
@@ -2467,6 +2467,27 @@ namespace BL4N
         public void AddStarToWikiPage(long wikiId)
         {
             AddStar("wikiId", wikiId);
+        }
+
+        #endregion
+
+        #region Notifications API
+
+        /// <summary>
+        /// Get Notification
+        /// Returns own notifications.
+        /// </summary>
+        /// <returns>list of <see cref="INotification"/></returns>
+        public IList<INotification> GetNotifications()
+        {
+            var api = GetApiUri(new[] { "notifications" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<Notification>>(api, jss);
+            return res.Result.ToList<INotification>();
         }
 
         #endregion

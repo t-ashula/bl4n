@@ -84,6 +84,7 @@
     <Compile Include="Data\IIssueComment.cs" />
     <Compile Include="Data\IIssueType.cs" />
     <Compile Include="Data\IIssueUpdate.cs" />
+    <Compile Include="Data\ICommentNotification.cs" />
     <Compile Include="Data\INotification.cs" />
     <Compile Include="Data\INotificationInfo.cs" />
     <Compile Include="Data\IPriority.cs" />

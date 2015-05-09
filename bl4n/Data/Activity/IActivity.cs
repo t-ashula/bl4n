@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IActivity.cs">
 //   bl4n - Backlog.jp API Client library
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -28,7 +28,7 @@ namespace BL4N.Data
         IActivityContent Content { get; }
 
         /// <summary> 通知の一覧を取得します． </summary>
-        IList<INotification> Notifications { get; }
+        IList<ICommentNotification> Notifications { get; }
 
         /// <summary> 作成ユーザを取得します． </summary>
         IUser CreatedUser { get; }
@@ -59,12 +59,12 @@ namespace BL4N.Data
         public abstract IActivityContent Content { get; }
 
         [DataMember(Name = "notifications")]
-        private List<Notification> _notifications;
+        private List<CommentNotification> _notifications;
 
         [IgnoreDataMember]
-        public IList<INotification> Notifications
+        public IList<ICommentNotification> Notifications
         {
-            get { return _notifications.ToList<INotification>(); }
+            get { return _notifications.ToList<ICommentNotification>(); }
         }
 
         [DataMember(Name = "createdUser")]

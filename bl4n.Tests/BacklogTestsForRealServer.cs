@@ -2202,6 +2202,20 @@ namespace BL4N.Tests
             backlog.AddStarToWikiPage(pageId);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetNotificationsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var notifications = backlog.GetNotifications();
+            Assert.True(notifications.Count > 0);
+            Assert.NotNull(notifications[0]);
+            Assert.NotNull(notifications[0].Issue);
+            Assert.NotNull(notifications[0].Project);
+        }
+
         #endregion
     }
 }

@@ -17,29 +17,29 @@ namespace BL4N.Data
     /// </summary>
     public interface IIssueComment
     {
-        /// <summary> ID ‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ID ã‚’å–å¾—ã—ã¾ã™ </summary>
         long Id { get; }
 
-        /// <summary> ƒRƒƒ“ƒg–{•¶‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ã‚³ãƒ¡ãƒ³ãƒˆæœ¬æ–‡ã‚’å–å¾—ã—ã¾ã™ </summary>
         string Content { get; }
 
-        /// <summary> ƒ`ƒFƒ“ƒWƒƒO‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒã‚§ãƒ³ã‚¸ãƒ­ã‚°ã‚’å–å¾—ã—ã¾ã™ </summary>
         IList<IChangeLogDetail> ChangeLog { get; }
 
-        /// <summary> ì¬ƒ†[ƒU‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ä½œæˆãƒ¦ãƒ¼ã‚¶ã‚’å–å¾—ã—ã¾ã™ </summary>
         IUser CreatedUser { get; }
 
-        /// <summary> ì¬“ú‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ä½œæˆæ—¥æ™‚ã‚’å–å¾—ã—ã¾ã™ </summary>
         DateTime Created { get; }
 
-        /// <summary> XV“ú‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ›´æ–°æ—¥æ™‚ã‚’å–å¾—ã—ã¾ã™ </summary>
         DateTime Updated { get; }
 
-        /// <summary> ƒXƒ^[‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ã‚¹ã‚¿ãƒ¼ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
         IList<IStar> Stars { get; }
 
-        /// <summary> ’Ê’m‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
-        IList<INotification> Notifications { get; }
+        /// <summary> é€šçŸ¥ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
+        IList<ICommentNotification> Notifications { get; }
     }
 
     [DataContract]
@@ -85,12 +85,12 @@ namespace BL4N.Data
         }
 
         [DataMember(Name = "notifications")]
-        private List<Notification> _Notifications;
+        private List<CommentNotification> _Notifications;
 
         [IgnoreDataMember]
-        public IList<INotification> Notifications
+        public IList<ICommentNotification> Notifications
         {
-            get { return _Notifications.ToList<INotification>(); }
+            get { return _Notifications.ToList<ICommentNotification>(); }
         }
     }
 }

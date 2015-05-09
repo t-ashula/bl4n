@@ -2577,5 +2577,25 @@ namespace BL4N.Tests
         }
 
         #endregion
+
+        #region /api/v2/notifications
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetNotificationsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetNotifications();
+            Assert.Equal(1, actual.Count);
+            Assert.True(actual[0].Id > 0);
+            Assert.NotNull(actual[0].Issue);
+            Assert.NotNull(actual[0].Comment);
+            Assert.NotNull(actual[0].Project);
+        }
+
+        #endregion
     }
 }
