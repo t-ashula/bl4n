@@ -2540,6 +2540,10 @@ namespace BL4N.Tests
             Assert.Equal(75, actual[0].Id);
         }
 
+        #endregion
+
+        #region /api/v2/stars
+
         /// <inheritdoc/>
         [Fact]
         public override void AddStarToIssueTest()

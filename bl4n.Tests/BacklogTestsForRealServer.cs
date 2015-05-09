@@ -2158,6 +2158,10 @@ namespace BL4N.Tests
             Assert.Equal("https://bl4n.backlog.jp/alias/wiki/80122", actual[0].Url);
         }
 
+        #endregion
+
+        #region /api/v2/stars
+
         /// <inheritdoc/>
         [Fact]
         public override void AddStarToIssueTest()
@@ -2201,6 +2205,10 @@ namespace BL4N.Tests
             var pageId = pages[(int)(DateTime.Now.Ticks % pages.Count)].Id;
             backlog.AddStarToWikiPage(pageId);
         }
+
+        #endregion
+
+        #region /api/v2/notifications
 
         /// <inheritdoc/>
         [Fact]
