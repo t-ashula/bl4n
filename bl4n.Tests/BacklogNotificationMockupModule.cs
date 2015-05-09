@@ -148,6 +148,15 @@ namespace BL4N.Tests
             Post["/markAsRead"] = p => Response.AsJson(new { count = 42 });
 
             #endregion
+
+            #region POST /api/v2/notifications/:id/markAsRead
+
+            Post["/{id}/markAsRead"] = p =>
+            {
+                return HttpStatusCode.NoContent;
+            };
+
+            #endregion
         }
     }
 }

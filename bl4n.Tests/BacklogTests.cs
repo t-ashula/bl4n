@@ -418,6 +418,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/notifications/markAsRead </summary>
         public abstract void ResetUnreadNotificationCountTest();
 
+        /// <summary> POST /api/v2/notifications/:id/markAsRead </summary>
+        public abstract void ReadNotificationTest();
+
         #endregion
     }
 }

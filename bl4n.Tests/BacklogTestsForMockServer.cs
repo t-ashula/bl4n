@@ -2636,6 +2636,18 @@ namespace BL4N.Tests
             Assert.Equal(42, actual.Count);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void ReadNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(10000);
+            backlog.ReadNotification(id);
+        }
+
         #endregion
     }
 }

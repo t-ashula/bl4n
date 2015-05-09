@@ -2247,6 +2247,19 @@ namespace BL4N.Tests
             Assert.True(actual.Count > 0); // XXX: ???
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void ReadNotificationTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var notifications = backlog.GetNotifications();
+            var notification = notifications.FirstOrDefault(n => !n.AlreadyRead);
+            var nid = (notification == null) ? notifications[0].Id : notification.Id;
+            backlog.ReadNotification(nid);
+        }
+
         #endregion
     }
 }

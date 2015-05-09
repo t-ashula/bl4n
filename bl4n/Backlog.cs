@@ -2520,6 +2520,21 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Read Notification
+        /// Changes notifications read.
+        /// </summary>
+        /// <param name="id">notification id</param>
+        /// <remarks>TODO: async? </remarks>
+        public void ReadNotification(long id)
+        {
+            var api = GetApiUri(new[] { "notifications", id.ToString(), "markAsRead" });
+            var ua = new HttpClient();
+            var s = ua.PostAsync(api, new StringContent(string.Empty)); // no body
+            var res = s.Result.Content;
+            System.Diagnostics.Trace.Write(string.Format("ReadNotification({0}) = {1}", id, res));
+        }
+
         #endregion
     }
 }
