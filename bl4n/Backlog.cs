@@ -67,8 +67,14 @@ namespace BL4N
         private async Task<T> DeserializeObject<T>(HttpResponseMessage s, JsonSerializerSettings jss)
         {
             var status = s.StatusCode;
-            if (status == HttpStatusCode.BadRequest || status == HttpStatusCode.Forbidden || status == HttpStatusCode.NotFound)
+
+            if (status == HttpStatusCode.BadRequest
+                || status == HttpStatusCode.Unauthorized
+                || status == HttpStatusCode.PaymentRequired
+                || status == HttpStatusCode.Forbidden
+                || status == HttpStatusCode.NotFound)
             {
+                // TODO: only 400, 401, 402, 403, 404 ?
                 var error = await s.Content.ReadAsStringAsync();
                 var errorResponse = JsonConvert.DeserializeObject<BacklogErrorResponse>(error);
                 errorResponse.StatusCode = status;
@@ -2575,5 +2581,13 @@ namespace BL4N
         }
 
         #endregion
+
+        internal async Task<T> DirectAccess<T>(Uri uri, HttpMethod method, HttpContent content = null)
+        {
+            var ua = new HttpClient();
+            var request = new HttpRequestMessage(method, uri) { Content = content };
+            var s = await ua.SendAsync(request);
+            return await DeserializeObject<T>(s, new JsonSerializerSettings());
+        }
     }
 }

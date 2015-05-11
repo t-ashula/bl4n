@@ -6,15 +6,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-
 using System.Collections.Generic;
-
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using BL4N.Data;
 using BL4N.Tests.Properties;
-using Nancy.Bootstrapper;
 using Nancy.Hosting.Self;
 using Xunit;
 
@@ -2665,6 +2663,48 @@ namespace BL4N.Tests
             var actual = backlog.GetGitRepositories(projectId);
             Assert.Equal(1, actual.Count);
             Assert.Equal(projectId, actual[0].ProjectId);
+        }
+
+        #endregion
+
+        #region error handling
+
+        /// <inheritdoc/>
+        [Fact]
+        public async override void InternalErrorResponseTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var baseUri = GetApiEndPointBase();
+            var api = baseUri + "/_error/1/400";
+            var uri = new Uri(api);
+            var result = await Assert.ThrowsAsync<BacklogException>(async () =>
+            {
+                var unused = await backlog.DirectAccess<Counter>(uri, HttpMethod.Get);
+                System.Diagnostics.Trace.WriteLine("InternalErrorResponseTest() => " + unused);
+            });
+            Assert.Equal(BacklogException.ErrorReason.InternalError, result.Reasons[0]);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public async override void LicenceErrorResponseTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var baseUri = GetApiEndPointBase();
+            var api = baseUri + "/_error/2/400";
+            var uri = new Uri(api);
+            var result = await Assert.ThrowsAsync<BacklogException>(async () =>
+            {
+                var unused = await backlog.DirectAccess<Counter>(uri, HttpMethod.Get);
+                System.Diagnostics.Trace.WriteLine("LicenceErrorResponseTest() => " + unused);
+            });
+            Assert.Equal(BacklogException.ErrorReason.LicenceError, result.Reasons[0]);
         }
 
         #endregion

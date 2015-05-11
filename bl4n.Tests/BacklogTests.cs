@@ -46,6 +46,15 @@ namespace BL4N.Tests
             }
         }
 
+        /// <summary>
+        /// get api endpoint uri ( http://server:port/api/v2 )
+        /// </summary>
+        /// <returns>api end point base uri as string</returns>
+        protected string GetApiEndPointBase()
+        {
+            return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, _settings.Host);
+        }
+
         /// <summary> test for new Backlog()</summary>
         public abstract void BacklogConstructorTest();
 
@@ -427,6 +436,17 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/git/repositories </summary>
         public abstract void GetGitRepositoriesTest();
+
+        #endregion
+
+        #region error handling
+
+        /// <summary> test for errors:[{code:1}], </summary>
+        /// <remarks> for Mock Only </remarks>
+        public abstract void InternalErrorResponseTest();
+
+        /// <summary> test for errors:[{code:2}], </summary>
+        public abstract void LicenceErrorResponseTest();
 
         #endregion
     }

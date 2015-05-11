@@ -6,13 +6,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Threading;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Xunit;
@@ -2276,6 +2274,24 @@ namespace BL4N.Tests
             var actual = backlog.GetGitRepositories(projectId);
             Assert.True(actual.Count > 0);
             Assert.Equal(projectId, actual[0].ProjectId);
+        }
+
+        #endregion
+
+        #region error handling
+
+        /// <inheritdoc/>
+        [Fact(Skip = "for mock server only")]
+        public override void InternalErrorResponseTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void LicenceErrorResponseTest()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

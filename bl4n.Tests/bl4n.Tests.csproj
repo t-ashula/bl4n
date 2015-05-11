@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.XML" />
     <Reference Include="xunit.abstractions">
@@ -70,6 +71,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BacklogConnectionSettingsTests.cs" />
+    <Compile Include="BacklogErrorMockupModule.cs" />
     <Compile Include="BacklogGitMockupModule.cs" />
     <Compile Include="BacklogGroupsMockupModule.cs" />
     <Compile Include="BacklogIssueMockupModule.cs" />
