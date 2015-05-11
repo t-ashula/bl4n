@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+ï»¿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BacklogErrorResponse.cs">
 //   bl4n - Backlog.jp API Client library
 //   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
@@ -6,20 +6,22 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 
 namespace BL4N
 {
-    /// <summary> ƒGƒ‰[‰“š‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> ã‚¨ãƒ©ãƒ¼å¿œç­”å…¨ä½“ã‚’è¡¨ã—ã¾ã™ </summary>
     [DataContract]
     public class BacklogErrorResponse
     {
-        /// <summary> HTTP ‚ÌƒXƒe[ƒ^ƒXƒR[ƒh‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
-        public HttpStatusCode Statuscode { get; set; }
+        /// <summary> HTTP ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
+        [IgnoreDataMember]
+        public HttpStatusCode StatusCode { get; set; }
 
-        /// <summary> ƒGƒ‰[î•ñ‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ã‚¨ãƒ©ãƒ¼æƒ…å ±ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
         [DataMember(Name = "errors")]
-        public BacklogErrorInfo[] Errors { get; private set; }
+        public List<BacklogErrorInfo> Errors { get; private set; }
     }
 }

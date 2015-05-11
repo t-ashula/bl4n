@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -65,8 +66,17 @@ namespace BL4N
 
         private async Task<T> DeserializeObject<T>(HttpResponseMessage s, JsonSerializerSettings jss)
         {
-            var res = await s.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(res, jss);
+            var status = s.StatusCode;
+            if (status == HttpStatusCode.BadRequest || status == HttpStatusCode.Forbidden || status == HttpStatusCode.NotFound)
+            {
+                var error = await s.Content.ReadAsStringAsync();
+                var errorResponse = JsonConvert.DeserializeObject<BacklogErrorResponse>(error);
+                errorResponse.StatusCode = status;
+                throw new BacklogException(errorResponse);
+            }
+
+            var result = await s.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(result, jss);
         }
 
         private async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
