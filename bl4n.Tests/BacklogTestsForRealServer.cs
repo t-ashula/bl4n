@@ -1168,19 +1168,25 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
+            var name = string.Format("v.{0}", new Random().Next(10000));
+            var startDate = DateTime.UtcNow.Date;
+#if unuse
             var newVersion = new Data.Version
             {
-                Name = string.Format("v.{0}", new Random().Next(10000)),
+                Name = name,
                 StartDate = DateTime.UtcNow.Date
             };
-            var actual = backlog.AddProjectVersion(projectKey, newVersion);
+            var actual = backlog.AddProjectVersion("projectKey", newVersion);
+#endif
+            var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = DateTime.UtcNow.Date };
+            var actual = backlog.AddProjectVersion(projectKey, newVersionOptions);
             Assert.True(actual.Id > 0);
             Assert.True(actual.ProjectId > 0);
             Assert.Equal(-1, actual.DisplayOrder);
             Assert.Null(actual.Description);
-            Assert.Equal(newVersion.Name, actual.Name);
-            Assert.Equal(newVersion.StartDate, actual.StartDate);
-            Assert.Equal(new DateTime(), newVersion.ReleaseDueDate);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(startDate, actual.StartDate);
+            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 

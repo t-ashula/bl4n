@@ -1108,6 +1108,7 @@ namespace BL4N
         /// <param name="projectKey">project key</param>
         /// <param name="newVersion">version to add(Required: Name)</param>
         /// <returns>added <see cref="IVersion"/></returns>
+        [Obsolete]
         public IVersion AddProjectVersion(string projectKey, IVersion newVersion)
         {
             var api = GetApiUri(string.Format("/projects/{0}/versions", projectKey));
@@ -1135,6 +1136,27 @@ namespace BL4N
 
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<Version>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Add Version
+        /// Adds new Version to the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="options">adding version options</param>
+        /// <returns>added <see cref="IVersion"/></returns>
+        public IVersion AddProjectVersion(string projectKey, AddProjectVersionOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "versions" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var kvs = options.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<Data.Version>(api, hc, jss);
             return res.Result;
         }
 
