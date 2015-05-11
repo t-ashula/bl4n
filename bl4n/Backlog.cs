@@ -63,19 +63,25 @@ namespace BL4N
             _settings = settings;
         }
 
+        private async Task<T> DeserializeObject<T>(HttpResponseMessage s, JsonSerializerSettings jss)
+        {
+            var res = await s.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(res, jss);
+        }
+
         private async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
         {
             // TODO: default JSS
             var ua = new HttpClient();
-            var s = await ua.GetStringAsync(uri);
-            return JsonConvert.DeserializeObject<T>(s, jss);
+            var s = await ua.GetAsync(uri);
+            return await DeserializeObject<T>(s, jss);
         }
 
         private async Task<T> PutApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
         {
             var ua = new HttpClient();
             var s = await ua.PutAsync(uri, c);
-            return JsonConvert.DeserializeObject<T>(await s.Content.ReadAsStringAsync(), jss);
+            return await DeserializeObject<T>(s, jss);
         }
 
         private async Task<string> PostApiResult(Uri uri, HttpContent c)
@@ -89,8 +95,7 @@ namespace BL4N
         {
             var ua = new HttpClient();
             var s = await ua.PostAsync(uri, c);
-            var res = await s.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(res, jss);
+            return await DeserializeObject<T>(s, jss);
         }
 
         private async Task<T> PatchApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
@@ -103,16 +108,14 @@ namespace BL4N
                 Content = c
             };
             var s = await ua.SendAsync(req);
-            var res = await s.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(res, jss);
+            return await DeserializeObject<T>(s, jss);
         }
 
         private async Task<T> DeleteApiResult<T>(Uri uri, JsonSerializerSettings jss)
         {
             var ua = new HttpClient();
             var s = await ua.DeleteAsync(uri);
-            var res = await s.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(res, jss);
+            return await DeserializeObject<T>(s, jss);
         }
 
         private async Task<T> DeleteApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
@@ -125,8 +128,7 @@ namespace BL4N
                 Content = c
             };
             var s = await ua.SendAsync(req);
-            var res = await s.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(res, jss);
+            return await DeserializeObject<T>(s, jss);
         }
 
         private string GetApiEndPointBase()
