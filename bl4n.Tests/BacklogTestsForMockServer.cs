@@ -487,20 +487,10 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-
-            // { "id": 1, "userId": "admin", "name": "admin", "roleType": 1, "lang": "ja", "mailAddress": "eguchi@nulab.example" }
-            var user = new User
-            {
-                UserId = "admin",
-                Name = string.Format("admin.{0}", DateTime.Now.Ticks),
-                Lang = null,
-                MailAddress = string.Format("{0}@{1}", "admin", "example.com"),
-                RoleType = 6 // guest viewer
-            };
             var pass = Path.GetTempFileName().PadLeft(21);
             pass = pass.Substring(pass.Length - 20, 20);
-
-            var actual = backlog.AddUser(user, pass);
+            var user = new AddUserOptions("admin", pass, string.Format("admin.{0}", DateTime.Now.Ticks), string.Format("{0}@{1}", "admin", "example.com"), 6);
+            var actual = backlog.AddUser(user);
             Assert.True(actual.Id > 0);
             Assert.Equal(user.UserId, actual.UserId);
             Assert.Equal(user.Name, actual.Name);

@@ -71,6 +71,7 @@
     <Compile Include="Data\Activity\SVNRepositoryActivity.cs" />
     <Compile Include="Data\Activity\WikiActivity.cs" />
     <Compile Include="Data\AddProjectVersionOptions.cs" />
+    <Compile Include="Data\AddUserOptions.cs" />
     <Compile Include="Data\AddWebHookOptions.cs" />
     <Compile Include="Data\AddwikiPageOptions.cs" />
     <Compile Include="Data\CommentAddContent.cs" />

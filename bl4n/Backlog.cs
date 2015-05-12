@@ -325,6 +325,7 @@ namespace BL4N
         /// <param name="user"> user (required: UserId, Name, MailAddress, RoleType)</param>
         /// <param name="pass"> password </param>
         /// <returns>created user</returns>
+        [Obsolete("use AddUserOptions", true)]
         public IUser AddUser(IUser user, string pass)
         {
             var api = GetApiUri("/users");
@@ -337,6 +338,22 @@ namespace BL4N
                 new KeyValuePair<string, string>("roleType", user.RoleType.ToString()),
                 new KeyValuePair<string, string>("password", pass)
             };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<User>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Adds new user to the space.
+        /// "Project Administrator" cannot add "Admin" user.
+        /// </summary>
+        /// <param name="options"> new user options </param>
+        /// <returns></returns>
+        public IUser AddUser(AddUserOptions options)
+        {
+            var api = GetApiUri(new[] { "users" });
+            var jss = new JsonSerializerSettings();
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<User>(api, hc, jss);
             return res.Result;
