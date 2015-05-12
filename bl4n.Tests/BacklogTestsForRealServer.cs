@@ -8,12 +8,14 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using BL4N.Data;
 using BL4N.Tests.Properties;
 using Xunit;
+using Xunit.Sdk;
 
 namespace BL4N.Tests
 {
@@ -625,19 +627,17 @@ namespace BL4N.Tests
         {
             SkipIfSettingIsBroken();
             var backlog = new Backlog(Settings);
-            var np = new Project
-            {
-                Name = "newproject",
-                ProjectKey = "NEWPRO",
-                ChartEnabled = false,
-                SubtaskingEnabled = false,
-                TextFormattingRule = "markdown"
-            };
-            var actual = backlog.AddProject(np);
+            var np = new AddProjectOptions("newproject", "NEWPRO", chartEnabled: false, subtaskingEnabled: false, textFormattingRule: "markdown");
 
-            // プランの都合上プロジェクトの追加ができないのでテスト不可
-            // Assert.Equal("newproject", actual.Name);
-            Assert.True(true, "cant add new project on free plan.");
+            // プランの都合上プロジェクトの追加ができないので追加自体のテストは不可
+            var result = Assert.Throws<AggregateException>(() =>
+            {
+                var actual = backlog.AddProject(np);
+                Assert.True(actual.Id > 0);
+            });
+            var inner = result.InnerExceptions[0] as BacklogException; // TODO: direct
+            Assert.NotNull(inner);
+            Assert.Equal(BacklogException.ErrorReason.InvalidRequestError, inner.Reasons[0]); // XXX: license error ?
         }
 
         /// <inheritdoc/>

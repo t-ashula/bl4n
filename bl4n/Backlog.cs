@@ -643,6 +643,7 @@ namespace BL4N
         /// </summary>
         /// <param name="newProject">project to create</param>
         /// <returns>created <see cref="IProject"/></returns>
+        [Obsolete("use AddProjectOptions", true)]
         public IProject AddProject(IProject newProject)
         {
             var api = GetApiUri("/projects");
@@ -655,6 +656,22 @@ namespace BL4N
                 new KeyValuePair<string, string>("subtaskingEnabled", newProject.SubtaskingEnabled.ToString().ToLower()),
                 new KeyValuePair<string, string>("textFormattingRule", newProject.TextFormattingRule),
             };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<Project>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Add Project
+        /// Adds new project.
+        /// </summary>
+        /// <param name="options">project to create</param>
+        /// <returns>created <see cref="IProject"/></returns>
+        public IProject AddProject(AddProjectOptions options)
+        {
+            var api = GetApiUri(new[] { "projects" });
+            var jss = new JsonSerializerSettings();
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<Project>(api, hc, jss);
             return res.Result;

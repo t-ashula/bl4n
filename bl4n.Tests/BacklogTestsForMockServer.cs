@@ -977,15 +977,12 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var newProject = new Project
-            {
-                ProjectKey = "TEST",
-                Name = "test",
-                ChartEnabled = false,
-                SubtaskingEnabled = false,
-                TextFormattingRule = "markdown",
-                Archived = false
-            };
+            var newProject = new AddProjectOptions(
+                projectKey: "TEST",
+                name: "test",
+                chartEnabled: false,
+                subtaskingEnabled: false,
+                textFormattingRule: "markdown");
             var actual = backlog.AddProject(newProject);
             /*{
              * "id": 1, "projectKey": "TEST", "name": "test",
