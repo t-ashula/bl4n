@@ -1793,7 +1793,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-
+#if obsolete
             var wh = new WebHook
             {
                 Name = string.Format("wh.{0}", new Random().Next(1000)),
@@ -1803,12 +1803,25 @@ namespace BL4N.Tests
             };
             wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
             var actual = backlog.AddProjectWebHook("projectKey", wh);
-
-            Assert.Equal(3, actual.Id);
-            Assert.Equal(wh.Name, actual.Name);
-            Assert.Equal(wh.Description, actual.Description);
+#endif
+            var random = new Random();
+            var name = string.Format("wh.{0}", random.Next(1000));
+            var hookUrl = string.Format("http://example.test/{0}/", random.Next(1000));
+            var desc = string.Format("desc.{0}", DateTime.Now);
+            var wh = new AddWebHookOptions(name)
+            {
+                HookUrl = hookUrl,
+                Description = desc,
+                AllEvent = false
+            };
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
+            var actual = backlog.AddProjectWebHook("projectKey", wh);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(desc, actual.Description);
             Assert.False(actual.AllEvent);
-            Assert.Equal(wh.ActivityTypeIds.ToArray(), actual.ActivityTypeIds.ToArray());
+            Assert.Equal(types.Select(_ => (int)_), actual.ActivityTypeIds);
             Assert.Equal(1, actual.CreatedUser.Id);
             Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
             Assert.Equal(1, actual.UpdatedUser.Id);
@@ -1866,7 +1879,7 @@ namespace BL4N.Tests
                 HookUrl = string.Format("http://example.test/{0}/", r.Next(1000)),
                 AllEvent = false
             };
-            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
+            //// TODO: wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
             var actual = backlog.UpdateProjectWebHook("projectKey", wh);
 
             Assert.Equal(wh.Id, actual.Id);

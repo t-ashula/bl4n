@@ -96,37 +96,5 @@ namespace BL4N.Data
 
         [DataMember(Name = "updated")]
         public DateTime Updated { get; set; }
-
-        /// <summary> add activity types  </summary>
-        /// <param name="types"> list of <see cref="ActivityType"/> </param>
-        /// <remarks> update <see cref="AllEvent"/> flag</remarks>
-        public void AddActivityTypes(IEnumerable<ActivityType> types)
-        {
-            if (_activityTypeIds == null)
-            {
-                _activityTypeIds = new List<int>();
-            }
-
-            _activityTypeIds = _activityTypeIds.Select(t => (ActivityType)t).Union(types.Where(t => t != ActivityType.Unknown).OrderBy(_ => _)).Select(t => (int)t).ToList();
-            AllEvent = !_activityTypeIds.Any();
-        }
-
-        /// <summary> remove activity types  </summary>
-        /// <param name="types"> list of <see cref="ActivityType"/> </param>
-        /// <remarks> update <see cref="AllEvent"/> flag</remarks>
-        public void RemoveActivityTypes(IEnumerable<ActivityType> types)
-        {
-            if (_activityTypeIds == null)
-            {
-                return;
-            }
-
-            foreach (var t in types.Distinct())
-            {
-                _activityTypeIds.Remove((int)t);
-            }
-
-            AllEvent = !_activityTypeIds.Any();
-        }
     }
 }

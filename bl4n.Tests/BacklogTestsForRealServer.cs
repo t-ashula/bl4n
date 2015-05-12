@@ -1397,21 +1397,35 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var name = string.Format("wh.{0}", new Random().Next(1000));
+            var desc = string.Format("test.{0}", DateTime.UtcNow);
+            var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
+
+#if obslete
             var wh = new WebHook
             {
-                Name = string.Format("wh.{0}", new Random().Next(1000)),
-                Description = "test",
-                HookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000)),
+                Name = name,
+                Description = desc,
+                HookUrl = hookUrl,
                 AllEvent = false
             };
-            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
+#endif
+            var wh = new AddWebHookOptions(name)
+            {
+                Description = desc,
+                HookUrl = hookUrl,
+                AllEvent = false
+            };
+
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
             var actual = backlog.AddProjectWebHook(projectKey, wh);
 
             Assert.True(actual.Id > 0);
-            Assert.Equal(wh.Name, actual.Name);
-            Assert.Equal(wh.Description, actual.Description);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(desc, actual.Description);
             Assert.False(actual.AllEvent);
-            Assert.Equal(wh.ActivityTypeIds.ToArray(), actual.ActivityTypeIds.ToArray());
+            Assert.Equal(types.Select(i => (int)i).OrderBy(_ => _), actual.ActivityTypeIds.OrderBy(_ => _));
             Assert.True(actual.CreatedUser.Id > 0);
             Assert.Equal(DateTime.UtcNow.Date, actual.Created.ToUniversalTime().Date);
             Assert.True(actual.UpdatedUser.Id > 0);
@@ -1449,16 +1463,30 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var name = string.Format("wh.{0}", new Random().Next(1000));
+            var desc = string.Format("test.{0}", DateTime.UtcNow);
+            var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
+
+#if obslete
             var wh = new WebHook
             {
-                Name = string.Format("wh.{0}", new Random().Next(1000)),
-                Description = "test",
-                HookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000)),
+                Name = name,
+                Description = desc,
+                HookUrl = hookUrl,
                 AllEvent = false
             };
-            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
-            var added = backlog.AddProjectWebHook(projectKey, wh);
+#endif
+            var wh = new AddWebHookOptions(name)
+            {
+                Description = desc,
+                HookUrl = hookUrl,
+                AllEvent = false
+            };
 
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
+            var added = backlog.AddProjectWebHook(projectKey, wh);
+            Assert.True(added.Id > 0);
             var newHook = new WebHook
             {
                 Id = added.Id,
@@ -1491,15 +1519,30 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var name = string.Format("wh.{0}", new Random().Next(1000));
+            var desc = string.Format("test.{0}", DateTime.UtcNow);
+            var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
+
+#if obslete
             var wh = new WebHook
             {
-                Name = string.Format("wh.{0}", new Random().Next(1000)),
-                Description = "test",
-                HookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000)),
+                Name = name,
+                Description = desc,
+                HookUrl = hookUrl,
                 AllEvent = false
             };
-            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
+#endif
+            var wh = new AddWebHookOptions(name)
+            {
+                Description = desc,
+                HookUrl = hookUrl,
+                AllEvent = false
+            };
+
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
             var added = backlog.AddProjectWebHook(projectKey, wh);
+            Assert.True(added.Id > 0);
 
             var actual = backlog.DeleteProjectWebHook(projectKey, added.Id);
             Assert.Equal(added.Id, actual.Id);
