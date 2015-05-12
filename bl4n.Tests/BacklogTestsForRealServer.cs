@@ -430,14 +430,14 @@ namespace BL4N.Tests
         [Fact]
         public override void AddGroupTest()
         {
-            // TODO: 冪等性
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
             var users = backlog.GetUsers().Select(u => u.Id).OrderBy(_ => _).ToArray();
             var name = string.Format("g.{0}", DateTime.Now.Ticks);
-
-            var actual = backlog.AddGroup(name, users);
+            var options = new AddGroupOptions(name);
+            options.AddMembers(users);
+            var actual = backlog.AddGroup(options);
             Assert.Equal(name, actual.Name);
             Assert.Equal(users.Length, actual.Members.Count);
             var members = actual.Members.Select(u => u.Id).OrderBy(_ => _).ToArray();
@@ -497,9 +497,8 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
-
-            // TODO: 冪等性
-            var added = backlog.AddGroup("delete", new long[] { });
+            var options = new AddGroupOptions("delete");
+            var added = backlog.AddGroup(options);
             var actual = backlog.DeleteGroup(added.Id);
             Assert.Equal(added.Id, actual.Id);
             Assert.Equal(added.Name, actual.Name);

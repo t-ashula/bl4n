@@ -510,17 +510,13 @@ namespace BL4N
         /// Add Group.
         /// Adds new group.
         /// </summary>
-        /// <param name="name">group name</param>
-        /// <param name="members">group member id</param>
+        /// <param name="options">group options</param>
         /// <returns>created <see cref="IGroup"/></returns>
-        public IGroup AddGroup(string name, IEnumerable<long> members)
+        public IGroup AddGroup(AddGroupOptions options)
         {
-            var api = GetApiUri("/groups");
+            var api = GetApiUri(new[] { "groups" });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
-
-            var kvs = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("name", name) };
-            kvs.AddRange(members.Select(uid => new KeyValuePair<string, string>("members[]", uid.ToString())));
-
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<Group>(api, hc, jss);
             return res.Result;
