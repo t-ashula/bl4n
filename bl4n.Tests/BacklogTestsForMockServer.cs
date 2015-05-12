@@ -1468,21 +1468,33 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            var name = string.Format("v.{0}", new Random().Next(10000));
+            var startDate = DateTime.UtcNow.Date;
+            var description = string.Format("description.{0}", DateTime.Now);
+#if obsolete
             var newVersion = new Data.Version
             {
                 Id = 3,
-                Name = string.Format("v.{0}", new Random().Next(10000)),
-                StartDate = DateTime.UtcNow.Date,
-                Description = string.Format("description.{0}", DateTime.Now)
+                Name = name,
+                StartDate = startDate,
+                Description = description
             };
             var actual = backlog.UpdateProjectVersion("projectKey", newVersion);
+#endif
+            var options = new UpdateProjectVersionOptions(name)
+            {
+                StartDate = startDate,
+                Description = description
+            };
+
+            var actual = backlog.UpdateProjectVersion("projectKey", 3, options);
             Assert.Equal(3, actual.Id);
             Assert.Equal(1, actual.ProjectId);
             Assert.Equal(0, actual.DisplayOrder);
-            Assert.Equal(newVersion.Description, actual.Description);
-            Assert.Equal(newVersion.Name, actual.Name);
-            Assert.Equal(newVersion.StartDate.Date, actual.StartDate);
-            Assert.Equal(new DateTime(), newVersion.ReleaseDueDate);
+            Assert.Equal(description, actual.Description);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(startDate.Date, actual.StartDate);
+            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 

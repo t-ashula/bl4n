@@ -143,6 +143,7 @@
     <Compile Include="Data\TypedCustomField.cs" />
     <Compile Include="Data\ISharedFileData.cs" />
     <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="Data\UpdateProjectVersionOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

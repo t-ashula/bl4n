@@ -1156,7 +1156,7 @@ namespace BL4N
             };
             var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
-            var res = PostApiResult<Data.Version>(api, hc, jss);
+            var res = PostApiResult<Version>(api, hc, jss);
             return res.Result;
         }
 
@@ -1167,6 +1167,7 @@ namespace BL4N
         /// <param name="projectKey">project key</param>
         /// <param name="newVersion">new version info( Required: Id, Name )</param>
         /// <returns>updated <see cref="IVersion"/></returns>
+        [Obsolete]
         public IVersion UpdateProjectVersion(string projectKey, IVersion newVersion)
         {
             var current = GetProjectVersions(projectKey).FirstOrDefault(v => v.Id == newVersion.Id);
@@ -1209,6 +1210,29 @@ namespace BL4N
                 kvs.Add(new KeyValuePair<string, string>("archived", newVersion.Archived ? "true" : "false"));
             }
 
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<Version>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Version
+        /// Updates information about Version.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="id">version id</param>
+        /// <param name="options">new version info </param>
+        /// <returns>updated <see cref="IVersion"/></returns>
+        public IVersion UpdateProjectVersion(string projectKey, long id, UpdateProjectVersionOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "versions", id.ToString() });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PatchApiResult<Version>(api, hc, jss);
             return res.Result;

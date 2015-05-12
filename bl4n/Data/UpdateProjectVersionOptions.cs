@@ -1,5 +1,5 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddProjectVersionOptions.cs">
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UpdateProjectVersionOptions.cs">
 //   bl4n - Backlog.jp API Client library
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
 // </copyright>
@@ -7,21 +7,21 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BL4N.Data
 {
     /// <summary>
-    /// Parameters for AddProjectVersion
+    /// バージョン情報の更新用オプションを表します
     /// </summary>
-    public class AddProjectVersionOptions : OptionalParams
+    public class UpdateProjectVersionOptions : OptionalParams
     {
         /// <summary>
-        /// <see cref="AddProjectVersionOptions"/> のインスタンスを初期化します
+        /// <see cref="UpdateProjectVersionOptions"/> のインスタンスを初期化します
         /// </summary>
-        /// <param name="versionName"> バージョン名 </param>
-        public AddProjectVersionOptions(string versionName)
-            : base(DescriptionProperty, StartDateProperty, ReleaseDueDateProperty)
+        /// <param name="versionName">バージョン名称</param>
+        /// <remarks>名称を更新しない場合 <paramref name="versionName"/> には現行の名称を指定します</remarks>
+        public UpdateProjectVersionOptions(string versionName)
+            : base(DescriptionProperty, StartDateProperty, ReleaseDueDateProperty, ArchivedProperty)
         {
             Name = versionName;
         }
@@ -71,6 +71,20 @@ namespace BL4N.Data
         private DateTime? _releaseDueDate;
         private const string ReleaseDueDateProperty = "releaseDueDate";
 
+        /// <summary> アーカイブするかどうかを取得または設定します </summary>
+        public bool Archived
+        {
+            get { return _archived; }
+            set
+            {
+                _archived = value;
+                PropertyChanged(ArchivedProperty);
+            }
+        }
+
+        private bool _archived;
+        private const string ArchivedProperty = "archived";
+
         /// <summary> HTTP Request 用の Key-value ペアの一覧を取得します </summary>
         /// <returns> key-value ペアの一覧 </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
@@ -99,6 +113,11 @@ namespace BL4N.Data
                     ? ReleaseDueDate.Value.ToString(Backlog.DateFormat)
                     : string.Empty;
                 pairs.Add(new KeyValuePair<string, string>(ReleaseDueDateProperty, item));
+            }
+
+            if (IsPropertyChanged(ArchivedProperty))
+            {
+                pairs.Add(new KeyValuePair<string, string>(ArchivedProperty, Archived ? "true" : "false"));
             }
 
             return pairs;

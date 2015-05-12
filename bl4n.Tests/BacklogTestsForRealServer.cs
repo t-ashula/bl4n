@@ -1199,28 +1199,38 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
-            var newVersion = new Data.Version
-            {
-                Name = string.Format("v.{0}", new Random().Next(10000)),
-                StartDate = DateTime.UtcNow.Date
-            };
-            var added = backlog.AddProjectVersion(projectKey, newVersion);
+            var name = string.Format("v.{0}", new Random().Next(10000));
+            var startDate = DateTime.UtcNow.Date;
+            var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = startDate };
+            var added = backlog.AddProjectVersion(projectKey, newVersionOptions);
             Assert.True(added.Id > 0);
+
+#if obslete
             var change = new Data.Version
             {
                 Id = added.Id,
                 Name = added.Name,
                 StartDate = added.StartDate,
-                ReleaseDueDate = newVersion.StartDate.AddDays(50),
+                ReleaseDueDate = startDate.AddDays(50),
                 Description = "desc",
                 Archived = false,
             };
             var actual = backlog.UpdateProjectVersion(projectKey, change);
-            Assert.Equal(change.Id, actual.Id);
-            Assert.Equal(change.Name, actual.Name);
-            Assert.Equal(added.StartDate, actual.StartDate);
-            Assert.Equal(change.Description, actual.Description);
-            Assert.False(actual.Archived);
+#endif
+            var newDueDate = startDate.AddDays(50);
+            var newDesc = string.Format("desc.{0}", DateTime.Now);
+            var options = new UpdateProjectVersionOptions(added.Name)
+            {
+                Description = newDesc,
+                ReleaseDueDate = newDueDate
+            };
+            var actual = backlog.UpdateProjectVersion(projectKey, added.Id, options);
+            Assert.Equal(added.Id, actual.Id); // unchange
+            Assert.Equal(added.Name, actual.Name); // unchange
+            Assert.Equal(added.StartDate, actual.StartDate); // unchange
+            Assert.Equal(newDesc, actual.Description); // update
+            Assert.Equal(newDueDate.Date, actual.ReleaseDueDate.Date); // update
+            Assert.False(actual.Archived); // unchage
         }
 
         /// <inheritdoc/>
