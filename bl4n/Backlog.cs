@@ -1165,61 +1165,6 @@ namespace BL4N
         /// Updates information about Version.
         /// </summary>
         /// <param name="projectKey">project key</param>
-        /// <param name="newVersion">new version info( Required: Id, Name )</param>
-        /// <returns>updated <see cref="IVersion"/></returns>
-        [Obsolete]
-        public IVersion UpdateProjectVersion(string projectKey, IVersion newVersion)
-        {
-            var current = GetProjectVersions(projectKey).FirstOrDefault(v => v.Id == newVersion.Id);
-            if (current == null)
-            {
-                throw new Exception(); // TODO:
-            }
-
-            var api = GetApiUri(string.Format("/projects/{0}/versions/{1}", projectKey, newVersion.Id));
-            var jss = new JsonSerializerSettings
-            {
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                NullValueHandling = NullValueHandling.Ignore
-            };
-            var kvs = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("name", newVersion.Name) };
-            if (current.Description != newVersion.Description)
-            {
-                kvs.Add(new KeyValuePair<string, string>("description", newVersion.Description));
-            }
-
-            // date string format is 2015-04-25?
-            if (current.StartDate != newVersion.StartDate)
-            {
-                var v = newVersion.StartDate != default(DateTime)
-                    ? newVersion.StartDate.Date.ToString("yyyy-MM-dd")
-                    : string.Empty;
-                kvs.Add(new KeyValuePair<string, string>("startDate", v));
-            }
-
-            if (current.ReleaseDueDate != newVersion.ReleaseDueDate)
-            {
-                var v = newVersion.ReleaseDueDate != default(DateTime)
-                    ? newVersion.ReleaseDueDate.Date.ToString("yyyy-MM-dd")
-                    : string.Empty;
-                kvs.Add(new KeyValuePair<string, string>("releaseDueDate", v));
-            }
-
-            if (current.Archived != newVersion.Archived)
-            {
-                kvs.Add(new KeyValuePair<string, string>("archived", newVersion.Archived ? "true" : "false"));
-            }
-
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PatchApiResult<Version>(api, hc, jss);
-            return res.Result;
-        }
-
-        /// <summary>
-        /// Update Version
-        /// Updates information about Version.
-        /// </summary>
-        /// <param name="projectKey">project key</param>
         /// <param name="id">version id</param>
         /// <param name="options">new version info </param>
         /// <returns>updated <see cref="IVersion"/></returns>
