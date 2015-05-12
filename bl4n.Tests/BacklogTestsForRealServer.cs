@@ -231,34 +231,24 @@ namespace BL4N.Tests
         [Fact]
         public override void AddUserTest()
         {
-            // TODO: 冪等性
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
             var name = string.Format("bl4n.{0}", DateTime.Now.Ticks);
             var userId = name;
             var mailAddress = string.Format("t.ashula+{0}@{1}", name, "gmail.com");
-            var user = new User
-            {
-                UserId = userId,
-                Name = name,
-                Lang = null,
-                MailAddress = mailAddress,
-                RoleType = 6 // guest viewer
-            };
 
             var pass = Path.GetTempFileName().PadLeft(21);
             pass = pass.Substring(pass.Length - 20, 20);
 
-            // var actual = backlog.AddUser(user, pass);
             var options = new AddUserOptions(userId, pass, name, mailAddress, 6);
             var actual = backlog.AddUser(options);
             Assert.True(actual.Id > 0);
-            Assert.Equal(user.UserId, actual.UserId);
-            Assert.Equal(user.Name, actual.Name);
-            //// Assert.Equal(user.Lang, actual.Lang);
-            Assert.Equal(user.MailAddress, actual.MailAddress);
-            Assert.Equal(user.RoleType, actual.RoleType);
+            Assert.Equal(options.UserId, actual.UserId);
+            Assert.Equal(options.Name, actual.Name);
+            Assert.Equal(options.MailAddress, actual.MailAddress);
+            Assert.Equal(options.RoleType, actual.RoleType);
+            backlog.DeleteUser(actual.Id);
         }
 
         /// <inheritdoc/>
