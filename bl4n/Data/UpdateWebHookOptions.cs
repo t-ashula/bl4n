@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    /// <summary> XV‚·‚é WebHook ‚ÌƒIƒvƒVƒ‡ƒ“‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> æ›´æ–°ã™ã‚‹ WebHook ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¡¨ã—ã¾ã™ </summary>
     public class UpdateWebHookOptions : OptionalParams
     {
         private const string NameProperty = "name";
@@ -26,13 +26,13 @@ namespace BL4N.Data
         private bool _allEvent;
         private List<ActivityType> _activityTypeIds;
 
-        /// <summary> <see cref="UpdateWebHookOptions"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
+        /// <summary> <see cref="UpdateWebHookOptions"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
         public UpdateWebHookOptions()
             : base(NameProperty, DescriptionProperty, HookUrlProperty, AllEventProperty, ActivityTypeIdsProperty)
         {
         }
 
-        /// <summary> WebHook –¼‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> WebHook åã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public string Name
         {
             get { return _name; }
@@ -43,7 +43,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> WebHook ‚Ìà–¾‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> WebHook ã®èª¬æ˜ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public string Description
         {
             get { return _description; }
@@ -54,7 +54,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> Hook URL ‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> Hook URL ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public string HookUrl
         {
             get { return _hookUrl; }
@@ -65,7 +65,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ‘S•”‚ÌƒCƒxƒ“ƒg‚É”½‰‚·‚é‚©‚Ç‚¤‚©‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> å…¨éƒ¨ã®ã‚¤ãƒ™ãƒ³ãƒˆã«åå¿œã™ã‚‹ã‹ã©ã†ã‹ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public bool AllEvent
         {
             get { return _allEvent; }
@@ -76,7 +76,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ’Ê’m‚·‚éƒCƒxƒ“ƒg‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> é€šçŸ¥ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
         public List<ActivityType> ActivityTypeIds
         {
             get { return _activityTypeIds; }
@@ -87,8 +87,8 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> HTTP Request —p‚Ì Key-value ƒyƒA‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
-        /// <returns> key-value ƒyƒA‚Ìˆê—— </returns>
+        /// <summary> HTTP Request ç”¨ã® Key-value ãƒšã‚¢ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
+        /// <returns> key-value ãƒšã‚¢ã®ä¸€è¦§ </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
         {
             var pairs = new List<KeyValuePair<string, string>>();
