@@ -828,7 +828,9 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var member = new long[] { 1, 2, 3 };
-            var actual = backlog.UpdateGroup(20, "newName", member);
+            var options = new UpdateGroupOptions { Name = "newName" };
+            options.AddMembers(member);
+            var actual = backlog.UpdateGroup(20, options);
             Assert.Equal(20, actual.Id);
             Assert.Equal("newName", actual.Name);
             Assert.Equal(2, actual.Members[0].Id);

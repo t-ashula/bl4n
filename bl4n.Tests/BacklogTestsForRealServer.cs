@@ -475,19 +475,22 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
-            var g1 = backlog.GetGroups().FirstOrDefault(g => g.Name.StartsWith("g1"));
-            if (g1 == null)
-            {
-                Assert.False(false, "group g1.x not found?");
-                return;
-            }
 
-            var newName = string.Format("g1.{0:00000}", DateTime.Now.Ticks % 100000); // group.name.length must be less than 20
-            var actual = backlog.UpdateGroup(g1.Id, newName, new long[] { });
-            Assert.Equal(g1.Id, actual.Id);
+            var g = DateTime.Now.Ticks % 100000;
+
+            var addOptions = new AddGroupOptions(string.Format("g.{0:0000}", g));
+            var added = backlog.AddGroup(addOptions);
+            Assert.True(added.Id > 0);
+
+            var newName = string.Format("g1.{0:00000}", g + 1); // group.name.length must be less than 20
+            var options = new UpdateGroupOptions { Name = newName };
+            var actual = backlog.UpdateGroup(added.Id, options);
+            Assert.Equal(added.Id, actual.Id);
             Assert.Equal(newName, actual.Name);
-            Assert.Equal(g1.Members.Count, actual.Members.Count);
-            Assert.Equal(g1.Created, actual.Created);
+            Assert.Equal(added.Members.Count, actual.Members.Count);
+            Assert.Equal(added.Created, actual.Created);
+
+            backlog.DeleteGroup(added.Id);
         }
 
         /// <inheritdoc/>

@@ -146,6 +146,7 @@
     <Compile Include="Data\TypedCustomField.cs" />
     <Compile Include="Data\ISharedFileData.cs" />
     <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="Data\UpdateGroupOptions.cs" />
     <Compile Include="Data\UpdateProjectVersionOptions.cs" />
     <Compile Include="Data\UpdateUserOptions.cs" />
     <Compile Include="Data\UpdateWebHookOptions.cs" />
