@@ -1793,17 +1793,6 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-#if obsolete
-            var wh = new WebHook
-            {
-                Name = string.Format("wh.{0}", new Random().Next(1000)),
-                Description = "test",
-                HookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000)),
-                AllEvent = false
-            };
-            wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
-            var actual = backlog.AddProjectWebHook("projectKey", wh);
-#endif
             var random = new Random();
             var name = string.Format("wh.{0}", random.Next(1000));
             var hookUrl = string.Format("http://example.test/{0}/", random.Next(1000));
@@ -1871,22 +1860,26 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
 
             var r = new Random();
-            var wh = new WebHook
+            var id = r.Next(100);
+            var name = string.Format("wh.{0}", r.Next(1000));
+            var description = string.Format("test.{0}", DateTime.Now);
+            var hookUrl = string.Format("http://example.test/{0}/", r.Next(1000));
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            var wh = new UpdateWebHookOptions
             {
-                Id = r.Next(100),
-                Name = string.Format("wh.{0}", r.Next(1000)),
-                Description = "test",
-                HookUrl = string.Format("http://example.test/{0}/", r.Next(1000)),
+                Name = name,
+                Description = description,
+                HookUrl = hookUrl,
                 AllEvent = false
             };
-            //// TODO: wh.AddActivityTypes(new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded });
-            var actual = backlog.UpdateProjectWebHook("projectKey", wh);
+            wh.AddActivityTypes(types);
+            var actual = backlog.UpdateProjectWebHook("projectKey", id, wh);
 
-            Assert.Equal(wh.Id, actual.Id);
-            Assert.Equal(wh.Name, actual.Name);
-            Assert.Equal(wh.Description, actual.Description);
-            Assert.Equal(wh.AllEvent, actual.AllEvent);
-            Assert.Equal(wh.ActivityTypeIds.ToArray(), actual.ActivityTypeIds.ToArray());
+            Assert.Equal(id, actual.Id);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(description, actual.Description);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(types.Select(_ => (int)_).ToArray(), actual.ActivityTypeIds.ToArray());
             Assert.Equal(1, actual.CreatedUser.Id);
             Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
             Assert.Equal(1, actual.UpdatedUser.Id);

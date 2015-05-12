@@ -145,6 +145,7 @@
     <Compile Include="Data\ISharedFileData.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Data\UpdateProjectVersionOptions.cs" />
+    <Compile Include="Data\UpdateWebHookOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

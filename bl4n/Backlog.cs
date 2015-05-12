@@ -1677,36 +1677,18 @@ namespace BL4N
         /// Updates information about webhook.
         /// </summary>
         /// <param name="projectkey">project key</param>
-        /// <param name="wh">webhook to update (Required:Id)</param>
+        /// <param name="hookId">webhook id</param>
+        /// <param name="options">webhook to update (Required:Id)</param>
         /// <returns>updated <see cref="IWebHook"/></returns>
-        public IWebHook UpdateProjectWebHook(string projectkey, IWebHook wh)
+        public IWebHook UpdateProjectWebHook(string projectkey, long hookId, UpdateWebHookOptions options)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/webhooks/{1}", projectkey, wh.Id));
+            var api = GetApiUri(new[] { "projects", projectkey, "webhooks", string.Format("{0}", hookId) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 NullValueHandling = NullValueHandling.Ignore
             };
-            var kvs = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("name", wh.Name),
-                new KeyValuePair<string, string>("description", wh.Description),
-                new KeyValuePair<string, string>("hookUrl", wh.HookUrl)
-            };
-
-            // TODO: clear ActivityTypeIds and/or correct AllEvent?
-            if (wh.AllEvent)
-            {
-                kvs.Add(new KeyValuePair<string, string>("allEvent", "true"));
-            }
-            else
-            {
-                if (wh.ActivityTypeIds != null)
-                {
-                    kvs.AddRange(wh.ActivityTypeIds.Select(typeId => new KeyValuePair<string, string>("activityTypeIds[]", string.Format("{0}", typeId))));
-                }
-            }
-
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PatchApiResult<WebHook>(api, hc, jss);
             return res.Result;

@@ -1463,19 +1463,11 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
+
+            // add new hook
             var name = string.Format("wh.{0}", new Random().Next(1000));
             var desc = string.Format("test.{0}", DateTime.UtcNow);
             var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
-
-#if obslete
-            var wh = new WebHook
-            {
-                Name = name,
-                Description = desc,
-                HookUrl = hookUrl,
-                AllEvent = false
-            };
-#endif
             var wh = new AddWebHookOptions(name)
             {
                 Description = desc,
@@ -1487,19 +1479,18 @@ namespace BL4N.Tests
             wh.AddActivityTypes(types);
             var added = backlog.AddProjectWebHook(projectKey, wh);
             Assert.True(added.Id > 0);
-            var newHook = new WebHook
+
+            var update = new UpdateWebHookOptions
             {
-                Id = added.Id,
                 AllEvent = true,
-                Description = added.Description,
-                Name = added.Name
+                Description = "<>" + added.Description,
+                Name = "<>" + added.Name
             };
 
-            var actual = backlog.UpdateProjectWebHook(projectKey, newHook);
-            Assert.True(actual.Id > 0);
-            Assert.Equal(added.Name, actual.Name);
-            Assert.Equal(wh.Description, actual.Description);
-
+            var actual = backlog.UpdateProjectWebHook(projectKey, added.Id, update);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(update.Name, actual.Name);
+            Assert.Equal(update.Description, actual.Description);
             Assert.True(actual.AllEvent);
 
             // XXX: API Server does not clear ActivityTypeIds when AllEvent has changed to true

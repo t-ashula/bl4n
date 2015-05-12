@@ -92,9 +92,7 @@ namespace BL4N.Data
             AllEvent = !ActivityTypeIds.Any();
         }
 
-        /// <summary>
-        /// 通知するイベントの一覧を取得します
-        /// </summary>
+        /// <summary> 通知するイベントの一覧を取得します </summary>
         public List<ActivityType> ActivityTypeIds
         {
             get { return _activityTypeIds; }
