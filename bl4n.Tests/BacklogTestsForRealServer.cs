@@ -265,32 +265,19 @@ namespace BL4N.Tests
         [Fact]
         public override void UpdateUserTest()
         {
-            // TODO: 冪等性
             SkipIfSettingIsBroken();
             var backlog = new Backlog(Settings);
-            var users = backlog.GetUsers();
-            var oldUser = users.FirstOrDefault(u => u.RoleType == 6);
-            if (oldUser == null)
-            {
-                Assert.False(true, "no user to test");
-                return;
-            }
 
-            // var oldName = oldUser.Name;
+            var userId = string.Format("bl4n.{0}", DateTime.Now.Ticks % 1000);
+            var addOptions = new AddUserOptions(userId, "hogehoge", "bl4n.old", "bl4n.old@example.com", 6);
+            var oldUser = backlog.AddUser(addOptions);
+            Assert.True(oldUser.Id > 0);
+
             var newName = string.Format("bl4n.{0}", DateTime.Now.Ticks);
-
-            var newUser = new User
-            {
-                Id = oldUser.Id,
-                Lang = oldUser.Lang,
-                Name = newName, // new name
-                MailAddress = oldUser.MailAddress,
-                RoleType = oldUser.RoleType,
-                UserId = oldUser.UserId
-            };
-
-            var changed = backlog.UpdateUser(newUser);
+            var updateOptions = new UpdateUserOptions { Name = newName };
+            var changed = backlog.UpdateUser(oldUser.Id, updateOptions);
             Assert.Equal(newName, changed.Name);
+            backlog.DeleteUser(oldUser.Id);
         }
 
         /// <inheritdoc/>

@@ -321,28 +321,6 @@ namespace BL4N
             return res.Result;
         }
 
-        /// <summary> Adds new user to the space. </summary>
-        /// <param name="user"> user (required: UserId, Name, MailAddress, RoleType)</param>
-        /// <param name="pass"> password </param>
-        /// <returns>created user</returns>
-        [Obsolete("use AddUserOptions", true)]
-        public IUser AddUser(IUser user, string pass)
-        {
-            var api = GetApiUri("/users");
-            var jss = new JsonSerializerSettings();
-            var kvs = new[]
-            {
-                new KeyValuePair<string, string>("userId", user.UserId),
-                new KeyValuePair<string, string>("name", user.Name),
-                new KeyValuePair<string, string>("mailAddress", user.MailAddress),
-                new KeyValuePair<string, string>("roleType", user.RoleType.ToString()),
-                new KeyValuePair<string, string>("password", pass)
-            };
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PostApiResult<User>(api, hc, jss);
-            return res.Result;
-        }
-
         /// <summary>
         /// Adds new user to the space.
         /// "Project Administrator" cannot add "Admin" user.
@@ -360,30 +338,17 @@ namespace BL4N
         }
 
         /// <summary>
-        ///
+        /// Update User
+        /// Updates information about user.
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public IUser UpdateUser(IUser user, string password = "")
+        /// <param name="userId">user id (number)</param>
+        /// <param name="options">update options</param>
+        /// <returns>updated <see cref="IUser"/></returns>
+        public IUser UpdateUser(long userId, UpdateUserOptions options)
         {
-            var userId = user.Id;
-            var api = GetApiUri(string.Format("/users/{0}", userId));
+            var api = GetApiUri(new[] { "users", string.Format("{0}", userId) });
             var jss = new JsonSerializerSettings();
-
-            // XXX: only changing parameter ?
-            var kvs = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("name", user.Name),
-                new KeyValuePair<string, string>("mailAddress", user.MailAddress),
-                new KeyValuePair<string, string>("roleType", user.RoleType.ToString()),
-            };
-
-            if (!string.IsNullOrWhiteSpace(password))
-            {
-                kvs.Add(new KeyValuePair<string, string>("password", password));
-            }
-
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PatchApiResult<User>(api, hc, jss);
             return res.Result;

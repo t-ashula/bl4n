@@ -506,25 +506,24 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
             var backlog = new Backlog(Settings);
-            var user = new User
-            {
-                Id = 1,
-                UserId = "guest",
-                Name = string.Format("guest.{0}", DateTime.Now.Ticks),
-                Lang = null,
-                MailAddress = string.Format("{0}@{1}", "guest", "example.com"),
-                RoleType = 5 // guest reporter
-            };
             var password = Path.GetTempFileName().PadLeft(21);
             password = password.Substring(password.Length - 20, 20);
 
-            var actual = backlog.UpdateUser(user, password);
+            var options = new UpdateUserOptions
+            {
+                Name = string.Format("guest.{0}", DateTime.Now.Ticks),
+                MailAddress = string.Format("{0}@{1}", "guest", "example.com"),
+                RoleType = 5,
+                PassWord = password
+            };
+
+            var actual = backlog.UpdateUser(1, options);
             Assert.True(actual.Id > 0);
             //// Assert.Equal(user.UserId, actual.UserId); // userId does not provide?
-            Assert.Equal(user.Name, actual.Name);
+            Assert.Equal(options.Name, actual.Name);
             //// Assert.Equal(user.Lang, actual.Lang);
-            Assert.Equal(user.MailAddress, actual.MailAddress);
-            Assert.Equal(user.RoleType, actual.RoleType);
+            Assert.Equal(options.MailAddress, actual.MailAddress);
+            Assert.Equal(options.RoleType, actual.RoleType);
         }
 
         /// <inheritdoc/>
