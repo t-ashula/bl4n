@@ -1030,9 +1030,10 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var newProject = new Project
+            var id = new Random().Next();
+
+            var newProject = new UpdateProjectOptions
             {
-                Id = new Random().Next(),
                 Name = "hoge",
                 ProjectKey = "hogehoge",
                 ChartEnabled = false,
@@ -1040,8 +1041,8 @@ namespace BL4N.Tests
                 TextFormattingRule = "markdown",
                 Archived = false
             };
-            var actual = backlog.UpdateProject(newProject);
-            Assert.Equal(newProject.Id, actual.Id);
+            var actual = backlog.UpdateProject(id.ToString(), newProject);
+            Assert.Equal(id, actual.Id);
             Assert.Equal(newProject.ProjectKey, actual.ProjectKey);
             Assert.Equal(newProject.Name, actual.Name);
             Assert.Equal(newProject.ChartEnabled, actual.ChartEnabled);

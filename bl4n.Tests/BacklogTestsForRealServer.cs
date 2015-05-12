@@ -667,24 +667,16 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var current = backlog.GetProjects().First();
-            var newProject = new Project
-            {
-                Id = current.Id,
-                Name = current.Name + (new Random().Next() % 100),
-                ProjectKey = current.ProjectKey,
-                ChartEnabled = current.ChartEnabled,
-                SubtaskingEnabled = current.SubtaskingEnabled,
-                TextFormattingRule = current.TextFormattingRule,
-                Archived = current.Archived
-            };
-            var actual = backlog.UpdateProject(newProject);
-            Assert.Equal(newProject.Id, actual.Id);
-            Assert.Equal(newProject.ProjectKey, actual.ProjectKey);
-            Assert.Equal(newProject.Name, actual.Name);
-            Assert.Equal(newProject.ChartEnabled, actual.ChartEnabled);
-            Assert.Equal(newProject.SubtaskingEnabled, actual.SubtaskingEnabled);
-            Assert.Equal(newProject.TextFormattingRule, actual.TextFormattingRule);
-            Assert.Equal(newProject.Archived, actual.Archived);
+            var newName = current.Name.Substring(0, current.Name.Length - 2) + new Random().Next(99);
+            var newProject = new UpdateProjectOptions { Name = newName };
+            var actual = backlog.UpdateProject(current.ProjectKey, newProject);
+            Assert.Equal(current.Id, actual.Id);
+            Assert.Equal(current.ProjectKey, actual.ProjectKey);
+            Assert.Equal(newProject.Name, actual.Name); // only name update
+            Assert.Equal(current.ChartEnabled, actual.ChartEnabled);
+            Assert.Equal(current.SubtaskingEnabled, actual.SubtaskingEnabled);
+            Assert.Equal(current.TextFormattingRule, actual.TextFormattingRule);
+            Assert.Equal(current.Archived, actual.Archived);
         }
 
         /// <inheritdoc/>

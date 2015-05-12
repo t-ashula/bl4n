@@ -641,30 +641,6 @@ namespace BL4N
         /// Add Project
         /// Adds new project.
         /// </summary>
-        /// <param name="newProject">project to create</param>
-        /// <returns>created <see cref="IProject"/></returns>
-        [Obsolete("use AddProjectOptions", true)]
-        public IProject AddProject(IProject newProject)
-        {
-            var api = GetApiUri("/projects");
-            var jss = new JsonSerializerSettings();
-            var kvs = new[]
-            {
-                new KeyValuePair<string, string>("name", newProject.Name),
-                new KeyValuePair<string, string>("key", newProject.ProjectKey),
-                new KeyValuePair<string, string>("chartEnabled", newProject.ChartEnabled.ToString().ToLower()),
-                new KeyValuePair<string, string>("subtaskingEnabled", newProject.SubtaskingEnabled.ToString().ToLower()),
-                new KeyValuePair<string, string>("textFormattingRule", newProject.TextFormattingRule),
-            };
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PostApiResult<Project>(api, hc, jss);
-            return res.Result;
-        }
-
-        /// <summary>
-        /// Add Project
-        /// Adds new project.
-        /// </summary>
         /// <param name="options">project to create</param>
         /// <returns>created <see cref="IProject"/></returns>
         public IProject AddProject(AddProjectOptions options)
@@ -695,45 +671,14 @@ namespace BL4N
         /// Update Project
         /// Updates information about project.
         /// </summary>
-        /// <param name="newProject"></param>
+        /// <param name="projectKey">project key</param>
+        /// <param name="options">update option</param>
         /// <returns>updated <see cref="IProject"/></returns>
-        public IProject UpdateProject(IProject newProject)
+        public IProject UpdateProject(string projectKey, UpdateProjectOptions options)
         {
-            var api = GetApiUri(string.Format("/projects/{0}", newProject.Id));
+            var api = GetApiUri(new[] { "projects", projectKey });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
-            var current = GetProject(newProject.Id.ToString());
-
-            var kvs = new List<KeyValuePair<string, string>>();
-            if (!string.IsNullOrEmpty(newProject.Name) && current.Name != newProject.Name)
-            {
-                kvs.Add(new KeyValuePair<string, string>("name", newProject.Name));
-            }
-
-            if (!string.IsNullOrEmpty(newProject.ProjectKey) && current.ProjectKey != newProject.ProjectKey)
-            {
-                kvs.Add(new KeyValuePair<string, string>("key", newProject.ProjectKey));
-            }
-
-            if (current.ChartEnabled != newProject.ChartEnabled)
-            {
-                kvs.Add(new KeyValuePair<string, string>("chartEnabled", newProject.ChartEnabled.ToString().ToLower()));
-            }
-
-            if (current.SubtaskingEnabled != newProject.SubtaskingEnabled)
-            {
-                kvs.Add(new KeyValuePair<string, string>("subtaskingEnabled", newProject.SubtaskingEnabled.ToString().ToLower()));
-            }
-
-            if (!string.IsNullOrEmpty(newProject.TextFormattingRule) && current.TextFormattingRule != newProject.TextFormattingRule)
-            {
-                kvs.Add(new KeyValuePair<string, string>("textFormattingRule", newProject.TextFormattingRule));
-            }
-
-            if (current.Archived != newProject.Archived)
-            {
-                kvs.Add(new KeyValuePair<string, string>("archived", newProject.Archived.ToString().ToLower()));
-            }
-
+            var kvs = options.ToKeyValurPairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PatchApiResult<Project>(api, hc, jss);
             return res.Result;
