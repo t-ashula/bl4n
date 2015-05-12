@@ -1242,12 +1242,11 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
-            var newVersion = new Data.Version
+            var options = new AddProjectVersionOptions(string.Format("v.{0}", new Random().Next(10000)))
             {
-                Name = string.Format("v.{0}", new Random().Next(10000)),
-                StartDate = DateTime.UtcNow.Date
+                StartDate = DateTime.UtcNow
             };
-            var added = backlog.AddProjectVersion(projectKey, newVersion);
+            var added = backlog.AddProjectVersion(projectKey, options);
             Assert.True(added.Id > 0);
 
             var actual = backlog.DeleteProjectVersion(projectKey, added.Id);

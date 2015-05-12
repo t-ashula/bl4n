@@ -1106,44 +1106,6 @@ namespace BL4N
         /// Adds new Version to the project.
         /// </summary>
         /// <param name="projectKey">project key</param>
-        /// <param name="newVersion">version to add(Required: Name)</param>
-        /// <returns>added <see cref="IVersion"/></returns>
-        [Obsolete]
-        public IVersion AddProjectVersion(string projectKey, IVersion newVersion)
-        {
-            var api = GetApiUri(string.Format("/projects/{0}/versions", projectKey));
-            var jss = new JsonSerializerSettings
-            {
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                NullValueHandling = NullValueHandling.Ignore
-            };
-            var kvs = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("name", newVersion.Name) };
-            if (!string.IsNullOrEmpty(newVersion.Description))
-            {
-                kvs.Add(new KeyValuePair<string, string>("description", newVersion.Description));
-            }
-
-            // date string format is 2015-04-25?
-            if (newVersion.StartDate != default(DateTime))
-            {
-                kvs.Add(new KeyValuePair<string, string>("startDate", newVersion.StartDate.Date.ToString(DateFormat)));
-            }
-
-            if (newVersion.ReleaseDueDate != default(DateTime))
-            {
-                kvs.Add(new KeyValuePair<string, string>("releaseDueDate", newVersion.ReleaseDueDate.Date.ToString(DateFormat)));
-            }
-
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PostApiResult<Version>(api, hc, jss);
-            return res.Result;
-        }
-
-        /// <summary>
-        /// Add Version
-        /// Adds new Version to the project.
-        /// </summary>
-        /// <param name="projectKey">project key</param>
         /// <param name="options">adding version options</param>
         /// <returns>added <see cref="IVersion"/></returns>
         public IVersion AddProjectVersion(string projectKey, AddProjectVersionOptions options)
