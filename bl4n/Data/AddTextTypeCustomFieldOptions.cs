@@ -11,10 +11,11 @@ using System.Linq;
 
 namespace BL4N.Data
 {
+    /// <summary> テキストタイプのカスタムフィールドの追加のオプションを表します </summary>
     public class AddTextTypeCustomFieldOptions : AddCustomFieldOptions
     {
-        /// <summary> テキストタイプのカスタムフィールドの追加のオプションを表します </summary>
-        /// <param name="name"></param>
+        /// <summary> <see cref="AddTextTypeCustomFieldOptions"/> のインスタンスを初期化します </summary>
+        /// <param name="name">フィールド名</param>
         public AddTextTypeCustomFieldOptions(string name)
             : base(CustomFieldTypes.Text, name)
         {
