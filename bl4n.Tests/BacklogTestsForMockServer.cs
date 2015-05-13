@@ -1363,7 +1363,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var category = new Category { Name = string.Format("cat.{0}", new Random().Next(100)) };
+            var category = new AddProjectCategoryOptions(string.Format("cat.{0}", new Random().Next(100)));
             var actual = backlog.AddProjectCategory("projectKey", category);
             Assert.Equal(1, actual.Id);
             Assert.Equal(0, actual.DisplayOrder);

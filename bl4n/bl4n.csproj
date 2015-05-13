@@ -71,6 +71,7 @@
     <Compile Include="Data\Activity\SVNRepositoryActivity.cs" />
     <Compile Include="Data\Activity\WikiActivity.cs" />
     <Compile Include="Data\AddGroupOptions.cs" />
+    <Compile Include="Data\AddProjectCategoryOptions.cs" />
     <Compile Include="Data\AddProjectIssueTypeOptions.cs" />
     <Compile Include="Data\AddProjectOptions.cs" />
     <Compile Include="Data\AddProjectVersionOptions.cs" />

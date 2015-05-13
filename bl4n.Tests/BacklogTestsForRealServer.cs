@@ -1030,14 +1030,11 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
-            var cat = new Category
-            {
-                Name = string.Format("cat.{0}", new Random().Next(2000))
-            };
-
-            var actual = backlog.AddProjectCategory(projectKey, cat);
+            var name = string.Format("cat.{0}", new Random().Next(2000));
+            var options = new AddProjectCategoryOptions(name);
+            var actual = backlog.AddProjectCategory(projectKey, options);
             Assert.True(actual.Id > 0);
-            Assert.Equal(cat.Name, actual.Name);
+            Assert.Equal(name, actual.Name);
         }
 
         /// <inheritdoc/>
@@ -1048,11 +1045,8 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
-            var cat = new Category
-            {
-                Name = string.Format("cat.{0}", new Random().Next(2000))
-            };
-
+            var name = string.Format("cat.{0}", new Random().Next(2000));
+            var cat = new AddProjectCategoryOptions(name);
             var added = backlog.AddProjectCategory(projectKey, cat);
             Assert.True(added.Id > 0);
             Assert.Equal(cat.Name, added.Name);
@@ -1075,14 +1069,12 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
-            var cat = new Category
-            {
-                Name = string.Format("cat.{0}", new Random().Next(2000))
-            };
+            var name = string.Format("cat.{0}", new Random().Next(2000));
+            var options = new AddProjectCategoryOptions(name);
 
-            var added = backlog.AddProjectCategory(projectKey, cat);
+            var added = backlog.AddProjectCategory(projectKey, options);
             Assert.True(added.Id > 0);
-            Assert.Equal(cat.Name, added.Name);
+            Assert.Equal(options.Name, added.Name);
 
             var actual = backlog.DeleteProjectCategory(projectKey, added.Id);
             Assert.Equal(added.Id, actual.Id);

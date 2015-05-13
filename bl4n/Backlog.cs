@@ -898,34 +898,6 @@ namespace BL4N
         /// Updates information about Issue Type.
         /// </summary>
         /// <param name="projectKey">project key</param>
-        /// <param name="issueType">issue type to change</param>
-        /// <returns>updated <see cref="IIssueType"/></returns>
-        [Obsolete("use updateProjectIssueTypeOptions", true)]
-        public IIssueType UpdateProjectIssueType(string projectKey, IIssueType issueType)
-        {
-            var api = GetApiUri(string.Format("/projects/{0}/issueTypes/{1}", projectKey, issueType.Id));
-            var jss = new JsonSerializerSettings();
-            var kvs = new List<KeyValuePair<string, string>>();
-            if (!string.IsNullOrEmpty(issueType.Name))
-            {
-                kvs.Add(new KeyValuePair<string, string>("name", issueType.Name));
-            }
-
-            if (!string.IsNullOrEmpty(issueType.Color))
-            {
-                kvs.Add(new KeyValuePair<string, string>("color", issueType.Color));
-            }
-
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PatchApiResult<IssueType>(api, hc, jss);
-            return res.Result;
-        }
-
-        /// <summary>
-        /// Update Issue Type
-        /// Updates information about Issue Type.
-        /// </summary>
-        /// <param name="projectKey">project key</param>
         /// <param name="id">issue type id</param>
         /// <param name="options">issue type to change</param>
         /// <returns>updated <see cref="IIssueType"/></returns>
@@ -980,14 +952,14 @@ namespace BL4N
         /// Adds new Category to the project.
         /// </summary>
         /// <param name="projectKey">project key</param>
-        /// <param name="category">category to add (required: Name)</param>
+        /// <param name="options">category to add</param>
         /// <returns>added <see cref="ICategory"/></returns>
-        public ICategory AddProjectCategory(string projectKey, ICategory category)
+        public ICategory AddProjectCategory(string projectKey, AddProjectCategoryOptions options)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/categories", projectKey));
-            var kvs = new[] { new KeyValuePair<string, string>("name", category.Name) };
-            var hc = new FormUrlEncodedContent(kvs);
+            var api = GetApiUri(new[] { "projects", projectKey, "categories" });
             var jss = new JsonSerializerSettings();
+            var kvs = options.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<Category>(api, hc, jss);
             return res.Result;
         }
