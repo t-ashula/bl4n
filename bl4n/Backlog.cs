@@ -968,13 +968,14 @@ namespace BL4N
         /// Update Category
         /// Updates information about Category.
         /// </summary>
-        /// <param name="projectkey">project key</param>
-        /// <param name="category">category to update (required: Id, Name)</param>
-        /// <returns></returns>
-        public ICategory UpdateProjectCategory(string projectkey, ICategory category)
+        /// <param name="projectKey">project key</param>
+        /// <param name="categoryId">category id</param>
+        /// <param name="options">update category option</param>
+        /// <returns>updated <see cref="ICategory"/></returns>
+        public ICategory UpdateProjectCategory(string projectKey, long categoryId, UpdateProjectCategoryOptions options)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/categories/{1}", projectkey, category.Id));
-            var kvs = new[] { new KeyValuePair<string, string>("name", category.Name) };
+            var api = GetApiUri(new[] { "projects", projectKey, "categories", string.Format("{0}", categoryId) });
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var jss = new JsonSerializerSettings();
             var res = PatchApiResult<Category>(api, hc, jss);

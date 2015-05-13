@@ -1050,13 +1050,10 @@ namespace BL4N.Tests
             var added = backlog.AddProjectCategory(projectKey, cat);
             Assert.True(added.Id > 0);
             Assert.Equal(cat.Name, added.Name);
-            var newCat = new Category
-            {
-                Id = added.Id,
-                Name = added.Name + "1"
-            };
-            var actual = backlog.UpdateProjectCategory(projectKey, newCat);
-            Assert.Equal(newCat.Id, actual.Id);
+
+            var newCat = new UpdateProjectCategoryOptions { Name = added.Name + "1" };
+            var actual = backlog.UpdateProjectCategory(projectKey, added.Id, newCat);
+            Assert.Equal(added.Id, actual.Id);
             Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
             Assert.Equal(newCat.Name, actual.Name);
         }

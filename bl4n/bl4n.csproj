@@ -151,6 +151,7 @@
     <Compile Include="Data\ISharedFileData.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Data\UpdateGroupOptions.cs" />
+    <Compile Include="Data\UpdateProjectCategoryOptions.cs" />
     <Compile Include="Data\UpdateProjectIssueTypeOptions.cs" />
     <Compile Include="Data\UpdateProjectOptions.cs" />
     <Compile Include="Data\UpdateProjectVersionOptions.cs" />
