@@ -12,34 +12,34 @@ using System.Linq;
 namespace BL4N.Data
 {
     /// <summary>
-    /// ‰Û‘è‚ÌXV‚Ì‚½‚ß‚Ìƒpƒ‰ƒ[ƒ^‚ğ•\‚µ‚Ü‚·
+    /// èª²é¡Œã®æ›´æ–°ã®ãŸã‚ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¡¨ã—ã¾ã™
     /// </summary>
     public class IssueUpdateSettings
     {
         /// <summary>
-        /// <see cref="IssueUpdateSettings"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚·
+        /// <see cref="IssueUpdateSettings"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™
         /// </summary>
-        /// <param name="issueTypeId">‰Û‘èí•ÊID</param>
-        /// <param name="priorityId">—Dæ“xID</param>
+        /// <param name="issueTypeId">èª²é¡Œç¨®åˆ¥ID</param>
+        /// <param name="priorityId">å„ªå…ˆåº¦ID</param>
         public IssueUpdateSettings(long issueTypeId, long priorityId)
         {
             PriorityId = priorityId;
             IssueTypeId = issueTypeId;
         }
 
-        /// <summary> ‰Û‘èí•ÊID‚ğæ“¾‚µ‚Ü‚·D </summary>
+        /// <summary> èª²é¡Œç¨®åˆ¥IDã‚’å–å¾—ã—ã¾ã™ï¼ </summary>
         /// <remarks> issueTypeId </remarks>
         public long IssueTypeId { get; private set; }
 
-        /// <summary> —Dæ“xID‚ğæ“¾‚µ‚Ü‚·D </summary>
+        /// <summary> å„ªå…ˆåº¦IDã‚’å–å¾—ã—ã¾ã™ï¼ </summary>
         /// <remarks> priorityId </remarks>
         public long PriorityId { get; private set; }
 
-        /// <summary> ƒTƒ}ƒŠ[‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D</summary>
+        /// <summary> ã‚µãƒãƒªãƒ¼ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼</summary>
         /// <remarks> summary </remarks>
         public string Summary { get; set; }
 
-        /// <summary> e‰Û‘è‚ÌID‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> è¦ªèª²é¡Œã®IDã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> parentIssueId </remarks>
         public long? ParentIssueId
         {
@@ -54,7 +54,7 @@ namespace BL4N.Data
         private long? _parentIssueId;
         private bool _parentIssueIdChanging;
 
-        /// <summary> à–¾‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> èª¬æ˜ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> description </remarks>
         public string Description
         {
@@ -69,7 +69,7 @@ namespace BL4N.Data
         private string _description;
         private bool _descriptionChanging;
 
-        /// <summary> ƒXƒe[ƒ^ƒXID‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹IDã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> statusId </remarks>
         public long? StatusId
         {
@@ -84,7 +84,7 @@ namespace BL4N.Data
         private long? _statusId;
         private bool _statusIdChanging;
 
-        /// <summary> ‰ğŒˆ——R‚ÌID‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> è§£æ±ºç†ç”±ã®IDã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> resolutionId </remarks>
         public long? ResolutionId
         {
@@ -99,7 +99,7 @@ namespace BL4N.Data
         private long? _resolutionId;
         private bool _resolutionIdChanging;
 
-        /// <summary> ŠJn“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> é–‹å§‹æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> startDate </remarks>
         public DateTime? StartDate
         {
@@ -114,7 +114,7 @@ namespace BL4N.Data
         private DateTime? _startDate;
         private bool _startDateChanging;
 
-        /// <summary> ŠúŒÀ“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æœŸé™æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> dueDate </remarks>
         public DateTime? DueDate
         {
@@ -129,7 +129,7 @@ namespace BL4N.Data
         private DateTime? _dueDate;
         private bool _dueDateChanging;
 
-        /// <summary> —\’èì‹ÆŠÔ‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> äºˆå®šä½œæ¥­æ™‚é–“ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> estimatedHours </remarks>
         public double? EstimatedHours
         {
@@ -144,7 +144,7 @@ namespace BL4N.Data
         private double? _estimatedHours;
         private bool _estimatedHoursChanging;
 
-        /// <summary> Àì‹ÆŠÔ‚ğİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> å®Ÿä½œæ¥­æ™‚é–“ã‚’è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> actualHours </remarks>
         public double? ActualHour
         {
@@ -159,7 +159,7 @@ namespace BL4N.Data
         private double? _actualHours;
         private bool _actualHoursChanging;
 
-        /// <summary> ƒJƒeƒSƒŠID‚Ìˆê——‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ã‚«ãƒ†ã‚´ãƒªIDã®ä¸€è¦§ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> categoryId[] </remarks>
         public List<long> CategoryIds
         {
@@ -174,7 +174,7 @@ namespace BL4N.Data
         private List<long> _categoryIds; // TODO:use observablecollection ?
         private bool _categoryIdsChanging;
 
-        /// <summary> ƒo[ƒWƒ‡ƒ“ID‚Ìˆê——‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ãƒãƒ¼ã‚¸ãƒ§ãƒ³IDã®ä¸€è¦§ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> versionId[] </remarks>
         public List<long> VersionIds
         {
@@ -189,7 +189,7 @@ namespace BL4N.Data
         private List<long> _versionIds;
         private bool _versionIdsChanging;
 
-        /// <summary> ƒ}ƒCƒ‹ƒXƒg[ƒ“ID‚Ìˆê——‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ãƒã‚¤ãƒ«ã‚¹ãƒˆãƒ¼ãƒ³IDã®ä¸€è¦§ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> milestoneId[] </remarks>
         public List<long> MilestoneIds
         {
@@ -204,7 +204,7 @@ namespace BL4N.Data
         private List<long> _milestoneIds;
         private bool _milestoneIdsChanging;
 
-        /// <summary> ’S“–ƒ†[ƒU[‚ÌID‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ‹…å½“ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®IDã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> assigneeId </remarks>
         public long? AssigneeId
         {
@@ -219,7 +219,7 @@ namespace BL4N.Data
         private long? _assigneeId;
         private bool _assigneeIdChanging;
 
-        /// <summary> ’Ê’mæƒ†[ƒU[‚ÌID‚Ìˆê——‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> é€šçŸ¥å…ˆãƒ¦ãƒ¼ã‚¶ãƒ¼ã®IDã®ä¸€è¦§ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> notifiedUserId[] </remarks>
         public List<long> NotifiedUserIds
         {
@@ -234,7 +234,7 @@ namespace BL4N.Data
         private List<long> _notifiedUserIds;
         private bool _notifiedUserIdsChanging;
 
-        /// <summary> “Y•tƒtƒ@ƒCƒ‹‚ÌID‚Ìˆê——‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ã®IDã®ä¸€è¦§ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> attachmentId[] </remarks>
         public List<long> AttachmentIds
         {
@@ -249,7 +249,7 @@ namespace BL4N.Data
         private List<long> _attachmentIds;
         private bool _attachmentIdsChanging;
 
-        /// <summary> ƒRƒƒ“ƒg‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ã‚³ãƒ¡ãƒ³ãƒˆã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> comment </remarks>
         public string Comment
         {

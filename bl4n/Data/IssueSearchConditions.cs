@@ -135,74 +135,74 @@ namespace BL4N.Data
             return _searchConditions;
         }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ìí•Ê‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ç¨®åˆ¥ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> issueTypeId[] </remarks>
         public List<long> IssueTypeIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌƒJƒeƒSƒŠ[‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ã‚«ãƒ†ã‚´ãƒªãƒ¼ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> categoryId[] </remarks>
         public List<long> CategoryIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ìƒ”ƒ@[ƒWƒ‡ƒ“‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ãƒ´ã‚¡ãƒ¼ã‚¸ãƒ§ãƒ³ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> versionId[] </remarks>
         public List<long> VersionIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ìƒ}ƒCƒ‹ƒXƒg[ƒ“‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ãƒã‚¤ãƒ«ã‚¹ãƒˆãƒ¼ãƒ³ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> milestoneId[] </remarks>
         public List<long> MileStoneIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌƒXƒe[ƒ^ƒX‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> statusId[] </remarks>
         public List<long> StatusIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ì—Dæ“x‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®å„ªå…ˆåº¦ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> priorityId[] </remarks>
         public List<long> PriorityIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ì’S“–Ò‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®æ‹…å½“è€…ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> assignerId[] </remarks>
         public List<long> AssignerIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ìì¬Ò‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ä½œæˆè€…ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> createdUserId[] </remarks>
         public List<long> CreateUserIds { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌŠ®—¹——R‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®å®Œäº†ç†ç”±ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <remarks> resolutionId[] </remarks>
         public List<long> ResolutionIds { get; private set; }
 
-        /// <summary> eq‰Û‘è‚Ìƒpƒ^[ƒ“‚ğ•\‚µ‚Ü‚· </summary>
+        /// <summary> è¦ªå­èª²é¡Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’è¡¨ã—ã¾ã™ </summary>
         public enum ParentChildType
         {
-            /// <summary> ‚·‚×‚Äi‹æ•Ê‚È‚µj </summary>
+            /// <summary> ã™ã¹ã¦ï¼ˆåŒºåˆ¥ãªã—ï¼‰ </summary>
             All = 0,
 
-            /// <summary> q‰Û‘èˆÈŠO </summary>
+            /// <summary> å­èª²é¡Œä»¥å¤– </summary>
             ExcludeChild = 1,
 
-            /// <summary> q‰Û‘è </summary>
+            /// <summary> å­èª²é¡Œ </summary>
             Child = 2,
 
-            /// <summary> e‰Û‘è‚àq‰Û‘è‚àw’è‚³‚ê‚Ä‚¢‚È‚¢‰Û‘è </summary>
+            /// <summary> è¦ªèª²é¡Œã‚‚å­èª²é¡Œã‚‚æŒ‡å®šã•ã‚Œã¦ã„ãªã„èª²é¡Œ </summary>
             NeitherParentNorChild = 3,
 
-            /// <summary> e‰Û‘è </summary>
+            /// <summary> è¦ªèª²é¡Œ </summary>
             Parent = 4
         }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ìeq‰Û‘è‚Ìƒpƒ^[ƒ“‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®è¦ªå­èª²é¡Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         /// <remarks> parentChild </remarks>
         public ParentChildType ParentChild { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ì“Y•tƒtƒ@ƒCƒ‹‚Ì—L–³‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ‰ç„¡ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> attachment </remarks>
         public bool? HasAttachment { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ì‹¤—Lƒtƒ@ƒCƒ‹‚Ö‚ÌƒŠƒ“ƒN‚Ì—L–³‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®å…±æœ‰ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒªãƒ³ã‚¯ã®æœ‰ç„¡ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> sharedFile </remarks>
         public bool? HasSharedFile { get; set; }
 
-        /// <summary> ƒ\[ƒg‘ÎÛ‚ğ•\‚µ‚Ü‚· </summary>
+        /// <summary> ã‚½ãƒ¼ãƒˆå¯¾è±¡ã‚’è¡¨ã—ã¾ã™ </summary>
         public enum SortKeyField
         {
             IssueType,
@@ -227,126 +227,126 @@ namespace BL4N.Data
             CustomField
         }
 
-        /// <summary> ƒ\[ƒg‘ÎÛ‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ã‚½ãƒ¼ãƒˆå¯¾è±¡ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> sort </remarks>
         public SortKeyField? SortKey { get; set; }
 
-        /// <summary> ƒ\[ƒg‘ÎÛ‚ÉƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚ğ—p‚¢‚é‚Æ‚«‚Ì‘ÎÛID ‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ã‚½ãƒ¼ãƒˆå¯¾è±¡ã«ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç”¨ã„ã‚‹ã¨ãã®å¯¾è±¡ID ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         public int SortCustomFieldId { get; set; }
 
-        /// <summary> ƒ\[ƒg‡‚ª¸‡‚©‚Ç‚¤‚©‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> ã‚½ãƒ¼ãƒˆé †ãŒæ˜‡é †ã‹ã©ã†ã‹ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> order </remarks>
         public bool OrderByAsc { get; set; }
 
-        /// <summary> ŒŸõŒ‹‰Ê‚ÌŒÂ”‚ÌƒIƒtƒZƒbƒg‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢çµæœã®å€‹æ•°ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> offset </remarks>
         public long? Offset { get; set; }
 
-        /// <summary> ŒŸõŒ‹‰Ê‚ÌÅ‘åæ“¾ŒÂ”‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢çµæœã®æœ€å¤§å–å¾—å€‹æ•°ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> count </remarks>
         public long? Count { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ì“o˜^“ú‚ÌŠúŠÔ‚ÌŠJn“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ç™»éŒ²æ—¥ã®æœŸé–“ã®é–‹å§‹æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> createdSince </remarks>
         public DateTime? CreatedSince { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚Ì“o˜^“ú‚ÌŠúŠÔ‚ÌÅI“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ç™»éŒ²æ—¥ã®æœŸé–“ã®æœ€çµ‚æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> createdUntil </remarks>
         public DateTime? CreatedUntil { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌXV“ú‚ÌŠúŠÔ‚ÌŠJn“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®æ›´æ–°æ—¥ã®æœŸé–“ã®é–‹å§‹æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> updatedSince </remarks>
         public DateTime? UpdatedSince { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌXV“ú‚ÌŠúŠÔ‚ÌI—¹“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®æ›´æ–°æ—¥ã®æœŸé–“ã®çµ‚äº†æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> updatedUntil </remarks>
         public DateTime? UpdatedUntil { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌŠJn“ú‚ÌŠúŠÔ‚ÌŠJn“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®é–‹å§‹æ—¥ã®æœŸé–“ã®é–‹å§‹æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> startDateSince </remarks>
         public DateTime? StartDateSince { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌŠJn“ú‚ÌŠúŠÔ‚ÌI—¹“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®é–‹å§‹æ—¥ã®æœŸé–“ã®çµ‚äº†æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> startDateUntil </remarks>
         public DateTime? StartDateUntil { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌŠúŒÀ“ú‚ÌŠúŠÔ‚ÌŠJn“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®æœŸé™æ—¥ã®æœŸé–“ã®é–‹å§‹æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> dueDateSince </remarks>
         public DateTime? DueDateSince { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌŠúŒÀ“ú‚ÌŠúŠÔ‚ÌI—¹“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®æœŸé™æ—¥ã®æœŸé–“ã®çµ‚äº†æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> dueDateUntil </remarks>
         public DateTime? DueDateUntil { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ì‰Û‘è‚ÌID ‚Ìˆê——‚ğæ“¾‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®èª²é¡Œã®ID ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ï¼ </summary>
         /// <remarks> id[] </remarks>
         public List<long> Ids { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚Ìe‰Û‘è‚ÌID ‚Ìˆê——‚ğæ“¾‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®è¦ªèª²é¡Œã®ID ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ï¼ </summary>
         /// <remarks> parentIssueId[] </remarks>
         public List<long> ParentIssueId { get; private set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚ÌƒL[ƒ[ƒh‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         /// <remarks> keyword </remarks>
         public string Keyword { get; set; }
 
-        /// <summary> ŒŸõ‘ÎÛ‚ÌƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚ÌƒL[ƒ[ƒh‚ğİ’è‚µ‚Ü‚· </summary>
-        /// <param name="fieldId"> ƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh ID </param>
-        /// <param name="keyword"> ŒŸõƒL[ƒ[ƒh </param>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’è¨­å®šã—ã¾ã™ </summary>
+        /// <param name="fieldId"> ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ ID </param>
+        /// <param name="keyword"> æ¤œç´¢ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ </param>
         /// <remarks> customField_${id} </remarks>
         public void SetCustomFieldKeyword(long fieldId, string keyword)
         {
             _searchConditions.Add(new KeyValuePair<string, string>(string.Format("customField_{0}", fieldId), keyword));
         }
 
-        /// <summary> ŒŸõ‘ÎÛ‚ÌƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚ÌÅ¬’l‚ğİ’è‚µ‚Ü‚· </summary>
-        /// <param name="fieldId"> ƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh ID </param>
-        /// <param name="min"> Å¬’l </param>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æœ€å°å€¤ã‚’è¨­å®šã—ã¾ã™ </summary>
+        /// <param name="fieldId"> ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ ID </param>
+        /// <param name="min"> æœ€å°å€¤ </param>
         /// <remarks> customField_${id}_min </remarks>
         public void SetCustomFieldMin(long fieldId, double min)
         {
             _searchConditions.Add(new KeyValuePair<string, string>(string.Format("customField_{0}_min", fieldId), string.Format("{0}", min)));
         }
 
-        /// <summary> ŒŸõ‘ÎÛ‚ÌƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚ÌÅ‘å’l‚ğİ’è‚µ‚Ü‚· </summary>
-        /// <param name="fieldId"> ƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh ID </param>
-        /// <param name="max"> Å‘å’l </param>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æœ€å¤§å€¤ã‚’è¨­å®šã—ã¾ã™ </summary>
+        /// <param name="fieldId"> ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ ID </param>
+        /// <param name="max"> æœ€å¤§å€¤ </param>
         /// <remarks> customField_${id}_max </remarks>
         public void SetCustomFieldMax(long fieldId, double max)
         {
             _searchConditions.Add(new KeyValuePair<string, string>(string.Format("customField_{0}_max", fieldId), string.Format("{0}", max)));
         }
 
-        /// <summary> ŒŸõ‘ÎÛ‚ÌƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚ÌŠJn“ú‚ğİ’è‚µ‚Ü‚· </summary>
-        /// <param name="fieldId"> ƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh ID </param>
-        /// <param name="min"> ŠJn“ú </param>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®é–‹å§‹æ—¥ã‚’è¨­å®šã—ã¾ã™ </summary>
+        /// <param name="fieldId"> ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ ID </param>
+        /// <param name="min"> é–‹å§‹æ—¥ </param>
         /// <remarks> customField_${id}_min </remarks>
         public void SetCustomFieldMin(long fieldId, DateTime min)
         {
             _searchConditions.Add(new KeyValuePair<string, string>(string.Format("customField_{0}_min", fieldId), min.ToString(Backlog.DateFormat)));
         }
 
-        /// <summary> ŒŸõ‘ÎÛ‚ÌƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚ÌÅI“ú‚ğİ’è‚µ‚Ü‚· </summary>
-        /// <param name="fieldId"> ƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh ID </param>
-        /// <param name="max"> ÅI“ú </param>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æœ€çµ‚æ—¥ã‚’è¨­å®šã—ã¾ã™ </summary>
+        /// <param name="fieldId"> ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ ID </param>
+        /// <param name="max"> æœ€çµ‚æ—¥ </param>
         /// <remarks> customField_${id}_max </remarks>
         public void SetCustomFieldMax(long fieldId, DateTime max)
         {
             _searchConditions.Add(new KeyValuePair<string, string>(string.Format("customField_{0}_max", fieldId), max.ToString(Backlog.DateFormat)));
         }
 
-        /// <summary> ŒŸõ‘ÎÛ‚ÌƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚ÌƒŠƒXƒg‚ÌƒAƒCƒeƒ€‚ÌID‚ğİ’è‚µ‚Ü‚· </summary>
-        /// <param name="fieldId"> ƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh ID </param>
-        /// <param name="itemIds"> ƒŠƒXƒg‚ÌƒAƒCƒeƒ€‚Ì ID </param>
+        /// <summary> æ¤œç´¢å¯¾è±¡ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ãƒªã‚¹ãƒˆã®ã‚¢ã‚¤ãƒ†ãƒ ã®IDã‚’è¨­å®šã—ã¾ã™ </summary>
+        /// <param name="fieldId"> ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ ID </param>
+        /// <param name="itemIds"> ãƒªã‚¹ãƒˆã®ã‚¢ã‚¤ãƒ†ãƒ ã® ID </param>
         /// <remarks> customField_${id}[] </remarks>
         public void SetCustomFieldItems(long fieldId, List<long> itemIds)
         {
             _searchConditions.AddRange(itemIds.ToKeyValuePairs(string.Format("customField_{0}[]", fieldId)));
         }
 
-        /// <summary> ƒ\[ƒg‘ÎÛ‚ğ•\‚·•¶š—ñ‚ğæ“¾‚µ‚Ü‚·D </summary>
-        /// <param name="key">ƒ\[ƒg‘ÎÛ</param>
-        /// <returns>ƒ\[ƒg‘ÎÛ‚ğ•\‚·•¶š—ñ</returns>
+        /// <summary> ã‚½ãƒ¼ãƒˆå¯¾è±¡ã‚’è¡¨ã™æ–‡å­—åˆ—ã‚’å–å¾—ã—ã¾ã™ï¼ </summary>
+        /// <param name="key">ã‚½ãƒ¼ãƒˆå¯¾è±¡</param>
+        /// <returns>ã‚½ãƒ¼ãƒˆå¯¾è±¡ã‚’è¡¨ã™æ–‡å­—åˆ—</returns>
         private string GetSortKeyFieldName(SortKeyField key)
         {
             /*
