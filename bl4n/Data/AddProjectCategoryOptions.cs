@@ -10,21 +10,21 @@ using System.Collections.Generic;
 
 namespace BL4N.Data
 {
-    /// <summary> ’Ç‰Á‚·‚é‰Û‘èƒJƒeƒSƒŠ‚ÌƒIƒvƒVƒ‡ƒ“‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> è¿½åŠ ã™ã‚‹èª²é¡Œã‚«ãƒ†ã‚´ãƒªã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¡¨ã—ã¾ã™ </summary>
     public class AddProjectCategoryOptions
     {
-        /// <summary> <see cref="AddProjectCategoryOptions"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
-        /// <param name="name">ƒJƒeƒSƒŠ–¼</param>
+        /// <summary> <see cref="AddProjectCategoryOptions"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
+        /// <param name="name">ã‚«ãƒ†ã‚´ãƒªå</param>
         public AddProjectCategoryOptions(string name)
         {
             Name = name;
         }
 
-        /// <summary> ƒJƒeƒSƒŠ–¼‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> ã‚«ãƒ†ã‚´ãƒªåã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public string Name { get; set; }
 
-        /// <summary> HTTP Request —p‚Ì Key-value ƒyƒA‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
-        /// <returns> key-value ƒyƒA‚Ìˆê—— </returns>
+        /// <summary> HTTP Request ç”¨ã® Key-value ãƒšã‚¢ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
+        /// <returns> key-value ãƒšã‚¢ã®ä¸€è¦§ </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
         {
             return new[] { new KeyValuePair<string, string>("name", Name) };
