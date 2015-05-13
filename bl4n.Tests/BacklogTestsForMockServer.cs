@@ -1278,15 +1278,26 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var issueType = new IssueType
+            var colors = new[]
             {
-                Color = string.Format("#{0:x6}", new Random().Next(0xFFFFFF)),
-                Name = string.Format("is.{0}", new Random().Next(2000))
+                IssueTypeColor.Color1,
+                IssueTypeColor.Color2,
+                IssueTypeColor.Color3,
+                IssueTypeColor.Color4,
+                IssueTypeColor.Color5,
+                IssueTypeColor.Color6,
+                IssueTypeColor.Color7,
+                IssueTypeColor.Color8,
+                IssueTypeColor.Color9,
+                IssueTypeColor.Color10
             };
-            var actual = backlog.AddProjectIssueType("projectKey", issueType);
+            var name = string.Format("is.{0}", new Random().Next(2000));
+            var color = colors[new Random().Next(colors.Length - 1)];
+            var options = new AddProjectIssueTypeOptions(name, color);
+            var actual = backlog.AddProjectIssueType("projectKey", options);
             Assert.True(actual.Id > 0);
-            Assert.Equal(issueType.Color, actual.Color);
-            Assert.Equal(issueType.Name, actual.Name);
+            Assert.Equal(color.ColorCode, actual.Color);
+            Assert.Equal(name, actual.Name);
         }
 
         /// <inheritdoc/>

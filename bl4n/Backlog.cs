@@ -883,6 +883,7 @@ namespace BL4N
         /// <param name="projectKey">project key</param>
         /// <param name="issueType">issue type to add</param>
         /// <returns>added <see cref="IIssueType"/></returns>
+        [Obsolete("use AddProjectIssueTypeOptions", true)]
         public IIssueType AddProjectIssueType(string projectKey, IIssueType issueType)
         {
             var api = GetApiUri(string.Format("/projects/{0}/issueTypes", projectKey));
@@ -892,6 +893,23 @@ namespace BL4N
                 new KeyValuePair<string, string>("name", issueType.Name),
                 new KeyValuePair<string, string>("color", issueType.Color)
             };
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<IssueType>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Add Issue Type
+        /// Adds new Issue Type to the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="options">issue type to add</param>
+        /// <returns>added <see cref="IIssueType"/></returns>
+        public IIssueType AddProjectIssueType(string projectKey, AddProjectIssueTypeOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "issueTypes" });
+            var jss = new JsonSerializerSettings();
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<IssueType>(api, hc, jss);
             return res.Result;
