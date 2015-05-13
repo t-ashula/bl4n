@@ -1308,17 +1308,15 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var issueType = new IssueType
-            {
-                Id = 1,
-                Name = string.Format("is.{0}", new Random().Next(2000))
-            };
-            var actual = backlog.UpdateProjectIssueType("projectKey", issueType);
+            var name = string.Format("is.{0}", new Random().Next(2000));
+            var options = new UpdateProjectIssueTypeOptions { Name = name };
+
+            var actual = backlog.UpdateProjectIssueType("projectKey", 1, options);
             Assert.True(actual.Id > 0);
             Assert.Equal(1, actual.ProjectId);
             Assert.Equal(0, actual.DisplayOrder);
             Assert.Equal("#990000", actual.Color);
-            Assert.Equal(issueType.Name, actual.Name);
+            Assert.Equal(name, actual.Name);
         }
 
         /// <inheritdoc/>

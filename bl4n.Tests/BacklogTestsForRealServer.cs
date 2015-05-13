@@ -958,19 +958,18 @@ namespace BL4N.Tests
 
             var added = backlog.AddProjectIssueType(projectKey, options);
             Assert.True(added.Id > 0);
-            var change = new IssueType
+            var change = new UpdateProjectIssueTypeOptions
             {
-                Id = added.Id,
-                Color = colors[new Random().Next(colors.Length - 1)].ColorCode,
+                Color = colors[new Random().Next(colors.Length - 1)],
                 Name = string.Format("is.{0}", new Random().Next(2000))
             };
 
-            var actual = backlog.UpdateProjectIssueType(projectKey, change);
-            Assert.Equal(added.Id, change.Id);
+            var actual = backlog.UpdateProjectIssueType(projectKey, added.Id, change);
+            Assert.Equal(added.Id, actual.Id);
             Assert.Equal(added.ProjectId, actual.ProjectId);
             Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
 
-            Assert.Equal(change.Color, actual.Color);
+            Assert.Equal(change.Color.ColorCode, actual.Color);
             Assert.Equal(change.Name, actual.Name);
         }
 

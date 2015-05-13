@@ -881,28 +881,6 @@ namespace BL4N
         /// Adds new Issue Type to the project.
         /// </summary>
         /// <param name="projectKey">project key</param>
-        /// <param name="issueType">issue type to add</param>
-        /// <returns>added <see cref="IIssueType"/></returns>
-        [Obsolete("use AddProjectIssueTypeOptions", true)]
-        public IIssueType AddProjectIssueType(string projectKey, IIssueType issueType)
-        {
-            var api = GetApiUri(string.Format("/projects/{0}/issueTypes", projectKey));
-            var jss = new JsonSerializerSettings();
-            var kvs = new[]
-            {
-                new KeyValuePair<string, string>("name", issueType.Name),
-                new KeyValuePair<string, string>("color", issueType.Color)
-            };
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PostApiResult<IssueType>(api, hc, jss);
-            return res.Result;
-        }
-
-        /// <summary>
-        /// Add Issue Type
-        /// Adds new Issue Type to the project.
-        /// </summary>
-        /// <param name="projectKey">project key</param>
         /// <param name="options">issue type to add</param>
         /// <returns>added <see cref="IIssueType"/></returns>
         public IIssueType AddProjectIssueType(string projectKey, AddProjectIssueTypeOptions options)
@@ -922,6 +900,7 @@ namespace BL4N
         /// <param name="projectKey">project key</param>
         /// <param name="issueType">issue type to change</param>
         /// <returns>updated <see cref="IIssueType"/></returns>
+        [Obsolete("use updateProjectIssueTypeOptions", true)]
         public IIssueType UpdateProjectIssueType(string projectKey, IIssueType issueType)
         {
             var api = GetApiUri(string.Format("/projects/{0}/issueTypes/{1}", projectKey, issueType.Id));
@@ -937,6 +916,24 @@ namespace BL4N
                 kvs.Add(new KeyValuePair<string, string>("color", issueType.Color));
             }
 
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<IssueType>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Issue Type
+        /// Updates information about Issue Type.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="id">issue type id</param>
+        /// <param name="options">issue type to change</param>
+        /// <returns>updated <see cref="IIssueType"/></returns>
+        public IIssueType UpdateProjectIssueType(string projectKey, long id, UpdateProjectIssueTypeOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "issueTypes", string.Format("{0}", id) });
+            var jss = new JsonSerializerSettings();
+            var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
             var res = PatchApiResult<IssueType>(api, hc, jss);
             return res.Result;
