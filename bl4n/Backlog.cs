@@ -1110,8 +1110,31 @@ namespace BL4N
         /// Adds new Custom Field to the project.
         /// </summary>
         /// <param name="projectkey">project key</param>
+        /// <param name="options">custom field options to add</param>
+        /// <returns>created <see cref="ICustomField"/></returns>
+        public ICustomField AddProjectCustomField(string projectkey, AddCustomFieldOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectkey, "customFields" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var kvs = options.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PostApiResult<CustomField>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Add Custom Field
+        /// Adds new Custom Field to the project.
+        /// </summary>
+        /// <param name="projectkey">project key</param>
         /// <param name="field">custom field</param>
         /// <returns>created <see cref="ICustomField"/></returns>
+        [Obsolete("use AddCustomFieldOptions", true)]
         public ICustomField AddProjectCustomField(string projectkey, TypedCustomField field)
         {
             var api = GetApiUri(string.Format("/projects/{0}/customFields", projectkey));

@@ -21,6 +21,13 @@ namespace BL4N.Data
         protected OptionalParams(params string[] keys)
         {
             _changing = new Dictionary<string, bool>();
+            AddTrackingKeys(keys);
+        }
+
+        /// <summary> 変更を追跡するプロパティ名を追加します </summary>
+        /// <param name="keys"> 変更を追跡するプロパティ名 </param>
+        protected void AddTrackingKeys(params string[] keys)
+        {
             foreach (var key in keys)
             {
                 _changing.Add(key, false);

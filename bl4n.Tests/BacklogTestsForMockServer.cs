@@ -1556,14 +1556,14 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var applicableIssueTypes = new long[] { 1 };
-            var field = new TextTypeCustomField("fieldName", applicableIssueTypes);
-            var actual = backlog.AddProjectCustomField("projectKey", field);
+            var options = new AddTextTypeCustomFieldOptions("fieldName") { ApplicableIssueTypes = applicableIssueTypes };
+            var actual = backlog.AddProjectCustomField("projectKey", options);
             Assert.Equal(2, actual.Id);
             Assert.Equal(1, actual.TypeId);
-            Assert.Equal(field.Name, actual.Name);
+            Assert.Equal(options.Name, actual.Name);
             Assert.Equal(string.Empty, actual.Description);
             Assert.False(actual.Required);
-            Assert.Equal(field.ApplicableIssueTypes, actual.ApplicableIssueTypes.ToArray());
+            Assert.Equal(options.ApplicableIssueTypes, actual.ApplicableIssueTypes.ToArray());
         }
 
         /// <inheritdoc/>
