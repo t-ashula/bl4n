@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    /// <summary> “ú•tŒ`®‚ÌƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚Ì’Ç‰Á—p‚ÌƒIƒvƒVƒ‡ƒ“‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> æ—¥ä»˜å½¢å¼ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®è¿½åŠ ç”¨ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¡¨ã—ã¾ã™ </summary>
     public class AddDateTypeCustomFieldOptions : AddCustomFieldOptions
     {
         private DateTime _firstDate;
@@ -25,15 +25,15 @@ namespace BL4N.Data
         private const string InitialShiftProperty = "initialShift";
         private const string InitialValueTypeProperty = "initialValueType";
 
-        /// <summary> <see cref="AddDateTypeCustomFieldOptions"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
-        /// <param name="name">ƒtƒB[ƒ‹ƒh–¼</param>
+        /// <summary> <see cref="AddDateTypeCustomFieldOptions"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
+        /// <param name="name">ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å</param>
         public AddDateTypeCustomFieldOptions(string name)
             : base(CustomFieldTypes.Date, name)
         {
             AddTrackingKeys(FirstDateProperty, LastDateProperty, InitialDateProperty, InitialShiftProperty, InitialValueTypeProperty);
         }
 
-        /// <summary> ŠJn“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> é–‹å§‹æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public DateTime FirstDate
         {
             get { return _firstDate; }
@@ -44,7 +44,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ÅI“ú‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> æœ€çµ‚æ—¥ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public DateTime LastDate
         {
             get { return _lastDate; }
@@ -55,7 +55,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ‰Šú’l‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> åˆæœŸå€¤ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public DateTime InitialDate
         {
             get { return _initialDate; }
@@ -66,7 +66,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ‰ŠúƒVƒtƒg“ú”‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> åˆæœŸã‚·ãƒ•ãƒˆæ—¥æ•°ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public int InitialShift
         {
             get { return _initialShift; }
@@ -77,7 +77,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ‰Šú’lİ’è•û–@‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> åˆæœŸå€¤è¨­å®šæ–¹æ³•ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public int InitialValueType
         {
             get { return _initialValueType; }
