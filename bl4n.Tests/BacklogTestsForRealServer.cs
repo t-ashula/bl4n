@@ -274,19 +274,20 @@ namespace BL4N.Tests
         [Fact]
         public override void DeleteUserTest()
         {
-            // TODO: 冪等性
             SkipIfSettingIsBroken();
             var backlog = new Backlog(Settings);
-            var users = backlog.GetUsers();
-            var del = users.FirstOrDefault(u => (u.RoleType != 1 && u.RoleType != 2));
-            if (del == null)
-            {
-                Assert.False(true, "no user to test");
-                return;
-            }
+            var name = string.Format("bl4n.{0}", DateTime.Now.Ticks);
+            var userId = name;
+            var mailAddress = string.Format("t.ashula+{0}@{1}", name, "gmail.com");
 
-            var deleted = backlog.DeleteUser(del.Id);
-            Assert.Equal(del.Id, deleted.Id);
+            var pass = Path.GetTempFileName().PadLeft(21);
+            pass = pass.Substring(pass.Length - 20, 20);
+
+            var options = new AddUserOptions(userId, pass, name, mailAddress, 6);
+            var added = backlog.AddUser(options);
+
+            var deleted = backlog.DeleteUser(added.Id);
+            Assert.Equal(added.Id, deleted.Id);
         }
 
         /// <inheritdoc/>
