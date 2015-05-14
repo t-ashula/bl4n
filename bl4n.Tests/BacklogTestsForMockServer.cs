@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BacklogTestsForMockServer.cs">
 //   bl4n - Backlog.jp API Client library
 //   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015
@@ -1578,7 +1578,8 @@ namespace BL4N.Tests
             long id = new Random().Next(100);
             var applicableIssueTypes = new long[] { 1 };
 
-            var field = new TextTypeCustomField("fieldName", applicableIssueTypes);
+            var field = new UpdateTextCustomFieldOptions("fieldName");
+            field.ApplicableIssueTypes = applicableIssueTypes;
             var actual = backlog.UpdateProjectCustomField("projectKey", id, field);
             Assert.Equal(id, actual.Id);
             Assert.Equal(1, actual.TypeId);

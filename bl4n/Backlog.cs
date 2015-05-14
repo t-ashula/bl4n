@@ -1127,70 +1127,6 @@ namespace BL4N
             return res.Result;
         }
 
-        /// <summary>
-        /// Add Custom Field
-        /// Adds new Custom Field to the project.
-        /// </summary>
-        /// <param name="projectkey">project key</param>
-        /// <param name="field">custom field</param>
-        /// <returns>created <see cref="ICustomField"/></returns>
-        [Obsolete("use AddCustomFieldOptions", true)]
-        public ICustomField AddProjectCustomField(string projectkey, TypedCustomField field)
-        {
-            var api = GetApiUri(string.Format("/projects/{0}/customFields", projectkey));
-            var jss = new JsonSerializerSettings
-            {
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                NullValueHandling = NullValueHandling.Ignore
-            };
-            var kvs = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("name", field.Name),
-                new KeyValuePair<string, string>("typeId", ((int)field.TypeId).ToString())
-            };
-
-            if (field.ApplicableIssueTypes != null && field.ApplicableIssueTypes.Length > 0)
-            {
-                kvs.AddRange(field.ApplicableIssueTypes.Select(issueType => new KeyValuePair<string, string>("applicableIssueTypes[]", issueType.ToString())));
-            }
-
-            if (!string.IsNullOrEmpty(field.Description))
-            {
-                kvs.Add(new KeyValuePair<string, string>("description", field.Description));
-            }
-
-            if (field.Required)
-            {
-                kvs.Add(new KeyValuePair<string, string>("required", "true"));
-            }
-
-            switch (field.TypeId)
-            {
-                case CustomFieldTypes.Text:
-                case CustomFieldTypes.Sentence:
-                    break;
-
-                case CustomFieldTypes.Number:
-                    kvs.AddRange(GetCustomFieldParams((NumberTypeCustomField)field));
-                    break;
-
-                case CustomFieldTypes.Date:
-                    kvs.AddRange(GetCustomFieldParams((DateTypeCustomField)field));
-                    break;
-
-                case CustomFieldTypes.SingleList:
-                case CustomFieldTypes.MultipleList:
-                case CustomFieldTypes.Checkbox:
-                case CustomFieldTypes.Radio:
-                    kvs.AddRange(GetCustomFieldParams((ListTypeCustomField)field));
-                    break;
-            }
-
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PostApiResult<CustomField>(api, hc, jss);
-            return res.Result;
-        }
-
         private static List<KeyValuePair<string, string>> GetCustomFieldParams(NumberTypeCustomField field)
         {
             var opt = new List<KeyValuePair<string, string>>();
@@ -1274,10 +1210,34 @@ namespace BL4N
         /// Update Custom Field
         /// Updates Custom Field.
         /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="id">custom filed id</param>
+        /// <param name="options">field to update</param>
+        /// <returns>updated <see cref="ICustomField"/></returns>
+        public ICustomField UpdateProjectCustomField(string projectKey, long id, UpdateCustomFieldOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "customFields", string.Format("{0}", id) });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var kvs = options.ToKeyValuePairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<CustomField>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Custom Field
+        /// Updates Custom Field.
+        /// </summary>
         /// <param name="projectkey">project key</param>
         /// <param name="id">custom filed id</param>
         /// <param name="field">field to update</param>
         /// <returns>updated <see cref="ICustomField"/></returns>
+        [Obsolete("use UpdateCustomFieldOptions", true)]
         public ICustomField UpdateProjectCustomField(string projectkey, long id, TypedCustomField field)
         {
             var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}", projectkey, id));
