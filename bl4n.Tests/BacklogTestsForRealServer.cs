@@ -666,7 +666,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var current = backlog.GetProjects().First();
-            var newName = current.Name.Substring(0, current.Name.Length - 2) + new Random().Next(99);
+            var newName = "bl4n." + new Random().Next(99);
             var newProject = new UpdateProjectOptions { Name = newName };
             var actual = backlog.UpdateProject(current.ProjectKey, newProject);
             Assert.Equal(current.Id, actual.Id);
