@@ -1578,8 +1578,10 @@ namespace BL4N.Tests
             long id = new Random().Next(100);
             var applicableIssueTypes = new long[] { 1 };
 
-            var field = new UpdateTextCustomFieldOptions("fieldName");
-            field.ApplicableIssueTypes = applicableIssueTypes;
+            var field = new UpdateTextCustomFieldOptions("fieldName")
+            {
+                ApplicableIssueTypes = applicableIssueTypes
+            };
             var actual = backlog.UpdateProjectCustomField("projectKey", id, field);
             Assert.Equal(id, actual.Id);
             Assert.Equal(1, actual.TypeId);
