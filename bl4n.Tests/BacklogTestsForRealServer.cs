@@ -453,20 +453,20 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
 
-            var actual = backlog.GetGroup(3377);
+            var users = backlog.GetUsers().Select(u => u.Id).OrderBy(_ => _).ToArray();
+            var name = string.Format("g1.{0}", DateTime.Now.Ticks % 100000);
+            var options = new AddGroupOptions(name);
+            options.AddMembers(users);
 
-            // {"id":3377,
-            //  "name":"g1",
-            //  "members":[{"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}],
-            //  "displayOrder":-1,
-            //  "createdUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
-            //  "created":"2015-04-07T11:58:54Z",
-            //  "updatedUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
-            //  "updated":"2015-04-07T11:58:54Z"}
-            Assert.Equal(3377, actual.Id);
-            Assert.StartsWith("g1", actual.Name);
-            Assert.Equal(1, actual.Members.Count);
-            Assert.Equal(60966, actual.Members[0].Id);
+            var added = backlog.AddGroup(options);
+            Assert.True(added.Id > 0);
+
+            var actual = backlog.GetGroup(added.Id);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.StartsWith(name, actual.Name);
+            Assert.Equal(users.Length, actual.Members.Count);
+
+            backlog.DeleteGroup(added.Id);
         }
 
         /// <inheritdoc/>
