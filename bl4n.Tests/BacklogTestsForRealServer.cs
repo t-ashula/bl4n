@@ -2291,7 +2291,7 @@ namespace BL4N.Tests
         }
 
         /// <inheritdoc/>
-        [Fact]
+        [Fact(Skip = "for mock server only")]
         public override void LicenceErrorResponseTest()
         {
             throw new NotImplementedException();
