@@ -711,11 +711,22 @@ namespace BL4N
         /// Delete Project
         /// Deletes project.
         /// </summary>
-        /// <param name="test">project key</param>
+        /// <param name="projectId">project id</param>
         /// <returns>deleted project</returns>
-        public IProject DeleteProject(string test)
+        public IProject DeleteProject(long projectId)
         {
-            var api = GetApiUri(string.Format("/projects/{0}", test));
+            return DeleteProject(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Delete Project
+        /// Deletes project.
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
+        /// <returns>deleted project</returns>
+        public IProject DeleteProject(string projectKey)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = DeleteApiResult<Project>(api, jss);
             return res.Result;

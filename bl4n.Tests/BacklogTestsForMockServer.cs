@@ -1112,15 +1112,39 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            long id = new Random().Next();
+            var actual = backlog.DeleteProject(id);
+            /*{
+             * "id": 1, "projectKey": "TEST", "name": "test",
+             * "chartEnabled": false, "subtaskingEnabled": false,
+             * "textFormattingRule": "markdown", "archived":false
+             * }*/
+            Assert.Equal(id, actual.Id);
+            Assert.Equal("TEST", actual.ProjectKey);
+            Assert.Equal("test", actual.Name);
+            Assert.Equal(false, actual.ChartEnabled);
+            Assert.Equal(false, actual.SubtaskingEnabled);
+            Assert.Equal("markdown", actual.TextFormattingRule);
+            Assert.Equal(false, actual.Archived);
+        }
 
-            var actual = backlog.DeleteProject("TEST");
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProject_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var key = string.Format("{0:X}", new Random().Next());
+            var actual = backlog.DeleteProject(key);
             /*{
              * "id": 1, "projectKey": "TEST", "name": "test",
              * "chartEnabled": false, "subtaskingEnabled": false,
              * "textFormattingRule": "markdown", "archived":false
              * }*/
             Assert.Equal(1, actual.Id);
-            Assert.Equal("TEST", actual.ProjectKey);
+            Assert.Equal(key, actual.ProjectKey);
             Assert.Equal("test", actual.Name);
             Assert.Equal(false, actual.ChartEnabled);
             Assert.Equal(false, actual.SubtaskingEnabled);

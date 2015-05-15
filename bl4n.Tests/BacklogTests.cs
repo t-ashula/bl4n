@@ -189,6 +189,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/project/:projectIdOrKey </summary>
         public abstract void DeleteProjectTest();
 
+        /// <summary> DELETE /api/v2/project/:projectIdOrKey </summary>
+        public abstract void DeleteProject_with_key_Test();
+
         /// <summary> GET /api/v2/project/:projectIdOrKey/image </summary>
         public abstract void GetProjectIconTest();
 
