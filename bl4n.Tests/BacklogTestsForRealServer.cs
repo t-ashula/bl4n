@@ -1848,6 +1848,11 @@ namespace BL4N.Tests
             Assert.Equal(commentId, actual.Id);
         }
 
+        public override void GetIssueCommentTest_with_key_Test()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc/>
         [Fact]
         public override void UpdateIssueCommentTest()

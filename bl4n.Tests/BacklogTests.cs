@@ -340,6 +340,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/:id </summary>
         public abstract void GetIssueCommentTest();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/:id </summary>
+        public abstract void GetIssueCommentTest_with_key_Test();
+
         /// <summary> PATCH /api/v2/issues/:issueIdOrKey/comments/:id </summary>
         public abstract void UpdateIssueCommentTest();
 
