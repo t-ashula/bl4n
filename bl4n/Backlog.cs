@@ -1461,7 +1461,7 @@ namespace BL4N
         /// Get Issue
         /// Returns information about issue.
         /// </summary>
-        /// <param name="issueKey">issue key string</param>
+        /// <param name="issueKey">issue key to get (like XXX-123)</param>
         /// <returns><see cref="IIssue"/></returns>
         public IIssue GetIssue(string issueKey)
         {
@@ -1524,7 +1524,7 @@ namespace BL4N
         /// Delete Issue
         /// Deletes issue.
         /// </summary>
-        /// <param name="issueKey">issue id to delete</param>
+        /// <param name="issueKey">issue key to delete (like XXX-123)</param>
         /// <returns>deleted <see cref="IIssue"/></returns>
         public IIssue DeleteIssue(string issueKey)
         {
