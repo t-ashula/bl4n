@@ -1054,7 +1054,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var id = new Random().Next();
+            long id = new Random().Next();
 
             var newProject = new UpdateProjectOptions
             {
@@ -1065,8 +1065,37 @@ namespace BL4N.Tests
                 TextFormattingRule = "markdown",
                 Archived = false
             };
-            var actual = backlog.UpdateProject(id.ToString(), newProject);
+            var actual = backlog.UpdateProject(id, newProject);
             Assert.Equal(id, actual.Id);
+            Assert.Equal(newProject.ProjectKey, actual.ProjectKey);
+            Assert.Equal(newProject.Name, actual.Name);
+            Assert.Equal(newProject.ChartEnabled, actual.ChartEnabled);
+            Assert.Equal(newProject.SubtaskingEnabled, actual.SubtaskingEnabled);
+            Assert.Equal(newProject.TextFormattingRule, actual.TextFormattingRule);
+            Assert.Equal(newProject.Archived, actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProject_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            string projectKey = string.Format("{0:X}", new Random().Next());
+
+            var newProject = new UpdateProjectOptions
+            {
+                Name = "hoge",
+                ProjectKey = "hogehoge",
+                ChartEnabled = false,
+                SubtaskingEnabled = false,
+                TextFormattingRule = "markdown",
+                Archived = false
+            };
+            var actual = backlog.UpdateProject(projectKey, newProject);
+            //// Assert.Equal(id, actual.Id);
             Assert.Equal(newProject.ProjectKey, actual.ProjectKey);
             Assert.Equal(newProject.Name, actual.Name);
             Assert.Equal(newProject.ChartEnabled, actual.ChartEnabled);

@@ -696,6 +696,18 @@ namespace BL4N
         }
 
         /// <summary>
+        /// Update Project
+        /// Updates information about project.
+        /// </summary>
+        /// <param name="projectId">project key</param>
+        /// <param name="options">update option</param>
+        /// <returns>updated <see cref="IProject"/></returns>
+        public IProject UpdateProject(long projectId, UpdateProjectOptions options)
+        {
+            return UpdateProject(string.Format("{0}", projectId), options);
+        }
+
+        /// <summary>
         /// Delete Project
         /// Deletes project.
         /// </summary>

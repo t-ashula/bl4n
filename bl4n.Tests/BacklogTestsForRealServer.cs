@@ -687,6 +687,26 @@ namespace BL4N.Tests
             var current = backlog.GetProjects().First();
             var newName = "bl4n." + new Random().Next(99);
             var newProject = new UpdateProjectOptions { Name = newName };
+            var actual = backlog.UpdateProject(current.Id, newProject);
+            Assert.Equal(current.Id, actual.Id);
+            Assert.Equal(current.ProjectKey, actual.ProjectKey);
+            Assert.Equal(newProject.Name, actual.Name); // only name update
+            Assert.Equal(current.ChartEnabled, actual.ChartEnabled);
+            Assert.Equal(current.SubtaskingEnabled, actual.SubtaskingEnabled);
+            Assert.Equal(current.TextFormattingRule, actual.TextFormattingRule);
+            Assert.Equal(current.Archived, actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProject_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var current = backlog.GetProjects().First();
+            var newName = "bl4n." + new Random().Next(99);
+            var newProject = new UpdateProjectOptions { Name = newName };
             var actual = backlog.UpdateProject(current.ProjectKey, newProject);
             Assert.Equal(current.Id, actual.Id);
             Assert.Equal(current.ProjectKey, actual.ProjectKey);

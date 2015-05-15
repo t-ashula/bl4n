@@ -183,6 +183,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/project/:projectIdOrKey </summary>
         public abstract void UpdateProjectTest();
 
+        /// <summary> PATCH /api/v2/project/:projectIdOrKey </summary>
+        public abstract void UpdateProject_with_key_Test();
+
         /// <summary> DELETE /api/v2/project/:projectIdOrKey </summary>
         public abstract void DeleteProjectTest();
 
