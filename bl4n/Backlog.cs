@@ -1451,11 +1451,21 @@ namespace BL4N
         /// Returns information about issue.
         /// </summary>
         /// <param name="issueId">issue id</param>
-        /// <remarks>TODO: add Key-ID type api</remarks>
         /// <returns><see cref="IIssue"/></returns>
         public IIssue GetIssue(long issueId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            return GetIssue(string.Format("{0}", issueId));
+        }
+
+        /// <summary>
+        /// Get Issue
+        /// Returns information about issue.
+        /// </summary>
+        /// <param name="issueKey">issue key string</param>
+        /// <returns><see cref="IIssue"/></returns>
+        public IIssue GetIssue(string issueKey)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

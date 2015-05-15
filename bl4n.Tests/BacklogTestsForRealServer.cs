@@ -1584,6 +1584,23 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssue_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueKey = issues[new Random().Next(issues.Count - 1)].IssueKey;
+            var actual = backlog.GetIssue(issueKey);
+            Assert.NotNull(actual);
+            Assert.Equal(issueKey, actual.IssueKey);
+            Assert.Equal(projectId, actual.ProjectId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void UpdateIssueTest()
         {
             SkipIfSettingIsBroken();

@@ -2027,6 +2027,20 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssue_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var issueKey = string.Format("BLG-{0}", new Random().Next(1000));
+            var actual = backlog.GetIssue(issueKey);
+
+            Assert.Equal(issueKey, actual.IssueKey);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void UpdateIssueTest()
         {
             SkipIfSettingIsBroken();
