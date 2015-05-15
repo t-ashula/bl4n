@@ -1114,6 +1114,27 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectIssueTypes(projectKey);
+            Assert.True(actual.Count >= 1);
+            var taskIssue = actual.First(i => i.DisplayOrder == 0);
+            Assert.Equal(26476, taskIssue.ProjectId);
+            Assert.Equal("タスク", taskIssue.Name);
+            Assert.Equal("#7ea800", taskIssue.Color);
+            Assert.Equal(0, taskIssue.DisplayOrder);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectIssueTypes_with_key_Test()
+        {
+            // [{"id":116113,"projectId":26476,"name":"タスク","color":"#7ea800","displayOrder":0},
+            //  {"id":116112,"projectId":26476,"name":"バグ","color":"#990000","displayOrder":1},
+            //  {"id":116114,"projectId":26476,"name":"要望","color":"#ff9200","displayOrder":2},
+            //  {"id":116115,"projectId":26476,"name":"その他","color":"#2779ca","displayOrder":3}]
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectIssueTypes(projectKey);
             Assert.True(actual.Count >= 1);

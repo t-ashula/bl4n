@@ -1504,7 +1504,25 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            IList<IIssueType> actual = backlog.GetProjectIssueTypes("projectKey");
+            var actual = backlog.GetProjectIssueTypes(1);
+            Assert.Equal(1, actual.Count);
+
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal(1, actual[0].ProjectId);
+            Assert.Equal("Bug", actual[0].Name);
+            Assert.Equal("#990000", actual[0].Color);
+            Assert.Equal(0, actual[0].DisplayOrder);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectIssueTypes_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectIssueTypes("projectKey");
             Assert.Equal(1, actual.Count);
 
             Assert.Equal(1, actual[0].Id);
