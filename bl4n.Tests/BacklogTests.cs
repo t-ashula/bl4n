@@ -195,6 +195,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/project/:projectIdOrKey/image </summary>
         public abstract void GetProjectIconTest();
 
+        /// <summary> GET /api/v2/project/:projectIdOrKey/image </summary>
+        public abstract void GetProjectIcon_with_key_Test();
+
         /// <summary> GET /api/v2/project/:projectIdOrKey/activities </summary>
         public abstract void GetProjectRecentUpdatesTest();
 

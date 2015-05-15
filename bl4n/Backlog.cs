@@ -740,11 +740,22 @@ namespace BL4N
         /// Get Project Icon
         /// Downloads project icon.
         /// </summary>
+        /// <param name="projectId">project key</param>
+        /// <returns>project icon</returns>
+        public ILogo GetProjectImage(long projectId)
+        {
+            return GetProjectImage(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Project Icon
+        /// Downloads project icon.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <returns>project icon</returns>
         public ILogo GetProjectImage(string projectKey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/image", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "image" });
             var res = GetApiResultAsFile(api);
 
             return new Logo(res.Result.Item1, res.Result.Item2);

@@ -1164,6 +1164,21 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectImage(1);
+            Assert.Equal("logo_mark.png", actual.FileName);
+            var logo = Resources.projectIcon;
+            Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
+            Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectIcon_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
             var actual = backlog.GetProjectImage("1");
             Assert.Equal("logo_mark.png", actual.FileName);
             var logo = Resources.projectIcon;

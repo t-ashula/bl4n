@@ -746,6 +746,21 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectImage(projectId);
+            Assert.Equal("26476", actual.FileName);
+            var logo = Resources.projectIcon;
+            Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
+            Assert.Equal(logo.Size.Height, actual.Content.Size.Height);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectIcon_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectImage(projectKey);
             Assert.Equal("26476", actual.FileName);
