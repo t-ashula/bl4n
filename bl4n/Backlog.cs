@@ -2413,12 +2413,22 @@ namespace BL4N
         /// </summary>
         /// <param name="projectId">project id</param>
         /// <returns>list of <see cref="IRepositoryDetail"/></returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public IList<IRepositoryDetail> GetGitRepositories(long projectId)
+        {
+            return GetGitRepositories(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get List of Git Repositories
+        /// Returns list of Git repositories.
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
+        /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        public IList<IRepositoryDetail> GetGitRepositories(string projectKey)
         {
             var query = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("projectIdOrKey", string.Format("{0}", projectId))
+                new KeyValuePair<string, string>("projectIdOrKey", projectKey)
             };
             var api = GetApiUri(new[] { "git", "repositories" }, query);
             var jss = new JsonSerializerSettings

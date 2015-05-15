@@ -2989,6 +2989,19 @@ namespace BL4N.Tests
             Assert.Equal(projectId, actual[0].ProjectId);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetGitRepositories_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = string.Format("{0:X}", new Random().Next(10000));
+            var actual = backlog.GetGitRepositories(projectKey);
+            Assert.Equal(1, actual.Count);
+        }
+
         #endregion
 
         #region error handling

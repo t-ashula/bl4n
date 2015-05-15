@@ -485,6 +485,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/git/repositories </summary>
         public abstract void GetGitRepositoriesTest();
 
+        /// <summary> GET /api/v2/git/repositories </summary>
+        public abstract void GetGitRepositories_with_key_Test();
+
         #endregion
 
         #region error handling
