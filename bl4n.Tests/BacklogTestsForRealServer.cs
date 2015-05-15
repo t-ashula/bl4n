@@ -2146,7 +2146,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectId = backlog.GetProjects()[0].Id;
-            var fileId = backlog.GetProjectSharedFiles(projectId.ToString()).Select(s => s.Id).First();
+            var fileId = backlog.GetProjectSharedFiles(projectId.ToString()).Where(s => s.Type == "file").Select(s => s.Id).First();
             var types = backlog.GetProjectIssueTypes(projectId.ToString());
             var priorityes = backlog.GetPriorities();
             var newIssue = new NewIssueSettings(projectId, types[0].Id, priorityes[0].Id, "shared file test");
@@ -2156,7 +2156,28 @@ namespace BL4N.Tests
             Assert.Equal(1, actual.Count);
             var sharedFile = actual[0];
             Assert.Equal(sharedFile.Id, fileId);
-            //// backlog.DeleteIssue(issue.Id);
+            backlog.DeleteIssue(issue.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueLinkedSharedFiles_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var fileId = backlog.GetProjectSharedFiles(projectId.ToString()).Where(s => s.Type == "file").Select(s => s.Id).First();
+            var types = backlog.GetProjectIssueTypes(projectId.ToString());
+            var priorityes = backlog.GetPriorities();
+            var newIssue = new NewIssueSettings(projectId, types[0].Id, priorityes[0].Id, "add shared file test with key");
+            var issue = backlog.AddIssue(newIssue);
+            Assert.True(issue.Id > 0);
+            var actual = backlog.AddIssueLinkedSharedFiles(issue.IssueKey, new[] { fileId });
+            Assert.Equal(1, actual.Count);
+            var sharedFile = actual[0];
+            Assert.Equal(sharedFile.Id, fileId);
+            backlog.DeleteIssue(issue.Id);
         }
 
         /// <inheritdoc/>
@@ -2168,26 +2189,50 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
 
             // Link Shared Files to Issue API (POST /api/v2/issues/:issueIdOrKey/sharedFiles) is broken?
-            ////var projectId = backlog.GetProjects()[0].Id;
-            ////long fileId = backlog.GetProjectSharedFiles(projectId.ToString()).Select(s => s.Id).First(); // 2585042;
-            ////var types = backlog.GetProjectIssueTypes(projectId.ToString());
-            ////var priorityes = backlog.GetPriorities();
-            ////var newIssue = new NewIssueSettings(projectId, types[0].Id, priorityes[0].Id, "shared file test");
-            ////var issue = backlog.AddIssue(newIssue);
-            ////Assert.True(issue.Id > 0);
-            ////var issueId = issue.Id;
-            ////var added = backlog.AddIssueLinkedSharedFiles(issueId, new[] { fileId });
-            ////Assert.Equal(1, added.Count);
-            ////Thread.Sleep(10 * 1000);  // wait some second
-            ////var sharedFile = added[0];
-            ////Assert.Equal(sharedFile.Id, fileId);
-            ////var sharedFileId = sharedFile.Id;
-            long issueId = 1180766; // BL4N-16:1180766; //
-            long sharedFileId = 2585042; // /dir1/26476.png:2585042
+            // linkSharedFile(dir) return success, but no file link
+            var projectId = backlog.GetProjects()[0].Id;
+            long fileId = backlog.GetProjectSharedFiles(projectId.ToString()).Where(s => s.Type == "file").Select(s => s.Id).First();
+            var types = backlog.GetProjectIssueTypes(projectId.ToString());
+            var priorityes = backlog.GetPriorities();
+            var newIssue = new NewIssueSettings(projectId, types[0].Id, priorityes[0].Id, "remove shared file test");
+            var issue = backlog.AddIssue(newIssue);
+            Assert.True(issue.Id > 0);
+            var issueId = issue.Id;
+            var added = backlog.AddIssueLinkedSharedFiles(issueId, new[] { fileId });
+            Assert.Equal(1, added.Count);
+            var sharedFile = added[0];
+            Assert.Equal(sharedFile.Id, fileId);
+            var sharedFileId = sharedFile.Id; // long sharedFileId = 2585042; // /dir1/26476.png:2585042
             var actual = backlog.RemoveIssueLinkedSharedFile(issueId, sharedFileId);
             Assert.Equal(sharedFileId, actual.Id);
 
-            ////backlog.DeleteIssue(issue.Id);
+            backlog.DeleteIssue(issue.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void RemoveIssueLinkedSharedFile_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            // Link Shared Files to Issue API (POST /api/v2/issues/:issueIdOrKey/sharedFiles) is broken?
+            // linkSharedFile(dir) return success, but no file link
+            var file = backlog.GetProjectSharedFiles(projectId.ToString()).Where(s => s.Type == "file").Select(s => s.Id).First();
+            var types = backlog.GetProjectIssueTypes(projectId.ToString());
+            var priorities = backlog.GetPriorities();
+            var newIssue = new NewIssueSettings(projectId, types[0].Id, priorities[0].Id, "remove shared file with key test");
+            var issue = backlog.AddIssue(newIssue);
+            Assert.True(issue.Id > 0);
+            var added = backlog.AddIssueLinkedSharedFiles(issue.IssueKey, new[] { file });
+            Assert.Equal(1, added.Count);
+            var sharedFile = added[0];
+            var actual = backlog.RemoveIssueLinkedSharedFile(issue.IssueKey, sharedFile.Id);
+            Assert.Equal(sharedFile.Id, actual.Id);
+
+            backlog.DeleteIssue(issue.IssueKey);
         }
 
         #endregion

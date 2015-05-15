@@ -2558,6 +2558,23 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void AddIssueLinkedSharedFiles_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var issueKey = string.Format("BLG-{0}", issueId);
+            long fileId = r.Next();
+            var actual = backlog.AddIssueLinkedSharedFiles(issueKey, new[] { fileId });
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(fileId, actual[0].Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void RemoveIssueLinkedSharedFileTest()
         {
             SkipIfSettingIsBroken();
@@ -2568,6 +2585,22 @@ namespace BL4N.Tests
             long issueId = r.Next();
             long fileId = r.Next();
             var actual = backlog.RemoveIssueLinkedSharedFile(issueId, fileId);
+            Assert.Equal(fileId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void RemoveIssueLinkedSharedFile_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var issueKey = string.Format("BLG-{0}", issueId);
+            long fileId = r.Next();
+            var actual = backlog.RemoveIssueLinkedSharedFile(issueKey, fileId);
             Assert.Equal(fileId, actual.Id);
         }
 

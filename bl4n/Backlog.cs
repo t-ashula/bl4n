@@ -1904,10 +1904,21 @@ namespace BL4N
         /// <param name="issueId">issue id</param>
         /// <param name="fileIds">shared file ids</param>
         /// <returns>list of linked <see cref="ISharedFile"/></returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public IList<ISharedFile> AddIssueLinkedSharedFiles(long issueId, IEnumerable<long> fileIds)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "sharedFiles" });
+            return AddIssueLinkedSharedFiles(string.Format("{0}", issueId), fileIds);
+        }
+
+        /// <summary>
+        /// Link Shared Files to Issue
+        /// Links shared files to issue.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="fileIds">shared file ids</param>
+        /// <returns>list of linked <see cref="ISharedFile"/></returns>
+        public IList<ISharedFile> AddIssueLinkedSharedFiles(string issueKey, IEnumerable<long> fileIds)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "sharedFiles" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1928,7 +1939,19 @@ namespace BL4N
         /// <returns>removed <see cref="ISharedFile"/></returns>
         public ISharedFile RemoveIssueLinkedSharedFile(long issueId, long fileId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "sharedFiles", fileId.ToString("D") });
+            return RemoveIssueLinkedSharedFile(string.Format("{0}", issueId), fileId);
+        }
+
+        /// <summary>
+        /// Remove Link to Shared File from Issue
+        /// Removes link to shared file from issue.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="fileId">shared file id</param>
+        /// <returns>removed <see cref="ISharedFile"/></returns>
+        public ISharedFile RemoveIssueLinkedSharedFile(string issueKey, long fileId)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "sharedFiles", fileId.ToString("D") });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

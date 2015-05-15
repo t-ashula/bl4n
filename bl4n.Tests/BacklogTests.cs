@@ -388,8 +388,14 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/issues/:issueIdOrKey/sharedFiles </summary>
         public abstract void AddIssueLinkedSharedFilesTest();
 
+        /// <summary> POST /api/v2/issues/:issueIdOrKey/sharedFiles </summary>
+        public abstract void AddIssueLinkedSharedFiles_with_key_Test();
+
         /// <summary> DELETE /api/v2/issues/:issueIdOrKey/sharedFiles/:id </summary>
         public abstract void RemoveIssueLinkedSharedFileTest();
+
+        /// <summary> DELETE /api/v2/issues/:issueIdOrKey/sharedFiles/:id </summary>
+        public abstract void RemoveIssueLinkedSharedFile_with_key_Test();
 
         #endregion
 
