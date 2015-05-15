@@ -1215,6 +1215,49 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
 
+            var projectId = backlog.GetProjects()[0].Id;
+            var colors = new[]
+            {
+                IssueTypeColor.Color1,
+                IssueTypeColor.Color2,
+                IssueTypeColor.Color3,
+                IssueTypeColor.Color4,
+                IssueTypeColor.Color5,
+                IssueTypeColor.Color6,
+                IssueTypeColor.Color7,
+                IssueTypeColor.Color8,
+                IssueTypeColor.Color9,
+                IssueTypeColor.Color10
+            };
+            var name = string.Format("is.{0}", new Random().Next(2000));
+            var color = colors[new Random().Next(colors.Length - 1)];
+            var options = new AddProjectIssueTypeOptions(name, color);
+
+            var added = backlog.AddProjectIssueType(projectId, options);
+            Assert.True(added.Id > 0);
+            var change = new UpdateProjectIssueTypeOptions
+            {
+                Color = colors[new Random().Next(colors.Length - 1)],
+                Name = string.Format("is.{0}", new Random().Next(2000))
+            };
+
+            var actual = backlog.UpdateProjectIssueType(projectId, added.Id, change);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(added.ProjectId, actual.ProjectId);
+            Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
+
+            Assert.Equal(change.Color.ColorCode, actual.Color);
+            Assert.Equal(change.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectIssueType_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var colors = new[]
             {

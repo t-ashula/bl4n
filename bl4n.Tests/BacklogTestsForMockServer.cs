@@ -1603,6 +1603,25 @@ namespace BL4N.Tests
             var name = string.Format("is.{0}", new Random().Next(2000));
             var options = new UpdateProjectIssueTypeOptions { Name = name };
 
+            var actual = backlog.UpdateProjectIssueType(1, 1, options);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(1, actual.ProjectId);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal("#990000", actual.Color);
+            Assert.Equal(name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectIssueType_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var name = string.Format("is.{0}", new Random().Next(2000));
+            var options = new UpdateProjectIssueTypeOptions { Name = name };
+
             var actual = backlog.UpdateProjectIssueType("projectKey", 1, options);
             Assert.True(actual.Id > 0);
             Assert.Equal(1, actual.ProjectId);

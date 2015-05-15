@@ -1059,6 +1059,19 @@ namespace BL4N
         /// Update Issue Type
         /// Updates information about Issue Type.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="id">issue type id</param>
+        /// <param name="options">issue type to change</param>
+        /// <returns>updated <see cref="IIssueType"/></returns>
+        public IIssueType UpdateProjectIssueType(long projectId, long id, UpdateProjectIssueTypeOptions options)
+        {
+            return UpdateProjectIssueType(string.Format("{0}", projectId), id, options);
+        }
+
+        /// <summary>
+        /// Update Issue Type
+        /// Updates information about Issue Type.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="id">issue type id</param>
         /// <param name="options">issue type to change</param>
