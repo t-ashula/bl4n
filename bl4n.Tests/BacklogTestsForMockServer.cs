@@ -2396,6 +2396,23 @@ namespace BL4N.Tests
             Assert.Equal(commentId, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddIssueCommentNotification_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var issueKey = string.Format("BLG-{0}", issueId);
+            long commentId = r.Next();
+            var userIds = new List<long>(Enumerable.Range(1, 10).Select(_ => (long)r.Next(100)));
+            var actual = backlog.AddIssueCommentNotification(issueKey, commentId, userIds);
+            Assert.Equal(commentId, actual.Id);
+        }
+
         #endregion
 
         #region issue/attachment

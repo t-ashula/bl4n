@@ -358,6 +358,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/issues/:issueIdOrKey/comments/:commentId/notifications </summary>
         public abstract void AddIssueCommentNotificationTest();
 
+        /// <summary> POST /api/v2/issues/:issueIdOrKey/comments/:commentId/notifications </summary>
+        public abstract void AddIssueCommentNotification_with_key_Test();
+
         /// <summary> GET /api/v2/issues/:issueIdOrKey/attachments </summary>
         public abstract void GetIssueAttachmentsTest();
 

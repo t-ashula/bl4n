@@ -1741,12 +1741,26 @@ namespace BL4N
         /// <param name="userIds">user id who to notify</param>
         /// <returns>comment id <see cref="IIssueComment"/></returns>
         /// <remarks>
-        /// <paramref name="userIds"/> shall not contain comment created user.
-        /// TODO: issueKey API.
-        /// </remarks>
+        /// <paramref name="userIds"/> shall not contain comment created user. </remarks>
         public IIssueComment AddIssueCommentNotification(long issueId, long commentId, List<long> userIds)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString(), "comments", commentId.ToString(), "notifications" });
+            return AddIssueCommentNotification(string.Format("{0}", issueId), commentId, userIds);
+        }
+
+        /// <summary>
+        /// Add Comment Notification
+        /// Adds notifications to the comment.
+        /// Only the user who added the comment can add notifications.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="userIds">user id who to notify</param>
+        /// <returns>comment id <see cref="IIssueComment"/></returns>
+        /// <remarks>
+        /// <paramref name="userIds"/> shall not contain comment created user. </remarks>
+        public IIssueComment AddIssueCommentNotification(string issueKey, long commentId, List<long> userIds)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "comments", commentId.ToString(), "notifications" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
