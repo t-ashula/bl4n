@@ -1706,10 +1706,22 @@ namespace BL4N
         /// <param name="issueId">issue id</param>
         /// <param name="commentId">comment id</param>
         /// <returns>list of <see cref="ICommentNotification"/></returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public IList<ICommentNotification> GetIssueCommentNotifications(long issueId, long commentId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D"), "notifications" });
+            var issueKey = issueId.ToString("D");
+            return GetIssueCommentNotifications(issueKey, commentId);
+        }
+
+        /// <summary>
+        /// Get List of Comment Notifications
+        /// Returns the list of comment notifications.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="commentId">comment id</param>
+        /// <returns>list of <see cref="ICommentNotification"/></returns>
+        public IList<ICommentNotification> GetIssueCommentNotifications(string issueKey, long commentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "comments", commentId.ToString("D"), "notifications" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

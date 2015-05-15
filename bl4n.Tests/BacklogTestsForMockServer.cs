@@ -2366,6 +2366,22 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueCommentNotifications_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var issueKey = string.Format("BLG-{0}", issueId);
+            long commentId = r.Next();
+            var actual = backlog.GetIssueCommentNotifications(issueKey, commentId);
+            Assert.Equal(1, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddIssueCommentNotificationTest()
         {
             SkipIfSettingIsBroken();

@@ -1927,6 +1927,25 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueCommentNotifications_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueKey = issues[0].IssueKey;
+            var comments = backlog.GetIssueComments(issueKey);
+            Assert.True(comments.Count > 0);
+            var commentId = comments[0].Id;
+            var actual = backlog.GetIssueCommentNotifications(issueKey, commentId);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual[0].Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddIssueCommentNotificationTest()
         {
             SkipIfSettingIsBroken();
