@@ -229,10 +229,10 @@ namespace BL4N.Tests
         public abstract void DeleteProjectUser_with_key_Test();
 
         /// <summary> POST /api/v2/projects/:projectIdOrKey/administrators </summary>
-        public abstract void AddProjectAdministorTest();
+        public abstract void AddProjectAdministratorTest();
 
         /// <summary> POST /api/v2/projects/:projectIdOrKey/administrators </summary>
-        public abstract void AddProjectAdministor_with_key_Test();
+        public abstract void AddProjectAdministrator_with_key_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/administrators </summary>
         public abstract void GetProjectAdministratorsTest();

@@ -1386,7 +1386,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void AddProjectAdministorTest()
+        public override void AddProjectAdministratorTest()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
@@ -1404,7 +1404,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void AddProjectAdministor_with_key_Test()
+        public override void AddProjectAdministrator_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
