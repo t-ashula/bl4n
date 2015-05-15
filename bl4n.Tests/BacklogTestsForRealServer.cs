@@ -1749,6 +1749,23 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueComments_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueKey = issues[0].IssueKey;
+            var actual = backlog.GetIssueComments(issueKey);
+            Assert.True(actual.Count > 0);
+            var comment = actual[0];
+            Assert.True(comment.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddIssueCommentTest()
         {
             SkipIfSettingIsBroken();

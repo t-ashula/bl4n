@@ -1550,7 +1550,19 @@ namespace BL4N
         /// <remarks>TODO: add more parameters</remarks>
         public IList<IIssueComment> GetIssueComments(long issueId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments" });
+            return GetIssueComments(string.Format("{0}", issueId));
+        }
+
+        /// <summary>
+        /// Get Comment List
+        /// Returns list of comments in issue.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        /// <remarks>TODO: add more parameters</remarks>
+        public IList<IIssueComment> GetIssueComments(string issueKey)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "comments" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
