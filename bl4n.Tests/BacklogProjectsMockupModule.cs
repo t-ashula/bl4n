@@ -261,7 +261,7 @@ namespace BL4N.Tests
 
                 return Response.AsJson(new
                 {
-                    projectId = pid == -1 ? p.projectKey : pid,
+                    projectId = pid == -1 ? 1 : pid,
                     issue = 11931,
                     wiki = 0,
                     file = 0,
