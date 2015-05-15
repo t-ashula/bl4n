@@ -1845,6 +1845,36 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
 
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectSharedFiles(projectId);
+            Assert.True(actual.Count > 0);
+
+            // [{"id":2585041,"type":"directory","dir":"/","name":"dir1","size":null,
+            //   "createdUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //   "created":"2015-04-20T00:10:21Z",
+            //   "updatedUser":null,
+            //   "updated":"2015-04-20T00:10:21Z"},
+            //  {"id":2314867,"type":"file","dir":"/","name":"0s.jpg","size":14948,
+            //   "createdUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //   "created":"2015-03-26T03:41:39Z",
+            //   "updatedUser":{"id":60965,"userId":"bl4n.admin","name":"bl4n.admin","roleType":1,"lang":null,"mailAddress":"t.ashula+nulab@gmail.com"},
+            //   "updated":"2015-03-26T08:59:26Z"}]
+            Assert.True(actual.All(f => f.Dir == "/"));
+            Assert.Equal("directory", actual[0].Type);
+            Assert.Equal("dir1", actual[0].Name);
+            Assert.Equal(0, actual[0].Size);
+            Assert.Equal("file", actual[1].Type);
+            Assert.Equal("0s.jpg", actual[1].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFiles_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectSharedFiles(projectKey);
             Assert.True(actual.Count > 0);
@@ -1870,6 +1900,20 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectSharedFileTest()
+        {
+            // Resources.projectIcon => /dir1/26476.png, id=2585042
+            // TODO: verify content
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectSharedFile(projectId, 2585042); // XXX
+            Assert.NotNull(actual.Content);
+            Assert.Equal("26476.png", actual.FileName);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFile_with_key_Test()
         {
             // Resources.projectIcon => /dir1/26476.png, id=2585042
             // TODO: verify content

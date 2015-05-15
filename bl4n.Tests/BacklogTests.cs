@@ -363,8 +363,14 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/files/metadata/:path </summary>
         public abstract void GetProjectSharedFilesTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/files/metadata/:path </summary>
+        public abstract void GetProjectSharedFiles_with_key_Test();
+
         /// <summary> GET /api/v2/projects/:projectIdOrKey/files/:sharedFileId </summary>
         public abstract void GetProjectSharedFileTest();
+
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/files/:sharedFileId </summary>
+        public abstract void GetProjectSharedFile_with_key_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/webhooks </summary>
         public abstract void GetProjectWebHooksTest();

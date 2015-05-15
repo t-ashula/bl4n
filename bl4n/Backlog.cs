@@ -1615,13 +1615,26 @@ namespace BL4N
         /// Get List of Shared Files
         /// Gets list of Shared Files ( meta data only )
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="path">path </param>
+        /// <remarks>TODO: more parameters</remarks>
+        /// <returns>list of <see cref="ISharedFile"/> in path</returns>
+        public IList<ISharedFile> GetProjectSharedFiles(long projectId, string path = "")
+        {
+            return GetProjectSharedFiles(string.Format("{0}", projectId), path);
+        }
+
+        /// <summary>
+        /// Get List of Shared Files
+        /// Gets list of Shared Files ( meta data only )
+        /// </summary>
         /// <param name="projectkey">project key</param>
         /// <param name="path">path </param>
         /// <remarks>TODO: more parameters</remarks>
         /// <returns>list of <see cref="ISharedFile"/> in path</returns>
         public IList<ISharedFile> GetProjectSharedFiles(string projectkey, string path = "")
         {
-            var apig = GetApiUri(string.Format("/projects/{0}/files/metadata/{1}", projectkey, path));
+            var apig = GetApiUri(new[] { "projects", projectkey, "files", "metadata", path });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1636,12 +1649,24 @@ namespace BL4N
         /// Get File
         /// Downloads the file.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="id">shared file id</param>
+        /// <returns>downloaded <see cref="ISharedFileData"/></returns>
+        public ISharedFileData GetProjectSharedFile(long projectId, long id)
+        {
+            return GetProjectSharedFile(string.Format("{0}", projectId), id);
+        }
+
+        /// <summary>
+        /// Get File
+        /// Downloads the file.
+        /// </summary>
         /// <param name="projectkey">project key</param>
         /// <param name="id">shared file id</param>
         /// <returns>downloaded <see cref="ISharedFileData"/></returns>
         public ISharedFileData GetProjectSharedFile(string projectkey, long id)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/files/{1}", projectkey, id));
+            var api = GetApiUri(new[] { "projects", projectkey, "files", string.Format("{0}", id) });
             var res = GetApiResultAsFile(api);
             var file = new SharedFileData(res.Result.Item1, res.Result.Item2);
             return file;

@@ -2338,6 +2338,49 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var dir1 = "dir1";
+            var actual = backlog.GetProjectSharedFiles(1, dir1);
+            Assert.Equal(1, actual.Count);
+            var file = actual[0];
+            var expected = new
+            {
+                id = 825952,
+                type = "file",
+                dir = dir1 + "/",
+                name = "20091130.txt",
+                size = 4836,
+                createdUser = new
+                {
+                    id = 1,
+                    userId = "admin",
+                    name = "admin",
+                    roleType = 1,
+                    lang = "ja",
+                    mailAddress = "eguchi@nulab.example"
+                },
+                created = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc),
+                //// "updatedUser": null,
+                updated = new DateTime(2009, 11, 30, 01, 22, 21, DateTimeKind.Utc)
+            };
+            Assert.Equal(expected.id, file.Id);
+            Assert.Equal(expected.type, file.Type);
+            Assert.Equal(expected.dir, file.Dir);
+            Assert.Equal(expected.name, file.Name);
+            Assert.Equal(expected.size, file.Size);
+            Assert.Equal(expected.createdUser.id, file.CreatedUser.Id);
+            Assert.Equal(expected.created, file.Created);
+            Assert.Null(file.UpdatedUser);
+            Assert.Equal(expected.updated, file.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFiles_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var dir1 = "dir1";
             var actual = backlog.GetProjectSharedFiles("projectKey", dir1);
             Assert.Equal(1, actual.Count);
             var file = actual[0];
@@ -2375,6 +2418,27 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void GetProjectSharedFileTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next();
+            var actual = backlog.GetProjectSharedFile(1, id);
+            Assert.NotNull(actual);
+            Assert.Equal("logo_mark.png", actual.FileName);
+            var logo = Resources.projectIcon;
+            using (var ms = new MemoryStream())
+            {
+                logo.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+                Assert.Equal(ms.GetBuffer(), actual.Content);
+            }
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectSharedFile_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
