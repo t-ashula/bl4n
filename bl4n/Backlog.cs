@@ -1782,10 +1782,20 @@ namespace BL4N
         /// </summary>
         /// <param name="issueId">issue id</param>
         /// <returns>list of <see cref="IAttachment"/></returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public IList<IAttachment> GetIssueAttachments(long issueId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments" });
+            return GetIssueAttachments(string.Format("{0}", issueId));
+        }
+
+        /// <summary>
+        /// Get List of Issue Attachments
+        /// Returns the list of issue attachments.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        public IList<IAttachment> GetIssueAttachments(string issueKey)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "attachments" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

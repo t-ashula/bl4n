@@ -2434,6 +2434,21 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueAttachments_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var issueKey = string.Format("BLG-{0}", r.Next());
+            var actual = backlog.GetIssueAttachments(issueKey);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(8, actual[0].Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetIssueAttachmentTest()
         {
             SkipIfSettingIsBroken();

@@ -364,6 +364,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/:issueIdOrKey/attachments </summary>
         public abstract void GetIssueAttachmentsTest();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/attachments </summary>
+        public abstract void GetIssueAttachments_with_key_Test();
+
         /// <summary> GET /api/v2/issues/:issueIdOrKey/attachments/:attachmentId </summary>
         public abstract void GetIssueAttachmentTest();
 

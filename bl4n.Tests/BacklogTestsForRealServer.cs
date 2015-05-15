@@ -1993,9 +1993,22 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
-            var projectId = backlog.GetProjects()[0].Id;
             var issueId = 992829; // BL4N-2
             var actual = backlog.GetIssueAttachments(issueId);
+            Assert.True(actual.Count > 0);
+            var attachment = actual[0];
+            Assert.True(attachment.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssueAttachments_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var issueKey = "BL4N-2"; // var issueId = 992829;
+            var actual = backlog.GetIssueAttachments(issueKey);
             Assert.True(actual.Count > 0);
             var attachment = actual[0];
             Assert.True(attachment.Id > 0);
