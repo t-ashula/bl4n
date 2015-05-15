@@ -1936,6 +1936,25 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectWebHooks(projectId);
+
+            Assert.True(actual.Count > 0);
+            var wh1 = actual.OrderBy(w => w.Id).FirstOrDefault();
+            Assert.NotNull(wh1);
+            Assert.True(wh1.Id > 0);
+            Assert.Equal("wh1", wh1.Name);
+            Assert.False(wh1.AllEvent);
+            Assert.Equal(new[] { 13 }, wh1.ActivityTypeIds.ToArray()); // 13 : git repository created
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHooks_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectWebHooks(projectKey);
 
@@ -1955,20 +1974,45 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var name = string.Format("wh.{0}", new Random().Next(1000));
+            var desc = string.Format("test.{0}", DateTime.UtcNow);
+            var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
+
+            var wh = new AddWebHookOptions(name)
+            {
+                Description = desc,
+                HookUrl = hookUrl,
+                AllEvent = false
+            };
+
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
+            var actual = backlog.AddProjectWebHook(projectId, wh);
+
+            Assert.True(actual.Id > 0);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(desc, actual.Description);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(types.Select(i => (int)i).OrderBy(_ => _), actual.ActivityTypeIds.OrderBy(_ => _));
+            Assert.True(actual.CreatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Created.ToUniversalTime().Date);
+            Assert.True(actual.UpdatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Updated.ToUniversalTime().Date);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectWebHook_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var name = string.Format("wh.{0}", new Random().Next(1000));
             var desc = string.Format("test.{0}", DateTime.UtcNow);
             var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
 
-#if obslete
-            var wh = new WebHook
-            {
-                Name = name,
-                Description = desc,
-                HookUrl = hookUrl,
-                AllEvent = false
-            };
-#endif
             var wh = new AddWebHookOptions(name)
             {
                 Description = desc,
@@ -1998,6 +2042,29 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var hooks = backlog.GetProjectWebHooks(projectId);
+
+            Assert.True(hooks.Count > 0);
+            var wh1 = hooks.OrderBy(w => w.Id).FirstOrDefault();
+
+            Assert.NotNull(wh1);
+            Assert.True(wh1.Id > 0);
+
+            var actual = backlog.GetProjectWebHook(projectId, wh1.Id);
+            Assert.Equal(wh1.Id, actual.Id);
+            Assert.Equal(wh1.Name, actual.Name);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(new[] { 13 }, actual.ActivityTypeIds.ToArray()); // 13 : git repository created
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHook_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var hooks = backlog.GetProjectWebHooks(projectKey);
 
@@ -2017,6 +2084,53 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void UpdateProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            // add new hook
+            var name = string.Format("wh.{0}", new Random().Next(1000));
+            var desc = string.Format("test.{0}", DateTime.UtcNow);
+            var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
+            var wh = new AddWebHookOptions(name)
+            {
+                Description = desc,
+                HookUrl = hookUrl,
+                AllEvent = false
+            };
+
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
+            var added = backlog.AddProjectWebHook(projectId, wh);
+            Assert.True(added.Id > 0);
+
+            var update = new UpdateWebHookOptions
+            {
+                AllEvent = true,
+                Description = "<>" + added.Description,
+                Name = "<>" + added.Name
+            };
+
+            var actual = backlog.UpdateProjectWebHook(projectId, added.Id, update);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(update.Name, actual.Name);
+            Assert.Equal(update.Description, actual.Description);
+            Assert.True(actual.AllEvent);
+
+            // XXX: API Server does not clear ActivityTypeIds when AllEvent has changed to true
+            //// Assert.Equal(2, added.ActivityTypeIds.Count);
+
+            Assert.True(actual.CreatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Created.ToUniversalTime().Date);
+            Assert.True(actual.UpdatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Updated.ToUniversalTime().Date);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectWebHook_with_key_Test()
         {
             SkipIfSettingIsBroken();
 
@@ -2068,20 +2182,48 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
-            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var projectId = backlog.GetProjects()[0].Id;
             var name = string.Format("wh.{0}", new Random().Next(1000));
             var desc = string.Format("test.{0}", DateTime.UtcNow);
             var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
-
-#if obslete
-            var wh = new WebHook
+            var wh = new AddWebHookOptions(name)
             {
-                Name = name,
                 Description = desc,
                 HookUrl = hookUrl,
                 AllEvent = false
             };
-#endif
+
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
+            var added = backlog.AddProjectWebHook(projectId, wh);
+            Assert.True(added.Id > 0);
+
+            var actual = backlog.DeleteProjectWebHook(projectId, added.Id);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(added.Name, actual.Name);
+            Assert.Equal(added.Description, actual.Description);
+
+            Assert.Equal(added.AllEvent, actual.AllEvent);
+
+            Assert.Equal(added.ActivityTypeIds, added.ActivityTypeIds);
+
+            Assert.True(actual.CreatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Created.ToUniversalTime().Date);
+            Assert.True(actual.UpdatedUser.Id > 0);
+            Assert.Equal(DateTime.UtcNow.Date, actual.Updated.ToUniversalTime().Date);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectWebHook_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var name = string.Format("wh.{0}", new Random().Next(1000));
+            var desc = string.Format("test.{0}", DateTime.UtcNow);
+            var hookUrl = string.Format("http://example.test/{0}/", new Random().Next(1000));
             var wh = new AddWebHookOptions(name)
             {
                 Description = desc,

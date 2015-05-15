@@ -2469,6 +2469,40 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectWebHooks(1);
+            Assert.Equal(1, actual.Count);
+            /*
+                    id = 3,
+                    name = "webhook",
+                    description = "",
+                    hookUrl = "http://nulab.test/",
+                    allEvent = false,
+                    activityTypeIds = new[] { 1, 2, 3, 4, 5 },
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2014-11-30T01:22:21Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2014-11-30T01:22:21Z"*/
+            var hook = actual[0];
+            Assert.Equal(3, hook.Id);
+            Assert.Equal("webhook", hook.Name);
+            Assert.Equal(string.Empty, hook.Description);
+            Assert.Equal("http://nulab.test/", hook.HookUrl);
+            Assert.False(hook.AllEvent);
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, hook.ActivityTypeIds.ToArray());
+            Assert.Equal(1, hook.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), hook.Created);
+            Assert.Equal(1, hook.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), hook.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHooks_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
             var actual = backlog.GetProjectWebHooks("projectKey");
             Assert.Equal(1, actual.Count);
             /*
@@ -2529,6 +2563,38 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void AddProjectWebHook_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var random = new Random();
+            var name = string.Format("wh.{0}", random.Next(1000));
+            var hookUrl = string.Format("http://example.test/{0}/", random.Next(1000));
+            var desc = string.Format("desc.{0}", DateTime.Now);
+            var wh = new AddWebHookOptions(name)
+            {
+                HookUrl = hookUrl,
+                Description = desc,
+                AllEvent = false
+            };
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            wh.AddActivityTypes(types);
+            var actual = backlog.AddProjectWebHook(1, wh);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(desc, actual.Description);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(types.Select(_ => (int)_), actual.ActivityTypeIds);
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetProjectWebHookTest()
         {
             SkipIfSettingIsBroken();
@@ -2537,6 +2603,39 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             long id = new Random().Next(10000);
             var actual = backlog.GetProjectWebHook("projectKey", id);
+            /*
+                    id = 3,
+                    name = "webhook",
+                    description = "",
+                    hookUrl = "http://nulab.test/",
+                    allEvent = false,
+                    activityTypeIds = new[] { 1, 2, 3, 4, 5 },
+                    createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    created = "2014-11-30T01:22:21Z",
+                    updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                    updated = "2014-11-30T01:22:21Z"*/
+            Assert.Equal(id, actual.Id);
+            Assert.Equal("webhook", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.Equal("http://nulab.test/", actual.HookUrl);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, actual.ActivityTypeIds.ToArray());
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectWebHook_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(10000);
+            var actual = backlog.GetProjectWebHook(1, id);
             /*
                     id = 3,
                     name = "webhook",
@@ -2598,7 +2697,67 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void UpdateProjectWebHook_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
+            var r = new Random();
+            var id = r.Next(100);
+            var name = string.Format("wh.{0}", r.Next(1000));
+            var description = string.Format("test.{0}", DateTime.Now);
+            var hookUrl = string.Format("http://example.test/{0}/", r.Next(1000));
+            var types = new[] { ActivityType.CommentNotificationAdded, ActivityType.FileAdded };
+            var wh = new UpdateWebHookOptions
+            {
+                Name = name,
+                Description = description,
+                HookUrl = hookUrl,
+                AllEvent = false
+            };
+            wh.AddActivityTypes(types);
+            var actual = backlog.UpdateProjectWebHook(1, id, wh);
+
+            Assert.Equal(id, actual.Id);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(description, actual.Description);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(types.Select(_ => (int)_).ToArray(), actual.ActivityTypeIds.ToArray());
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void DeleteProjectWebHookTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
+            var r = new Random();
+            long hookId = r.Next(100);
+            var actual = backlog.DeleteProjectWebHook(1, hookId);
+            Assert.Equal(hookId, actual.Id);
+            Assert.Equal("webhook", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.Equal("http://nulab.test/", actual.HookUrl);
+            Assert.False(actual.AllEvent);
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, actual.ActivityTypeIds.ToArray());
+            Assert.Equal(1, actual.CreatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Created);
+            Assert.Equal(1, actual.UpdatedUser.Id);
+            Assert.Equal(new DateTime(2014, 11, 30, 01, 22, 21, DateTimeKind.Utc), actual.Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectWebHook_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();

@@ -375,17 +375,32 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/webhooks </summary>
         public abstract void GetProjectWebHooksTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/webhooks </summary>
+        public abstract void GetProjectWebHooks_with_key_Test();
+
         /// <summary> POST /api/v2/projects/:projectIdOrKey/webhooks </summary>
         public abstract void AddProjectWebHookTest();
+
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/webhooks </summary>
+        public abstract void AddProjectWebHook_with_key_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/webhooks/:id </summary>
         public abstract void GetProjectWebHookTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/webhooks/:id </summary>
+        public abstract void GetProjectWebHook_with_key_Test();
+
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/webhooks/:id</summary>
         public abstract void UpdateProjectWebHookTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/webhooks/:id</summary>
+        public abstract void UpdateProjectWebHook_with_key_Test();
+
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/webhooks/:id </summary>
         public abstract void DeleteProjectWebHookTest();
+
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/webhooks/:id </summary>
+        public abstract void DeleteProjectWebHook_with_key_Test();
 
         #endregion
 

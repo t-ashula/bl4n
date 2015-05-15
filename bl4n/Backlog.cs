@@ -1680,11 +1680,22 @@ namespace BL4N
         /// Get List of Webhooks
         /// Returns list of webhooks.
         /// </summary>
+        /// <param name="projectId">project key</param>
+        /// <returns>list of <see cref="IWebHook"/></returns>
+        public IList<IWebHook> GetProjectWebHooks(long projectId)
+        {
+            return GetProjectWebHooks(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get List of Webhooks
+        /// Returns list of webhooks.
+        /// </summary>
         /// <param name="projectkey">project key</param>
         /// <returns>list of <see cref="IWebHook"/></returns>
         public IList<IWebHook> GetProjectWebHooks(string projectkey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/webhooks", projectkey));
+            var api = GetApiUri(new[] { "projects", projectkey, "webhooks" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1692,6 +1703,18 @@ namespace BL4N
             };
             var res = GetApiResult<List<WebHook>>(api, jss);
             return res.Result.ToList<IWebHook>();
+        }
+
+        /// <summary>
+        /// Add Webhook
+        /// Adds new webhook.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="options">new webhook options</param>
+        /// <returns>added <see cref="IWebHook"/></returns>
+        public IWebHook AddProjectWebHook(long projectId, AddWebHookOptions options)
+        {
+            return AddProjectWebHook(string.Format("{0}", projectId), options);
         }
 
         /// <summary>
@@ -1719,12 +1742,24 @@ namespace BL4N
         /// Get Webhook
         /// Returns information about webhook.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="id">webhook id</param>
+        /// <returns><see cref="IWebHook"/></returns>
+        public IWebHook GetProjectWebHook(long projectId, long id)
+        {
+            return GetProjectWebHook(string.Format("{0}", projectId), id);
+        }
+
+        /// <summary>
+        /// Get Webhook
+        /// Returns information about webhook.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="id">webhook id</param>
         /// <returns><see cref="IWebHook"/></returns>
         public IWebHook GetProjectWebHook(string projectKey, long id)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/webhooks/{1}", projectKey, id));
+            var api = GetApiUri(new[] { "projects", projectKey, "webhooks", string.Format("{0}", id) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1738,9 +1773,22 @@ namespace BL4N
         /// Update Webhook
         /// Updates information about webhook.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="hookId">webhook id</param>
+        /// <param name="options">webhook to update</param>
+        /// <returns>updated <see cref="IWebHook"/></returns>
+        public IWebHook UpdateProjectWebHook(long projectId, long hookId, UpdateWebHookOptions options)
+        {
+            return UpdateProjectWebHook(string.Format("{0}", projectId), hookId, options);
+        }
+
+        /// <summary>
+        /// Update Webhook
+        /// Updates information about webhook.
+        /// </summary>
         /// <param name="projectkey">project key</param>
         /// <param name="hookId">webhook id</param>
-        /// <param name="options">webhook to update (Required:Id)</param>
+        /// <param name="options">webhook to update</param>
         /// <returns>updated <see cref="IWebHook"/></returns>
         public IWebHook UpdateProjectWebHook(string projectkey, long hookId, UpdateWebHookOptions options)
         {
@@ -1760,12 +1808,24 @@ namespace BL4N
         /// Delete Webhook
         /// Deletes webhook.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="hookId">web hook id</param>
+        /// <returns>deleted <see cref="IWebHook"/></returns>
+        public IWebHook DeleteProjectWebHook(long projectId, long hookId)
+        {
+            return DeleteProjectWebHook(string.Format("{0}", projectId), hookId);
+        }
+
+        /// <summary>
+        /// Delete Webhook
+        /// Deletes webhook.
+        /// </summary>
         /// <param name="projectkey">project key</param>
         /// <param name="hookId">web hook id</param>
         /// <returns>deleted <see cref="IWebHook"/></returns>
         public IWebHook DeleteProjectWebHook(string projectkey, long hookId)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/webhooks/{1}", projectkey, hookId));
+            var api = GetApiUri(new[] { "projects", projectkey, "webhooks", string.Format("{0}", hookId) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
