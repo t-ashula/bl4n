@@ -297,14 +297,26 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/versions </summary>
         public abstract void GetProjectVersionsTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/versions </summary>
+        public abstract void GetProjectVersions_with_key_Test();
+
         /// <summary> POST /api/v2/projects/:projectIdOrKey/versions </summary>
         public abstract void AddProjectVersionTest();
+
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/versions </summary>
+        public abstract void AddProjectVersion_with_key_Test();
 
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/versions/:id </summary>
         public abstract void UpdateProjectVersionTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/versions/:id </summary>
+        public abstract void UpdateProjectVersion_with_key_Test();
+
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/versions/:id </summary>
         public abstract void DeleteProjectVersionTest();
+
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/versions/:id </summary>
+        public abstract void DeleteProjectVersion_with_key_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/customFields </summary>
         public abstract void GetProjectCustomFieldsTest();

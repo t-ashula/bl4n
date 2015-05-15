@@ -1513,6 +1513,35 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
 
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectVersions(projectId);
+            Assert.True(actual.Count >= 1);
+
+            // [{"id":33856,
+            //   "projectId":26476,
+            //   "name":"1.0.0",
+            //   "description":"initial release version",
+            //   "startDate":"2015-04-01T00:00:00Z",
+            //   "releaseDueDate":"2015-04-30T00:00:00Z",
+            //   "archived":false,"displayOrder":2147483646}]
+            var first = actual.OrderBy(p => p.Id).First();
+            Assert.Equal(33856, first.Id);
+            Assert.Equal(26476, first.ProjectId);
+            Assert.Equal(2147483646, first.DisplayOrder);
+            Assert.Equal("1.0.0", first.Name);
+            Assert.Equal("initial release version", first.Description);
+            Assert.Equal(new DateTime(2015, 4, 1, 0, 0, 0, DateTimeKind.Utc), first.StartDate);
+            Assert.Equal(new DateTime(2015, 4, 30, 0, 0, 0, DateTimeKind.Utc), first.ReleaseDueDate);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectVersions_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectVersions(projectKey);
             Assert.True(actual.Count >= 1);
@@ -1541,18 +1570,33 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var name = string.Format("v.{0}", new Random().Next(10000));
+            var startDate = DateTime.UtcNow.Date;
+            var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = DateTime.UtcNow.Date };
+            var actual = backlog.AddProjectVersion(projectId, newVersionOptions);
+            Assert.True(actual.Id > 0);
+            Assert.True(actual.ProjectId > 0);
+            Assert.Equal(-1, actual.DisplayOrder);
+            Assert.Null(actual.Description);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(startDate, actual.StartDate);
+            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.False(actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectVersion_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
             var name = string.Format("v.{0}", new Random().Next(10000));
             var startDate = DateTime.UtcNow.Date;
-#if unuse
-            var newVersion = new Data.Version
-            {
-                Name = name,
-                StartDate = DateTime.UtcNow.Date
-            };
-            var actual = backlog.AddProjectVersion("projectKey", newVersion);
-#endif
             var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = DateTime.UtcNow.Date };
             var actual = backlog.AddProjectVersion(projectKey, newVersionOptions);
             Assert.True(actual.Id > 0);
@@ -1572,6 +1616,36 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var name = string.Format("v.{0}", new Random().Next(10000));
+            var startDate = DateTime.UtcNow.Date;
+            var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = startDate };
+            var added = backlog.AddProjectVersion(projectId, newVersionOptions);
+            Assert.True(added.Id > 0);
+            var newDueDate = startDate.AddDays(50);
+            var newDesc = string.Format("desc.{0}", DateTime.Now);
+            var options = new UpdateProjectVersionOptions(added.Name)
+            {
+                Description = newDesc,
+                ReleaseDueDate = newDueDate
+            };
+            var actual = backlog.UpdateProjectVersion(projectId, added.Id, options);
+            Assert.Equal(added.Id, actual.Id); // unchange
+            Assert.Equal(added.Name, actual.Name); // unchange
+            Assert.Equal(added.StartDate, actual.StartDate); // unchange
+            Assert.Equal(newDesc, actual.Description); // update
+            Assert.Equal(newDueDate.Date, actual.ReleaseDueDate.Date); // update
+            Assert.False(actual.Archived); // unchage
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectVersion_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
             var name = string.Format("v.{0}", new Random().Next(10000));
@@ -1579,19 +1653,6 @@ namespace BL4N.Tests
             var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = startDate };
             var added = backlog.AddProjectVersion(projectKey, newVersionOptions);
             Assert.True(added.Id > 0);
-
-#if obslete
-            var change = new Data.Version
-            {
-                Id = added.Id,
-                Name = added.Name,
-                StartDate = added.StartDate,
-                ReleaseDueDate = startDate.AddDays(50),
-                Description = "desc",
-                Archived = false,
-            };
-            var actual = backlog.UpdateProjectVersion(projectKey, change);
-#endif
             var newDueDate = startDate.AddDays(50);
             var newDesc = string.Format("desc.{0}", DateTime.Now);
             var options = new UpdateProjectVersionOptions(added.Name)
@@ -1611,6 +1672,30 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void DeleteProjectVersionTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var options = new AddProjectVersionOptions(string.Format("v.{0}", new Random().Next(10000)))
+            {
+                StartDate = DateTime.UtcNow
+            };
+            var added = backlog.AddProjectVersion(projectId, options);
+            Assert.True(added.Id > 0);
+
+            var actual = backlog.DeleteProjectVersion(projectId, added.Id);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(added.Name, actual.Name);
+            Assert.Equal(added.StartDate, actual.StartDate);
+            Assert.Equal(added.Description, actual.Description);
+            Assert.Equal(added.Archived, actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectVersion_with_key_Test()
         {
             SkipIfSettingIsBroken();
 

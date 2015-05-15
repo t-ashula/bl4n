@@ -1241,11 +1241,22 @@ namespace BL4N
         /// Get Version List
         /// Returns list of Versions in the project.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="IVersion"/></returns>
+        public IList<IVersion> GetProjectVersions(long projectId)
+        {
+            return GetProjectVersions(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Version List
+        /// Returns list of Versions in the project.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <returns>list of <see cref="IVersion"/></returns>
         public IList<IVersion> GetProjectVersions(string projectKey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/versions", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "versions" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1253,6 +1264,18 @@ namespace BL4N
             };
             var res = GetApiResult<List<Version>>(api, jss);
             return res.Result.ToList<IVersion>();
+        }
+
+        /// <summary>
+        /// Add Version
+        /// Adds new Version to the project.
+        /// </summary>
+        /// <param name="projectId">project key </param>
+        /// <param name="options">adding version options</param>
+        /// <returns>added <see cref="IVersion"/></returns>
+        public IVersion AddProjectVersion(long projectId, AddProjectVersionOptions options)
+        {
+            return AddProjectVersion(string.Format("{0}", projectId), options);
         }
 
         /// <summary>
@@ -1280,13 +1303,26 @@ namespace BL4N
         /// Update Version
         /// Updates information about Version.
         /// </summary>
+        /// <param name="projectId">project key </param>
+        /// <param name="id">version id</param>
+        /// <param name="options">new version info </param>
+        /// <returns>updated <see cref="IVersion"/></returns>
+        public IVersion UpdateProjectVersion(long projectId, long id, UpdateProjectVersionOptions options)
+        {
+            return UpdateProjectVersion(string.Format("{0}", projectId), id, options);
+        }
+
+        /// <summary>
+        /// Update Version
+        /// Updates information about Version.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="id">version id</param>
         /// <param name="options">new version info </param>
         /// <returns>updated <see cref="IVersion"/></returns>
         public IVersion UpdateProjectVersion(string projectKey, long id, UpdateProjectVersionOptions options)
         {
-            var api = GetApiUri(new[] { "projects", projectKey, "versions", id.ToString() });
+            var api = GetApiUri(new[] { "projects", projectKey, "versions", string.Format("{0}", id) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1303,12 +1339,24 @@ namespace BL4N
         /// Delete Version
         /// Deletes Version.
         /// </summary>
+        /// <param name="projectId">project key </param>
+        /// <param name="id">version id to delete</param>
+        /// <returns>deleted <see cref="IVersion"/></returns>
+        public IVersion DeleteProjectVersion(long projectId, long id)
+        {
+            return DeleteProjectVersion(string.Format("{0}", projectId), id);
+        }
+
+        /// <summary>
+        /// Delete Version
+        /// Deletes Version.
+        /// </summary>
         /// <param name="projectKey">project key </param>
         /// <param name="id">version id to delete</param>
         /// <returns>deleted <see cref="IVersion"/></returns>
         public IVersion DeleteProjectVersion(string projectKey, long id)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/versions/{1}", projectKey, id));
+            var api = GetApiUri(new[] { "projects", projectKey, "versions", string.Format("{0}", id) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

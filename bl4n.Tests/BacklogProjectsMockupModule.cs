@@ -482,68 +482,108 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/versions
 
-            Get["/{projectKey}/versions"] = p => Response.AsJson(new[]
+            Get["/{projectKey}/versions"] = p =>
             {
-                new
+                var key = p.projectKey;
+                long pid;
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = 3,
+                        projectId = pid == -1 ? 1 : pid,
+                        name = "wait for release",
+                        description = "",
+                        //// startDate = null,
+                        //// releaseDueDate = null,
+                        archived = false,
+                        displayOrder = 0
+                    }
+                });
+            };
+
+            #endregion
+
+            #region POST /projects/:projectKey/versions
+
+            Post["/{projectKey}/versions"] = p =>
+            {
+                var key = p.projectKey;
+                long pid;
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new
                 {
                     id = 3,
-                    projectId = 1,
+                    projectId = pid == -1 ? 1 : pid,
+                    name = Request.Form.name,
+                    description = string.IsNullOrEmpty(Request.Form.description) ? string.Empty : Request.Form.description,
+                    startDate = string.IsNullOrEmpty(Request.Form.startDate) ? null : Request.Form.startDate,
+                    releaseDueDate = string.IsNullOrEmpty(Request.Form.releaseDueDate) ? null : Request.Form.releaseDueDate,
+                    archived = false,
+                    displayOrder = 0
+                });
+            };
+
+            #endregion
+
+            #region PATCH /projects/:projectKey/versions/:id
+
+            Patch["/{projectKey}/versions/{id}"] = p =>
+            {
+                var key = p.projectKey;
+                long pid;
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new
+                {
+                    id = p.id,
+                    projectId = pid == -1 ? 1 : pid,
+                    name = Request.Form.name,
+                    description = string.IsNullOrEmpty(Request.Form.description) ? string.Empty : Request.Form.description,
+                    startDate = string.IsNullOrEmpty(Request.Form.startDate) ? null : DateTime.Parse(Request.Form.startDate),
+                    releaseDueDate = string.IsNullOrEmpty(Request.Form.releaseDueDate) ? null : DateTime.Parse(Request.Form.releaseDueDate),
+                    archived = string.IsNullOrEmpty(Request.Form.archived) ? "false" : Request.Form.archived,
+                    displayOrder = 0
+                });
+            };
+
+            #endregion
+
+            #region DELETE /projects/:projectKey/versions/:id
+
+            Delete["/{projectKey}/versions/{id}"] = p =>
+            {
+                var key = p.projectKey;
+                long pid;
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new
+                {
+                    id = p.id,
+                    projectId = pid == -1 ? 1 : pid,
                     name = "wait for release",
                     description = "",
                     //// startDate = null,
                     //// releaseDueDate = null,
                     archived = false,
                     displayOrder = 0
-                }
-            });
-
-            #endregion
-
-            #region POST /projects/:projectKey/versions
-
-            Post["/{projectKey}/versions"] = p => Response.AsJson(new
-            {
-                id = 3,
-                projectId = 1,
-                name = Request.Form.name,
-                description = string.IsNullOrEmpty(Request.Form.description) ? string.Empty : Request.Form.description,
-                startDate = string.IsNullOrEmpty(Request.Form.startDate) ? null : Request.Form.startDate,
-                releaseDueDate = string.IsNullOrEmpty(Request.Form.releaseDueDate) ? null : Request.Form.releaseDueDate,
-                archived = false,
-                displayOrder = 0
-            });
-
-            #endregion
-
-            #region PATCH /projects/:projectKey/versions/:id
-
-            Patch["/{projectKey}/versions/{id}"] = p => Response.AsJson(new
-            {
-                id = p.id,
-                projectId = 1,
-                name = Request.Form.name,
-                description = string.IsNullOrEmpty(Request.Form.description) ? string.Empty : Request.Form.description,
-                startDate = string.IsNullOrEmpty(Request.Form.startDate) ? null : DateTime.Parse(Request.Form.startDate),
-                releaseDueDate = string.IsNullOrEmpty(Request.Form.releaseDueDate) ? null : DateTime.Parse(Request.Form.releaseDueDate),
-                archived = string.IsNullOrEmpty(Request.Form.archived) ? "false" : Request.Form.archived,
-                displayOrder = 0
-            });
-
-            #endregion
-
-            #region DELETE /projects/:projectKey/versions/:id
-
-            Delete["/{projectKey}/versions/{id}"] = p => Response.AsJson(new
-            {
-                id = p.id,
-                projectId = 1,
-                name = "wait for release",
-                description = "",
-                //// startDate = null,
-                //// releaseDueDate = null,
-                archived = false,
-                displayOrder = 0
-            });
+                });
+            };
 
             #endregion
 

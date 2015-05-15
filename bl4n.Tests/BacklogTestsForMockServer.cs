@@ -1812,6 +1812,25 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            var pid = new Random().Next(1000);
+            var actual = backlog.GetProjectVersions(pid);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(3, actual[0].Id);
+            Assert.Equal(pid, actual[0].ProjectId);
+            Assert.Equal(0, actual[0].DisplayOrder);
+            Assert.Equal(string.Empty, actual[0].Description);
+            Assert.Equal("wait for release", actual[0].Name);
+            Assert.False(actual[0].Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectVersions_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
             var actual = backlog.GetProjectVersions("projectKey");
             Assert.Equal(1, actual.Count);
             Assert.Equal(3, actual[0].Id);
@@ -1831,16 +1850,33 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
 
+            var r = new Random();
+            var name = string.Format("v.{0}", r.Next(10000));
+            var startDate = DateTime.UtcNow.Date;
+            var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = DateTime.UtcNow.Date };
+            var pid = r.Next(1000);
+            var actual = backlog.AddProjectVersion(pid, newVersionOptions);
+            Assert.Equal(3, actual.Id);
+            Assert.Equal(pid, actual.ProjectId);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(startDate.Date, actual.StartDate);
+            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.False(actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectVersion_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
             var name = string.Format("v.{0}", new Random().Next(10000));
             var startDate = DateTime.UtcNow.Date;
-#if unuse
-            var newVersion = new Data.Version
-            {
-                Name = name,
-                StartDate = DateTime.UtcNow.Date
-            };
-            var actual = backlog.AddProjectVersion("projectKey", newVersion);
-#endif
             var newVersionOptions = new AddProjectVersionOptions(name) { StartDate = DateTime.UtcNow.Date };
             var actual = backlog.AddProjectVersion("projectKey", newVersionOptions);
             Assert.Equal(3, actual.Id);
@@ -1861,27 +1897,48 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var name = string.Format("v.{0}", new Random().Next(10000));
+            var r = new Random();
+            var name = string.Format("v.{0}", r.Next(10000));
             var startDate = DateTime.UtcNow.Date;
             var description = string.Format("description.{0}", DateTime.Now);
-#if obsolete
-            var newVersion = new Data.Version
+            var options = new UpdateProjectVersionOptions(name)
             {
-                Id = 3,
-                Name = name,
                 StartDate = startDate,
                 Description = description
             };
-            var actual = backlog.UpdateProjectVersion("projectKey", newVersion);
-#endif
+            var id = r.Next(1000);
+            var actual = backlog.UpdateProjectVersion(id, 3, options);
+            Assert.Equal(3, actual.Id);
+            Assert.Equal(id, actual.ProjectId);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(description, actual.Description);
+            Assert.Equal(name, actual.Name);
+            Assert.Equal(startDate.Date, actual.StartDate);
+            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.False(actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectVersion_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var name = string.Format("v.{0}", r.Next(10000));
+            var startDate = DateTime.UtcNow.Date;
+            var description = string.Format("description.{0}", DateTime.Now);
             var options = new UpdateProjectVersionOptions(name)
             {
                 StartDate = startDate,
                 Description = description
             };
 
-            var actual = backlog.UpdateProjectVersion("projectKey", 3, options);
-            Assert.Equal(3, actual.Id);
+            var id = r.Next(1000);
+            var actual = backlog.UpdateProjectVersion("projectKey", id, options);
+            Assert.Equal(id, actual.Id);
             Assert.Equal(1, actual.ProjectId);
             Assert.Equal(0, actual.DisplayOrder);
             Assert.Equal(description, actual.Description);
@@ -1899,8 +1956,32 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var actual = backlog.DeleteProjectVersion("projectKey", 3);
-            Assert.Equal(3, actual.Id);
+            var r = new Random();
+            var pid = r.Next();
+            var vid = r.Next();
+            var actual = backlog.DeleteProjectVersion(pid, vid);
+            Assert.Equal(vid, actual.Id);
+            Assert.Equal(pid, actual.ProjectId);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.Equal("wait for release", actual.Name);
+            Assert.Equal(new DateTime(), actual.StartDate);
+            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.False(actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectVersion_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var vid = r.Next();
+            var actual = backlog.DeleteProjectVersion("projectKey", vid);
+            Assert.Equal(vid, actual.Id);
             Assert.Equal(1, actual.ProjectId);
             Assert.Equal(0, actual.DisplayOrder);
             Assert.Equal(string.Empty, actual.Description);
