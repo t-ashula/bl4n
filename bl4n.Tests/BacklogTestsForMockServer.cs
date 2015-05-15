@@ -1318,6 +1318,23 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectUsers(1);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal("admin", actual[0].UserId);
+            Assert.Equal("admin", actual[0].Name);
+            Assert.Equal(1, actual[0].RoleType);
+            Assert.Equal("ja", actual[0].Lang);
+            Assert.Equal("eguchi@nulab.example", actual[0].MailAddress);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectUsers_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
             var actual = backlog.GetProjectUsers("test");
             Assert.Equal(1, actual.Count);
             Assert.Equal("admin", actual[0].UserId);

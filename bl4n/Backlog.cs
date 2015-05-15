@@ -859,11 +859,22 @@ namespace BL4N
         /// Get Project User List
         /// Returns list of project members.
         /// </summary>
-        /// <param name="projectKey">project key</param>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="IUser"/></returns>
+        public IList<IUser> GetProjectUsers(long projectId)
+        {
+            return GetProjectUsers(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Project User List
+        /// Returns list of project members.
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
         /// <returns>list of <see cref="IUser"/></returns>
         public IList<IUser> GetProjectUsers(string projectKey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/users", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "users" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<User>>(api, jss);
             return res.Result.ToList<IUser>();

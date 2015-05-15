@@ -882,6 +882,18 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectUsers(projectId);
+            Assert.True(actual.Count >= 2); // bl4n.admin, t.ashula and more
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectUsers_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectUsers(projectKey);
             Assert.True(actual.Count >= 2); // bl4n.admin, t.ashula and more
