@@ -918,14 +918,26 @@ namespace BL4N
         /// Add Project Administrator
         /// Adds "Project Administrator" role to user
         /// </summary>
-        /// <param name="projectKey">project key</param>
-        /// <param name="id">user id</param>
+        /// <param name="projectId">project id</param>
+        /// <param name="userId">user id</param>
         /// <returns>changed <see cref="IUser"/></returns>
-        public IUser AddProjectAdministrator(string projectKey, long id)
+        public IUser AddProjectAdministrator(long projectId, long userId)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/administrators", projectKey));
+            return AddProjectAdministrator(string.Format("{0}", projectId), userId);
+        }
+
+        /// <summary>
+        /// Add Project Administrator
+        /// Adds "Project Administrator" role to user
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
+        /// <param name="userId">user id</param>
+        /// <returns>changed <see cref="IUser"/></returns>
+        public IUser AddProjectAdministrator(string projectKey, long userId)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "administrators" });
             var jss = new JsonSerializerSettings();
-            var kvs = new[] { new KeyValuePair<string, string>("userId", id.ToString()) };
+            var kvs = new[] { new KeyValuePair<string, string>("userId", userId.ToString()) };
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<User>(api, hc, jss);
             return res.Result;

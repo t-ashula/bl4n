@@ -958,6 +958,32 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var r = new Random();
+            var newUserName = string.Format("g.{0:X}", r.Next());
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 2); // normal user
+            var newUser = backlog.AddUser(options);
+            Assert.NotEqual(0, newUser.Id);
+            var addedUser = backlog.AddProjectUser(projectId, newUser.Id);
+            Assert.Equal(newUser.Id, addedUser.Id);
+            var actual = backlog.AddProjectAdministrator(projectId, addedUser.Id);
+            Assert.Equal(addedUser.Id, actual.Id);
+            Assert.Equal(addedUser.UserId, actual.UserId);
+            Assert.Equal(addedUser.Name, actual.Name);
+            Assert.Equal(addedUser.RoleType, actual.RoleType);
+            Assert.Equal(addedUser.Lang, actual.Lang);
+            Assert.Equal(addedUser.MailAddress, actual.MailAddress);
+
+            backlog.DeleteUser(addedUser.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectAdministor_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());

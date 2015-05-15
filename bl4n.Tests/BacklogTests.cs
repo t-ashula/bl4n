@@ -231,6 +231,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/projects/:projectIdOrKey/administrators </summary>
         public abstract void AddProjectAdministorTest();
 
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/administrators </summary>
+        public abstract void AddProjectAdministor_with_key_Test();
+
         /// <summary> GET /api/v2/projects/:projectIdOrKey/administrators </summary>
         public abstract void GetProjectAdministratorsTest();
 
