@@ -1671,10 +1671,23 @@ namespace BL4N
         /// <param name="commentId">comment id</param>
         /// <param name="content">comment content</param>
         /// <returns>updated <see cref="IIssueComment"/></returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public IIssueComment UpdateIssueComment(long issueId, long commentId, string content)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", commentId.ToString("D") });
+            return UpdateIssueComment(string.Format("{0}", issueId), commentId, content);
+        }
+
+        /// <summary>
+        /// Update comment
+        /// Updates content of comment.
+        /// User can update own comment.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="content">comment content</param>
+        /// <returns>updated <see cref="IIssueComment"/></returns>
+        public IIssueComment UpdateIssueComment(string issueKey, long commentId, string content)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "comments", commentId.ToString("D") });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

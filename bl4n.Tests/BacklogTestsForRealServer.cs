@@ -1848,9 +1848,22 @@ namespace BL4N.Tests
             Assert.Equal(commentId, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
         public override void GetIssueCommentTest_with_key_Test()
         {
-            throw new NotImplementedException();
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueKey = issues[0].IssueKey;
+            var comments = backlog.GetIssueComments(issueKey);
+            Assert.True(comments.Count > 0);
+            var commentId = comments[0].Id;
+            var actual = backlog.GetIssueComment(issueKey, commentId);
+            Assert.Equal(commentId, actual.Id);
         }
 
         /// <inheritdoc/>
@@ -1869,6 +1882,26 @@ namespace BL4N.Tests
             var commentId = comments[0].Id;
             var content = string.Format("new comment.{0}", DateTime.Now);
             var actual = backlog.UpdateIssueComment(issueId, commentId, content);
+            Assert.Equal(commentId, actual.Id);
+            Assert.Equal(content, actual.Content);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateIssueComment_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueKey = issues[0].IssueKey;
+            var comments = backlog.GetIssueComments(issueKey);
+            Assert.True(comments.Count > 0);
+            var commentId = comments[0].Id;
+            var content = string.Format("new comment.{0}", DateTime.Now);
+            var actual = backlog.UpdateIssueComment(issueKey, commentId, content);
             Assert.Equal(commentId, actual.Id);
             Assert.Equal(content, actual.Content);
         }
