@@ -2126,6 +2126,20 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueLinkedSharedFiles_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var issueKey = "BL4N-6"; // 1157540;
+            var actual = backlog.GetIssueLinkedSharedFiles(issueKey);
+            Assert.True(actual.Count > 0);
+            var sharedFile = actual[0];
+            Assert.True(sharedFile.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddIssueLinkedSharedFilesTest()
         {
             SkipIfSettingIsBroken();

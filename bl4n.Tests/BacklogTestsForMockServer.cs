@@ -2527,6 +2527,21 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueLinkedSharedFiles_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var issueKey = string.Format("BLG-{0}", issueId);
+            var actual = backlog.GetIssueLinkedSharedFiles(issueKey);
+            Assert.Equal(1, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddIssueLinkedSharedFilesTest()
         {
             SkipIfSettingIsBroken();

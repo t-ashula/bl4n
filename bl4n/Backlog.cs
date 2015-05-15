@@ -1874,10 +1874,20 @@ namespace BL4N
         /// </summary>
         /// <param name="issueId">issue id</param>
         /// <returns>list of <see cref="ISharedFile"/></returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public IList<ISharedFile> GetIssueLinkedSharedFiles(long issueId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "sharedFiles" });
+            return GetIssueLinkedSharedFiles(string.Format("{0}", issueId));
+        }
+
+        /// <summary>
+        /// Get List of Linked Shared Files
+        /// Returns the list of linked Shared Files to issues.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <returns>list of <see cref="ISharedFile"/></returns>
+        public IList<ISharedFile> GetIssueLinkedSharedFiles(string issueKey)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "sharedFiles" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

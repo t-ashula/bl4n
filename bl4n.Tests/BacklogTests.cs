@@ -382,6 +382,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/:issueIdOrKey/sharedFiles </summary>
         public abstract void GetIssueLinkedSharedFilesTest();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/sharedFiles </summary>
+        public abstract void GetIssueLinkedSharedFiles_with_key_Test();
+
         /// <summary> POST /api/v2/issues/:issueIdOrKey/sharedFiles </summary>
         public abstract void AddIssueLinkedSharedFilesTest();
 
