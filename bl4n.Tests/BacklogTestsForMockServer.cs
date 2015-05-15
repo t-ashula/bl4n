@@ -1353,6 +1353,24 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var uid = new Random().Next();
+            var actual = backlog.DeleteProjectUser(1, uid);
+            Assert.Equal(uid, actual.Id);
+            Assert.Equal("admin", actual.UserId);
+            Assert.Equal("admin", actual.Name);
+            Assert.Equal(1, actual.RoleType);
+            Assert.Equal("ja", actual.Lang);
+            Assert.Equal("eguchi@nulab.example", actual.MailAddress);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectUser_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var uid = new Random().Next();
             var actual = backlog.DeleteProjectUser("test", uid);
             Assert.Equal(uid, actual.Id);
             Assert.Equal("admin", actual.UserId);
