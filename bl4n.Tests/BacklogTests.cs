@@ -177,6 +177,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/project/:projectIdOrKey </summary>
         public abstract void GetProjectTest();
 
+        /// <summary> GET /api/v2/project/:projectIdOrKey </summary>
+        public abstract void GetProject_with_key_Test();
+
         /// <summary> PATCH /api/v2/project/:projectIdOrKey </summary>
         public abstract void UpdateProjectTest();
 

@@ -653,7 +653,26 @@ namespace BL4N.Tests
                 return;
             }
 
-            var actual = backlog.GetProject(project.Id.ToString());
+            var actual = backlog.GetProject(project.Id);
+            Assert.Equal(project.Id, actual.Id);
+            Assert.Equal(project.ProjectKey, actual.ProjectKey);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProject_with_key_Test()
+        {
+            // id:26476, key:BL4N
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var project = backlog.GetProjects().FirstOrDefault();
+            if (project == null)
+            {
+                Assert.False(true, "no project!!");
+                return;
+            }
+
+            var actual = backlog.GetProject(project.ProjectKey);
             Assert.Equal(project.Id, actual.Id);
             Assert.Equal(project.ProjectKey, actual.ProjectKey);
         }

@@ -668,6 +668,17 @@ namespace BL4N
         }
 
         /// <summary>
+        /// Get Project
+        /// Returns information about project.
+        /// </summary>
+        /// <param name="projectId">projectKey</param>
+        /// <returns><see cref="IProject"/></returns>
+        public IProject GetProject(long projectId)
+        {
+            return GetProject(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
         /// Update Project
         /// Updates information about project.
         /// </summary>

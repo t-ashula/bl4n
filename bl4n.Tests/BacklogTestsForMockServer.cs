@@ -1007,6 +1007,30 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
 
+            var actual = backlog.GetProject(1);
+            /*{
+             * "id": 1, "projectKey": "TEST", "name": "test",
+             * "chartEnabled": false, "subtaskingEnabled": false,
+             * "textFormattingRule": "markdown", "archived":false
+             * }*/
+            Assert.Equal(1, actual.Id);
+            Assert.Equal("TEST", actual.ProjectKey);
+            Assert.Equal("test", actual.Name);
+            Assert.Equal(false, actual.ChartEnabled);
+            Assert.Equal(false, actual.SubtaskingEnabled);
+            Assert.Equal("markdown", actual.TextFormattingRule);
+            Assert.Equal(false, actual.Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProject_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
             var actual = backlog.GetProject("TEST");
             /*{
              * "id": 1, "projectKey": "TEST", "name": "test",
