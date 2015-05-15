@@ -1010,6 +1010,22 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var actual = backlog.GetProjectAdministrators(projectId);
+            Assert.Equal(1, actual.Count); // t.ashula as a project admin, space admin is not project admin
+            // [{"id":60966,"userId":"t.ashula","name":"t.ashula","roleType":2,"lang":null,"mailAddress":"t.ashula@gmail.com"}]
+            Assert.Equal(60966, actual[0].Id);
+            Assert.Equal("t.ashula", actual[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectAdministrators_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
             var actual = backlog.GetProjectAdministrators(projectKey);

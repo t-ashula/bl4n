@@ -947,11 +947,22 @@ namespace BL4N
         /// Get List of Project Administrators
         /// Returns list of users who has Project Administrator role
         /// </summary>
-        /// <param name="projectKey">project key</param>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of administrator <see cref="IUser"/></returns>
+        public IList<IUser> GetProjectAdministrators(long projectId)
+        {
+            return GetProjectAdministrators(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get List of Project Administrators
+        /// Returns list of users who has Project Administrator role
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
         /// <returns>list of administrator <see cref="IUser"/></returns>
         public IList<IUser> GetProjectAdministrators(string projectKey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/administrators", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "administrators" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<User>>(api, jss);
             return res.Result.ToList<IUser>();
