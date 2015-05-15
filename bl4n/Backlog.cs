@@ -1375,11 +1375,22 @@ namespace BL4N
         /// Get Custom Field List
         /// Returns list of Custom Fields in the project.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="ICustomField"/></returns>
+        public IList<ICustomField> GetProjectCustomFields(long projectId)
+        {
+            return GetProjectCustomFields(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Custom Field List
+        /// Returns list of Custom Fields in the project.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <returns>list of <see cref="ICustomField"/></returns>
         public IList<ICustomField> GetProjectCustomFields(string projectKey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/customFields", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "customFields" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1393,12 +1404,24 @@ namespace BL4N
         /// Add Custom Field
         /// Adds new Custom Field to the project.
         /// </summary>
-        /// <param name="projectkey">project key</param>
+        /// <param name="projectId">project id</param>
         /// <param name="options">custom field options to add</param>
         /// <returns>created <see cref="ICustomField"/></returns>
-        public ICustomField AddProjectCustomField(string projectkey, AddCustomFieldOptions options)
+        public ICustomField AddProjectCustomField(long projectId, AddTextTypeCustomFieldOptions options)
         {
-            var api = GetApiUri(new[] { "projects", projectkey, "customFields" });
+            return AddProjectCustomField(string.Format("{0}", projectId), options);
+        }
+
+        /// <summary>
+        /// Add Custom Field
+        /// Adds new Custom Field to the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="options">custom field options to add</param>
+        /// <returns>created <see cref="ICustomField"/></returns>
+        public ICustomField AddProjectCustomField(string projectKey, AddCustomFieldOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "customFields" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1409,6 +1432,19 @@ namespace BL4N
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<CustomField>(api, hc, jss);
             return res.Result;
+        }
+
+        /// <summary>
+        /// Update Custom Field
+        /// Updates Custom Field.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="id">custom filed id</param>
+        /// <param name="options">field to update</param>
+        /// <returns>updated <see cref="ICustomField"/></returns>
+        public ICustomField UpdateProjectCustomField(long projectId, long id, UpdateTextCustomFieldOptions options)
+        {
+            return UpdateProjectCustomField(string.Format("{0}", projectId), id, options);
         }
 
         /// <summary>
@@ -1438,12 +1474,24 @@ namespace BL4N
         /// Delete Custom Field
         /// Deletes Custom Field.
         /// </summary>
-        /// <param name="projectkey"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ICustomField DeleteProjectCustomField(string projectkey, long id)
+        /// <param name="projectId">project id</param>
+        /// <param name="id">custom field id</param>
+        /// <returns>deleted <see cref="ICustomField"/></returns>
+        public ICustomField DeleteProjectCustomField(long projectId, long id)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}", projectkey, id));
+            return DeleteProjectCustomField(string.Format("{0}", projectId), id);
+        }
+
+        /// <summary>
+        /// Delete Custom Field
+        /// Deletes Custom Field.
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
+        /// <param name="id">custom field id</param>
+        /// <returns>deleted <see cref="ICustomField"/></returns>
+        public ICustomField DeleteProjectCustomField(string projectKey, long id)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "customFields", string.Format("{0}", id) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1457,13 +1505,26 @@ namespace BL4N
         /// Add List Item for List Type Custom Field
         /// Adds new list item for list type custom field.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="id">custom field id</param>
+        /// <param name="name">name to add</param>
+        /// <returns>udated <see cref="ICustomField"/></returns>
+        public ICustomField AddProjectCustomFieldListItem(long projectId, long id, string name)
+        {
+            return AddProjectCustomFieldListItem(string.Format("{0}", projectId), id, name);
+        }
+
+        /// <summary>
+        /// Add List Item for List Type Custom Field
+        /// Adds new list item for list type custom field.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="id">custom field id</param>
         /// <param name="name">name to add</param>
         /// <returns>udated <see cref="ICustomField"/></returns>
         public ICustomField AddProjectCustomFieldListItem(string projectKey, long id, string name)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}/items", projectKey, id));
+            var api = GetApiUri(new[] { "projects", projectKey, "customFields", string.Format("{0}", id), "items" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1479,14 +1540,28 @@ namespace BL4N
         /// Update List Item for List Type Custom Field
         /// Updates list item for list type custom field.
         /// </summary>
-        /// <param name="projectkey">project key</param>
+        /// <param name="projectId">project id</param>
         /// <param name="fieldId">field id</param>
         /// <param name="itemId">item id</param>
         /// <param name="name">name to update</param>
         /// <returns>updated <see cref="ICustomField"/></returns>
-        public ICustomField UpdateProjectCustomFieldListItem(string projectkey, long fieldId, long itemId, string name)
+        public ICustomField UpdateProjectCustomFieldListItem(long projectId, long fieldId, long itemId, string name)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}/items/{2}", projectkey, fieldId, itemId));
+            return UpdateProjectCustomFieldListItem(string.Format("{0}", projectId), fieldId, itemId, name);
+        }
+
+        /// <summary>
+        /// Update List Item for List Type Custom Field
+        /// Updates list item for list type custom field.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="fieldId">field id</param>
+        /// <param name="itemId">item id</param>
+        /// <param name="name">name to update</param>
+        /// <returns>updated <see cref="ICustomField"/></returns>
+        public ICustomField UpdateProjectCustomFieldListItem(string projectKey, long fieldId, long itemId, string name)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "customFields", string.Format("{0}", fieldId), "items", string.Format("{0}", itemId) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -1502,13 +1577,26 @@ namespace BL4N
         /// Delete List Item for List Type Custom Field
         /// Deletes list item for list type custom field.
         /// </summary>
-        /// <param name="projectkey">project key</param>
+        /// <param name="projectId">project id</param>
         /// <param name="fieldId">field id</param>
         /// <param name="itemId">item id</param>
         /// <returns>deleted <see cref="ICustomField"/></returns>
-        public ICustomField DeleteProjectCustomFieldListItem(string projectkey, long fieldId, long itemId)
+        public ICustomField DeleteProjectCustomFieldListItem(long projectId, long fieldId, long itemId)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/customFields/{1}/items/{2}", projectkey, fieldId, itemId));
+            return DeleteProjectCustomFieldListItem(string.Format("{0}", projectId), fieldId, itemId);
+        }
+
+        /// <summary>
+        /// Delete List Item for List Type Custom Field
+        /// Deletes list item for list type custom field.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="fieldId">field id</param>
+        /// <param name="itemId">item id</param>
+        /// <returns>deleted <see cref="ICustomField"/></returns>
+        public ICustomField DeleteProjectCustomFieldListItem(string projectKey, long fieldId, long itemId)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "customFields", string.Format("{0}", fieldId), "items", string.Format("{0}", itemId) });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

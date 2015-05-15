@@ -1731,7 +1731,23 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetProjectCustomFields_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddProjectCustomFieldsTest()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCustomFields_with_key_Test()
         {
             SkipIfSettingIsBroken();
             Assert.True(true, "Free plan does not support custom field"); // TODO:
@@ -1747,7 +1763,23 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void UpdateProjectCustomField_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void DeleteProjectCustomFieldTest()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCustomField_with_key_Test()
         {
             SkipIfSettingIsBroken();
             Assert.True(true, "Free plan does not support custom field"); // TODO:
@@ -1763,6 +1795,14 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void AddProjectCustomFieldListItem_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void UpdateProjectCustomFieldListItemTest()
         {
             SkipIfSettingIsBroken();
@@ -1771,7 +1811,23 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void UpdateProjectCustomFieldListItem_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void DeleteProjectCustomFieldListItemTest()
+        {
+            SkipIfSettingIsBroken();
+            Assert.True(true, "Free plan does not support custom field"); // TODO:
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCustomFieldListItem_with_key_Test()
         {
             SkipIfSettingIsBroken();
             Assert.True(true, "Free plan does not support custom field"); // TODO:

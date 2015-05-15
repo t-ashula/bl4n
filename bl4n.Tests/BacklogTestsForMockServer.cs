@@ -2003,6 +2003,34 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            long projectId = new Random().Next();
+            var actual = backlog.GetProjectCustomFields(projectId);
+
+            Assert.Equal(2, actual.Count);
+
+            // + @"""id"": 1, ""typeId"": 6, ""name"": ""custom"", ""description"": """", ""required"": false, ""applicableIssueTypes"": [],""allowAddItem"": false,"
+            // + @"""items"": [ { ""id"": 1, ""name"": ""Windows 8"", ""displayOrder"": 0 }] "
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal(6, actual[0].TypeId);
+            Assert.Equal("custom", actual[0].Name);
+            Assert.Equal(string.Empty, actual[0].Description);
+            Assert.False(actual[0].Required);
+            Assert.Equal(0, actual[0].ApplicableIssueTypes.Count);
+            Assert.False(actual[0].AllowAddItem);
+            Assert.Equal(1, actual[0].Items.Count);
+            Assert.Equal(1, actual[0].Items[0].Id);
+            Assert.Equal(0, actual[0].Items[0].DisplayOrder);
+            Assert.Equal("Windows 8", actual[0].Items[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectCustomFields_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
             var actual = backlog.GetProjectCustomFields("projectKey");
 
             Assert.Equal(2, actual.Count);
@@ -2025,6 +2053,25 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void AddProjectCustomFieldsTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var applicableIssueTypes = new long[] { 1 };
+            var options = new AddTextTypeCustomFieldOptions("fieldName") { ApplicableIssueTypes = applicableIssueTypes };
+            var actual = backlog.AddProjectCustomField(1, options);
+            Assert.Equal(2, actual.Id);
+            Assert.Equal(1, actual.TypeId);
+            Assert.Equal(options.Name, actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(options.ApplicableIssueTypes, actual.ApplicableIssueTypes.ToArray());
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCustomFields_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
@@ -2057,6 +2104,31 @@ namespace BL4N.Tests
             {
                 ApplicableIssueTypes = applicableIssueTypes
             };
+            var actual = backlog.UpdateProjectCustomField(1, id, field);
+            Assert.Equal(id, actual.Id);
+            Assert.Equal(1, actual.TypeId);
+            Assert.Equal(field.Name, actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(field.ApplicableIssueTypes, actual.ApplicableIssueTypes.ToArray());
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectCustomField_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+
+            long id = new Random().Next(100);
+            var applicableIssueTypes = new long[] { 1 };
+
+            var field = new UpdateTextCustomFieldOptions("fieldName")
+            {
+                ApplicableIssueTypes = applicableIssueTypes
+            };
             var actual = backlog.UpdateProjectCustomField("projectKey", id, field);
             Assert.Equal(id, actual.Id);
             Assert.Equal(1, actual.TypeId);
@@ -2069,6 +2141,25 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void DeleteProjectCustomFieldTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(100);
+            var actual = backlog.DeleteProjectCustomField(1, id);
+
+            Assert.Equal(id, actual.Id);
+            Assert.Equal(1, actual.TypeId);
+            Assert.Equal("Attribute for Bug", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(new long[] { 1 }, actual.ApplicableIssueTypes.ToArray());
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCustomField_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
@@ -2088,6 +2179,31 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void AddProjectCustomFieldListItemTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long projectId = r.Next(1000);
+            long id = r.Next(100);
+            var actual = backlog.AddProjectCustomFieldListItem(projectId, id, "fsharp");
+
+            Assert.Equal(id, actual.Id);
+            Assert.Equal(5, actual.TypeId);
+            Assert.Equal("language", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
+            Assert.Equal(1, actual.Items.Count);
+            Assert.Equal(2, actual.Items[0].Id);
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
+            Assert.Equal("fsharp", actual.Items[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCustomFieldListItem_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
@@ -2116,8 +2232,35 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            long fieldId = new Random().Next(100);
-            long itemId = new Random().Next(100);
+            var r = new Random();
+            long projectId = r.Next(1000);
+            long fieldId = r.Next(100);
+            long itemId = r.Next(100);
+            var actual = backlog.UpdateProjectCustomFieldListItem(projectId, fieldId, itemId, "fsharp");
+
+            Assert.Equal(fieldId, actual.Id);
+            Assert.Equal(5, actual.TypeId);
+            Assert.Equal("language", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
+            Assert.Equal(1, actual.Items.Count);
+            Assert.Equal(itemId, actual.Items[0].Id);
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
+            Assert.Equal("fsharp", actual.Items[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectCustomFieldListItem_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long fieldId = r.Next(100);
+            long itemId = r.Next(100);
             var actual = backlog.UpdateProjectCustomFieldListItem("projectKey", fieldId, itemId, "fsharp");
 
             Assert.Equal(fieldId, actual.Id);
@@ -2135,6 +2278,32 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void DeleteProjectCustomFieldListItemTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long projectId = r.Next(1000);
+            long fieldId = r.Next(100);
+            long itemId = r.Next(100);
+            var actual = backlog.DeleteProjectCustomFieldListItem(projectId, fieldId, itemId);
+
+            Assert.Equal(fieldId, actual.Id);
+            Assert.Equal(5, actual.TypeId);
+            Assert.Equal("language", actual.Name);
+            Assert.Equal(string.Empty, actual.Description);
+            Assert.False(actual.Required);
+            Assert.Equal(new long[] { }, actual.ApplicableIssueTypes.ToArray());
+            Assert.Equal(1, actual.Items.Count);
+            Assert.Equal(itemId, actual.Items[0].Id);
+            Assert.Equal(1, actual.Items[0].DisplayOrder);
+            Assert.Equal("fsharp", actual.Items[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCustomFieldListItem_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();

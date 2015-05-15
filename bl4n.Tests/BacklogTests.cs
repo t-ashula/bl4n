@@ -321,23 +321,44 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/customFields </summary>
         public abstract void GetProjectCustomFieldsTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/customFields </summary>
+        public abstract void GetProjectCustomFields_with_key_Test();
+
         /// <summary> POST /api/v2/projects/:projectIdOrKey/customFields </summary>
         public abstract void AddProjectCustomFieldsTest();
+
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/customFields </summary>
+        public abstract void AddProjectCustomFields_with_key_Test();
 
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/customFields/:id </summary>
         public abstract void UpdateProjectCustomFieldTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/customFields/:id </summary>
+        public abstract void UpdateProjectCustomField_with_key_Test();
+
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/customFields/:id </summary>
         public abstract void DeleteProjectCustomFieldTest();
+
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/customFields/:id </summary>
+        public abstract void DeleteProjectCustomField_with_key_Test();
 
         /// <summary> POST /api/v2/projects/:projectIdOrKey/customFields/:id/items </summary>
         public abstract void AddProjectCustomFieldListItemTest();
 
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/customFields/:id/items </summary>
+        public abstract void AddProjectCustomFieldListItem_with_key_Test();
+
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/customFields/:id/items/:itemId </summary>
         public abstract void UpdateProjectCustomFieldListItemTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/customFields/:id/items/:itemId </summary>
+        public abstract void UpdateProjectCustomFieldListItem_with_key_Test();
+
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/customFields/:id/items/:itemId </summary>
         public abstract void DeleteProjectCustomFieldListItemTest();
+
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/customFields/:id/items/:itemId </summary>
+        public abstract void DeleteProjectCustomFieldListItem_with_key_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/files/metadata/:path </summary>
         public abstract void GetProjectSharedFilesTest();
