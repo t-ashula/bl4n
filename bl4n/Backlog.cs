@@ -1840,10 +1840,21 @@ namespace BL4N
         /// <param name="issueId">issue id</param>
         /// <param name="attachmentId">attachment id</param>
         /// <returns>deleted <see cref="IAttachment"/></returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public IAttachment DeleteIssueAttachment(long issueId, long attachmentId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments", attachmentId.ToString("D") });
+            return DeleteIssueAttachment(string.Format("{0}", issueId), attachmentId);
+        }
+
+        /// <summary>
+        /// Delete Issue Attachment
+        /// Deletes an attachment of issue.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="attachmentId">attachment id</param>
+        /// <returns>deleted <see cref="IAttachment"/></returns>
+        public IAttachment DeleteIssueAttachment(string issueKey, long attachmentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "attachments", attachmentId.ToString("D") });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

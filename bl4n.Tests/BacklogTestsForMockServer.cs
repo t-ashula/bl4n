@@ -2497,6 +2497,22 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void DeleteIssueAttachment_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var issueKey = string.Format("BLG-{0}", issueId);
+            long attachmentId = r.Next();
+            var actual = backlog.DeleteIssueAttachment(issueKey, attachmentId);
+            Assert.Equal(attachmentId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetIssueLinkedSharedFilesTest()
         {
             SkipIfSettingIsBroken();
