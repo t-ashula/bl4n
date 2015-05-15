@@ -796,11 +796,22 @@ namespace BL4N
         /// Get Project Disk Usage
         /// Returns information about project disk usage.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>project's <see cref="IDiskUsageDetail"/></returns>
+        public IDiskUsageDetail GetProjectDiskUsage(long projectId)
+        {
+            return GetProjectDiskUsage(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Project Disk Usage
+        /// Returns information about project disk usage.
+        /// </summary>
         /// <param name="projectkey"></param>
-        /// <returns></returns>
+        /// <returns>project's <see cref="IDiskUsageDetail"/></returns>
         public IDiskUsageDetail GetProjectDiskUsage(string projectkey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/diskUsage", projectkey));
+            var api = GetApiUri(new[] { "projects", projectkey, "diskUsage" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

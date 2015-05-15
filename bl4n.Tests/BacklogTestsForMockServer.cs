@@ -1224,6 +1224,33 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            var id = new Random().Next();
+            var expected = new
+            {
+                projectId = id,
+                issue = 11931,
+                wiki = 0,
+                file = 0,
+                subversion = 0,
+                git = 0
+            };
+            var actual = backlog.GetProjectDiskUsage(id);
+            Assert.Equal(expected.projectId, actual.ProjectId);
+            Assert.Equal(expected.issue, actual.Issue);
+            Assert.Equal(expected.wiki, actual.Wiki);
+            Assert.Equal(expected.file, actual.File);
+            Assert.Equal(expected.subversion, actual.Subversion);
+            Assert.Equal(expected.git, actual.Git);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectDiskUsage_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
             var expected = new
             {
                 projectId = 1,
@@ -1233,6 +1260,7 @@ namespace BL4N.Tests
                 subversion = 0,
                 git = 0
             };
+
             var actual = backlog.GetProjectDiskUsage("projectKey");
             Assert.Equal(expected.projectId, actual.ProjectId);
             Assert.Equal(expected.issue, actual.Issue);

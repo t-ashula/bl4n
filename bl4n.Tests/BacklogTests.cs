@@ -207,6 +207,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/diskUsage </summary>
         public abstract void GetProjectDiskUsageTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/diskUsage </summary>
+        public abstract void GetProjectDiskUsage_with_key_Test();
+
         /// <summary> POST /api/v2/project/:projectIdOrKey/users </summary>
         public abstract void AddProjectUserTest();
 

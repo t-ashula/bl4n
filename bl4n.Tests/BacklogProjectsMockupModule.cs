@@ -249,15 +249,26 @@ namespace BL4N.Tests
 
             #region /projects/:projectKey/diskUsage
 
-            Get["/{projectKey}/diskUsage"] = p => Response.AsJson(new
+            Get["/{projectKey}/diskUsage"] = p =>
             {
-                projectId = 1,
-                issue = 11931,
-                wiki = 0,
-                file = 0,
-                subversion = 0,
-                git = 0
-            });
+                var key = p.projectKey;
+                long pid;
+
+                if (!long.TryParse(key, out pid))
+                {
+                    pid = -1;
+                }
+
+                return Response.AsJson(new
+                {
+                    projectId = pid == -1 ? p.projectKey : pid,
+                    issue = 11931,
+                    wiki = 0,
+                    file = 0,
+                    subversion = 0,
+                    git = 0
+                });
+            };
 
             #endregion
 

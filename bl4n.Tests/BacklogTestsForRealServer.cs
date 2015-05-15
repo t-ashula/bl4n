@@ -805,6 +805,19 @@ namespace BL4N.Tests
         {
             SkipIfSettingIsBroken();
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectDiskUsage(projectId);
+            Assert.Equal(projectId, actual.ProjectId);
+            Assert.True(actual.File > 0);
+            Assert.True(actual.Issue > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectDiskUsage_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectDiskUsage(projectKey);
             Assert.True(actual.ProjectId > 0);
