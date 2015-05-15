@@ -1812,10 +1812,21 @@ namespace BL4N
         /// <param name="issueId">issue id</param>
         /// <param name="attachmentId">attachment id</param>
         /// <returns>file content and name</returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public ISharedFileData GetIssueAttachment(long issueId, long attachmentId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "attachments", attachmentId.ToString("D") });
+            return GetIssueAttachment(string.Format("{0}", issueId), attachmentId);
+        }
+
+        /// <summary>
+        /// Get Issue Attachment
+        /// Downloads issue's attachment file.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="attachmentId">attachment id</param>
+        /// <returns>file content and name</returns>
+        public ISharedFileData GetIssueAttachment(string issueKey, long attachmentId)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "attachments", attachmentId.ToString("D") });
             var res = GetApiResultAsFile(api);
             var fileName = res.Result.Item1;
             var content = res.Result.Item2;

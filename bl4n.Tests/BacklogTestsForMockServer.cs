@@ -2465,6 +2465,23 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueAttachment_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var issueKey = string.Format("BLG-{0}", issueId);
+            long attachmentId = r.Next();
+            var actual = backlog.GetIssueAttachment(issueKey, attachmentId);
+            var fileName = string.Format("{0}.{1}.dat", issueKey, attachmentId);
+            Assert.Equal(fileName, actual.FileName); // just only test,
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void DeleteIssueAttachmentTest()
         {
             SkipIfSettingIsBroken();

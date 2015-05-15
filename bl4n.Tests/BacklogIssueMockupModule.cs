@@ -683,7 +683,7 @@ namespace BL4N.Tests
 
             Get["/{issueid}/attachments/{attachmentid}"] = p =>
             {
-                var fileName = string.Format("{0}.{1}.dat", (long)p.issueid, (long)p.attachmentid);
+                var fileName = string.Format("{0}.{1}.dat", p.issueid, (long)p.attachmentid);
                 var response = new Response
                 {
                     ContentType = "application/octet-stream",

@@ -2032,6 +2032,22 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueAttachment_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var issueKey = "BL4N-2"; // 992829;
+            var attachments = backlog.GetIssueAttachments(issueKey);
+            Assert.True(attachments.Count > 0);
+            var attachment = attachments[0];
+            Assert.True(attachment.Id > 0);
+            var actual = backlog.GetIssueAttachment(issueKey, attachment.Id);
+            Assert.Equal("2013-07-20-kyotosuizokukan2.jpeg", actual.FileName);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void DeleteIssueAttachmentTest()
         {
             SkipIfSettingIsBroken();
