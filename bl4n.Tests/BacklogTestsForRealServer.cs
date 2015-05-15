@@ -1042,6 +1042,38 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var r = new Random();
+            var newUserName = string.Format("g.{0:X}", r.Next());
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 2); // normal user
+            var newUser = backlog.AddUser(options);
+
+            Assert.NotEqual(0, newUser.Id);
+
+            var addedUser = backlog.AddProjectUser(projectId, newUser.Id);
+            Assert.Equal(newUser.Id, addedUser.Id);
+
+            var addedAdmin = backlog.AddProjectAdministrator(projectId, addedUser.Id);
+            Assert.Equal(addedAdmin.Id, addedUser.Id);
+
+            var actual = backlog.DeleteProjectAdministrator(projectId, addedAdmin.Id);
+            Assert.Equal(addedAdmin.Id, actual.Id);
+            Assert.Equal(addedAdmin.UserId, actual.UserId);
+            Assert.Equal(addedAdmin.Name, actual.Name);
+            Assert.Equal(addedAdmin.RoleType, actual.RoleType);
+            Assert.Equal(addedAdmin.Lang, actual.Lang);
+            Assert.Equal(addedAdmin.MailAddress, actual.MailAddress);
+
+            backlog.DeleteUser(addedUser.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectAdministrator_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());

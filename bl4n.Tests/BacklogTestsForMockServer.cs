@@ -1465,6 +1465,24 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var uid = new Random().Next();
+            var actual = backlog.DeleteProjectAdministrator(1, uid);
+            Assert.Equal(uid, actual.Id);
+            Assert.Equal("takada", actual.UserId);
+            Assert.Equal("takada", actual.Name);
+            Assert.Equal(2, actual.RoleType);
+            Assert.Equal("ja", actual.Lang);
+            Assert.Equal("takada@nulab.example", actual.MailAddress);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectAdministrator_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var uid = new Random().Next();
             var actual = backlog.DeleteProjectAdministrator("test", uid);
             Assert.Equal(uid, actual.Id);
             Assert.Equal("takada", actual.UserId);

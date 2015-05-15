@@ -972,12 +972,24 @@ namespace BL4N
         /// Delete Project Administrator
         /// Removes Project Administrator role from user
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="uid">user id</param>
+        /// <returns>deleted <see cref="IUser"/></returns>
+        public IUser DeleteProjectAdministrator(long projectId, long uid)
+        {
+            return DeleteProjectAdministrator(string.Format("{0}", projectId), uid);
+        }
+
+        /// <summary>
+        /// Delete Project Administrator
+        /// Removes Project Administrator role from user
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="uid">user id</param>
         /// <returns>deleted <see cref="IUser"/></returns>
         public IUser DeleteProjectAdministrator(string projectKey, long uid)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/administrators", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "administrators" });
             var jss = new JsonSerializerSettings();
             var kvs = new[] { new KeyValuePair<string, string>("userId", uid.ToString()) };
             var hc = new FormUrlEncodedContent(kvs);
