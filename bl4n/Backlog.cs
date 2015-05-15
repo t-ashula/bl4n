@@ -1613,10 +1613,20 @@ namespace BL4N
         /// </summary>
         /// <param name="issueId">issue id</param>
         /// <returns>number of comments</returns>
-        /// <remarks>TODO: issueKey API</remarks>
         public ICounter GetIssueCommentCount(long issueId)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D"), "comments", "count" });
+            return GetIssueCommentCount(string.Format("{0}", issueId));
+        }
+
+        /// <summary>
+        /// Count Comment
+        /// Returns number of comments in issue.
+        /// </summary>
+        /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <returns>number of comments</returns>
+        public ICounter GetIssueCommentCount(string issueKey)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey, "comments", "count" });
             var res = GetApiResult<Counter>(api, new JsonSerializerSettings());
             return res.Result;
         }
