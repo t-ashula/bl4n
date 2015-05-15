@@ -201,6 +201,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/project/:projectIdOrKey/activities </summary>
         public abstract void GetProjectRecentUpdatesTest();
 
+        /// <summary> GET /api/v2/project/:projectIdOrKey/activities </summary>
+        public abstract void GetProjectRecentUpdates_with_key_Test();
+
         /// <summary> GET /api/v2/projects/:projectIdOrKey/diskUsage </summary>
         public abstract void GetProjectDiskUsageTest();
 

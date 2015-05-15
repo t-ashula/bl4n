@@ -776,6 +776,21 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var actual = backlog.GetProjectRecentUpdates(projectId);
+
+            Assert.InRange(actual.Count, 1, 20);
+            Assert.Equal(projectId, actual[0].Project.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectRecentUpdates_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
             var actual = backlog.GetProjectRecentUpdates(projectKey);

@@ -765,11 +765,24 @@ namespace BL4N
         /// Get Project Recent Updates
         /// Returns recent update in the project.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <remarks>TODO: more parameters </remarks>
+        /// <returns>list of <see cref="IActivity"/></returns>
+        public IList<IActivity> GetProjectRecentUpdates(long projectId)
+        {
+            return GetProjectRecentUpdates(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Project Recent Updates
+        /// Returns recent update in the project.
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
         /// <remarks>TODO: more parameters </remarks>
         /// <returns>list of <see cref="IActivity"/></returns>
         public IList<IActivity> GetProjectRecentUpdates(string projectKey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/activities", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "activities" });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

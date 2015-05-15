@@ -1179,7 +1179,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var actual = backlog.GetProjectImage("1");
+            var actual = backlog.GetProjectImage("project");
             Assert.Equal("logo_mark.png", actual.FileName);
             var logo = Resources.projectIcon;
             Assert.Equal(logo.Size.Width, actual.Content.Size.Width);
@@ -1194,9 +1194,26 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var activities = backlog.GetProjectRecentUpdates("1");
+            var id = new Random().Next();
+            var activities = backlog.GetProjectRecentUpdates(id);
             Assert.Equal(1, activities.Count);
             Assert.Equal(2, activities[0].Type);
+            Assert.Equal(id, activities[0].Project.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectRecentUpdates_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = string.Format("project.{0}", new Random().Next());
+            var activities = backlog.GetProjectRecentUpdates(projectKey);
+            Assert.Equal(1, activities.Count);
+            Assert.Equal(2, activities[0].Type);
+            Assert.Equal(projectKey, activities[0].Project.ProjectKey);
         }
 
         /// <inheritdoc/>

@@ -189,8 +189,8 @@ namespace BL4N.Tests
                         id = 3153,
                         project = new
                         {
-                            id = 92,
-                            projectKey = "SUB",
+                            id = pid == -1 ? 1 : pid,
+                            projectKey = pid == -1 ? key : "SUB",
                             name = "Subtasking",
                             chartEnabled = true,
                             subtaskingEnabled = true,
