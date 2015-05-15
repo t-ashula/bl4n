@@ -409,16 +409,24 @@ namespace BL4N.Tests
 
             Delete["/{id}"] = p =>
             {
-                long iid = p.id;
+                string idkey = p.id;
+                var issueKey = "BLG-1";
+                long issueId;
+                if (!long.TryParse(idkey, out issueId))
+                {
+                    issueKey = idkey;
+                    issueId = new Random().Next();
+                }
+
                 return Response.AsJson(new
                 {
-                    id = iid,
+                    id = issueId,
                     projectId = 1,
-                    issueKey = "BLG-1",
+                    issueKey = issueKey,
                     keyId = 1,
                     issueType = new { id = 2, projectId = 1, name = "Task", color = "#7ea800", displayOrder = 0 },
                     summary = "first issue",
-                    description = "",
+                    description = string.Empty,
                     //// resolutions= null,
                     priority = new { id = 3, name = "Normal" },
                     status = new { id = 1, name = "Open" },

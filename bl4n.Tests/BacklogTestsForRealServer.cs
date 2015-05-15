@@ -1703,6 +1703,29 @@ namespace BL4N.Tests
             Assert.Equal(added.Id, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssue_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var issueTypeId = backlog.GetProjectIssueTypes(projectId.ToString())[0].Id;
+            Assert.True(issueTypeId > 0);
+            var priorityId = backlog.GetPriorities()[0].Id;
+            Assert.True(priorityId > 0);
+            var sumary = string.Format("test issue.{0:R}", DateTime.Now);
+            var settings = new NewIssueSettings(projectId, issueTypeId, priorityId, sumary);
+
+            var added = backlog.AddIssue(settings);
+            Assert.True(added.Id > 0);
+
+            var actual = backlog.DeleteIssue(added.IssueKey);
+            Assert.Equal(added.IssueKey, actual.IssueKey);
+        }
+
         #endregion
 
         #region issue/comment

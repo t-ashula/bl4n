@@ -316,6 +316,9 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/issues/:idOrKey </summary>
         public abstract void DeleteIssueTest();
 
+        /// <summary> DELETE /api/v2/issues/:idOrKey </summary>
+        public abstract void DeleteIssue_with_key_Test();
+
         /// <summary> GET /api/v2/issues/:issueIdOrKey/comments </summary>
         public abstract void GetIssueCommentsTest();
 

@@ -2164,6 +2164,20 @@ namespace BL4N.Tests
             Assert.Equal(issueId, actual.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteIssue_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var issueKey = string.Format("BLG-{0}", new Random().Next(1000));
+            var actual = backlog.DeleteIssue(issueKey);
+
+            Assert.Equal(issueKey, actual.IssueKey);
+        }
+
         #endregion
 
         #region issue/comment
