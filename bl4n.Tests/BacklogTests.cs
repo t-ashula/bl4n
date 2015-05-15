@@ -273,14 +273,26 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/categories </summary>
         public abstract void GetProjectCategoriesTest();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/categories </summary>
+        public abstract void GetProjectCategories_with_key_Test();
+
         /// <summary> POST /api/v2/projects/:projectIdOrKey/categories </summary>
         public abstract void AddProjectCategoryTest();
+
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/categories </summary>
+        public abstract void AddProjectCategory_with_key_Test();
 
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/categories/:id </summary>
         public abstract void UpdateProjectCategoryTest();
 
+        /// <summary> PATCH /api/v2/projects/:projectIdOrKey/categories/:id </summary>
+        public abstract void UpdateProjectCategory_with_key_Test();
+
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/categories/:id </summary>
         public abstract void DeleteProjectCategoryTest();
+
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/categories/:id </summary>
+        public abstract void DeleteProjectCategory_with_key_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/versions </summary>
         public abstract void GetProjectVersionsTest();

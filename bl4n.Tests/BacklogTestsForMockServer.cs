@@ -1676,6 +1676,21 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
+            var actual = backlog.GetProjectCategories(1);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(12, actual[0].Id);
+            Assert.Equal(0, actual[0].DisplayOrder);
+            Assert.Equal("Development", actual[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectCategories_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
             var actual = backlog.GetProjectCategories("projectKey");
             Assert.Equal(1, actual.Count);
             Assert.Equal(12, actual[0].Id);
@@ -1686,6 +1701,21 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void AddProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var category = new AddProjectCategoryOptions(string.Format("cat.{0}", new Random().Next(100)));
+            var actual = backlog.AddProjectCategory(1, category);
+            Assert.Equal(1, actual.Id);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(category.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCategory_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
@@ -1710,6 +1740,25 @@ namespace BL4N.Tests
             {
                 Name = string.Format("cat.{0}", new Random().Next(2000))
             };
+            var actual = backlog.UpdateProjectCategory(1, 1, cat);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(1, actual.Id);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal(cat.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectCategory_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var cat = new UpdateProjectCategoryOptions
+            {
+                Name = string.Format("cat.{0}", new Random().Next(2000))
+            };
             var actual = backlog.UpdateProjectCategory("projectKey", 1, cat);
             Assert.True(actual.Id > 0);
             Assert.Equal(1, actual.Id);
@@ -1720,6 +1769,23 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void DeleteProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var cat = new Category
+            {
+                Id = new Random().Next(100)
+            };
+
+            var actual = backlog.DeleteProjectCategory(1, cat.Id);
+            Assert.Equal(cat.Id, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCategory_with_key_Test()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();

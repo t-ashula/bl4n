@@ -1125,14 +1125,37 @@ namespace BL4N
         /// Get Category List
         /// Returns list of Categories in the project.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of project's <see cref="ICategory"/></returns>
+        public IList<ICategory> GetProjectCategories(long projectId)
+        {
+            return GetProjectCategories(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Category List
+        /// Returns list of Categories in the project.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <returns>list of project's <see cref="ICategory"/></returns>
         public IList<ICategory> GetProjectCategories(string projectKey)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/categories", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "categories" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<Category>>(api, jss);
             return res.Result.ToList<ICategory>();
+        }
+
+        /// <summary>
+        /// Add Category
+        /// Adds new Category to the project.
+        /// </summary>
+        /// <param name="projectId">project key</param>
+        /// <param name="options">category to add</param>
+        /// <returns>added <see cref="ICategory"/></returns>
+        public ICategory AddProjectCategory(long projectId, AddProjectCategoryOptions options)
+        {
+            return AddProjectCategory(string.Format("{0}", projectId), options);
         }
 
         /// <summary>
@@ -1150,6 +1173,19 @@ namespace BL4N
             var hc = new FormUrlEncodedContent(kvs);
             var res = PostApiResult<Category>(api, hc, jss);
             return res.Result;
+        }
+
+        /// <summary>
+        /// Update Category
+        /// Updates information about Category.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="categoryId">category id</param>
+        /// <param name="options">update category option</param>
+        /// <returns>updated <see cref="ICategory"/></returns>
+        public ICategory UpdateProjectCategory(long projectId, long categoryId, UpdateProjectCategoryOptions options)
+        {
+            return UpdateProjectCategory(string.Format("{0}", projectId), categoryId, options);
         }
 
         /// <summary>
@@ -1174,12 +1210,24 @@ namespace BL4N
         /// Delete Category
         /// Deletes Category.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="categoryId">category id to del</param>
+        /// <returns>deletec <see cref="ICategory"/></returns>
+        public ICategory DeleteProjectCategory(long projectId, long categoryId)
+        {
+            return DeleteProjectCategory(string.Format("{0}", projectId), categoryId);
+        }
+
+        /// <summary>
+        /// Delete Category
+        /// Deletes Category.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="categoryId">category id to del</param>
         /// <returns>deletec <see cref="ICategory"/></returns>
         public ICategory DeleteProjectCategory(string projectKey, long categoryId)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/categories/{1}", projectKey, categoryId));
+            var api = GetApiUri(new[] { "projects", projectKey, "categories", string.Format("{0}", categoryId) });
             var jss = new JsonSerializerSettings();
             var res = DeleteApiResult<Category>(api, jss);
             return res.Result;

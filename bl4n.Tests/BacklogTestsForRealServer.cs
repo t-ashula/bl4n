@@ -1357,6 +1357,25 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
 
+            var projectId = backlog.GetProjects()[0].Id;
+            var actual = backlog.GetProjectCategories(projectId);
+            Assert.True(actual.Count >= 1);
+
+            // [{"id":61309,"name":"API","displayOrder":2147483646}]
+            var apiCat = actual.OrderBy(p => p.Id).First();
+            Assert.Equal(61309, apiCat.Id);
+            Assert.Equal(2147483646, apiCat.DisplayOrder);
+            Assert.Equal("API", apiCat.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectCategories_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var actual = backlog.GetProjectCategories(projectKey);
             Assert.True(actual.Count >= 1);
@@ -1375,6 +1394,21 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var name = string.Format("cat.{0}", new Random().Next(2000));
+            var options = new AddProjectCategoryOptions(name);
+            var actual = backlog.AddProjectCategory(projectId, options);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectCategory_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var name = string.Format("cat.{0}", new Random().Next(2000));
             var options = new AddProjectCategoryOptions(name);
@@ -1386,6 +1420,27 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void UpdateProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var name = string.Format("cat.{0}", new Random().Next(2000));
+            var cat = new AddProjectCategoryOptions(name);
+            var added = backlog.AddProjectCategory(projectId, cat);
+            Assert.True(added.Id > 0);
+            Assert.Equal(cat.Name, added.Name);
+
+            var newCat = new UpdateProjectCategoryOptions { Name = added.Name + "1" };
+            var actual = backlog.UpdateProjectCategory(projectId, added.Id, newCat);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
+            Assert.Equal(newCat.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void UpdateProjectCategory_with_key_Test()
         {
             SkipIfSettingIsBroken();
 
@@ -1407,6 +1462,27 @@ namespace BL4N.Tests
         /// <inheritdoc/>
         [Fact]
         public override void DeleteProjectCategoryTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var name = string.Format("cat.{0}", new Random().Next(2000));
+            var options = new AddProjectCategoryOptions(name);
+
+            var added = backlog.AddProjectCategory(projectId, options);
+            Assert.True(added.Id > 0);
+            Assert.Equal(options.Name, added.Name);
+
+            var actual = backlog.DeleteProjectCategory(projectId, added.Id);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
+            Assert.Equal(added.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectCategory_with_key_Test()
         {
             SkipIfSettingIsBroken();
 
