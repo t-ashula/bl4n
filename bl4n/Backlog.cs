@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Backlog.cs">
 //   bl4n - Backlog.jp API Client library
-//   this content is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015/
+//   this file is part of bl4n, license under MIT license. http://t-ashula.mit-license.org/2015
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -657,21 +657,7 @@ namespace BL4N
         /// Get Project
         /// Returns information about project.
         /// </summary>
-        /// <param name="projectKey">projectKey</param>
-        /// <returns><see cref="IProject"/></returns>
-        public IProject GetProject(string projectKey)
-        {
-            var api = GetApiUri(string.Format("/projects/{0}", projectKey));
-            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
-            var res = GetApiResult<Project>(api, jss);
-            return res.Result;
-        }
-
-        /// <summary>
-        /// Get Project
-        /// Returns information about project.
-        /// </summary>
-        /// <param name="projectId">projectKey</param>
+        /// <param name="projectId">project id</param>
         /// <returns><see cref="IProject"/></returns>
         public IProject GetProject(long projectId)
         {
@@ -679,19 +665,16 @@ namespace BL4N
         }
 
         /// <summary>
-        /// Update Project
-        /// Updates information about project.
+        /// Get Project
+        /// Returns information about project.
         /// </summary>
-        /// <param name="projectKey">project key</param>
-        /// <param name="options">update option</param>
-        /// <returns>updated <see cref="IProject"/></returns>
-        public IProject UpdateProject(string projectKey, UpdateProjectOptions options)
+        /// <param name="projectKey">project key string</param>
+        /// <returns><see cref="IProject"/></returns>
+        public IProject GetProject(string projectKey)
         {
             var api = GetApiUri(new[] { "projects", projectKey });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
-            var kvs = options.ToKeyValurPairs();
-            var hc = new FormUrlEncodedContent(kvs);
-            var res = PatchApiResult<Project>(api, hc, jss);
+            var res = GetApiResult<Project>(api, jss);
             return res.Result;
         }
 
@@ -705,6 +688,23 @@ namespace BL4N
         public IProject UpdateProject(long projectId, UpdateProjectOptions options)
         {
             return UpdateProject(string.Format("{0}", projectId), options);
+        }
+
+        /// <summary>
+        /// Update Project
+        /// Updates information about project.
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
+        /// <param name="options">update option</param>
+        /// <returns>updated <see cref="IProject"/></returns>
+        public IProject UpdateProject(string projectKey, UpdateProjectOptions options)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var kvs = options.ToKeyValurPairs();
+            var hc = new FormUrlEncodedContent(kvs);
+            var res = PatchApiResult<Project>(api, hc, jss);
+            return res.Result;
         }
 
         /// <summary>
