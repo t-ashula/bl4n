@@ -1556,6 +1556,36 @@ namespace BL4N.Tests
             var name = string.Format("is.{0}", new Random().Next(2000));
             var color = colors[new Random().Next(colors.Length - 1)];
             var options = new AddProjectIssueTypeOptions(name, color);
+            var actual = backlog.AddProjectIssueType(1, options);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(color.ColorCode, actual.Color);
+            Assert.Equal(name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectIssueType_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var colors = new[]
+            {
+                IssueTypeColor.Color1,
+                IssueTypeColor.Color2,
+                IssueTypeColor.Color3,
+                IssueTypeColor.Color4,
+                IssueTypeColor.Color5,
+                IssueTypeColor.Color6,
+                IssueTypeColor.Color7,
+                IssueTypeColor.Color8,
+                IssueTypeColor.Color9,
+                IssueTypeColor.Color10
+            };
+            var name = string.Format("is.{0}", new Random().Next(2000));
+            var color = colors[new Random().Next(colors.Length - 1)];
+            var options = new AddProjectIssueTypeOptions(name, color);
             var actual = backlog.AddProjectIssueType("projectKey", options);
             Assert.True(actual.Id > 0);
             Assert.Equal(color.ColorCode, actual.Color);

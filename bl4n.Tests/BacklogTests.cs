@@ -255,6 +255,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/projects/:projectIdOrKey/issueTypes </summary>
         public abstract void AddProjectIssueTypeTest();
 
+        /// <summary> POST /api/v2/projects/:projectIdOrKey/issueTypes </summary>
+        public abstract void AddProjectIssueType_with_key_Test();
+
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/issueTypes/:id </summary>
         public abstract void UpdateProjectIssueTypeTest();
 

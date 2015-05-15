@@ -1030,6 +1030,18 @@ namespace BL4N
         /// Add Issue Type
         /// Adds new Issue Type to the project.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="options">issue type to add</param>
+        /// <returns>added <see cref="IIssueType"/></returns>
+        public IIssueType AddProjectIssueType(long projectId, AddProjectIssueTypeOptions options)
+        {
+            return AddProjectIssueType(string.Format("{0}", projectId), options);
+        }
+
+        /// <summary>
+        /// Add Issue Type
+        /// Adds new Issue Type to the project.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="options">issue type to add</param>
         /// <returns>added <see cref="IIssueType"/></returns>

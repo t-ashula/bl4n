@@ -1152,6 +1152,37 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var colors = new[]
+            {
+                IssueTypeColor.Color1,
+                IssueTypeColor.Color2,
+                IssueTypeColor.Color3,
+                IssueTypeColor.Color4,
+                IssueTypeColor.Color5,
+                IssueTypeColor.Color6,
+                IssueTypeColor.Color7,
+                IssueTypeColor.Color8,
+                IssueTypeColor.Color9,
+                IssueTypeColor.Color10
+            };
+            var name = string.Format("is.{0}", new Random().Next(2000));
+            var color = colors[new Random().Next(colors.Length - 1)];
+            var options = new AddProjectIssueTypeOptions(name, color);
+
+            var actual = backlog.AddProjectIssueType(projectId, options);
+            Assert.True(actual.Id > 0);
+            Assert.Equal(options.TypeColor.ColorCode, actual.Color);
+            Assert.Equal(options.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectIssueType_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var colors = new[]
             {
