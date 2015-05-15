@@ -1639,6 +1639,23 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var issueId = new Random().Next();
+            var actual = backlog.DeleteProjectIssueType(1, issueId, 2);
+            Assert.Equal(issueId, actual.Id);
+            Assert.Equal(1, actual.ProjectId);
+            Assert.Equal(0, actual.DisplayOrder);
+            Assert.Equal("#990000", actual.Color);
+            Assert.Equal("Bug", actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectIssueType_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var issueId = new Random().Next();
             var actual = backlog.DeleteProjectIssueType("projectKey", issueId, 2);
             Assert.Equal(issueId, actual.Id);
             Assert.Equal(1, actual.ProjectId);

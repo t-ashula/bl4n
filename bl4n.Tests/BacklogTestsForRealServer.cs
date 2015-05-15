@@ -1300,6 +1300,32 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var name = string.Format("is.{0}", new Random().Next(2000));
+            var options = new AddProjectIssueTypeOptions(name, IssueTypeColor.Color10);
+            var substIssueType = backlog.GetProjectIssueTypes(projectId)[0];
+
+            var added = backlog.AddProjectIssueType(projectId, options);
+            Assert.True(added.Id > 0);
+
+            Assert.NotEqual(0, added.Id);
+
+            var actual = backlog.DeleteProjectIssueType(projectId, added.Id, substIssueType.Id);
+            Assert.Equal(added.Id, actual.Id);
+            Assert.Equal(added.ProjectId, actual.ProjectId);
+            Assert.Equal(added.DisplayOrder, actual.DisplayOrder);
+            Assert.Equal(added.Color, actual.Color);
+            Assert.Equal(added.Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectIssueType_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
             var projectKey = backlog.GetProjects()[0].ProjectKey;
 
             var name = string.Format("is.{0}", new Random().Next(2000));

@@ -1090,13 +1090,26 @@ namespace BL4N
         /// Delete Issue Type
         /// Deletes Issue Type.
         /// </summary>
-        /// <param name="projectKey">project key</param>
-        /// <param name="issueId">delete issueType id</param>
+        /// <param name="projectId">project key</param>
+        /// <param name="id">delete issueType id</param>
         /// <param name="substituteIssueTypeId">Substitute Issue Type Id</param>
         /// <returns>deleted <see cref="IIssueType"/></returns>
-        public IIssueType DeleteProjectIssueType(string projectKey, long issueId, long substituteIssueTypeId)
+        public IIssueType DeleteProjectIssueType(long projectId, long id, long substituteIssueTypeId)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/issueTypes/{1}", projectKey, issueId));
+            return DeleteProjectIssueType(string.Format("{0}", projectId), id, substituteIssueTypeId);
+        }
+
+        /// <summary>
+        /// Delete Issue Type
+        /// Deletes Issue Type.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="id">delete issueType id</param>
+        /// <param name="substituteIssueTypeId">Substitute Issue Type Id</param>
+        /// <returns>deleted <see cref="IIssueType"/></returns>
+        public IIssueType DeleteProjectIssueType(string projectKey, long id, long substituteIssueTypeId)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "issueTypes", string.Format("{0}", id) });
             var jss = new JsonSerializerSettings();
             var kvs = new[] { new KeyValuePair<string, string>("substituteIssueTypeId", substituteIssueTypeId.ToString()) };
             var hc = new FormUrlEncodedContent(kvs);
