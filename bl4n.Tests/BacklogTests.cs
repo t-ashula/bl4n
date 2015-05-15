@@ -328,6 +328,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/issues/:issueIdOrKey/comments </summary>
         public abstract void AddIssueCommentTest();
 
+        /// <summary> POST /api/v2/issues/:issueIdOrKey/comments </summary>
+        public abstract void AddIssueComment_with_key_Test();
+
         /// <summary> GET /api/v2/issues/:issueIdOrKey/comments/count </summary>
         public abstract void GetIssueCommentCountTest();
 
