@@ -310,6 +310,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/issues/:idOrKey </summary>
         public abstract void UpdateIssueTest();
 
+        /// <summary> PATCH /api/v2/issues/:idOrKey </summary>
+        public abstract void UpdateIssue_with_key_Test();
+
         /// <summary> DELETE /api/v2/issues/:idOrKey </summary>
         public abstract void DeleteIssueTest();
 

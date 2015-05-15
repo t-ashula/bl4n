@@ -1481,11 +1481,22 @@ namespace BL4N
         /// </summary>
         /// <param name="issueId">issue id to update</param>
         /// <param name="issueUpdateSettings">update settings</param>
-        /// <remarks>TODO: add Key-ID type api</remarks>
         /// <returns>updated <see cref="IIssue"/></returns>
         public IIssue UpdateIssue(long issueId, IssueUpdateSettings issueUpdateSettings)
         {
-            var api = GetApiUri(new[] { "issues", issueId.ToString("D") });
+            return UpdateIssue(string.Format("{0}", issueId), issueUpdateSettings);
+        }
+
+        /// <summary>
+        /// Update Issue
+        /// Updates information about issue.
+        /// </summary>
+        /// <param name="issueKey">issue key to update (like XXX-123)</param>
+        /// <param name="issueUpdateSettings">update settings</param>
+        /// <returns>updated <see cref="IIssue"/></returns>
+        public IIssue UpdateIssue(string issueKey, IssueUpdateSettings issueUpdateSettings)
+        {
+            var api = GetApiUri(new[] { "issues", issueKey });
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -2146,7 +2157,7 @@ namespace BL4N
         /// <param name="issueId">issue id</param>
         public void AddStarToIssue(long issueId)
         {
-            AddStar("issueId", issueId);
+            AddStar("issueKey", issueId);
         }
 
         /// <summary>

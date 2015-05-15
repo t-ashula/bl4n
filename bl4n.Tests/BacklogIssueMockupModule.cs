@@ -328,6 +328,15 @@ namespace BL4N.Tests
 
             Patch["/{id}"] = p =>
             {
+                string idkey = p.id;
+                var issueKey = "BLG-1";
+                long issueId;
+                if (!long.TryParse(idkey, out issueId))
+                {
+                    issueKey = idkey;
+                    issueId = new Random().Next();
+                }
+
                 dynamic form = Request.Form;
 
                 string issueType = form["issueTypeId"].HasValue ? form["issueTypeId"] : "2";
@@ -346,9 +355,9 @@ namespace BL4N.Tests
                 var attachmentId = requestAttachment == 0 ? 1 : requestAttachment;
                 return Response.AsJson(new
                 {
-                    id = p.id,
+                    id = issueId,
                     projectId = 1,
-                    issueKey = "BLG-1",
+                    issueKey = issueKey,
                     keyId = 1,
                     issueType = new
                     {

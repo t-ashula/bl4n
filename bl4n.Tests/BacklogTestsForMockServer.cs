@@ -2097,6 +2097,62 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void UpdateIssue_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            string issueKey = string.Format("BLG-{0}", r.Next(1000));
+            long issueTypeId = r.Next(10);
+            long priorityId = r.Next(10);
+            var updateSettings = new IssueUpdateSettings(issueTypeId, priorityId)
+            {
+                AssigneeId = r.Next(),
+                ActualHour = (int)(r.NextDouble() * 10),
+                AttachmentIds = new List<long> { r.Next() },
+                CategoryIds = new List<long> { r.Next() },
+                Description = string.Format("desc.{0}", r.NextDouble()),
+                EstimatedHours = (int)(r.NextDouble() * 10),
+                DueDate = DateTime.Now.AddDays(r.Next(20)),
+                StartDate = DateTime.Now.AddDays(r.Next(20)),
+                ParentIssueId = r.Next(),
+                VersionIds = new List<long> { r.Next() },
+                ResolutionId = r.Next(),
+                MilestoneIds = new List<long> { r.Next() },
+                Summary = string.Format("sum.{0}", DateTime.Now),
+                StatusId = r.Next()
+            };
+
+            var actual = backlog.UpdateIssue(issueKey, updateSettings);
+
+            Assert.Equal(issueKey, actual.IssueKey);
+            Assert.Equal(issueTypeId, actual.IssueType.Id);
+            Assert.Equal(priorityId, actual.Priority.Id);
+            Assert.Equal(updateSettings.AssigneeId, actual.Assignee.Id);
+            Assert.Equal(updateSettings.ActualHour, actual.ActualHours);
+            Assert.Equal(updateSettings.AttachmentIds[0], actual.Attachments[0].Id);
+            Assert.Equal(updateSettings.CategoryIds[0], actual.Categories[0].Id);
+            Assert.Equal(updateSettings.Description, actual.Description);
+            Assert.Equal(updateSettings.EstimatedHours, actual.EstimatedHours);
+            Assert.NotNull(updateSettings.DueDate);
+            Assert.NotNull(actual.DueDate);
+            Assert.Equal(updateSettings.DueDate.Value.ToString(Backlog.DateFormat), actual.DueDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(updateSettings.StartDate);
+            Assert.NotNull(actual.StartDate);
+            Assert.Equal(updateSettings.StartDate.Value.ToString(Backlog.DateFormat), actual.StartDate.Value.ToString(Backlog.DateFormat));
+            Assert.NotNull(actual.ParentIssueId);
+            Assert.Equal(updateSettings.ParentIssueId, actual.ParentIssueId);
+            Assert.Equal(updateSettings.VersionIds[0], actual.Versions[0].Id);
+            Assert.Equal(updateSettings.ResolutionId, actual.Resolutions.Id);
+            Assert.Equal(updateSettings.MilestoneIds[0], actual.Milestones[0].Id);
+            Assert.Equal(updateSettings.Summary, actual.Summary);
+            Assert.Equal(updateSettings.StatusId, actual.Status.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void DeleteIssueTest()
         {
             SkipIfSettingIsBroken();
