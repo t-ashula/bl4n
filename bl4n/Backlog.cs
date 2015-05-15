@@ -829,12 +829,24 @@ namespace BL4N
         /// Add Project User
         /// Adds user to list of project members.
         /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="uid">user id</param>
+        /// <returns>added <see cref="IUser"/></returns>
+        public IUser AddProjectUser(long projectId, long uid)
+        {
+            return AddProjectUser(string.Format("{0}", projectId), uid);
+        }
+
+        /// <summary>
+        /// Add Project User
+        /// Adds user to list of project members.
+        /// </summary>
         /// <param name="projectKey">project key</param>
         /// <param name="uid">user id</param>
         /// <returns>added <see cref="IUser"/></returns>
         public IUser AddProjectUser(string projectKey, long uid)
         {
-            var api = GetApiUri(string.Format("/projects/{0}/users", projectKey));
+            var api = GetApiUri(new[] { "projects", projectKey, "users" });
             var jss = new JsonSerializerSettings();
             var kvs = new[] { new KeyValuePair<string, string>("userId", uid.ToString()) };
             var hc = new FormUrlEncodedContent(kvs);

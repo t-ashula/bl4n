@@ -213,6 +213,9 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/project/:projectIdOrKey/users </summary>
         public abstract void AddProjectUserTest();
 
+        /// <summary> POST /api/v2/project/:projectIdOrKey/users </summary>
+        public abstract void AddProjectUser_with_key_Test();
+
         /// <summary> GET /api/v2/project/:projectIdOrKey/users </summary>
         public abstract void GetProjectUsersTest();
 
