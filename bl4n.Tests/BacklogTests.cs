@@ -130,11 +130,20 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/users/myself/recentlyViewedIssues のテスト </summary>
         public abstract void GetListOfRecentlyViewedIssuesTest();
 
+        /// <summary> GET /api/v2/users/myself/recentlyViewedIssues のテスト </summary>
+        public abstract void GetListOfRecentlyViewedIssues_with_offset_Test();
+
         /// <summary> GET /api/v2/users/myself/recentlyViewedProjects のテスト </summary>
         public abstract void GetListOfRecentlyViewedProjectsTest();
 
+        /// <summary> GET /api/v2/users/myself/recentlyViewedProjects のテスト </summary>
+        public abstract void GetListOfRecentlyViewedProjects_with_offset_Test();
+
         /// <summary> GET /api/v2/users/myself/recentlyViewedWikis のテスト </summary>
         public abstract void GetListOfRecentlyViewedWikisTest();
+
+        /// <summary> GET /api/v2/users/myself/recentlyViewedWikis のテスト </summary>
+        public abstract void GetListOfRecentlyViewedWikis_with_offset_Test();
 
         #endregion
 

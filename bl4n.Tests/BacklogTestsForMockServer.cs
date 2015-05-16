@@ -772,6 +772,20 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetListOfRecentlyViewedIssues_with_offset_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var offset = new OffsetOptions { Count = 5, Offset = 5 };
+            var actual = backlog.GetListOfRecentlyViewedIssues(offset);
+            Assert.NotNull(actual);
+            Assert.True(true, "pain"); // todo: setup test data
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetListOfRecentlyViewedProjectsTest()
         {
             SkipIfSettingIsBroken();
@@ -784,6 +798,20 @@ namespace BL4N.Tests
             Assert.Equal(1, actual[0].Project.Id);
             Assert.Equal("TEST", actual[0].Project.ProjectKey);
             Assert.Equal(new DateTime(2014, 7, 11, 1, 59, 7), actual[0].Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedProjects_with_offset_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var offset = new OffsetOptions { Count = 5, Offset = 5 };
+            var actual = backlog.GetListOfRecentlyViewedProjects(offset);
+            Assert.NotNull(actual);
+            Assert.True(true, "pain"); // todo: setup test data
         }
 
         /// <inheritdoc/>
@@ -808,6 +836,20 @@ namespace BL4N.Tests
             Assert.Equal(new DateTime(2013, 5, 30, 9, 11, 36), actual[0].WikiPage.Created);
             Assert.Equal(new DateTime(2013, 5, 30, 9, 11, 36), actual[0].WikiPage.Updated);
             Assert.Equal(new DateTime(2014, 7, 16, 7, 18, 16), actual[0].Updated);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedWikis_with_offset_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var offset = new OffsetOptions { Count = 5, Offset = 5 };
+            var actual = backlog.GetListOfRecentlyViewedWikis(offset);
+            Assert.NotNull(actual);
+            Assert.True(true, "pain"); // todo: setup test data
         }
 
         #endregion

@@ -449,6 +449,20 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetListOfRecentlyViewedIssues_with_offset_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var offset = new OffsetOptions { Count = 5, Offset = 5 };
+            var actual = backlog.GetListOfRecentlyViewedIssues(offset);
+            Assert.InRange(actual.Count, 1, offset.Count);
+            var issue = actual[0].Issue;
+            Assert.IsAssignableFrom<IIssue>(issue);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetListOfRecentlyViewedProjectsTest()
         {
             SkipIfSettingIsBroken();
@@ -463,6 +477,18 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetListOfRecentlyViewedProjects_with_offset_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var offset = new OffsetOptions { Count = 5, Offset = 5 };
+            var actual = backlog.GetListOfRecentlyViewedProjects(offset);
+            Assert.Equal(actual.Count, 0); // Free plan has only one project
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetListOfRecentlyViewedWikisTest()
         {
             SkipIfSettingIsBroken();
@@ -471,6 +497,20 @@ namespace BL4N.Tests
             var actual = backlog.GetListOfRecentlyViewedWikis();
 
             Assert.InRange(actual.Count, 1, 20);
+            Assert.IsAssignableFrom<IWikiPage>(actual[0].WikiPage);
+            Assert.True(actual[0].WikiPage.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetListOfRecentlyViewedWikis_with_offset_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var offset = new OffsetOptions { Count = 5, Offset = 5 };
+            var actual = backlog.GetListOfRecentlyViewedWikis(offset);
+            Assert.InRange(actual.Count, 1, offset.Count);
             Assert.IsAssignableFrom<IWikiPage>(actual[0].WikiPage);
             Assert.True(actual[0].WikiPage.Id > 0);
         }

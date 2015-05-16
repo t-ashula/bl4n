@@ -453,10 +453,12 @@ namespace BL4N
         /// Get List of Recently Viewed Issues
         /// Returns list of issues which the user viewed recently.
         /// </summary>
+        /// <param name="offset">offse/count/ordre option</param>
         /// <returns> list of <see cref="IIssue"/>. </returns>
-        public IList<IIssueUpdate> GetListOfRecentlyViewedIssues()
+        public IList<IIssueUpdate> GetListOfRecentlyViewedIssues(OffsetOptions offset = null)
         {
-            var api = GetApiUri("/users/myself/recentlyViewedIssues");
+            var query = offset == null ? null : offset.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "users", "myself", "recentlyViewedIssues" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -470,11 +472,12 @@ namespace BL4N
         /// Get List of Recently Viewed Projects
         /// Returns list of projects which the user viewed recently.
         /// </summary>
-        /// <remarks>TODO: more parameters</remarks>
+        /// <param name="offset">offse/count/ordre option</param>
         /// <returns>return list of <see cref="IProjectUpdate"/></returns>
-        public IList<IProjectUpdate> GetListOfRecentlyViewedProjects()
+        public IList<IProjectUpdate> GetListOfRecentlyViewedProjects(OffsetOptions offset = null)
         {
-            var api = GetApiUri("/users/myself/recentlyViewedProjects");
+            var query = offset == null ? null : offset.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "users", "myself", "recentlyViewedProjects" }, query);
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<List<ProjectUpdate>>(api, jss);
             return res.Result.ToList<IProjectUpdate>();
@@ -484,11 +487,12 @@ namespace BL4N
         /// Get List of Recently Viewed Wikis
         /// Returns list of Wikis which the user viewed recently.
         /// </summary>
-        /// <remarks>TODO: more parameters</remarks>
+        /// <param name="offset">offse/count/ordre option</param>
         /// <returns> return list of <see cref="IWikiPageUpdate"/> </returns>
-        public IList<IWikiPageUpdate> GetListOfRecentlyViewedWikis()
+        public IList<IWikiPageUpdate> GetListOfRecentlyViewedWikis(OffsetOptions offset = null)
         {
-            var api = GetApiUri("/users/myself/recentlyViewedWikis");
+            var query = offset == null ? null : offset.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "users", "myself", "recentlyViewedWikis" }, query);
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<List<WikiPageUpdate>>(api, jss);
             return res.Result.ToList<IWikiPageUpdate>();
@@ -1625,11 +1629,11 @@ namespace BL4N
         /// </summary>
         /// <param name="projectId">project id</param>
         /// <param name="path">path </param>
-        /// <remarks>TODO: more parameters</remarks>
+        /// <param name="offset">offset options</param>
         /// <returns>list of <see cref="ISharedFile"/> in path</returns>
-        public IList<ISharedFile> GetProjectSharedFiles(long projectId, string path = "")
+        public IList<ISharedFile> GetProjectSharedFiles(long projectId, string path = "", OffsetOptions offset = null)
         {
-            return GetProjectSharedFiles(string.Format("{0}", projectId), path);
+            return GetProjectSharedFiles(string.Format("{0}", projectId), path, offset);
         }
 
         /// <summary>
@@ -1638,11 +1642,12 @@ namespace BL4N
         /// </summary>
         /// <param name="projectkey">project key</param>
         /// <param name="path">path </param>
-        /// <remarks>TODO: more parameters</remarks>
+        /// <param name="offset">offset options</param>
         /// <returns>list of <see cref="ISharedFile"/> in path</returns>
-        public IList<ISharedFile> GetProjectSharedFiles(string projectkey, string path = "")
+        public IList<ISharedFile> GetProjectSharedFiles(string projectkey, string path = "", OffsetOptions offset = null)
         {
-            var apig = GetApiUri(new[] { "projects", projectkey, "files", "metadata", path });
+            var query = offset == null ? null : offset.ToKeyValuePairs();
+            var apig = GetApiUri(new[] { "projects", projectkey, "files", "metadata", path }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
