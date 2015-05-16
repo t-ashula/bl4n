@@ -147,19 +147,6 @@ namespace BL4N
             return await DeserializeObject<T>(s, jss);
         }
 
-        private string GetApiEndPointBase()
-        {
-            return string.Format("http{0}://{1}/api/v2", _settings.UseSSL ? "s" : string.Empty, Host);
-        }
-
-        private Uri GetApiUri(string apiname)
-        {
-            var endpoint = GetApiEndPointBase() + apiname;
-            return _settings.APIType == APIType.APIKey
-                ? new Uri(endpoint + "?apiKey=" + APIKey)
-                : new Uri(endpoint);
-        }
-
         private Uri GetApiUri(string[] subjects, IEnumerable<KeyValuePair<string, string>> query = null)
         {
             var kvs = new List<KeyValuePair<string, string>>();
@@ -214,7 +201,7 @@ namespace BL4N
         /// <returns> <see cref="ISpace"/>. </returns>
         public ISpace GetSpace()
         {
-            var uri = GetApiUri("/space");
+            var uri = GetApiUri(new[] { "space" });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var space = GetApiResult<Space>(uri, jss);
             return space.Result;
@@ -240,7 +227,7 @@ namespace BL4N
         /// <returns> <see cref="ILogo"/> </returns>
         public ILogo GetSpaceImage()
         {
-            var api = GetApiUri("/space/image");
+            var api = GetApiUri(new[] { "space", "image" });
             var res = GetApiResultAsFile(api).Result;
             return new Logo(res.Item1, res.Item2);
         }
@@ -249,7 +236,7 @@ namespace BL4N
         /// <returns> <see cref="ISpaceNotification"/> </returns>
         public ISpaceNotification GetSpaceNotifiacation()
         {
-            var api = GetApiUri("/space/notification");
+            var api = GetApiUri(new[] { "space", "notification" });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<SpaceNotification>(api, jss);
             return res.Result;
@@ -260,7 +247,7 @@ namespace BL4N
         /// <returns> <see cref="IActivity"/> のリスト</returns>
         public ISpaceNotification UpdateSpaceNotification(string content)
         {
-            var api = GetApiUri("/space/notification");
+            var api = GetApiUri(new[] { "space", "notification" });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var hc = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("content", content) });
             var res = PutApiResult<SpaceNotification>(api, hc, jss);
@@ -271,7 +258,7 @@ namespace BL4N
         /// <returns> <see cref="IDiskUsage"/> </returns>
         public IDiskUsage GetSpaceDiskUsage()
         {
-            var api = GetApiUri("/space/diskUsage");
+            var api = GetApiUri(new[] { "space", "diskUsage" });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<DiskUsage>(api, jss);
             return res.Result;
@@ -283,7 +270,7 @@ namespace BL4N
         /// <returns> <see cref="IAttachment"/>(without CreatedUser and Created ) </returns>
         public IAttachment AddAttachment(string name, Stream content)
         {
-            var api = GetApiUri("/space/attachment");
+            var api = GetApiUri(new[] { "space", "attachment" });
             var hc = new MultipartFormDataContent();
             var filename = name.Contains(Path.PathSeparator) ? Path.GetFileName(name) : name;
             if (string.IsNullOrWhiteSpace(filename))
@@ -305,7 +292,7 @@ namespace BL4N
         /// <returns> List of <see cref="IUser"/>. </returns>
         public IList<IUser> GetUsers()
         {
-            var api = GetApiUri("/users");
+            var api = GetApiUri(new[] { "users" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<User>>(api, jss);
             var users = res.Result;
@@ -317,7 +304,7 @@ namespace BL4N
         /// <returns><see cref="IUser"/></returns>
         public IUser GetUser(int userId)
         {
-            var api = GetApiUri(string.Format("/users/{0}", userId));
+            var api = GetApiUri(new[] { "users", string.Format("{0}", userId) });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<User>(api, jss);
             return res.Result;
@@ -363,7 +350,7 @@ namespace BL4N
         /// <returns>deleted user</returns>
         public IUser DeleteUser(long uid)
         {
-            var api = GetApiUri(string.Format("/users/{0}", uid));
+            var api = GetApiUri(new[] { "users", string.Format("{0}", uid) });
             var jss = new JsonSerializerSettings();
             var res = DeleteApiResult<User>(api, jss);
             return res.Result;
@@ -376,7 +363,7 @@ namespace BL4N
         /// <returns> <see cref="IUser"/> of myself </returns>
         public IUser GetOwnUser()
         {
-            var api = GetApiUri("/users/myself");
+            var api = GetApiUri(new[] { "users", "myself" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<User>(api, jss);
             return res.Result;
@@ -389,7 +376,7 @@ namespace BL4N
         /// <returns>user icon</returns>
         public ILogo GetUserIcon(long uid)
         {
-            var api = GetApiUri(string.Format("/users/{0}/icon", uid));
+            var api = GetApiUri(new[] { "users", string.Format("{0}", uid), "icon" });
             var res = GetApiResultAsFile(api);
 
             return new Logo(res.Result.Item1, res.Result.Item2);
@@ -541,7 +528,7 @@ namespace BL4N
         /// <returns><see cref="IGroup"/></returns>
         public IGroup GetGroup(long groupId)
         {
-            var api = GetApiUri(string.Format("/groups/{0}", groupId));
+            var api = GetApiUri(new[] { "groups", string.Format("{0}", groupId) });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<Group>(api, jss);
             return res.Result;
@@ -572,7 +559,7 @@ namespace BL4N
         /// <returns>deleted <see cref="IGroup"/></returns>
         public IGroup DeleteGroup(long groupId)
         {
-            var api = GetApiUri(string.Format("/groups/{0}", groupId));
+            var api = GetApiUri(new[] { "groups", string.Format("{0}", groupId) });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = DeleteApiResult<Group>(api, jss);
             return res.Result;
@@ -589,7 +576,7 @@ namespace BL4N
         /// <returns>list of <see cref="IStatus"/> </returns>
         public IList<IStatus> GetStatuses()
         {
-            var api = GetApiUri("/statuses");
+            var api = GetApiUri(new[] { "statuses" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<Status>>(api, jss);
             return res.Result.ToList<IStatus>();
@@ -606,7 +593,7 @@ namespace BL4N
         /// <returns>list of <see cref="IResolution"/> </returns>
         public IList<IResolution> GetResolutions()
         {
-            var api = GetApiUri("/resolutions");
+            var api = GetApiUri(new[] { "resolutions" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<Resolution>>(api, jss);
             return res.Result.ToList<IResolution>();
@@ -623,7 +610,7 @@ namespace BL4N
         /// <returns>list of <see cref="IPriority"/></returns>
         public IList<IPriority> GetPriorities()
         {
-            var api = GetApiUri("/priorities");
+            var api = GetApiUri(new[] { "priorities" });
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<List<Priority>>(api, jss);
             return res.Result.ToList<IPriority>();
@@ -642,7 +629,7 @@ namespace BL4N
         /// <returns>list of <see cref="IProject"/> </returns>
         public IList<IProject> GetProjects()
         {
-            var api = GetApiUri("/projects");
+            var api = GetApiUri(new[] { "projects" });
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<List<Project>>(api, jss);
             return res.Result.ToList<IProject>();
