@@ -221,17 +221,19 @@ namespace BL4N
         }
 
         /// <summary> 最近の更新の一覧を取得します </summary>
+        /// <param name="filter">activity filtering option</param>
         /// <returns> <see cref="IActivity"/> のリスト</returns>
-        public List<IActivity> GetSpaceActivities()
+        public List<IActivity> GetSpaceActivities(RecentUpdateFilterOptions filter = null)
         {
-            var api = GetApiEndPointBase() + "/space/activities" + "?apiKey=" + APIKey;
+            var query = filter == null ? null : filter.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "space", "activities" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 Converters = new JsonConverter[] { new ActivityConverter() }
             };
-
-            return GetApiResult<List<Activity>>(new Uri(api), jss).Result.ToList<IActivity>();
+            var res = GetApiResult<List<Activity>>(api, jss);
+            return res.Result.ToList<IActivity>();
         }
 
         /// <summary> スペースのロゴを取得します </summary>
@@ -396,11 +398,13 @@ namespace BL4N
         /// <summary>
         /// Get User Recent Updates. Returns user's recent updates
         /// </summary>
-        /// <remarks>TODO: more parameters </remarks>
+        /// <param name="uid">user id</param>
+        /// <param name="filter">activity filtering option</param>
         /// <returns> List of <see cref="IActivity"/>. </returns>
-        public IList<IActivity> GetUserRecentUpdates(long uid)
+        public IList<IActivity> GetUserRecentUpdates(long uid, RecentUpdateFilterOptions filter = null)
         {
-            var api = GetApiUri(string.Format("/users/{0}/activities", uid));
+            var query = filter == null ? null : filter.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "users", string.Format("{0}", uid), "activities" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -766,11 +770,11 @@ namespace BL4N
         /// Returns recent update in the project.
         /// </summary>
         /// <param name="projectId">project id</param>
-        /// <remarks>TODO: more parameters </remarks>
+        /// <param name="filter">activity filtering option</param>
         /// <returns>list of <see cref="IActivity"/></returns>
-        public IList<IActivity> GetProjectRecentUpdates(long projectId)
+        public IList<IActivity> GetProjectRecentUpdates(long projectId, RecentUpdateFilterOptions filter = null)
         {
-            return GetProjectRecentUpdates(string.Format("{0}", projectId));
+            return GetProjectRecentUpdates(string.Format("{0}", projectId), filter);
         }
 
         /// <summary>
@@ -778,11 +782,12 @@ namespace BL4N
         /// Returns recent update in the project.
         /// </summary>
         /// <param name="projectKey">project key string</param>
-        /// <remarks>TODO: more parameters </remarks>
+        /// <param name="filter">activity filtering option</param>
         /// <returns>list of <see cref="IActivity"/></returns>
-        public IList<IActivity> GetProjectRecentUpdates(string projectKey)
+        public IList<IActivity> GetProjectRecentUpdates(string projectKey, RecentUpdateFilterOptions filter = null)
         {
-            var api = GetApiUri(new[] { "projects", projectKey, "activities" });
+            var query = filter == null ? null : filter.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "projects", projectKey, "activities" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -2906,5 +2911,9 @@ namespace BL4N
             var s = await ua.SendAsync(request);
             return await DeserializeObject<T>(s, new JsonSerializerSettings());
         }
+    }
+
+    namespace Data
+    {
     }
 }

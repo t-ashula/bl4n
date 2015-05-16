@@ -66,6 +66,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/space/activities のテスト </summary>
         public abstract void GetSpaceActivitiesTest();
 
+        /// <summary> GET /api/v2/space/activities のテスト </summary>
+        public abstract void GetSpaceActivities_with_filter_Test();
+
         /// <summary> GET /api/v2/space/image のテスト </summary>
         public abstract void GetSpaceLogoTest();
 
@@ -108,6 +111,9 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/users/:userId/activities のテスト </summary>
         public abstract void GetUserRecentUpdatesTest();
+
+        /// <summary> GET /api/v2/users/:userId/activities のテスト </summary>
+        public abstract void GetUserRecentUpdates_with_filter_Test();
 
         /// <summary> GET /api/v2/users/:userId/stars のテスト </summary>
         public abstract void GetReceivedStarListTest();
@@ -203,6 +209,9 @@ namespace BL4N.Tests
 
         /// <summary> GET /api/v2/project/:projectIdOrKey/activities </summary>
         public abstract void GetProjectRecentUpdates_with_key_Test();
+
+        /// <summary> GET /api/v2/project/:projectIdOrKey/activities </summary>
+        public abstract void GetProjectRecentUpdates_with_filter_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/diskUsage </summary>
         public abstract void GetProjectDiskUsageTest();

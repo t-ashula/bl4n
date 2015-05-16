@@ -112,6 +112,20 @@ namespace BL4N.Tests
             NotifyActivityTest(activities[7]);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetSpaceActivities_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var filter = new RecentUpdateFilterOptions();
+            var activities = backlog.GetSpaceActivities(filter);
+            Assert.NotNull(activities);
+            Assert.True(true, "pain"); // TODO: setup test data
+        }
+
         private static void IssueActivityTest(IActivity activity)
         {
             // type = 1,2,3,4
@@ -589,6 +603,21 @@ namespace BL4N.Tests
             var actual = backlog.GetUserRecentUpdates(1);
             Assert.Equal(1, actual.Count);
             Assert.Equal(2, actual[0].Type);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUserRecentUpdates_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var filter = new RecentUpdateFilterOptions();
+            var actual = backlog.GetUserRecentUpdates(1, filter);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(2, actual[0].Type);
+            Assert.True(true, "pain"); // todo: setup test data
         }
 
         /// <inheritdoc/>
@@ -1211,6 +1240,23 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var projectKey = string.Format("project.{0}", new Random().Next());
             var activities = backlog.GetProjectRecentUpdates(projectKey);
+            Assert.Equal(1, activities.Count);
+            Assert.Equal(2, activities[0].Type);
+            Assert.Equal(projectKey, activities[0].Project.ProjectKey);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectRecentUpdates_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = string.Format("project.{0}", new Random().Next());
+            var filter = new RecentUpdateFilterOptions();
+            var activities = backlog.GetProjectRecentUpdates(projectKey, filter);
+            // TODO: setup test data
             Assert.Equal(1, activities.Count);
             Assert.Equal(2, activities[0].Type);
             Assert.Equal(projectKey, activities[0].Project.ProjectKey);

@@ -155,6 +155,7 @@
     <Compile Include="Data\NumberTypeCustomField.cs" />
     <Compile Include="Data\RadioButtonTypeCustomField.cs" />
     <Compile Include="Data\OptionalParams.cs" />
+    <Compile Include="Data\RecentUpdateFilterOptions.cs" />
     <Compile Include="Data\SentenceTypeCustomField.cs" />
     <Compile Include="Data\SingleListTypeCustomeField.cs" />
     <Compile Include="Data\TextTypeCustomField.cs" />

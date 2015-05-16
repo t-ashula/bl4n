@@ -87,6 +87,26 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetSpaceActivities_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var filter = new RecentUpdateFilterOptions
+            {
+                Count = 5,
+                Ascending = true
+            };
+            var actual = backlog.GetSpaceActivities(filter);
+            Assert.NotNull(actual);
+            Assert.True(filter.Count >= actual.Count);
+            if (actual.Count > 2)
+            {
+                Assert.True(actual[0].Id < actual[1].Id);
+            }
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetSpaceLogoTest()
         {
             SkipIfSettingIsBroken();
@@ -338,6 +358,21 @@ namespace BL4N.Tests
             var uid = backlog.GetOwnUser().Id;
             var activities = backlog.GetUserRecentUpdates(uid);
             Assert.True(activities.Count > 0);
+            Assert.Equal(uid, activities[0].CreatedUser.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetUserRecentUpdates_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var uid = backlog.GetOwnUser().Id;
+            var filter = new RecentUpdateFilterOptions { Count = 5 };
+            var activities = backlog.GetUserRecentUpdates(uid, filter);
+            Assert.True(activities.Count > 0);
+            Assert.True(activities.Count <= filter.Count);
             Assert.Equal(uid, activities[0].CreatedUser.Id);
         }
 
@@ -797,6 +832,22 @@ namespace BL4N.Tests
 
             Assert.InRange(actual.Count, 1, 20);
             Assert.Equal(projectKey, actual[0].Project.ProjectKey);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectRecentUpdates_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var filter = new RecentUpdateFilterOptions { Count = 5 };
+            var actual = backlog.GetProjectRecentUpdates(projectId, filter);
+
+            Assert.True(actual.Count > 0);
+            Assert.True(actual.Count <= filter.Count);
+            Assert.Equal(projectId, actual[0].Project.Id);
         }
 
         /// <inheritdoc/>
