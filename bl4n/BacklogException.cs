@@ -11,10 +11,10 @@ using System.Net;
 
 namespace BL4N
 {
-    /// <summary> API ‚Ì—áŠO‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> API ã®ä¾‹å¤–ã‚’è¡¨ã—ã¾ã™ </summary>
     public class BacklogException : Exception
     {
-        /// <summary> ƒGƒ‰[‚Ì——R‚ğ•\‚µ‚Ü‚· </summary>
+        /// <summary> ã‚¨ãƒ©ãƒ¼ã®ç†ç”±ã‚’è¡¨ã—ã¾ã™ </summary>
         public enum ErrorReason
         {
             /// <summary> unknown reason </summary>
@@ -55,7 +55,7 @@ namespace BL4N
         }
 
         /// <summary>
-        /// <see cref="BacklogException"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚·
+        /// <see cref="BacklogException"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™
         /// </summary>
         public BacklogException()
         {
@@ -63,8 +63,8 @@ namespace BL4N
             ReasonMessages = new[] { string.Empty };
         }
 
-        /// <summary> ƒGƒ‰[‰“š‚ğŠî‚É <see cref="BacklogException"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
-        /// <param name="response">ƒGƒ‰[‰“š</param>
+        /// <summary> ã‚¨ãƒ©ãƒ¼å¿œç­”ã‚’åŸºã« <see cref="BacklogException"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
+        /// <param name="response">ã‚¨ãƒ©ãƒ¼å¿œç­”</param>
         public BacklogException(BacklogErrorResponse response)
         {
             Reasons = response.Errors.Select(i => (ErrorReason)i.Code).ToArray();
@@ -72,13 +72,13 @@ namespace BL4N
             StatusCode = response.StatusCode;
         }
 
-        /// <summary> ƒGƒ‰[‚Ì——Ri•¡”j‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ã‚¨ãƒ©ãƒ¼ã®ç†ç”±ï¼ˆè¤‡æ•°ï¼‰ã‚’å–å¾—ã—ã¾ã™ </summary>
         public ErrorReason[] Reasons { get; private set; }
 
-        /// <summary> ƒGƒ‰[‚Ì——R‚ğ•¶š—ñ‚Åæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ã‚¨ãƒ©ãƒ¼ã®ç†ç”±ã‚’æ–‡å­—åˆ—ã§å–å¾—ã—ã¾ã™ </summary>
         public string[] ReasonMessages { get; private set; }
 
-        /// <summary> HTTP ƒXƒe[ƒ^ƒXƒR[ƒh‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> HTTP ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—ã—ã¾ã™ </summary>
         public HttpStatusCode? StatusCode { get; private set; }
     }
 }
