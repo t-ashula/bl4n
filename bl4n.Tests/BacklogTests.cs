@@ -143,6 +143,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/groups のテスト </summary>
         public abstract void GetGroupsTest();
 
+        /// <summary> GET /api/v2/groups のテスト </summary>
+        public abstract void GetGroups_with_offset_Test();
+
         /// <summary> POST /api/v2/groups のテスト </summary>
         public abstract void AddGroupTest();
 

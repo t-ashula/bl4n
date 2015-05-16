@@ -502,11 +502,12 @@ namespace BL4N
         /// Get List of Groups
         /// Returns list of groups.
         /// </summary>
-        /// <remarks>TODO: more parameters</remarks>
+        /// <param name="offset">offse/count/ordre option</param>
         /// <returns>retur list of <see cref="IGroup"/></returns>
-        public IList<IGroup> GetGroups()
+        public IList<IGroup> GetGroups(OffsetOptions offset = null)
         {
-            var api = GetApiUri("/groups");
+            var query = offset == null ? null : offset.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "groups" }, query);
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<List<Group>>(api, jss);
             return res.Result.ToList<IGroup>();

@@ -153,6 +153,7 @@
     <Compile Include="Data\NewIssueSettings.cs" />
     <Compile Include="Data\NotificationsCountOptions.cs" />
     <Compile Include="Data\NumberTypeCustomField.cs" />
+    <Compile Include="Data\OffsetOptions.cs" />
     <Compile Include="Data\RadioButtonTypeCustomField.cs" />
     <Compile Include="Data\OptionalParams.cs" />
     <Compile Include="Data\RecentUpdateFilterOptions.cs" />

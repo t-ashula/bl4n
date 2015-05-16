@@ -492,6 +492,19 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetGroups_with_offset_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var offset = new OffsetOptions { Count = 4 };
+            var actual = backlog.GetGroups(offset);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual.Count <= 4);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddGroupTest()
         {
             SkipIfSettingIsBroken();
