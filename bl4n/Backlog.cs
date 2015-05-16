@@ -2726,12 +2726,13 @@ namespace BL4N
         /// Get Wiki Page History
         /// Returns history of Wiki page.
         /// </summary>
-        /// <param name="wikiId">wiki [age id</param>
+        /// <param name="wikiId">wiki page id</param>
+        /// <param name="filter">result paging option</param>
         /// <returns>list of <see cref="IWikiPageHistory"/></returns>
-        /// <remarks>TODO: more parameters </remarks>
-        public IList<IWikiPageHistory> GetWikiPageHistory(long wikiId)
+        public IList<IWikiPageHistory> GetWikiPageHistory(long wikiId, ResultPagingOptions filter = null)
         {
-            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "history" });
+            var query = filter == null ? null : filter.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "wikis", wikiId.ToString(), "history" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

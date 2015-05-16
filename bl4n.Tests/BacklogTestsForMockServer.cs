@@ -3794,6 +3794,22 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetWikiPageHistory_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long wikiId = r.Next(1000);
+            var filter = new ResultPagingOptions();
+            var actual = backlog.GetWikiPageHistory(wikiId, filter);
+            Assert.NotNull(actual);
+            Assert.True(true, "pain"); // TODO: setup test data
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetWikiPageStarsTest()
         {
             SkipIfSettingIsBroken();

@@ -3314,6 +3314,24 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetWikiPageHistory_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var wikiPages = backlog.GetWikiPages(projectId);
+            Assert.True(wikiPages.Count > 0);
+            var pageId = wikiPages[0].Id;
+            var filter = new ResultPagingOptions { Count = 2 };
+            var actual = backlog.GetWikiPageHistory(pageId, filter);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual.Count <= 2);
+            Assert.Equal(pageId, actual[0].PageId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetWikiPageStarsTest()
         {
             SkipIfSettingIsBroken();

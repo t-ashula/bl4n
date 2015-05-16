@@ -575,6 +575,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/wikis/:wikiId/history </summary>
         public abstract void GetWikiPageHistoryTest();
 
+        /// <summary> GET /api/v2/wikis/:wikiId/history </summary>
+        public abstract void GetWikiPageHistory_with_filter_Test();
+
         /// <summary> GET /api/v2/wikis/:wikiId/stars </summary>
         public abstract void GetWikiPageStarsTest();
 
