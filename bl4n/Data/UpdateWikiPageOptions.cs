@@ -12,7 +12,7 @@ using System.Linq;
 namespace BL4N.Data
 {
     /// <summary>
-    /// wikipage ‚ÌV‹Kì¬—p‚Ìƒpƒ‰ƒ[ƒ^‚ğ•\‚µ‚Ü‚·
+    /// wikipage ã®æ–°è¦ä½œæˆç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¡¨ã—ã¾ã™
     /// </summary>
     public class UpdateWikiPageOptions : OptionalParams
     {
@@ -24,13 +24,13 @@ namespace BL4N.Data
         private string _content;
         private bool _notify;
 
-        /// <summary> <see cref="UpdateWikiPageOptions"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
+        /// <summary> <see cref="UpdateWikiPageOptions"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
         public UpdateWikiPageOptions()
             : base(NameProperty, ContentProperty, NotifyProperty)
         {
         }
 
-        /// <summary> ƒy[ƒW–¼‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> ãƒšãƒ¼ã‚¸åã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public string Name
         {
             get { return _name; }
@@ -41,7 +41,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ƒy[ƒW“à—e‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> ãƒšãƒ¼ã‚¸å†…å®¹ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public string Content
         {
             get { return _content; }
@@ -52,7 +52,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ƒ[ƒ‹’Ê’m‚·‚é‚©‚Ç‚¤‚©‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> ãƒ¡ãƒ¼ãƒ«é€šçŸ¥ã™ã‚‹ã‹ã©ã†ã‹ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public bool Notify
         {
             get { return _notify; }
@@ -63,8 +63,8 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> HTTP Request —p‚Ì Key-value ƒyƒA‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
-        /// <returns> key-value ƒyƒA‚Ìˆê—— </returns>
+        /// <summary> HTTP Request ç”¨ã® Key-value ãƒšã‚¢ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
+        /// <returns> key-value ãƒšã‚¢ã®ä¸€è¦§ </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
         {
             var pairs = new List<KeyValuePair<string, string>>();
