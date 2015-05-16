@@ -2560,6 +2560,9 @@ namespace BL4N.Tests
             var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
             Assert.True(issues.Count > 0);
             var issueId = issues[0].Id;
+            var com = new CommentAddContent("GetIssueCommentCount");
+            var added = backlog.AddIssueComment(issueId, com);
+            Assert.True(added.Id > 0);
             var actual = backlog.GetIssueCommentCount(issueId);
             Assert.True(actual.Count > 0);
         }
@@ -2574,6 +2577,9 @@ namespace BL4N.Tests
             var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
             Assert.True(issues.Count > 0);
             var issueKey = issues[0].IssueKey;
+            var com = new CommentAddContent("GetIssueCommentCount_with_key_Test");
+            var added = backlog.AddIssueComment(issueKey, com);
+            Assert.True(added.Id > 0);
             var actual = backlog.GetIssueCommentCount(issueKey);
             Assert.True(actual.Count > 0);
         }
