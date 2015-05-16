@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace BL4N.Data
 {
-    /// <summary> Œ‹‰Ê‚Ì”ÍˆÍ‚âŒÂ”C‡˜‚ğw’è‚·‚éƒIƒvƒVƒ‡ƒ“‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> çµæœã®ç¯„å›²ã‚„å€‹æ•°ï¼Œé †åºã‚’æŒ‡å®šã™ã‚‹ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¡¨ã—ã¾ã™ </summary>
     public class ResultPagingOptions : OptionalParams
     {
         private const string MinIdProperty = "minId";
@@ -23,13 +23,13 @@ namespace BL4N.Data
         private int _count;
         private bool _ascending;
 
-        /// <summary> <see cref="RecentUpdateFilterOptions"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
+        /// <summary> <see cref="RecentUpdateFilterOptions"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
         public ResultPagingOptions()
             : base(MinIdProperty, MaxIdProperty, CountProperty, OrderProperty)
         {
         }
 
-        /// <summary> Å¬‚ÌID ‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æœ€å°ã®ID ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         public long MinId
         {
             get { return _minId; }
@@ -40,7 +40,7 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> Å‘å‚ÌID ‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
+        /// <summary> æœ€å¤§ã®ID ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
         public long MaxId
         {
             get { return _maxId; }
@@ -51,8 +51,8 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> æ“¾ŒÂ”‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚·D </summary>
-        /// <remarks> 1‚©‚ç100 ‚Ü‚Åiw’è–³‚µ‚Ìê‡ 20)</remarks>
+        /// <summary> å–å¾—å€‹æ•°ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ï¼ </summary>
+        /// <remarks> 1ã‹ã‚‰100 ã¾ã§ï¼ˆæŒ‡å®šç„¡ã—ã®å ´åˆ 20)</remarks>
         public int Count
         {
             get { return _count; }
@@ -73,8 +73,8 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> ¸‡‚Åæ“¾‚·‚é‚©‚Ç‚¤‚©‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
-        /// <remarks> w’è–³‚µ‚Ìê‡ ~‡</remarks>
+        /// <summary> æ˜‡é †ã§å–å¾—ã™ã‚‹ã‹ã©ã†ã‹ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
+        /// <remarks> æŒ‡å®šç„¡ã—ã®å ´åˆ é™é †</remarks>
         public bool Ascending
         {
             get { return _ascending; }
@@ -85,8 +85,8 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> HTTP Request —p‚Ì Key-value ƒyƒA‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
-        /// <returns> key-value ƒyƒA‚Ìˆê—— </returns>
+        /// <summary> HTTP Request ç”¨ã® Key-value ãƒšã‚¢ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
+        /// <returns> key-value ãƒšã‚¢ã®ä¸€è¦§ </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
         {
             var pairs = new List<KeyValuePair<string, string>>();
