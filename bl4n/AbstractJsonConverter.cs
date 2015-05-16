@@ -11,8 +11,8 @@ using Newtonsoft.Json.Linq;
 
 namespace BL4N
 {
-    /// <summary> ƒAƒuƒXƒgƒ‰ƒNƒgƒNƒ‰ƒX‚Ì”h¶ƒNƒ‰ƒX‚Ì‚½‚ß‚ÌƒRƒ“ƒo[ƒ^‚ğ•\‚µ‚Ü‚· </summary>
-    /// <typeparam name="T">ƒAƒuƒXƒgƒ‰ƒNƒgƒNƒ‰ƒX</typeparam>
+    /// <summary> ã‚¢ãƒ–ã‚¹ãƒˆãƒ©ã‚¯ãƒˆã‚¯ãƒ©ã‚¹ã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã®ãŸã‚ã®ã‚³ãƒ³ãƒãƒ¼ã‚¿ã‚’è¡¨ã—ã¾ã™ </summary>
+    /// <typeparam name="T">ã‚¢ãƒ–ã‚¹ãƒˆãƒ©ã‚¯ãƒˆã‚¯ãƒ©ã‚¹</typeparam>
     internal abstract class AbstractJsonConverter<T> : JsonConverter
     {
         protected abstract T Create(Type objectType, JObject jobj);
@@ -35,11 +35,11 @@ namespace BL4N
             throw new NotImplementedException();
         }
 
-        /// <summary> ƒtƒB[ƒ‹ƒh‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©‚ğæ“¾‚µ‚Ü‚· </summary>
-        /// <param name="jobj">Json.net ƒIƒuƒWƒFƒNƒg</param>
-        /// <param name="name">ƒtƒB[ƒ‹ƒh–¼</param>
-        /// <param name="type">ƒtƒB[ƒ‹ƒh‚ÌŒ^</param>
-        /// <returns>‘¶İ‚·‚é‚Æ‚« true</returns>
+        /// <summary> ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã‹ã©ã†ã‹ã‚’å–å¾—ã—ã¾ã™ </summary>
+        /// <param name="jobj">Json.net ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
+        /// <param name="name">ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å</param>
+        /// <param name="type">ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å‹</param>
+        /// <returns>å­˜åœ¨ã™ã‚‹ã¨ã true</returns>
         protected static bool FieldExists(JObject jobj, string name, JTokenType type)
         {
             JToken token;
