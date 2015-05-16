@@ -12,21 +12,21 @@ using System.Linq;
 namespace BL4N.Data
 {
     /// <summary>
-    /// wikipage ‚ÌV‹Kì¬—p‚Ìƒpƒ‰ƒ[ƒ^‚ğ•\‚µ‚Ü‚·
+    /// wikipage ã®æ–°è¦ä½œæˆç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¡¨ã—ã¾ã™
     /// </summary>
     public class AddWikiPageOptions
     {
-        /// <summary> ƒy[ƒW–¼‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒšãƒ¼ã‚¸åã‚’å–å¾—ã—ã¾ã™ </summary>
         public string Name { get; private set; }
 
-        /// <summary> ƒy[ƒW“à—e‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒšãƒ¼ã‚¸å†…å®¹ã‚’å–å¾—ã—ã¾ã™ </summary>
         public string Content { get; private set; }
 
-        /// <summary> ƒ[ƒ‹’Ê’m‚·‚é‚©‚Ç‚¤‚©‚ğæ“¾‚µ‚Ü‚·D </summary>
+        /// <summary> ãƒ¡ãƒ¼ãƒ«é€šçŸ¥ã™ã‚‹ã‹ã©ã†ã‹ã‚’å–å¾—ã—ã¾ã™ï¼ </summary>
         public bool Notify { get; private set; }
 
         /// <summary>
-        /// <see cref="AddWikiPageOptions"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚·
+        /// <see cref="AddWikiPageOptions"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™
         /// </summary>
         /// <param name="name">wiki page name</param>
         /// <param name="content">wiki page content</param>
@@ -39,7 +39,7 @@ namespace BL4N.Data
         }
 
         /// <summary>
-        /// HTTP Request —p‚Ì key-value pair ‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚·
+        /// HTTP Request ç”¨ã® key-value pair ã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™
         /// </summary>
         /// <returns>parameters as key-value pairs</returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
