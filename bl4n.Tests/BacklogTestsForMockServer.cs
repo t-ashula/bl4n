@@ -659,6 +659,21 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetReceivedStarList_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var filter = new ResultPagingOptions();
+            var actual = backlog.GetReceivedStarList(1, filter);
+
+            Assert.NotNull(actual);
+            Assert.True(true, "pain"); // todo: setup test data
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void CountUserReceivedStarsTest()
         {
             SkipIfSettingIsBroken();

@@ -118,6 +118,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/users/:userId/stars のテスト </summary>
         public abstract void GetReceivedStarListTest();
 
+        /// <summary> GET /api/v2/users/:userId/stars のテスト </summary>
+        public abstract void GetReceivedStarList_with_filter_Test();
+
         /// <summary> GET /api/v2/users/:userId/stars/count のテスト </summary>
         public abstract void CountUserReceivedStarsTest();
 

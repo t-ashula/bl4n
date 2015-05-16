@@ -395,6 +395,22 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetReceivedStarList_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var uid = backlog.GetOwnUser().Id;
+            var filter = new ResultPagingOptions { Count = 5 };
+            var actual = backlog.GetReceivedStarList(uid, filter);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual.Count <= filter.Count);
+            Assert.Equal(null, actual[0].Comment);
+            Assert.StartsWith("https://bl4n.backlog.jp/", actual[0].Url);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void CountUserReceivedStarsTest()
         {
             SkipIfSettingIsBroken();

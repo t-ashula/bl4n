@@ -418,12 +418,13 @@ namespace BL4N
         /// Get Received Star List.
         /// Returns the list of stars that user received.
         /// </summary>
-        /// <remarks>TODO: more parameters</remarks>
         /// <param name="uid">user id</param>
+        /// <param name="filter"></param>
         /// <returns>list of <see cref="IStar"/></returns>
-        public IList<IStar> GetReceivedStarList(long uid)
+        public IList<IStar> GetReceivedStarList(long uid, ResultPagingOptions filter = null)
         {
-            var api = GetApiUri(string.Format("/users/{0}/stars", uid));
+            var query = filter == null ? null : filter.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "users", string.Format("{0}", uid), "stars" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -2911,9 +2912,5 @@ namespace BL4N
             var s = await ua.SendAsync(request);
             return await DeserializeObject<T>(s, new JsonSerializerSettings());
         }
-    }
-
-    namespace Data
-    {
     }
 }

@@ -11,21 +11,21 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    /// <summary> •K{‚Å‚Í‚È‚¢ƒpƒ‰ƒ[ƒ^‚Ì•ÏX‚ğ’ÇÕ‚µ‚Ü‚· </summary>
+    /// <summary> å¿…é ˆã§ã¯ãªã„ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å¤‰æ›´ã‚’è¿½è·¡ã—ã¾ã™ </summary>
     public abstract class OptionalParams
     {
         private readonly Dictionary<string, bool> _changing;
 
-        /// <summary> <see cref="OptionalParams"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
-        /// <param name="keys"> •ÏX‚ğ’ÇÕ‚·‚éƒvƒƒpƒeƒB–¼ </param>
+        /// <summary> <see cref="OptionalParams"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
+        /// <param name="keys"> å¤‰æ›´ã‚’è¿½è·¡ã™ã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å </param>
         protected OptionalParams(params string[] keys)
         {
             _changing = new Dictionary<string, bool>();
             AddTrackingKeys(keys);
         }
 
-        /// <summary> •ÏX‚ğ’ÇÕ‚·‚éƒvƒƒpƒeƒB–¼‚ğ’Ç‰Á‚µ‚Ü‚· </summary>
-        /// <param name="keys"> •ÏX‚ğ’ÇÕ‚·‚éƒvƒƒpƒeƒB–¼ </param>
+        /// <summary> å¤‰æ›´ã‚’è¿½è·¡ã™ã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£åã‚’è¿½åŠ ã—ã¾ã™ </summary>
+        /// <param name="keys"> å¤‰æ›´ã‚’è¿½è·¡ã™ã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å </param>
         protected void AddTrackingKeys(params string[] keys)
         {
             foreach (var key in keys)
@@ -34,16 +34,16 @@ namespace BL4N.Data
             }
         }
 
-        /// <summary> <paramref name="key"/> ‚ª•ÏX‚³‚ê‚½‚©‚Ç‚¤‚©‚ğ“¾‚Ü‚· </summary>
-        /// <param name="key">ƒvƒƒpƒeƒB–¼</param>
-        /// <returns> •ÏX‚³‚ê‚½‚ç true </returns>
+        /// <summary> <paramref name="key"/> ãŒå¤‰æ›´ã•ã‚ŒãŸã‹ã©ã†ã‹ã‚’å¾—ã¾ã™ </summary>
+        /// <param name="key">ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å</param>
+        /// <returns> å¤‰æ›´ã•ã‚ŒãŸã‚‰ true </returns>
         protected bool IsPropertyChanged(string key)
         {
             return _changing[key];
         }
 
-        /// <summary> <paramref name="key"/> ‚ª•ÏX‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Ñ‚Ü‚· </summary>
-        /// <param name="key"> •ÏX‚³‚ê‚½ƒvƒƒpƒeƒB–¼ </param>
+        /// <summary> <paramref name="key"/> ãŒå¤‰æ›´ã•ã‚ŒãŸã¨ãã«å‘¼ã³ã¾ã™ </summary>
+        /// <param name="key"> å¤‰æ›´ã•ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å </param>
         protected void PropertyChanged(string key)
         {
             _changing[key] = true;
