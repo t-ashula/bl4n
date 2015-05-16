@@ -423,6 +423,18 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void CountUserReceivedStars_with_term_Test()
+        {
+            SkipIfSettingIsBroken();
+            var backlog = new Backlog(Settings);
+            var uid = backlog.GetOwnUser().Id;
+            var term = new TermOptions(null, new DateTime(2015, 1, 1));
+            var actual = backlog.CountUserReceivedStars(uid, term);
+            Assert.True(actual.Count == 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetListOfRecentlyViewedIssuesTest()
         {
             SkipIfSettingIsBroken();

@@ -686,6 +686,19 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void CountUserReceivedStars_with_term_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var term = new TermOptions();
+            var actual = backlog.CountUserReceivedStars(1, term);
+            Assert.Equal(42, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetListOfRecentlyViewedIssuesTest()
         {
             SkipIfSettingIsBroken();

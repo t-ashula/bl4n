@@ -437,12 +437,13 @@ namespace BL4N
         /// Count User Received Stars
         /// Returns number of stars that user received.
         /// </summary>
-        /// <remarks>TODO: more parameters</remarks>
         /// <param name="uid">user id</param>
+        /// <param name="term">term (since and/or until)</param>
         /// <returns><see cref="ICounter"/></returns>
-        public ICounter CountUserReceivedStars(long uid)
+        public ICounter CountUserReceivedStars(long uid, TermOptions term = null)
         {
-            var api = GetApiUri(string.Format("/users/{0}/stars/count", uid));
+            var query = term == null ? null : term.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "users", string.Format("{0}", uid), "stars", "count" }, query);
             var jss = new JsonSerializerSettings();
             var res = GetApiResult<Counter>(api, jss);
             return res.Result;

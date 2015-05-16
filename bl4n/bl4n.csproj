@@ -159,6 +159,7 @@
     <Compile Include="Data\ResultPagingOptions.cs" />
     <Compile Include="Data\SentenceTypeCustomField.cs" />
     <Compile Include="Data\SingleListTypeCustomeField.cs" />
+    <Compile Include="Data\TermOptions.cs" />
     <Compile Include="Data\TextTypeCustomField.cs" />
     <Compile Include="Data\TypedCustomField.cs" />
     <Compile Include="Data\ISharedFileData.cs" />
