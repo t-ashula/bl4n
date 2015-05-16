@@ -3645,8 +3645,8 @@ namespace BL4N.Tests
             var name = string.Format("name.{0}", DateTime.Now);
             var content = string.Format("content.{0}", DateTime.UtcNow);
             var mailNotify = r.Next() % 2 == 0;
-            var addWikiPageOptions = new AddWikiPageOptions(name, content, mailNotify);
-            var actual = backlog.UpdateWikiPage(wikiId, addWikiPageOptions);
+            var updateOptions = new UpdateWikiPageOptions { Name = name, Content = content, Notify = mailNotify };
+            var actual = backlog.UpdateWikiPage(wikiId, updateOptions);
             Assert.Equal(wikiId, actual.Id);
             Assert.Equal(name, actual.Name);
             Assert.Equal(content, actual.Content);

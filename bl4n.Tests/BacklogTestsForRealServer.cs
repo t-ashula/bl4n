@@ -3172,7 +3172,7 @@ namespace BL4N.Tests
             var name = string.Format("name.{0}", DateTime.Now);
             var content = string.Format("content.{0}", DateTime.UtcNow);
             var mailNotify = r.Next() % 2 == 0;
-            var updateOptions = new AddWikiPageOptions("[xunit] " + name, content, mailNotify);
+            var updateOptions = new UpdateWikiPageOptions { Name = "[xunit] " + name, Content = content, Notify = mailNotify };
             var actual = backlog.UpdateWikiPage(wikiId, updateOptions);
             Assert.True(actual.Id > 0); // XXX: wikiId != updated.Id ???
             Assert.Equal(name, actual.Name);

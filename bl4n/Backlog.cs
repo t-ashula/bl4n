@@ -2552,7 +2552,7 @@ namespace BL4N
         /// <param name="wikiId">wiki page id</param>
         /// <param name="updateOptions">update option</param>
         /// <returns>updated <see cref="IWikiPage"/></returns>
-        public IWikiPage UpdateWikiPage(long wikiId, AddWikiPageOptions updateOptions)
+        public IWikiPage UpdateWikiPage(long wikiId, UpdateWikiPageOptions updateOptions)
         {
             var api = GetApiUri(new[] { "wikis", wikiId.ToString() });
             var jss = new JsonSerializerSettings
