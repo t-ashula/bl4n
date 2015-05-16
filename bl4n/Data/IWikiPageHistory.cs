@@ -11,25 +11,25 @@ using System.Runtime.Serialization;
 
 namespace BL4N.Data
 {
-    /// <summary> wiki page ‚Ì—š—ğ‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> wiki page ã®å±¥æ­´ã‚’è¡¨ã—ã¾ã™ </summary>
     public interface IWikiPageHistory
     {
-        /// <summary> ƒy[ƒW ID ‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒšãƒ¼ã‚¸ ID ã‚’å–å¾—ã—ã¾ã™ </summary>
         long PageId { get; }
 
-        /// <summary> ƒo[ƒWƒ‡ƒ“‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’å–å¾—ã—ã¾ã™ </summary>
         long Version { get; }
 
-        /// <summary> ƒy[ƒW–¼ ‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒšãƒ¼ã‚¸å ã‚’å–å¾—ã—ã¾ã™ </summary>
         string Name { get; }
 
-        /// <summary> ƒy[ƒW“à—e‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒšãƒ¼ã‚¸å†…å®¹ã‚’å–å¾—ã—ã¾ã™ </summary>
         string Content { get; }
 
-        /// <summary> ì¬ƒ†[ƒU[‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚’å–å¾—ã—ã¾ã™ </summary>
         IUser CreatedUser { get; }
 
-        /// <summary> ì¬“ú‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ä½œæˆæ—¥æ™‚ã‚’å–å¾—ã—ã¾ã™ </summary>
         DateTime Created { get; }
     }
 
