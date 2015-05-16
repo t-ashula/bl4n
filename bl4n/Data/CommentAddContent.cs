@@ -11,11 +11,11 @@ using System.Linq;
 
 namespace BL4N.Data
 {
-    /// <summary> ƒRƒƒ“ƒg’Ç‰Á—p‚Ìƒpƒ‰ƒ[ƒ^‚ğ•\‚µ‚Ü‚· </summary>
+    /// <summary> ã‚³ãƒ¡ãƒ³ãƒˆè¿½åŠ ç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¡¨ã—ã¾ã™ </summary>
     public class CommentAddContent
     {
-        /// <summary> <see cref="CommentAddContent"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚· </summary>
-        /// <param name="content">ƒRƒƒ“ƒg–{•¶</param>
+        /// <summary> <see cref="CommentAddContent"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™ </summary>
+        /// <param name="content">ã‚³ãƒ¡ãƒ³ãƒˆæœ¬æ–‡</param>
         public CommentAddContent(string content)
         {
             Content = content;
@@ -23,8 +23,8 @@ namespace BL4N.Data
             AttachmentIds = new List<long>();
         }
 
-        /// <summary> ƒRƒƒ“ƒg’Ç‰Á—p‚Ìƒpƒ‰ƒ[ƒ^‚ğƒL[ƒoƒŠƒ…[‚ÌƒyƒA‚É•ÏŠ·‚µ‚Ü‚· </summary>
-        /// <returns> •ÏŠ·‚³‚ê‚½ƒRƒƒ“ƒg’Ç‰Á—p‚Ìƒpƒ‰ƒ[ƒ^ </returns>
+        /// <summary> ã‚³ãƒ¡ãƒ³ãƒˆè¿½åŠ ç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ã‚­ãƒ¼ãƒãƒªãƒ¥ãƒ¼ã®ãƒšã‚¢ã«å¤‰æ›ã—ã¾ã™ </summary>
+        /// <returns> å¤‰æ›ã•ã‚ŒãŸã‚³ãƒ¡ãƒ³ãƒˆè¿½åŠ ç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
         {
             var pairs = new List<KeyValuePair<string, string>>
@@ -36,13 +36,13 @@ namespace BL4N.Data
             return pairs;
         }
 
-        /// <summary> ƒRƒƒ“ƒg–{•¶‚ğæ“¾‚Ü‚½‚Íİ’è‚µ‚Ü‚· </summary>
+        /// <summary> ã‚³ãƒ¡ãƒ³ãƒˆæœ¬æ–‡ã‚’å–å¾—ã¾ãŸã¯è¨­å®šã—ã¾ã™ </summary>
         public string Content { get; set; }
 
-        /// <summary> ’Ê’m‚·‚éƒ†[ƒU[ID‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> é€šçŸ¥ã™ã‚‹ãƒ¦ãƒ¼ã‚¶ãƒ¼IDã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
         public List<long> NotifiedUserIds { get; private set; }
 
-        /// <summary> “Y•tƒtƒ@ƒCƒ‹ID‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«IDã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
         public List<long> AttachmentIds { get; private set; }
     }
 }

@@ -12,19 +12,19 @@ using System.Linq;
 namespace BL4N.Data
 {
     /// <summary>
-    /// ’Ê’m‚ÌŒÂ”‚ÌŒŸõğŒ‚ğ•\‚µ‚Ü‚·
+    /// é€šçŸ¥ã®å€‹æ•°ã®æ¤œç´¢æ¡ä»¶ã‚’è¡¨ã—ã¾ã™
     /// </summary>
     public class NotificationsCountOptions : OptionalParams
     {
         /// <summary>
-        /// <see cref="NotificationsCountOptions"/> ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‰Šú‰»‚µ‚Ü‚·
+        /// <see cref="NotificationsCountOptions"/> ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’åˆæœŸåŒ–ã—ã¾ã™
         /// </summary>
         public NotificationsCountOptions()
             : base(AlreadReadProperty, ResourceAlreadyReadProperty)
         {
         }
 
-        /// <summary> Šù“Ç‚©‚Ç‚¤‚©‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æ—¢èª­ã‹ã©ã†ã‹ã‚’å–å¾—ã—ã¾ã™ </summary>
         public bool AlreadyRead
         {
             get { return _alreadyRead; }
@@ -38,7 +38,7 @@ namespace BL4N.Data
         private bool _alreadyRead;
         private const string AlreadReadProperty = "alreadRead";
 
-        /// <summary> ƒŠƒ\[ƒX‚ªŠù“Ç‚©‚Ç‚¤‚©‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ãƒªã‚½ãƒ¼ã‚¹ãŒæ—¢èª­ã‹ã©ã†ã‹ã‚’å–å¾—ã—ã¾ã™ </summary>
         public bool ResourceAlreadyRead
         {
             get { return _resourceAlreadyRead; }
@@ -52,8 +52,8 @@ namespace BL4N.Data
         private bool _resourceAlreadyRead;
         private const string ResourceAlreadyReadProperty = "resourceAlreadyRead";
 
-        /// <summary> HTTP Request —p‚Ì Key-value ƒyƒA‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
-        /// <returns> key-value ƒyƒA‚Ìˆê—— </returns>
+        /// <summary> HTTP Request ç”¨ã® Key-value ãƒšã‚¢ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
+        /// <returns> key-value ãƒšã‚¢ã®ä¸€è¦§ </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
         {
             var pairs = new List<KeyValuePair<string, string>>();
