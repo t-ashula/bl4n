@@ -2581,6 +2581,27 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueComments_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var issues = backlog.GetIssues(new[] { projectId }, new IssueSearchConditions());
+            Assert.True(issues.Count > 0);
+            var issueId = issues[0].Id;
+            backlog.AddIssueComment(issueId, new CommentAddContent(DateTime.Now.ToLongDateString()));
+            backlog.AddIssueComment(issueId, new CommentAddContent(DateTime.Now.ToLongDateString()));
+            backlog.AddIssueComment(issueId, new CommentAddContent(DateTime.Now.ToLongDateString()));
+            var filter = new ResultPagingOptions { Count = 2 };
+            var actual = backlog.GetIssueComments(issueId, filter);
+            Assert.Equal(filter.Count, actual.Count);
+            var comment = actual[0];
+            Assert.True(comment.Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddIssueCommentTest()
         {
             SkipIfSettingIsBroken();

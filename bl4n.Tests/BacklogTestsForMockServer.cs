@@ -3150,6 +3150,22 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssueComments_with_filter_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            long issueId = r.Next();
+            var filter = new ResultPagingOptions();
+            var actual = backlog.GetIssueComments(issueId, filter);
+            Assert.NotNull(actual);
+            Assert.True(true, "pain"); // TODO: setup test data
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddIssueCommentTest()
         {
             SkipIfSettingIsBroken();

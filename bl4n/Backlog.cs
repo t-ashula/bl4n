@@ -419,7 +419,7 @@ namespace BL4N
         /// Returns the list of stars that user received.
         /// </summary>
         /// <param name="uid">user id</param>
-        /// <param name="filter"></param>
+        /// <param name="filter">result paging option</param>
         /// <returns>list of <see cref="IStar"/></returns>
         public IList<IStar> GetReceivedStarList(long uid, ResultPagingOptions filter = null)
         {
@@ -2009,11 +2009,11 @@ namespace BL4N
         /// Returns list of comments in issue.
         /// </summary>
         /// <param name="issueId">issue id</param>
+        /// <param name="filter">result paging option</param>
         /// <returns>list of <see cref="IIssueComment"/></returns>
-        /// <remarks>TODO: add more parameters</remarks>
-        public IList<IIssueComment> GetIssueComments(long issueId)
+        public IList<IIssueComment> GetIssueComments(long issueId, ResultPagingOptions filter = null)
         {
-            return GetIssueComments(string.Format("{0}", issueId));
+            return GetIssueComments(string.Format("{0}", issueId), filter);
         }
 
         /// <summary>
@@ -2021,11 +2021,12 @@ namespace BL4N
         /// Returns list of comments in issue.
         /// </summary>
         /// <param name="issueKey">issue key (like XXX-123)</param>
+        /// <param name="filter">result paging option</param>
         /// <returns>list of <see cref="IIssueComment"/></returns>
-        /// <remarks>TODO: add more parameters</remarks>
-        public IList<IIssueComment> GetIssueComments(string issueKey)
+        public IList<IIssueComment> GetIssueComments(string issueKey, ResultPagingOptions filter = null)
         {
-            var api = GetApiUri(new[] { "issues", issueKey, "comments" });
+            var query = filter == null ? null : filter.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "issues", issueKey, "comments" }, query);
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,

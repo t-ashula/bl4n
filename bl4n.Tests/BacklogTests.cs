@@ -451,6 +451,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues/:issueIdOrKey/comments </summary>
         public abstract void GetIssueComments_with_key_Test();
 
+        /// <summary> GET /api/v2/issues/:issueIdOrKey/comments </summary>
+        public abstract void GetIssueComments_with_filter_Test();
+
         /// <summary> POST /api/v2/issues/:issueIdOrKey/comments </summary>
         public abstract void AddIssueCommentTest();
 
