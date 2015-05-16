@@ -20,7 +20,7 @@ namespace BL4N.Data
         /// <param name="name">name</param>
         /// <param name="mailAddress">mail address</param>
         /// <param name="roleType">role type</param>
-        public AddUserOptions(string userId, string pass, string name, string mailAddress, int roleType)
+        public AddUserOptions(string userId, string pass, string name, string mailAddress, UserRoleType roleType)
         {
             UserId = userId;
             PassWord = pass;
@@ -42,7 +42,7 @@ namespace BL4N.Data
         public string MailAddress { get; set; }
 
         /// <summary> 権限を取得または設定します </summary>
-        public int RoleType { get; set; }
+        public UserRoleType RoleType { get; set; }
 
         /// <summary> HTTP Request 用の Key-value ペアの一覧を取得します </summary>
         /// <returns> key-value ペアの一覧 </returns>
@@ -53,7 +53,7 @@ namespace BL4N.Data
                 new KeyValuePair<string, string>("userId", UserId),
                 new KeyValuePair<string, string>("name", Name),
                 new KeyValuePair<string, string>("mailAddress", MailAddress),
-                new KeyValuePair<string, string>("roleType", RoleType.ToString()),
+                new KeyValuePair<string, string>("roleType", string.Format("{0}", (int)RoleType)),
                 new KeyValuePair<string, string>("password", PassWord)
             };
             return kvs;

@@ -261,13 +261,13 @@ namespace BL4N.Tests
             var pass = Path.GetTempFileName().PadLeft(21);
             pass = pass.Substring(pass.Length - 20, 20);
 
-            var options = new AddUserOptions(userId, pass, name, mailAddress, 6);
+            var options = new AddUserOptions(userId, pass, name, mailAddress, UserRoleType.GuestViewer);
             var actual = backlog.AddUser(options);
             Assert.True(actual.Id > 0);
             Assert.Equal(options.UserId, actual.UserId);
             Assert.Equal(options.Name, actual.Name);
             Assert.Equal(options.MailAddress, actual.MailAddress);
-            Assert.Equal(options.RoleType, actual.RoleType);
+            Assert.Equal((int)options.RoleType, actual.RoleType);
             backlog.DeleteUser(actual.Id);
         }
 
@@ -279,7 +279,7 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
 
             var userId = string.Format("bl4n.{0}", DateTime.Now.Ticks % 1000);
-            var addOptions = new AddUserOptions(userId, "hogehoge", "bl4n.old", "bl4n.old@example.com", 6);
+            var addOptions = new AddUserOptions(userId, "hogehoge", "bl4n.old", "bl4n.old@example.com", UserRoleType.GuestViewer);
             var oldUser = backlog.AddUser(addOptions);
             Assert.True(oldUser.Id > 0);
 
@@ -303,7 +303,7 @@ namespace BL4N.Tests
             var pass = Path.GetTempFileName().PadLeft(21);
             pass = pass.Substring(pass.Length - 20, 20);
 
-            var options = new AddUserOptions(userId, pass, name, mailAddress, 6);
+            var options = new AddUserOptions(userId, pass, name, mailAddress, UserRoleType.GuestViewer);
             var added = backlog.AddUser(options);
 
             var deleted = backlog.DeleteUser(added.Id);
@@ -971,7 +971,7 @@ namespace BL4N.Tests
             var projectId = backlog.GetProjects()[0].Id;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 5);
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.GuestReporter);
             var newUser = backlog.AddUser(options);
             var actual = backlog.AddProjectUser(projectId, newUser.Id);
             Assert.Equal(newUser.Id, actual.Id);
@@ -994,7 +994,7 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 5);
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.GuestReporter);
             var newUser = backlog.AddUser(options);
             var actual = backlog.AddProjectUser(projectKey, newUser.Id);
             Assert.Equal(newUser.Id, actual.Id);
@@ -1041,7 +1041,7 @@ namespace BL4N.Tests
             var projectId = backlog.GetProjects()[0].Id;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 5);
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.GuestReporter);
             var newUser = backlog.AddUser(options);
             var addedUser = backlog.AddProjectUser(projectId, newUser.Id);
             var actual = backlog.DeleteProjectUser(projectId, addedUser.Id);
@@ -1065,7 +1065,7 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 5);
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.GuestReporter);
             var newUser = backlog.AddUser(options);
             var addedUser = backlog.AddProjectUser(projectKey, newUser.Id);
             var actual = backlog.DeleteProjectUser(projectKey, addedUser.Id);
@@ -1093,7 +1093,7 @@ namespace BL4N.Tests
             var projectId = backlog.GetProjects()[0].Id;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 2); // normal user
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.NormalUser);
             var newUser = backlog.AddUser(options);
             Assert.NotEqual(0, newUser.Id);
             var addedUser = backlog.AddProjectUser(projectId, newUser.Id);
@@ -1119,7 +1119,7 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 2); // normal user
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.NormalUser);
             var newUser = backlog.AddUser(options);
             Assert.NotEqual(0, newUser.Id);
             var addedUser = backlog.AddProjectUser(projectKey, newUser.Id);
@@ -1177,7 +1177,7 @@ namespace BL4N.Tests
             var projectId = backlog.GetProjects()[0].Id;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 2); // normal user
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.NormalUser);
             var newUser = backlog.AddUser(options);
 
             Assert.NotEqual(0, newUser.Id);
@@ -1209,7 +1209,7 @@ namespace BL4N.Tests
             var projectKey = backlog.GetProjects()[0].ProjectKey;
             var r = new Random();
             var newUserName = string.Format("g.{0:X}", r.Next());
-            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", 2); // normal user
+            var options = new AddUserOptions(newUserName, "hogehoge", newUserName, newUserName + "@example.com", UserRoleType.NormalUser);
             var newUser = backlog.AddUser(options);
 
             Assert.NotEqual(0, newUser.Id);

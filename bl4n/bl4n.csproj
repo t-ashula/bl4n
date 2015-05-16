@@ -183,6 +183,7 @@
     <Compile Include="Data\UpdateUserOptions.cs" />
     <Compile Include="Data\UpdateWebHookOptions.cs" />
     <Compile Include="Data\UpdateWikiPageOptions.cs" />
+    <Compile Include="Data\UserRoleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

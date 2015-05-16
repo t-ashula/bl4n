@@ -503,14 +503,14 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var pass = Path.GetTempFileName().PadLeft(21);
             pass = pass.Substring(pass.Length - 20, 20);
-            var user = new AddUserOptions("admin", pass, string.Format("admin.{0}", DateTime.Now.Ticks), string.Format("{0}@{1}", "admin", "example.com"), 6);
+            var user = new AddUserOptions("admin", pass, string.Format("admin.{0}", DateTime.Now.Ticks), string.Format("{0}@{1}", "admin", "example.com"), UserRoleType.GuestViewer);
             var actual = backlog.AddUser(user);
             Assert.True(actual.Id > 0);
             Assert.Equal(user.UserId, actual.UserId);
             Assert.Equal(user.Name, actual.Name);
             //// Assert.Equal(user.Lang, actual.Lang);
             Assert.Equal(user.MailAddress, actual.MailAddress);
-            Assert.Equal(user.RoleType, actual.RoleType);
+            Assert.Equal((int)user.RoleType, actual.RoleType);
         }
 
         /// <inheritdoc/>
