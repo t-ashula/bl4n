@@ -3641,6 +3641,22 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetWikiPages_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = new Random().Next(1000).ToString("X");
+            var actual = backlog.GetWikiPages(projectKey);
+            Assert.Equal(1, actual.Count);
+            //// Assert.Equal(projectKey, actual[0].ProjectId);
+            Assert.Equal(112, actual[0].Id);
+            Assert.Equal("Home", actual[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetWikiPagesCountTest()
         {
             SkipIfSettingIsBroken();
@@ -3654,6 +3670,19 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetWikiPagesCount_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = new Random().Next(1000).ToString("X");
+            var actual = backlog.GetWikiPagesCount(projectKey);
+            Assert.Equal(5, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetWikiPageTagsTest()
         {
             SkipIfSettingIsBroken();
@@ -3662,6 +3691,21 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             long projectId = new Random().Next(1000);
             var actual = backlog.GetWikiPageTags(projectId);
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal("test", actual[0].Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageTags_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = new Random().Next(1000).ToString("X");
+            var actual = backlog.GetWikiPageTags(projectKey);
             Assert.Equal(1, actual.Count);
             Assert.Equal(1, actual[0].Id);
             Assert.Equal("test", actual[0].Name);

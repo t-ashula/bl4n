@@ -2431,12 +2431,22 @@ namespace BL4N
         /// </summary>
         /// <param name="projectId">project id</param>
         /// <returns>list of <see cref="IWikiPage"/></returns>
-        /// <remarks>TODO: add project Key type api</remarks>
         public IList<IWikiPage> GetWikiPages(long projectId)
+        {
+            return GetWikiPages(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Wiki Page List
+        /// Returns list of Wiki pages.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of <see cref="IWikiPage"/></returns>
+        public IList<IWikiPage> GetWikiPages(string projectKey)
         {
             var query = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("projectIdOrKey", projectId.ToString())
+                new KeyValuePair<string, string>("projectIdOrKey", projectKey)
             };
             var api = GetApiUri(new[] { "wikis" }, query);
             var jss = new JsonSerializerSettings
@@ -2454,12 +2464,22 @@ namespace BL4N
         /// </summary>
         /// <param name="projectId">project id</param>
         /// <returns>list of <see cref="IWikiPage"/></returns>
-        /// <remarks>TODO: add project Key type api</remarks>
         public ICounter GetWikiPagesCount(long projectId)
+        {
+            return GetWikiPagesCount(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Count Wiki Page
+        /// Returns number of Wiki pages.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of <see cref="IWikiPage"/></returns>
+        public ICounter GetWikiPagesCount(string projectKey)
         {
             var query = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("projectIdOrKey", projectId.ToString())
+                new KeyValuePair<string, string>("projectIdOrKey", projectKey)
             };
             var api = GetApiUri(new[] { "wikis", "count" }, query);
             var jss = new JsonSerializerSettings
@@ -2477,12 +2497,22 @@ namespace BL4N
         /// </summary>
         /// <param name="projectId">project id</param>
         /// <returns>list of <see cref="ITag"/></returns>
-        /// <remarks>TODO: add project Key type api</remarks>
         public IList<ITag> GetWikiPageTags(long projectId)
+        {
+            return GetWikiPageTags(string.Format("{0}", projectId));
+        }
+
+        /// <summary>
+        /// Get Wiki Page Tag List
+        /// Returns list of tags that are used in the project.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <returns>list of <see cref="ITag"/></returns>
+        public IList<ITag> GetWikiPageTags(string projectKey)
         {
             var query = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("projectIdOrKey", projectId.ToString())
+                new KeyValuePair<string, string>("projectIdOrKey", projectKey)
             };
             var api = GetApiUri(new[] { "wikis", "tags" }, query);
             var jss = new JsonSerializerSettings

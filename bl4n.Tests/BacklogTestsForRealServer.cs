@@ -3174,6 +3174,20 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetWikiPages_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetWikiPages(projectKey);
+            Assert.True(actual.Count > 0);
+            //// Assert.Equal(projectKey, actual[0].ProjectId);
+            Assert.True(actual[0].Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetWikiPagesCountTest()
         {
             SkipIfSettingIsBroken();
@@ -3188,6 +3202,20 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetWikiPagesCount_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var pages = backlog.GetWikiPages(projectKey);
+            Assert.True(pages.Count > 0);
+            var actual = backlog.GetWikiPagesCount(projectKey);
+            Assert.Equal(pages.Count, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetWikiPageTagsTest()
         {
             SkipIfSettingIsBroken();
@@ -3195,6 +3223,19 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var projectId = backlog.GetProjects()[0].Id;
             var actual = backlog.GetWikiPageTags(projectId);
+            Assert.True(actual.Count > 0);
+            Assert.True(actual[0].Id > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetWikiPageTags_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = backlog.GetProjects()[0].ProjectKey;
+            var actual = backlog.GetWikiPageTags(projectKey);
             Assert.True(actual.Count > 0);
             Assert.True(actual[0].Id > 0);
         }

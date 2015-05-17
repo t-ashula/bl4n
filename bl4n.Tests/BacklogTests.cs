@@ -548,11 +548,20 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/wikis </summary>
         public abstract void GetWikiPagesTest();
 
+        /// <summary> GET /api/v2/wikis </summary>
+        public abstract void GetWikiPages_with_key_Test();
+
         /// <summary> GET /api/v2/wikis/count </summary>
         public abstract void GetWikiPagesCountTest();
 
+        /// <summary> GET /api/v2/wikis/count </summary>
+        public abstract void GetWikiPagesCount_with_key_Test();
+
         /// <summary> GET /api/v2/wikis/tags </summary>
         public abstract void GetWikiPageTagsTest();
+
+        /// <summary> GET /api/v2/wikis/tags </summary>
+        public abstract void GetWikiPageTags_with_key_Test();
 
         /// <summary> POST /api/v2/wikis/tags </summary>
         public abstract void AddWikiPageTest();
