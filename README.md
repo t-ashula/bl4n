@@ -2,5 +2,5 @@
 
 backlog.jp api client written by C#
 
-see http://its.ofton.in/projects/backlog4net
+see https://github.com/t-ashula/bl4n/
 
