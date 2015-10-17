@@ -1837,6 +1837,40 @@ namespace BL4N
 
         #endregion
 
+        #region project/git
+
+        /// <summary>
+        /// Get List of Git Repositories
+        /// Returns list of Git repositories.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        public IList<IRepositoryDetail> GetProjectGitRepositories(long projectId)
+        {
+            return GetProjectGitRepositories($"{projectId}");
+        }
+
+        /// <summary>
+        /// Get List of Git Repositories
+        /// Returns list of Git repositories.
+        /// </summary>
+        /// <param name="projectKey">project key string</param>
+        /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        public IList<IRepositoryDetail> GetProjectGitRepositories(string projectKey)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<List<RepositoryDetail>>(api, jss);
+            return res.Result.ToList<IRepositoryDetail>();
+        }
+
+        #endregion
+
         #endregion
 
         #region Issues API
@@ -2872,6 +2906,7 @@ namespace BL4N
         /// </summary>
         /// <param name="projectId">project id</param>
         /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        [Obsolete("use GetProjectsGitRepositories")]
         public IList<IRepositoryDetail> GetGitRepositories(long projectId)
         {
             return GetGitRepositories(string.Format("{0}", projectId));
@@ -2883,6 +2918,7 @@ namespace BL4N
         /// </summary>
         /// <param name="projectKey">project key string</param>
         /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        [Obsolete("use GetProjectsGitRepositories")]
         public IList<IRepositoryDetail> GetGitRepositories(string projectKey)
         {
             var query = new List<KeyValuePair<string, string>>

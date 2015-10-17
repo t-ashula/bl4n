@@ -844,6 +844,40 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /projects/:projectKey/git/repositories
+
+            Get["/{projectKey}/git/repositories"] = p =>
+            {
+                string o = p.projectKey;
+                long pid;
+                if (!long.TryParse(o, out pid))
+                {
+                    pid = 151;
+                }
+
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = 1,
+                        projectId = pid,
+                        name = "app",
+                        description = string.Empty,
+                        hookUrl = string.Empty,
+                        httpUrl = "https://xx.backlogtool.com/git/BLG/app.git",
+                        sshUrl = "xx@xx.git.backlogtool.com:/BLG/app.git",
+                        displayOrder = 0,
+                        //// pushedAt = null,
+                        createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        created = "2013-05-30T09:11:36Z",
+                        updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        updated = "2013-05-30T09:11:36Z"
+                    }
+                });
+            };
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

@@ -2383,6 +2383,34 @@ namespace BL4N.Tests
             Assert.Equal(DateTime.UtcNow.Date, actual.Updated.ToUniversalTime().Date);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoriesTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var actual = backlog.GetProjectGitRepositories(projectId);
+            Assert.True(actual.Count > 0);
+            Assert.Equal(projectId, actual[0].ProjectId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositories_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var project = backlog.GetProjects()[0];
+            Assert.True(project.Id > 0);
+            var actual = backlog.GetProjectGitRepositories(project.ProjectKey);
+            Assert.True(actual.Count > 0);
+            Assert.Equal(project.Id, actual[0].ProjectId);
+        }
+
         #endregion
 
         #endregion

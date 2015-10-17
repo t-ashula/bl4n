@@ -429,6 +429,16 @@ namespace BL4N.Tests
         /// <summary> DELETE /api/v2/projects/:projectIdOrKey/webhooks/:id </summary>
         public abstract void DeleteProjectWebHook_with_key_Test();
 
+        #region projects/git
+
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories </summary>
+        public abstract void GetProjectGitRepositoriesTest();
+
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories </summary>
+        public abstract void GetProjectGitRepositories_with_key_Test();
+
+        #endregion
+
         #endregion
 
         #region /api/v2/issues
