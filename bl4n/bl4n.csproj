@@ -93,6 +93,7 @@
     <Compile Include="Data\CheckBoxTypeCustomField.cs" />
     <Compile Include="Data\CustomFieldTypes.cs" />
     <Compile Include="Data\DateTypeCustomField.cs" />
+    <Compile Include="Data\ExtraJsonPropertyReadableObject.cs" />
     <Compile Include="Data\IAttachmentInfo.cs" />
     <Compile Include="Data\IAttributeInfo.cs" />
     <Compile Include="Data\ICategory.cs" />

@@ -2974,5 +2974,10 @@ namespace BL4N
             var s = await ua.SendAsync(request);
             return await DeserializeObject<T>(s, new JsonSerializerSettings());
         }
+
+        internal static T DeserializeObj<T>(string json)
+        {
+            return JsonConvert.DeserializeObject<T>(json);
+        }
     }
 }
