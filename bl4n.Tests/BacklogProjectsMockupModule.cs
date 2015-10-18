@@ -394,7 +394,7 @@ namespace BL4N.Tests
             Post["/{projectKey}/issueTypes"] = p => Response.AsJson(new
             {
                 id = 1,
-                projectKey = 1,
+                projectId = 1,
                 name = Request.Form.name,
                 color = Request.Form.color,
                 displayOrder = 0
