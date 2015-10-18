@@ -3,6 +3,6 @@ solution: bl4n.sln
 script:
   - wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O .nuget/NuGet.exe
   - xbuild /p:Configuration=Release bl4n.sln
-  - nuget install xunit.runners -OutputDirectory testrunner
+  - nuget install xunit.runners -OutputDirectory packages
   - mono ./packages/xunit.runner.console.2.0.0/tools/xunit.console.exe ./bl4n.Tests/bin/Release/BL4N.Tests.dll
 
