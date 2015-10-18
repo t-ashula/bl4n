@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using BL4N.Data;
 using BL4N.Tests.Properties;
+using DynamicSkipExample;
 using Xunit;
 
 namespace BL4N.Tests
@@ -24,10 +25,14 @@ namespace BL4N.Tests
         }
 
         /// <inheritdoc/>
-        [Fact]
+        [Fact] // [SkippableFact]
         public override void BacklogConstructorTest()
         {
             SkipIfSettingIsBroken();
+            if (Settings == null || !Settings.IsValid())
+            {
+                throw new SkipTestException("skip this test, real setting is not valid.");
+            }
 
             var realClient = new Backlog(Settings);
             Assert.Equal(Settings.SpaceName, realClient.SpaceName);
@@ -36,10 +41,15 @@ namespace BL4N.Tests
         #region /api/v2/space
 
         /// <inheritdoc/>
-        [Fact]
+        [SkippableFact]
         public override void GetSpaceTest()
         {
-            SkipIfSettingIsBroken();
+            // SkipIfSettingIsBroken();
+            if (Settings == null || !Settings.IsValid())
+            {
+                throw new SkipTestException("skip this test, real setting is not valid.");
+            }
+
 
             // {"spaceKey":"bl4n","name":"bl4n","ownerId":60965,"lang":"ja","timezone":"Asia/Tokyo","reportSendTime":"18:00:00","textFormattingRule":"backlog","created":"2015-03-21T04:00:14Z","updated":"2015-03-21T04:00:14Z"}
             const string RealResult = @"{

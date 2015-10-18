@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" />
   <PropertyGroup>
@@ -102,6 +102,12 @@
   <ItemGroup>
     <ProjectReference Include="..\bl4n\bl4n.csproj">
       <Project>{F447474F-DA64-4B65-80C1-AE2B75F1D9A6}</Project>
+      <Name>bl4n</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xunit.DynamicSkip\Xunit.DynamicSkip.csproj">
+      <Project>{DC430BD1-F360-4866-8B5C-ADAB8B82CC81}</Project>
       <Name>bl4n</Name>
     </ProjectReference>
   </ItemGroup>
