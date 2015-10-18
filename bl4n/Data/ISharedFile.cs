@@ -73,7 +73,7 @@ namespace BL4N.Data
         [DataMember(Name = "created")]
         public DateTime Created { get; private set; }
 
-        [DataMember(Name = "updateddUser")]
+        [DataMember(Name = "updatedUser")]
         private User _updatedUser;
 
         [IgnoreDataMember]
