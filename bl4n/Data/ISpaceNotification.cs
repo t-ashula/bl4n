@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class SpaceNotification : ISpaceNotification
+    internal sealed class SpaceNotification : ExtraJsonPropertyReadableObject, ISpaceNotification
     {
         [DataMember(Name = "content")]
         public string Content { get; private set; }

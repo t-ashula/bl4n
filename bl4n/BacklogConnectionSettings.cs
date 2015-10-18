@@ -34,6 +34,11 @@ namespace BL4N
             SpaceName = spaceName;
             Port = port;
             UseSSL = ssl;
+#if DEBUG
+            StrictMode = true;
+#else
+            StrictMode = false;
+#endif
         }
 
         /// <summary> スペース名を取得します </summary>
@@ -85,6 +90,10 @@ namespace BL4N
         /// <summary> APIKey を取得します． </summary>
         [DataMember]
         public string APIKey { get; private set; }
+
+        /// <summary> デシリアライズを厳密にするかどうかを取得または設定します </summary>
+        [IgnoreDataMember]
+        public bool StrictMode { get; private set; }
 
         /// <summary> 妥当な設定かどうかを取得します </summary>
         /// <returns> 妥当な設定のとき true </returns>

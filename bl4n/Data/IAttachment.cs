@@ -31,7 +31,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Attachment : IAttachment
+    internal sealed class Attachment : ExtraJsonPropertyReadableObject, IAttachment
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

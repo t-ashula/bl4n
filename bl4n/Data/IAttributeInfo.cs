@@ -17,7 +17,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class AttributeInfo : IAttributeInfo
+    internal class AttributeInfo : ExtraJsonPropertyReadableObject, IAttributeInfo
     {
     }
 }

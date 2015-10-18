@@ -33,7 +33,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class Star : IStar
+    internal class Star : ExtraJsonPropertyReadableObject, IStar
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

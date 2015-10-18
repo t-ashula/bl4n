@@ -41,7 +41,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Group : IGroup
+    internal sealed class Group : ExtraJsonPropertyReadableObject, IGroup
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

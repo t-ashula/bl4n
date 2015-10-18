@@ -24,7 +24,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Category : ICategory
+    internal sealed class Category : ExtraJsonPropertyReadableObject, ICategory
     {
         [DataMember(Name = "id")]
         public long Id { get; set; }

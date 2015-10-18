@@ -41,7 +41,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class CustomField : ICustomField
+    internal sealed class CustomField : ExtraJsonPropertyReadableObject, ICustomField
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

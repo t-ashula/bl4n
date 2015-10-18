@@ -82,7 +82,22 @@ namespace BL4N
             }
 
             var result = await s.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(result, jss);
+            var obj = JsonConvert.DeserializeObject<T>(result, jss);
+            var exObj = obj as ExtraJsonPropertyReadableObject;
+            if (exObj != null)
+            {
+                if (exObj.HasExtraProperty())
+                {
+                    var extraKeys = string.Join(",", exObj.GetExtraProperties().Keys);
+                    System.Diagnostics.Trace.WriteLine(extraKeys);
+                    if (_settings.StrictMode)
+                    {
+                        throw new ApplicationException($"unkown property found. {extraKeys}");
+                    }
+                }
+            }
+
+            return obj;
         }
 
         private async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)

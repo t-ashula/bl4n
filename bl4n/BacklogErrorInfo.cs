@@ -7,12 +7,13 @@
 
 using System;
 using System.Runtime.Serialization;
+using BL4N.Data;
 
 namespace BL4N
 {
     /// <summary> エラー情報を表します </summary>
     [DataContract]
-    public class BacklogErrorInfo
+    public class BacklogErrorInfo : ExtraJsonPropertyReadableObject
     {
         /// <summary> エラーメッセージを取得します </summary>
         [DataMember(Name = "message")]

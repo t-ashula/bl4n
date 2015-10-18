@@ -44,7 +44,7 @@ namespace BL4N.Data
 
     /// <summary> shared_file; api / library </summary>
     [DataContract]
-    internal sealed class SharedFile : ISharedFile
+    internal sealed class SharedFile : ExtraJsonPropertyReadableObject, ISharedFile
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

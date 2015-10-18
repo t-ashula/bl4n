@@ -9,12 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
+using BL4N.Data;
 
 namespace BL4N
 {
     /// <summary> エラー応答全体を表します </summary>
     [DataContract]
-    public class BacklogErrorResponse
+    public class BacklogErrorResponse : ExtraJsonPropertyReadableObject
     {
         /// <summary> HTTP のステータスコードを取得または設定します </summary>
         [IgnoreDataMember]

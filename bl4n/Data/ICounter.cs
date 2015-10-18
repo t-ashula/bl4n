@@ -18,7 +18,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class Counter : ICounter
+    internal class Counter : ExtraJsonPropertyReadableObject, ICounter
     {
         [DataMember(Name = "count")]
         public long Count { get; private set; }

@@ -24,7 +24,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Link : ILink
+    internal sealed class Link : ExtraJsonPropertyReadableObject, ILink
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

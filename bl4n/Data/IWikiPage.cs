@@ -44,7 +44,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class WikiPage : IWikiPage
+    internal sealed class WikiPage : ExtraJsonPropertyReadableObject, IWikiPage
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

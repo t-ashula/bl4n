@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Comment : IComment
+    internal sealed class Comment : ExtraJsonPropertyReadableObject, IComment
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

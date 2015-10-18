@@ -40,7 +40,7 @@ namespace BL4N.Data
 
     /// <summary> project; api -> library </summary>
     [DataContract]
-    internal sealed class Project : IProject
+    internal sealed class Project : ExtraJsonPropertyReadableObject, IProject
     {
         [DataMember(Name = "id")]
         public long Id { get; set; }

@@ -44,7 +44,7 @@ namespace BL4N.Data
 
     /// <summary> スペース情報の内部用データクラス API との serialize 用 </summary>
     [DataContract]
-    internal class Space : ISpace
+    internal class Space : ExtraJsonPropertyReadableObject, ISpace
     {
         [DataMember(Name = "spaceKey")]
         public string SpaceKey { get; set; }

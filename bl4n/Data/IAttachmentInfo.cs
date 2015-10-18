@@ -22,7 +22,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class AttachmentInfo : IAttachmentInfo
+    internal class AttachmentInfo : ExtraJsonPropertyReadableObject, IAttachmentInfo
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

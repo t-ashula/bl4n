@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Priority : IPriority
+    internal sealed class Priority : ExtraJsonPropertyReadableObject, IPriority
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

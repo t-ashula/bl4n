@@ -31,7 +31,7 @@ namespace BL4N.Data
 
     /// <summary> </summary>
     [DataContract]
-    internal sealed class CommentNotification : ICommentNotification
+    internal sealed class CommentNotification : ExtraJsonPropertyReadableObject, ICommentNotification
     {
         [DataMember(Name = "id")]
         public long Id { get; set; }

@@ -43,7 +43,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class IssueComment : IIssueComment
+    internal class IssueComment : ExtraJsonPropertyReadableObject, IIssueComment
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

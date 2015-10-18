@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class ProjectUpdate : IProjectUpdate
+    internal sealed class ProjectUpdate : ExtraJsonPropertyReadableObject, IProjectUpdate
     {
         [DataMember(Name = "project")]
         private Project _project;

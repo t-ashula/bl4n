@@ -34,7 +34,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class DiskUsageDetail : IDiskUsageDetail
+    internal sealed class DiskUsageDetail : ExtraJsonPropertyReadableObject, IDiskUsageDetail
     {
         [DataMember(Name = "projectId")]
         public long ProjectId { get; private set; }

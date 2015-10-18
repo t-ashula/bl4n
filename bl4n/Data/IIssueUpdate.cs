@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class IssueUpdate : IIssueUpdate
+    internal sealed class IssueUpdate : ExtraJsonPropertyReadableObject, IIssueUpdate
     {
         [DataMember(Name = "issue")]
         private Issue _issue;

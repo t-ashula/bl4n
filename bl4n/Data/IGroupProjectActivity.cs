@@ -22,7 +22,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class GroupProjectActivity : IGroupProjectActivity
+    internal sealed class GroupProjectActivity : ExtraJsonPropertyReadableObject, IGroupProjectActivity
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

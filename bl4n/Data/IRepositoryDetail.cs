@@ -54,7 +54,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class RepositoryDetail : IRepositoryDetail
+    internal class RepositoryDetail : ExtraJsonPropertyReadableObject, IRepositoryDetail
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

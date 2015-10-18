@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Status : IStatus
+    internal sealed class Status : ExtraJsonPropertyReadableObject, IStatus
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

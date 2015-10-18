@@ -34,7 +34,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class ChangeLogDetail : IChangeLogDetail
+    internal class ChangeLogDetail : ExtraJsonPropertyReadableObject, IChangeLogDetail
     {
         [DataMember(Name = "field")]
         public string Field { get; private set; }

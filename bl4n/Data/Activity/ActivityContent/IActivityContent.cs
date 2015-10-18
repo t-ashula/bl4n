@@ -17,7 +17,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal abstract class ActivityContent : IActivityContent
+    internal abstract class ActivityContent : ExtraJsonPropertyReadableObject, IActivityContent
     {
     }
 }

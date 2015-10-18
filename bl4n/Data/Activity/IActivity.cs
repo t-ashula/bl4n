@@ -38,7 +38,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal abstract class Activity : IActivity
+    internal abstract class Activity : ExtraJsonPropertyReadableObject, IActivity
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

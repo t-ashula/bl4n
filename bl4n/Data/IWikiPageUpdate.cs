@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class WikiPageUpdate : IWikiPageUpdate
+    internal sealed class WikiPageUpdate : ExtraJsonPropertyReadableObject, IWikiPageUpdate
     {
         [DataMember(Name = "page")]
         private WikiPage _wikipage;

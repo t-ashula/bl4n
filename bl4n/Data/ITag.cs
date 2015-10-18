@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Tag : ITag
+    internal sealed class Tag : ExtraJsonPropertyReadableObject, ITag
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

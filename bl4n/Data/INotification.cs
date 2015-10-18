@@ -43,7 +43,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class Notification : INotification
+    internal class Notification : ExtraJsonPropertyReadableObject, INotification
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

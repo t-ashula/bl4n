@@ -34,7 +34,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class WikiPageHistory : IWikiPageHistory
+    internal class WikiPageHistory : ExtraJsonPropertyReadableObject, IWikiPageHistory
     {
         [DataMember(Name = "pageId")]
         public long PageId { get; private set; }

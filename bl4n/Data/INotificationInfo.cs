@@ -19,7 +19,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class NofiticationInfo : INotificationInfo
+    internal class NofiticationInfo : ExtraJsonPropertyReadableObject, INotificationInfo
     {
         [DataMember(Name = "type")]
         public string Type { get; private set; }

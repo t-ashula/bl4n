@@ -47,7 +47,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal class WebHook : IWebHook
+    internal class WebHook : ExtraJsonPropertyReadableObject, IWebHook
     {
         [DataMember(Name = "id")]
         public long Id { get; set; }

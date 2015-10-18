@@ -22,7 +22,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Revision : IRevision
+    internal sealed class Revision : ExtraJsonPropertyReadableObject, IRevision
     {
         [DataMember(Name = "rev")]
         public string Rev { get; private set; }

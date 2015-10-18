@@ -33,7 +33,7 @@ namespace BL4N.Data
 
     /// <summary> user </summary>
     [DataContract]
-    internal sealed class User : IUser
+    internal sealed class User : ExtraJsonPropertyReadableObject, IUser
     {
         [DataMember(Name = "id")]
         public long Id { get; set; }

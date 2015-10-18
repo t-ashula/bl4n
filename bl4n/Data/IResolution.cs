@@ -21,7 +21,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Resolution : IResolution
+    internal sealed class Resolution : ExtraJsonPropertyReadableObject, IResolution
     {
         [DataMember(Name = "id")]
         public long Id { get; private set; }

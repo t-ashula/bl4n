@@ -28,7 +28,7 @@ namespace BL4N.Data
 
     /// <summary> </summary>
     [DataContract]
-    internal sealed class Change : IChange
+    internal sealed class Change : ExtraJsonPropertyReadableObject, IChange
     {
         [DataMember(Name = "field")]
         public string Field { get; private set; }

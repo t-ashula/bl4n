@@ -30,7 +30,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class IssueType : IIssueType
+    internal sealed class IssueType : ExtraJsonPropertyReadableObject, IIssueType
     {
         [DataMember(Name = "id")]
         public long Id { get; set; }

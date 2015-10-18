@@ -98,7 +98,7 @@ namespace BL4N.Data
     }
 
     [DataContract]
-    internal sealed class Issue : IIssue
+    internal sealed class Issue : ExtraJsonPropertyReadableObject, IIssue
     {
         [DataMember(Name = "id")]
         public long Id { get; set; }
