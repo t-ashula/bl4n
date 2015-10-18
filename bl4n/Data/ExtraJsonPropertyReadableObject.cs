@@ -17,13 +17,13 @@ namespace BL4N.Data
     public abstract class ExtraJsonPropertyReadableObject
     {
         [JsonExtensionData]
-        private IDictionary<string, JToken> extraProperties = new Dictionary<string, JToken>();
+        private IDictionary<string, JToken> _extraProperties = new Dictionary<string, JToken>();
 
         /// <summary> 余分なプロパティとその値を文字列のペアで得ます </summary>
         /// <returns> 余分なプロパティの一覧 </returns>
         public IDictionary<string, string> GetExtraProperties()
         {
-            return extraProperties.ToDictionary(kv => kv.Key, kv => kv.Value.ToString());
+            return _extraProperties.ToDictionary(kv => kv.Key, kv => kv.Value.ToString());
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace BL4N.Data
         /// <returns> 余分なプロパティがあるとき true </returns>
         public bool HasExtraProperty()
         {
-            return extraProperties.Any();
+            return _extraProperties.Any();
         }
     }
 }
