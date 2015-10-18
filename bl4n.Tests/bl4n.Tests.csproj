@@ -104,11 +104,9 @@
       <Project>{F447474F-DA64-4B65-80C1-AE2B75F1D9A6}</Project>
       <Name>bl4n</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Xunit.DynamicSkip\Xunit.DynamicSkip.csproj">
       <Project>{DC430BD1-F360-4866-8B5C-ADAB8B82CC81}</Project>
-      <Name>bl4n</Name>
+      <Name>Xunit.DynamicSkip</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
