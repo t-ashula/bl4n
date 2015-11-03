@@ -7,6 +7,7 @@
 
 using System;
 using System.Linq;
+using DynamicSkipExample;
 using Xunit;
 
 namespace BL4N.Tests
@@ -42,7 +43,7 @@ namespace BL4N.Tests
         {
             if (Settings == null || !Settings.IsValid())
             {
-                Assert.True(false, "skip this test, real setting is not valid.");
+                throw new SkipTestException("skip this test, real setting is not valid.");
             }
         }
 

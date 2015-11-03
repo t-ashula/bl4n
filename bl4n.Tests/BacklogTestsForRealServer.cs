@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using BL4N.Data;
 using BL4N.Tests.Properties;
+using DynamicSkipExample;
 using Xunit;
 
 namespace BL4N.Tests
@@ -24,7 +25,7 @@ namespace BL4N.Tests
         }
 
         /// <inheritdoc/>
-        [Fact]
+        [SkippableFact]
         public override void BacklogConstructorTest()
         {
             SkipIfSettingIsBroken();
@@ -36,7 +37,7 @@ namespace BL4N.Tests
         #region /api/v2/space
 
         /// <inheritdoc/>
-        [Fact]
+        [SkippableFact]
         public override void GetSpaceTest()
         {
             SkipIfSettingIsBroken();
