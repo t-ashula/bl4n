@@ -64,7 +64,7 @@ namespace BL4N
             _settings = settings;
         }
 
-        private async Task<T> DeserializeObject<T>(HttpResponseMessage s, JsonSerializerSettings jss)
+        private async Task<T> DeserializeResponse<T>(HttpResponseMessage s, JsonSerializerSettings jss)
         {
             var status = s.StatusCode;
 
@@ -120,14 +120,14 @@ namespace BL4N
             // TODO: default JSS
             var ua = new HttpClient();
             var s = await ua.GetAsync(uri);
-            return await DeserializeObject<T>(s, jss);
+            return await DeserializeResponse<T>(s, jss);
         }
 
         private async Task<T> PutApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
         {
             var ua = new HttpClient();
             var s = await ua.PutAsync(uri, c);
-            return await DeserializeObject<T>(s, jss);
+            return await DeserializeResponse<T>(s, jss);
         }
 
         private async Task<string> PostApiResult(Uri uri, HttpContent c)
@@ -141,7 +141,7 @@ namespace BL4N
         {
             var ua = new HttpClient();
             var s = await ua.PostAsync(uri, c);
-            return await DeserializeObject<T>(s, jss);
+            return await DeserializeResponse<T>(s, jss);
         }
 
         private async Task<T> PatchApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
@@ -154,14 +154,14 @@ namespace BL4N
                 Content = c
             };
             var s = await ua.SendAsync(req);
-            return await DeserializeObject<T>(s, jss);
+            return await DeserializeResponse<T>(s, jss);
         }
 
         private async Task<T> DeleteApiResult<T>(Uri uri, JsonSerializerSettings jss)
         {
             var ua = new HttpClient();
             var s = await ua.DeleteAsync(uri);
-            return await DeserializeObject<T>(s, jss);
+            return await DeserializeResponse<T>(s, jss);
         }
 
         private async Task<T> DeleteApiResult<T>(Uri uri, HttpContent c, JsonSerializerSettings jss)
@@ -174,7 +174,7 @@ namespace BL4N
                 Content = c
             };
             var s = await ua.SendAsync(req);
-            return await DeserializeObject<T>(s, jss);
+            return await DeserializeResponse<T>(s, jss);
         }
 
         private Uri GetApiUri(string[] subjects, IEnumerable<KeyValuePair<string, string>> query = null)
@@ -3002,7 +3002,7 @@ namespace BL4N
             var ua = new HttpClient();
             var request = new HttpRequestMessage(method, uri) { Content = content };
             var s = await ua.SendAsync(request);
-            return await DeserializeObject<T>(s, new JsonSerializerSettings());
+            return await DeserializeResponse<T>(s, new JsonSerializerSettings());
         }
 
         internal static T DeserializeObj<T>(string json)
