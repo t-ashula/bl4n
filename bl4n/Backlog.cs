@@ -83,21 +83,36 @@ namespace BL4N
 
             var result = await s.Content.ReadAsStringAsync();
             var obj = JsonConvert.DeserializeObject<T>(result, jss);
+            if (_settings.StrictMode)
+            {
+                ThrowIfExtraProperty(obj);
+            }
+
+            return obj;
+        }
+
+        private static void ThrowIfExtraProperty<T>(T obj)
+        {
             var exObj = obj as ExtraJsonPropertyReadableObject;
             if (exObj != null)
             {
                 if (exObj.HasExtraProperty())
                 {
                     var extraKeys = string.Join(",", exObj.GetExtraProperties().Keys);
-                    System.Diagnostics.Trace.WriteLine(extraKeys);
-                    if (_settings.StrictMode)
-                    {
-                        throw new ApplicationException($"unkown property found. {extraKeys}");
-                    }
+                    throw new ApplicationException($"unkown property found. {extraKeys}");
                 }
+                return;
             }
 
-            return obj;
+            var list = obj as List<ExtraJsonPropertyReadableObject>;
+            if (list != null)
+            {
+                if (list.Any(l => l.HasExtraProperty()))
+                {
+                    var extraKeys = string.Join(",", list.First(l => l.HasExtraProperty()).GetExtraProperties().Keys);
+                    throw new ApplicationException($"unkown property found. {extraKeys}");
+                }
+            }
         }
 
         private async Task<T> GetApiResult<T>(Uri uri, JsonSerializerSettings jss)
@@ -1305,7 +1320,7 @@ namespace BL4N
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Include
             };
             var kvs = options.ToKeyValuePairs();
             var hc = new FormUrlEncodedContent(kvs);
@@ -1340,7 +1355,7 @@ namespace BL4N
             var jss = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Include
             };
 
             var kvs = options.ToKeyValuePairs();

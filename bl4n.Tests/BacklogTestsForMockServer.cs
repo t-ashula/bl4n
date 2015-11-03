@@ -1992,7 +1992,7 @@ namespace BL4N.Tests
             Assert.Equal(string.Empty, actual.Description);
             Assert.Equal(name, actual.Name);
             Assert.Equal(startDate.Date, actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 
@@ -2015,7 +2015,7 @@ namespace BL4N.Tests
             Assert.Equal(string.Empty, actual.Description);
             Assert.Equal(name, actual.Name);
             Assert.Equal(startDate.Date, actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 
@@ -2044,7 +2044,7 @@ namespace BL4N.Tests
             Assert.Equal(description, actual.Description);
             Assert.Equal(name, actual.Name);
             Assert.Equal(startDate.Date, actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 
@@ -2074,7 +2074,7 @@ namespace BL4N.Tests
             Assert.Equal(description, actual.Description);
             Assert.Equal(name, actual.Name);
             Assert.Equal(startDate.Date, actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 
@@ -2096,7 +2096,7 @@ namespace BL4N.Tests
             Assert.Equal(string.Empty, actual.Description);
             Assert.Equal("wait for release", actual.Name);
             Assert.Equal(new DateTime(), actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 
@@ -2117,7 +2117,7 @@ namespace BL4N.Tests
             Assert.Equal(string.Empty, actual.Description);
             Assert.Equal("wait for release", actual.Name);
             Assert.Equal(new DateTime(), actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 

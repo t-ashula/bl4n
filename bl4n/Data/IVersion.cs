@@ -29,7 +29,7 @@ namespace BL4N.Data
         DateTime StartDate { get; }
 
         /// <summary> 期限日を取得します． </summary>
-        DateTime ReleaseDueDate { get; }
+        DateTime? ReleaseDueDate { get; }
 
         /// <summary> アーカイブ済かどうかを取得します． </summary>
         bool Archived { get; }
@@ -57,7 +57,7 @@ namespace BL4N.Data
         public DateTime StartDate { get; set; }
 
         [DataMember(Name = "releaseDueDate")]
-        public DateTime ReleaseDueDate { get; set; }
+        public DateTime? ReleaseDueDate { get; set; }
 
         [DataMember(Name = "archived")]
         public bool Archived { get; set; }

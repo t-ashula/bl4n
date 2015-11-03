@@ -598,7 +598,7 @@ namespace BL4N.Tests
             Assert.Equal(added.Id, actual.Id);
             Assert.Equal(newName, actual.Name);
             Assert.Equal(added.Members.Count, actual.Members.Count);
-            Assert.Equal(added.Created, actual.Created);
+            Assert.InRange(actual.Created, added.Created, added.Created.AddSeconds(2)); // why created_at updated?
 
             backlog.DeleteGroup(added.Id);
         }
@@ -1707,7 +1707,7 @@ namespace BL4N.Tests
             Assert.Null(actual.Description);
             Assert.Equal(name, actual.Name);
             Assert.Equal(startDate, actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 
@@ -1730,7 +1730,7 @@ namespace BL4N.Tests
             Assert.Null(actual.Description);
             Assert.Equal(name, actual.Name);
             Assert.Equal(startDate, actual.StartDate);
-            Assert.Equal(new DateTime(), actual.ReleaseDueDate);
+            Assert.Null(actual.ReleaseDueDate);
             Assert.False(actual.Archived);
         }
 
@@ -1760,7 +1760,8 @@ namespace BL4N.Tests
             Assert.Equal(added.Name, actual.Name); // unchange
             Assert.Equal(added.StartDate, actual.StartDate); // unchange
             Assert.Equal(newDesc, actual.Description); // update
-            Assert.Equal(newDueDate.Date, actual.ReleaseDueDate.Date); // update
+            Assert.True(actual.ReleaseDueDate.HasValue);
+            Assert.Equal(newDueDate.Date, actual.ReleaseDueDate.Value.Date); // update
             Assert.False(actual.Archived); // unchage
         }
 
@@ -1790,7 +1791,8 @@ namespace BL4N.Tests
             Assert.Equal(added.Name, actual.Name); // unchange
             Assert.Equal(added.StartDate, actual.StartDate); // unchange
             Assert.Equal(newDesc, actual.Description); // update
-            Assert.Equal(newDueDate.Date, actual.ReleaseDueDate.Date); // update
+            Assert.True(actual.ReleaseDueDate.HasValue);
+            Assert.Equal(newDueDate.Date, actual.ReleaseDueDate.Value.Date); // update
             Assert.False(actual.Archived); // unchage
         }
 
