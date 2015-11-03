@@ -6,7 +6,7 @@ namespace DynamicSkipExample.XunitExtensions
 {
     public class SkippableFactDiscoverer : IXunitTestCaseDiscoverer
     {
-        readonly IMessageSink diagnosticMessageSink;
+        private readonly IMessageSink diagnosticMessageSink;
 
         public SkippableFactDiscoverer(IMessageSink diagnosticMessageSink)
         {

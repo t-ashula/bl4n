@@ -6,7 +6,7 @@ namespace DynamicSkipExample.XunitExtensions
 {
     public class SkippableFactMessageBus : IMessageBus
     {
-        readonly IMessageBus innerBus;
+        private readonly IMessageBus innerBus;
 
         public SkippableFactMessageBus(IMessageBus innerBus)
         {
@@ -15,7 +15,9 @@ namespace DynamicSkipExample.XunitExtensions
 
         public int DynamicallySkippedTestCount { get; private set; }
 
-        public void Dispose() { }
+        public void Dispose()
+        {
+        }
 
         public bool QueueMessage(IMessageSinkMessage message)
         {

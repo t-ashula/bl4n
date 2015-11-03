@@ -7,8 +7,8 @@ namespace DynamicSkipExample.XunitExtensions
 {
     public class SkippableTheoryDiscoverer : IXunitTestCaseDiscoverer
     {
-        readonly IMessageSink diagnosticMessageSink;
-        readonly TheoryDiscoverer theoryDiscoverer;
+        private readonly IMessageSink diagnosticMessageSink;
+        private readonly TheoryDiscoverer theoryDiscoverer;
 
         public SkippableTheoryDiscoverer(IMessageSink diagnosticMessageSink)
         {
@@ -24,9 +24,9 @@ namespace DynamicSkipExample.XunitExtensions
             // Unlike fact discovery, the underlying algorithm for theories is complex, so we let the theory discoverer
             // do its work, and do a little on-the-fly conversion into our own test cases.
             return theoryDiscoverer.Discover(discoveryOptions, testMethod, factAttribute)
-                                   .Select(testCase => testCase is XunitTheoryTestCase
-                                                           ? (IXunitTestCase)new SkippableTheoryTestCase(diagnosticMessageSink, defaultMethodDisplay, testCase.TestMethod)
-                                                           : new SkippableFactTestCase(diagnosticMessageSink, defaultMethodDisplay, testCase.TestMethod, testCase.TestMethodArguments));
+                .Select(testCase => testCase is XunitTheoryTestCase
+                    ? (IXunitTestCase)new SkippableTheoryTestCase(diagnosticMessageSink, defaultMethodDisplay, testCase.TestMethod)
+                    : new SkippableFactTestCase(diagnosticMessageSink, defaultMethodDisplay, testCase.TestMethod, testCase.TestMethodArguments));
         }
     }
 }
