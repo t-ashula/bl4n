@@ -8,7 +8,6 @@
 using System;
 using System.Linq;
 using DynamicSkipExample;
-using Xunit;
 
 namespace BL4N.Tests
 {

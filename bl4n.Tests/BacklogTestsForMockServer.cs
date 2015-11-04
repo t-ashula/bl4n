@@ -2918,7 +2918,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectId = new Random().Next(10000);
-            var actual = backlog.GetGitRepositories(projectId);
+            var actual = backlog.GetProjectGitRepositories(projectId);
             Assert.Equal(1, actual.Count);
             Assert.Equal(projectId, actual[0].ProjectId);
         }
@@ -2932,7 +2932,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var projectKey = string.Format("{0:X}", new Random().Next(10000));
-            var actual = backlog.GetGitRepositories(projectKey);
+            var actual = backlog.GetProjectGitRepositories(projectKey);
             Assert.Equal(1, actual.Count);
         }
 
