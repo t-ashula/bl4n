@@ -2407,6 +2407,66 @@ namespace BL4N.Tests
             Assert.Equal(project.Id, actual[0].ProjectId);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoryTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var repos = backlog.GetProjectGitRepositories(projectId);
+            Assert.True(repos.Count > 0);
+            var actual = backlog.GetProjectGitRepository(projectId, repos[0].Id);
+            Assert.Equal(repos[0].Id, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepository_with_name_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            Assert.True(projectId > 0);
+            var repos = backlog.GetProjectGitRepositories(projectId);
+            Assert.True(repos.Count > 0);
+            var actual = backlog.GetProjectGitRepository(projectId, repos[0].Name);
+            Assert.Equal(repos[0].Name, actual.Name);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepository_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var project = backlog.GetProjects()[0];
+            Assert.True(project.Id > 0);
+            var repos = backlog.GetProjectGitRepositories(project.ProjectKey);
+            Assert.True(repos.Count > 0);
+            var actual = backlog.GetProjectGitRepository(project.ProjectKey, repos[0].Id);
+            Assert.Equal(repos[0].Id, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepository_with_name_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var project = backlog.GetProjects()[0];
+            Assert.True(project.Id > 0);
+            var repos = backlog.GetProjectGitRepositories(project.ProjectKey);
+            Assert.True(repos.Count > 0);
+            var actual = backlog.GetProjectGitRepository(project.ProjectKey, repos[0].Name);
+            Assert.Equal(repos[0].Name, actual.Name);
+        }
+
         #endregion
 
         #endregion

@@ -1266,6 +1266,54 @@ namespace BL4N
             return res.Result.ToList<IRepositoryDetail>();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository name</param>
+        /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        public IRepositoryDetail GetProjectGitRepository(long projectId, string repoName)
+        {
+            return GetProjectGitRepository($"{projectId}", repoName);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <returns></returns>
+        public IRepositoryDetail GetProjectGitRepository(long projectId, long repoId)
+        {
+            return GetProjectGitRepository($"{projectId}", $"{repoId}");
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repository id</param>
+        /// <returns></returns>
+        public IRepositoryDetail GetProjectGitRepository(string projectKey, long repoId)
+        {
+            return GetProjectGitRepository(projectKey, $"{repoId}");
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repository name</param>
+        /// <returns>list of <see cref="IRepositoryDetail"/></returns>
+        public IRepositoryDetail GetProjectGitRepository(string projectKey, string repoName)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<RepositoryDetail>(api, jss);
+            return res.Result;
+        }
+
         #endregion
     }
 }

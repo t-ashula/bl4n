@@ -437,6 +437,18 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories </summary>
         public abstract void GetProjectGitRepositories_with_key_Test();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName </summary>
+        public abstract void GetProjectGitRepositoryTest();
+
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName </summary>
+        public abstract void GetProjectGitRepository_with_name_Test();
+
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName </summary>
+        public abstract void GetProjectGitRepository_with_key_Test();
+
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName </summary>
+        public abstract void GetProjectGitRepository_with_name_with_key_Test();
+
         #endregion
 
         #endregion

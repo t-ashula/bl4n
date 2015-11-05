@@ -1249,7 +1249,7 @@ namespace BL4N.Tests
             SkipIfMockServerIsDown();
 
             var backlog = new Backlog(Settings);
-            var key = string.Format("{0:X}", new Random().Next());
+            var key = string.Format("p{0:X}", new Random().Next());
             var actual = backlog.DeleteProject(key);
             /*{
              * "id": 1, "projectKey": "TEST", "name": "test",
@@ -2934,6 +2934,62 @@ namespace BL4N.Tests
             var projectKey = string.Format("{0:X}", new Random().Next(10000));
             var actual = backlog.GetProjectGitRepositories(projectKey);
             Assert.Equal(1, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoryTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectId = new Random().Next(10000);
+            var repoId = new Random().Next(100);
+            var actual = backlog.GetProjectGitRepository(projectId, repoId);
+            Assert.Equal(projectId, actual.ProjectId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepository_with_name_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectId = new Random().Next(10000);
+            var repoName = string.Format("r{0:X}", new Random().Next(100));
+            var actual = backlog.GetProjectGitRepository(projectId, repoName);
+            Assert.Equal(projectId, actual.ProjectId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepository_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = string.Format("p{0:X}", new Random().Next(10000));
+            var repoId = new Random().Next(100);
+            var actual = backlog.GetProjectGitRepository(projectKey, repoId);
+            Assert.Equal(repoId, actual.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepository_with_name_with_key_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectKey = string.Format("p{0:X}", new Random().Next(10000));
+            var repoName = string.Format("r{0:X}", new Random().Next(100));
+            var actual = backlog.GetProjectGitRepository(projectKey, repoName);
+            Assert.Equal(repoName, actual.Name);
         }
 
         #endregion
