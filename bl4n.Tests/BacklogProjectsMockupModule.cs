@@ -916,6 +916,84 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectKey/git/repositories/:repoName/pullRequests
+
+            Get["/{projectKey}/git/repositories/{repoName}/pullRequests"] = p =>
+            {
+                string o = p.projectKey;
+                long pid;
+                if (!long.TryParse(o, out pid))
+                {
+                    pid = 151;
+                }
+
+                o = p.repoName;
+                long rid;
+                if (!long.TryParse(o, out rid))
+                {
+                    rid = 1;
+                }
+
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = 2,
+                        projectId = 3,
+                        repositoryId = 5,
+                        number = 1,
+                        summary = "test",
+                        description = "test data",
+                        @base = "master",
+                        branch = "develop",
+                        status = new
+                        {
+                            id = 1,
+                            name = "Open"
+                        },
+                        assignee = new
+                        {
+                            id = 5,
+                            userId = "testuser2",
+                            name = "testuser2",
+                            roleType = 1,
+                            //// lang = null,
+                            mailAddress = "testuser2@nulab.test"
+                        },
+                        issue = new
+                        {
+                            id = 31
+                        },
+                        //// baseCommit = null,
+                        //// branchCommit = null,
+                        //// closeAt= null,
+                        //// mergeAt= null,
+                        createdUser = new
+                        {
+                            id = 1,
+                            userId = "admin",
+                            name = "admin",
+                            roleType = 1,
+                            lang = "ja",
+                            mailAddres = "eguchi@nulab.example"
+                        },
+                        created = "2015-04-23T03:04:14Z",
+                        updatedUser = new
+                        {
+                            id = 1,
+                            userId = "admin",
+                            name = "admin",
+                            roleType = 1,
+                            lang = "ja",
+                            mailAddress = "eguchi@nulab.example"
+                        },
+                        updated = "2015-04-23T03:04:14Z"
+                    }
+                });
+            };
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

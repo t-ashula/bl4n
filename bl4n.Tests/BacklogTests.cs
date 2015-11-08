@@ -449,6 +449,9 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName </summary>
         public abstract void GetProjectGitRepository_with_name_with_key_Test();
 
+        /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests </summary>
+        public abstract void GetProjectGitRepositoryPullRequestTest();
+
         #endregion
 
         #endregion

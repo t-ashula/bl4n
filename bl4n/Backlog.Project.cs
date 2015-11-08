@@ -1314,6 +1314,58 @@ namespace BL4N
             return res.Result;
         }
 
+        /// <summary>
+        /// Get Pull Request List
+        /// Returns list of pull requests.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repository name</param>
+        /// <returns>list of <see cref="IPullRequest"/></returns>
+        public IList<IPullRequest> GetProjectGitRepositoryPullRequests(string projectKey, string repoName)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<List<PullRequest>>(api, jss);
+            return res.Result.ToList<IPullRequest>();
+        }
+
+        /// <summary>
+        /// Get Pull Request List
+        /// Returns list of pull requests.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository name</param>
+        /// <returns>list of <see cref="IPullRequest"/></returns>
+        public IList<IPullRequest> GetProjectGitRepositoryPullRequests(long projectId, string repoName)
+        {
+            return GetProjectGitRepositoryPullRequests($"{projectId}", repoName);
+        }
+
+        /// <summary>
+        /// Get Pull Request List
+        /// Returns list of pull requests.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repository id</param>
+        /// <returns>list of <see cref="IPullRequest"/></returns>
+        public IList<IPullRequest> GetProjectGitRepositoryPullRequests(string projectKey, long repoId)
+        {
+            return GetProjectGitRepositoryPullRequests(projectKey, $"{repoId}");
+        }
+
+        /// <summary>
+        /// Get Pull Request List
+        /// Returns list of pull requests.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <returns>list of <see cref="IPullRequest"/></returns>
+        public IList<IPullRequest> GetProjectGitRepositoryPullRequests(long projectId, long repoId)
+        {
+            return GetProjectGitRepositoryPullRequests($"{projectId}", $"{repoId}");
+        }
+
         #endregion
     }
 }
