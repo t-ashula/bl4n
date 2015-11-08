@@ -94,6 +94,7 @@
     <Compile Include="Data\AddProjectIssueTypeOptions.cs" />
     <Compile Include="Data\AddProjectOptions.cs" />
     <Compile Include="Data\AddProjectVersionOptions.cs" />
+    <Compile Include="Data\AddPullRequestCommentOptions.cs" />
     <Compile Include="Data\AddPullRequestOptions.cs" />
     <Compile Include="Data\AddRadioButtonTypeCustomFieldOptions.cs" />
     <Compile Include="Data\AddSentenceTypeCustomFieldOptions.cs" />

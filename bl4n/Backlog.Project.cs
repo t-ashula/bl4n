@@ -1690,6 +1690,72 @@ namespace BL4N
 
         #endregion
 
+        #region add pull request comment
+
+        /// <summary>
+        /// Add Pull Request Comment
+        /// Adds comment on pull request.
+        /// </summary>
+        /// <param name="projectKey">project id</param>
+        /// <param name="repoName">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">options</param>
+        /// <returns>added <see cref="IIssueComment"/></returns>
+        public IIssueComment AddProjectGitRepositoryPullRequestComment(string projectKey, string repoName, long number, AddPullRequestCommentOptions param)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/:number/comments
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}", "comments" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var hc = new FormUrlEncodedContent(param.ToKeyValuePairs());
+            var res = PostApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Add Pull Request Comment
+        /// Adds comment on pull request.
+        /// </summary>
+        /// <param name="projectKey">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">options</param>
+        /// <returns>added <see cref="IIssueComment"/></returns>
+        public IIssueComment AddProjectGitRepositoryPullRequestComment(string projectKey, long repoId, long number, AddPullRequestCommentOptions param)
+        {
+            return AddProjectGitRepositoryPullRequestComment(projectKey, $"{repoId}", number, param);
+        }
+
+        /// <summary>
+        /// Add Pull Request Comment
+        /// Adds comment on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">options</param>
+        /// <returns>added <see cref="IIssueComment"/></returns>
+        public IIssueComment AddProjectGitRepositoryPullRequestComment(long projectId, string repoName, long number, AddPullRequestCommentOptions param)
+
+        {
+            return AddProjectGitRepositoryPullRequestComment($"{projectId}", repoName, number, param);
+        }
+
+        /// <summary>
+        /// Add Pull Request Comment
+        /// Adds comment on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">options</param>
+        /// <returns>added <see cref="IIssueComment"/></returns>
+        public IIssueComment AddProjectGitRepositoryPullRequestComment(long projectId, long repoId, long number, AddPullRequestCommentOptions param)
+        {
+            return AddProjectGitRepositoryPullRequestComment($"{projectId}", $"{repoId}", number, param);
+        }
+
+        #endregion
+
         #endregion
     }
 }

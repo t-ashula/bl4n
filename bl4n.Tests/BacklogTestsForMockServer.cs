@@ -3111,6 +3111,25 @@ namespace BL4N.Tests
             Assert.True(actual.Count > 0);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectGitRepositoryPullRequestCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var projectId = r.Next();
+            var repoId = r.Next();
+            var number = r.Next();
+            var content = $"comment.{r.Next()}";
+            var comment = new AddPullRequestCommentOptions(content);
+
+            var actual = backlog.AddProjectGitRepositoryPullRequestComment(projectId, repoId, number, comment);
+            Assert.Equal(content, actual.Content);
+        }
+
         #endregion
 
         #endregion
