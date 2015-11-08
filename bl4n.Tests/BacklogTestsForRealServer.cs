@@ -2499,7 +2499,23 @@ namespace BL4N.Tests
             var projectId = backlog.GetProjects()[0].Id;
             var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
             var actual = backlog.GetProjectGitRepositoryPullRequestsCount(projectId, repoId);
-            Assert.Equal(1, actual.Count);
+            Assert.True(actual.Count > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddProjectGitRepositoryPullRequestTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            string sumary = $"sumary.{new Random().Next()}";
+            string desc = $"desc.{new Random().Next()}";
+            var opt = new AddPullRequestOptions(sumary, desc, "master", "develop");
+            var actual = backlog.AddProjectGitRepositoryPullRequest(projectId, repoId, opt);
+            Assert.Equal(sumary, actual.Summary);
         }
 
         #endregion
