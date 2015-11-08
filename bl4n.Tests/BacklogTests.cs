@@ -450,10 +450,10 @@ namespace BL4N.Tests
         public abstract void GetProjectGitRepository_with_name_with_key_Test();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests </summary>
-        public abstract void GetProjectGitRepositoryPullRequestTest();
+        public abstract void GetProjectGitRepositoryPullRequestsTest();
 
         /// <summary> GET /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/count </summary>
-        public abstract void GetProjectGitRepositoryPullRequestCountTest();
+        public abstract void GetProjectGitRepositoryPullRequestsCountTest();
 
         /// <summary> POST /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests </summary>
         public abstract void AddProjectGitRepositoryPullRequestTest();

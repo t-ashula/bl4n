@@ -2994,7 +2994,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void GetProjectGitRepositoryPullRequestTest()
+        public override void GetProjectGitRepositoryPullRequestsTest()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
@@ -3017,7 +3017,7 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
-        public override void GetProjectGitRepositoryPullRequestCountTest()
+        public override void GetProjectGitRepositoryPullRequestsCountTest()
         {
             SkipIfSettingIsBroken();
             SkipIfMockServerIsDown();
