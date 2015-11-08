@@ -1499,6 +1499,69 @@ namespace BL4N
 
         #endregion
 
+        #region add pull request
+
+        /// <summary>
+        /// Get Pull Request
+        /// Gets pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repository id</param>
+        /// <param name="number">pull request number</param>
+        /// <returns>create <see cref="IPullRequest"/></returns>
+        public IPullRequest GetProjectGitRepositoryPullRequest(string projectKey, string repoName, long number)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var res = GetApiResult<PullRequest>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Get Pull Request
+        /// Gets pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">pull request number</param>
+        /// <returns>create <see cref="IPullRequest"/></returns>
+        public IPullRequest GetProjectGitRepositoryPullRequest(long projectId, string repoName, long number)
+        {
+            return GetProjectGitRepositoryPullRequest($"{projectId}", repoName, number);
+        }
+
+        /// <summary>
+        /// Get Pull Request
+        /// Gets pull request.
+        /// </summary>
+        /// <param name="projectKey">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">pull request number</param>
+        /// <returns>create <see cref="IPullRequest"/></returns>
+        public IPullRequest GetProjectGitRepositoryPullRequest(string projectKey, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequest(projectKey, $"{repoId}", number);
+        }
+
+        /// <summary>
+        /// Get Pull Request
+        /// Gets pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">pull request number</param>
+        /// <returns>create <see cref="IPullRequest"/></returns>
+        public IPullRequest GetProjectGitRepositoryPullRequest(long projectId, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequest($"{projectId}", $"{repoId}", number);
+        }
+
+        #endregion
+
         #endregion
     }
 }

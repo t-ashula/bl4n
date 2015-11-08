@@ -3054,6 +3054,24 @@ namespace BL4N.Tests
             Assert.Equal(option.IssueId, actual.Issue.Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoryPullRequestTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            var r = new Random();
+            var number = r.Next();
+            var actual = backlog.GetProjectGitRepositoryPullRequest(projectId, repoId, number);
+            Assert.Equal(projectId, actual.ProjectId);
+            Assert.Equal(repoId, actual.RepositoryId);
+            Assert.Equal(number, actual.Number);
+        }
+
         #endregion
 
         #endregion

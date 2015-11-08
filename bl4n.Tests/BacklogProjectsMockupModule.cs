@@ -1171,6 +1171,157 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectKey/git/repositories/:repoName/pullRequests
+
+            Get["/{projectKey}/git/repositories/{repoName}/pullRequests/{number}"] = p =>
+            {
+                string o = p.projectKey;
+                long pid;
+                if (!long.TryParse(o, out pid))
+                {
+                    pid = 3;
+                }
+
+                o = p.repoName;
+                long rid;
+                if (!long.TryParse(o, out rid))
+                {
+                    rid = 5;
+                }
+
+                return Response.AsJson(new
+                {
+                    id = 2,
+                    projectId = pid,
+                    repositoryId = rid,
+                    number = p.number,
+                    summary = "test",
+                    description = "test data",
+                    @base = "master",
+                    branch = "develop",
+                    status = new { id = 1, name = "Open" },
+                    assignee = new
+                    {
+                        id = 5,
+                        userId = "testuser2",
+                        name = "testuser2",
+                        roleType = 1,
+                        mailAddress = "testuser2@nulab.test"
+                    },
+                    issue = new
+                    {
+                        id = 1,
+                        projectId = pid,
+                        issueKey = "BLG-1",
+                        keyId = 1,
+                        issueType = new { id = 2, projectId = 1, name = "Task", color = "#7ea800", displayOrder = 0 },
+                        summary = "first issue",
+                        description = string.Empty,
+                        //// resolution = null
+                        priority = new { id = 3, name = "Normal" },
+                        status = new { id = 1, name = "Open" },
+                        assignee = new { id = 2, name = "eguchi", roleType = 2, mailAddress = "eguchi@nulab.example" },
+                        //// category = new [] { new {} },
+                        //// versions = new [] { new {} },
+                        milestone = new[]
+                        {
+                            new
+                            {
+                                id = 30, projectId = 1, name = "wait for release", description = "", archived = false
+                            }
+                        },
+                        //// startDate = null,
+                        //// dueDate = null,
+                        //// estimatedHours = null,
+                        //// actualHours = null,
+                        //// parentIssueId = null,
+                        createdUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        created = "2012-07-23T06:10:15Z",
+                        updatedUser = new { id = 1, userId = "admin", name = "admin", roleType = 1, lang = "ja", mailAddress = "eguchi@nulab.example" },
+                        updated = "2013-02-07T08:09:49Z",
+                        //// customFields = new [] { new {} },
+                        attachments = new[] { new { id = 1, name = "IMGP0088.JPG", size = 85079 } },
+                        sharedFiles = new[]
+                        {
+                            new
+                            {
+                                id = 454403,
+                                type = "file",
+                                dir = "/User icon/",
+                                name = "male clerk 1.png",
+                                size = 2735,
+                                createdUser = new
+                                {
+                                    id = 5686,
+                                    userId = "takada",
+                                    name = "takada",
+                                    roleType = 2,
+                                    lang = "ja",
+                                    mailAddress = "takada@nulab.example"
+                                },
+                                created = "2009-02-27T03:26:15Z",
+                                updatedUser = new
+                                {
+                                    id = 5686,
+                                    userId = "takada",
+                                    name = "takada",
+                                    roleType = 2,
+                                    lang = "ja",
+                                    mailAddress = "takada@nulab.example"
+                                },
+                                updated = "2009-03-03T16:57:47Z"
+                            }
+                        },
+                        stars = new[]
+                        {
+                            new
+                            {
+                                id = 10,
+                                //// comment = null,
+                                url = "https://xx.backlog.jp/view/BLG-1",
+                                title = "[BLG-1] first issue | Show issue - Backlog",
+                                presenter = new
+                                {
+                                    id = 2,
+                                    userId = "eguchi",
+                                    name = "eguchi",
+                                    roleType = 2,
+                                    lang = "ja",
+                                    mailAddress = "eguchi@nulab.example"
+                                },
+                                created = "2013-07-08T10:24:28Z"
+                            }
+                        }
+                    },
+                    //// baseCommit = null,
+                    //// branchCommit = null,
+                    //// closeAt = null,
+                    //// mergeAt = null,
+                    createdUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2015-04-23T03:04:14Z",
+                    updatedUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    updated = "2015-04-23T03:04:14Z"
+                });
+            };
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)
