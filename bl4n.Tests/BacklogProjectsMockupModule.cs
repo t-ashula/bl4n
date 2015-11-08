@@ -1567,6 +1567,12 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectKey/git/repositories/:repoName/pullRequests/:number/comments/count
+
+            Get["/{projectKey}/git/repositories/{repoName}/pullRequests/{number}/comments/count"] = p => Response.AsJson(new { count = 10 });
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

@@ -3130,6 +3130,21 @@ namespace BL4N.Tests
             Assert.Equal(content, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoryPullRequestCommentsCountTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            var number = backlog.GetProjectGitRepositoryPullRequests(projectId, repoId)[0].Number;
+            var actual = backlog.GetProjectGitRepositoryPullRequestCommentsCount(projectId, repoId, number);
+            Assert.Equal(10, actual.Count);
+        }
+
         #endregion
 
         #endregion

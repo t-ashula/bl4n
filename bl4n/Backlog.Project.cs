@@ -1756,6 +1756,66 @@ namespace BL4N
 
         #endregion
 
+        #region get pull request comments count
+
+        /// <summary>
+        /// Get Number of Pull Request Comments
+        /// Returns number of comments on pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>count of p-r comments</returns>
+        public ICounter GetProjectGitRepositoryPullRequestCommentsCount(string projectKey, string repoName, long number)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/:number/comments/count
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}", "comments", "count" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Get Number of Pull Request Comments
+        /// Returns number of comments on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>count of p-r comments</returns>
+        public ICounter GetProjectGitRepositoryPullRequestCommentsCount(long projectId, string repoName, long number)
+        {
+            return GetProjectGitRepositoryPullRequestCommentsCount($"{projectId}", repoName, number);
+        }
+
+        /// <summary>
+        /// Get Number of Pull Request Comments
+        /// Returns number of comments on pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>count of p-r comments</returns>
+        public ICounter GetProjectGitRepositoryPullRequestCommentsCount(string projectKey, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequestCommentsCount(projectKey, $"{repoId}", number);
+        }
+
+        /// <summary>
+        /// Get Number of Pull Request Comments
+        /// Returns number of comments on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>count of p-r comments</returns>
+        public ICounter GetProjectGitRepositoryPullRequestCommentsCount(long projectId, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequestCommentsCount($"{projectId}", $"{repoId}", number);
+        }
+
+        #endregion
+
         #endregion
     }
 }
