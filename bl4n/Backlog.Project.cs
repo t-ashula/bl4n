@@ -1890,6 +1890,66 @@ namespace BL4N
 
         #endregion
 
+        #region get pull request attachments list
+
+        /// <summary>
+        /// Get List of Pull Request Attachment
+        /// Returns list of attached files on pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repo name</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        public IList<IAttachment> GetProjectGitRepositoryPullRequestAttachments(string projectKey, string repoName, long number)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/:number/attachments
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}", "attachments" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<List<Attachment>>(api, jss);
+            return res.Result.ToList<IAttachment>();
+        }
+
+        /// <summary>
+        /// Get List of Pull Request Attachment
+        /// Returns list of attached files on pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        public IList<IAttachment> GetProjectGitRepositoryPullRequestAttachments(string projectKey, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequestAttachments(projectKey, $"{repoId}", number);
+        }
+
+        /// <summary>
+        /// Get List of Pull Request Attachment
+        /// Returns list of attached files on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repo name</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        public IList<IAttachment> GetProjectGitRepositoryPullRequestAttachments(long projectId, string repoName, long number)
+        {
+            return GetProjectGitRepositoryPullRequestAttachments($"{projectId}", repoName, number);
+        }
+
+        /// <summary>
+        /// Get List of Pull Request Attachment
+        /// Returns list of attached files on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IAttachment"/></returns>
+        public IList<IAttachment> GetProjectGitRepositoryPullRequestAttachments(long projectId, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequestAttachments($"{projectId}", $"{repoId}", number);
+        }
+
+        #endregion
+
         #endregion
     }
 }

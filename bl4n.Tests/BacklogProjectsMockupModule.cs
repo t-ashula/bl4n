@@ -1609,6 +1609,30 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number/attachments
+
+            Get["/{projectKey}/git/repositories/{repoIdOrName}/pullRequests/{number}/attachments"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 8,
+                    name = "IMG0088.png",
+                    size = 5563,
+                    createdUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2014-10-28T09:24:43Z"
+                }
+            });
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

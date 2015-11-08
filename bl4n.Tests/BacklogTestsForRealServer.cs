@@ -2634,6 +2634,23 @@ namespace BL4N.Tests
             Assert.Equal(secondComment, actual.Content);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoryPullRequestAttachmentsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            var prs = backlog.GetProjectGitRepositoryPullRequests(projectId, repoId);
+            Assert.True(prs.Count > 0);
+            var pr = prs.FirstOrDefault(p => p.Summary == "attachments");
+            Assert.NotNull(pr);
+            var actual = backlog.GetProjectGitRepositoryPullRequestAttachments(projectId, repoId, pr.Number);
+            Assert.True(actual.Count > 0);
+        }
+
         #endregion
 
         #endregion
