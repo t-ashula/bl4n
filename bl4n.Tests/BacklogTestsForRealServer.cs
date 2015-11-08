@@ -2489,6 +2489,19 @@ namespace BL4N.Tests
             Assert.Equal("develop", pr.Branch);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoryPullRequestCountTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            var actual = backlog.GetProjectGitRepositoryPullRequestsCount(projectId, repoId);
+            Assert.Equal(1, actual.Count);
+        }
+
         #endregion
 
         #endregion

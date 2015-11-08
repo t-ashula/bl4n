@@ -994,6 +994,12 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectKey/git/repositories/:repoName/count
+
+            Get["/{projectKey}/git/repositories/{repoName}/pullRequests/count"] = p => Response.AsJson(new { count = 10 });
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

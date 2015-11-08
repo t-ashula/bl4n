@@ -1236,6 +1236,8 @@ namespace BL4N
 
         #region project/git
 
+        #region repositories
+
         /// <summary>
         /// Get List of Git Repositories
         /// Returns list of Git repositories.
@@ -1265,6 +1267,10 @@ namespace BL4N
             var res = GetApiResult<List<RepositoryDetail>>(api, jss);
             return res.Result.ToList<IRepositoryDetail>();
         }
+
+        #endregion
+
+        #region repository
 
         /// <summary>
         ///
@@ -1313,6 +1319,10 @@ namespace BL4N
             var res = GetApiResult<RepositoryDetail>(api, jss);
             return res.Result;
         }
+
+        #endregion
+
+        #region pull requests
 
         /// <summary>
         /// Get Pull Request List
@@ -1365,6 +1375,64 @@ namespace BL4N
         {
             return GetProjectGitRepositoryPullRequests($"{projectId}", $"{repoId}");
         }
+
+        #endregion
+
+        #region pull requests count
+
+        /// <summary>
+        /// Get Number of Pull Requests
+        /// Returns number of pull requests.
+        /// </summary>
+        /// <param name="projectKey"></param>
+        /// <param name="repoName"></param>
+        /// <returns>pull requests count</returns>
+        public ICounter GetProjectGitRepositoryPullRequestsCount(string projectKey, string repoName)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/count
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", "count" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Get Number of Pull Requests
+        /// Returns number of pull requests.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repo name</param>
+        /// <returns>pull requests count</returns>
+        public ICounter GetProjectGitRepositoryPullRequestsCount(long projectId, string repoName)
+        {
+            return GetProjectGitRepositoryPullRequestsCount($"{projectId}", repoName);
+        }
+
+        /// <summary>
+        /// Get Number of Pull Requests
+        /// Returns number of pull requests.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repo id</param>
+        /// <returns>pull requests count</returns>
+        public ICounter GetProjectGitRepositoryPullRequestsCount(string projectKey, long repoId)
+        {
+            return GetProjectGitRepositoryPullRequestsCount(projectKey, $"{repoId}");
+        }
+
+        /// <summary>
+        /// Get Number of Pull Requests
+        /// Returns number of pull requests.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repo id</param>
+        /// <returns>pull requests count</returns>
+        public ICounter GetProjectGitRepositoryPullRequestsCount(long projectId, long repoId)
+        {
+            return GetProjectGitRepositoryPullRequestsCount($"{projectId}", $"{repoId}");
+        }
+
+        #endregion
 
         #endregion
     }
