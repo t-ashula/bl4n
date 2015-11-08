@@ -1816,6 +1816,80 @@ namespace BL4N
 
         #endregion
 
+        #region update pull request comment
+
+        /// <summary>
+        /// Update Pull Request Comment Information
+        /// Updates pull request comment information.
+        /// Authenticated user can update his own comments.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repo name</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="secondComment">update comment </param>
+        /// <returns>updated <see cref="IIssueComment"/></returns>
+        public IIssueComment UpdateProjectGitRepositoryPullRequestComment(string projectKey, string repoName, long number, long commentId, string secondComment)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/:number/comments/:commentId
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}", "comments", $"{commentId}" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var param = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("content", secondComment) };
+            var hc = new FormUrlEncodedContent(param);
+            var res = PatchApiResult<IssueComment>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Pull Request Comment Information
+        /// Updates pull request comment information.
+        /// Authenticated user can update his own comments.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="secondComment">update comment </param>
+        /// <returns>updated <see cref="IIssueComment"/></returns>
+        public IIssueComment UpdateProjectGitRepositoryPullRequestComment(string projectKey, long repoId, long number, long commentId, string secondComment)
+        {
+            return UpdateProjectGitRepositoryPullRequestComment(projectKey, $"{repoId}", number, commentId, secondComment);
+        }
+
+        /// <summary>
+        /// Update Pull Request Comment Information
+        /// Updates pull request comment information.
+        /// Authenticated user can update his own comments.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repo name</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="secondComment">update comment </param>
+        /// <returns>updated <see cref="IIssueComment"/></returns>
+        public IIssueComment UpdateProjectGitRepositoryPullRequestComment(long projectId, string repoName, long number, long commentId, string secondComment)
+        {
+            return UpdateProjectGitRepositoryPullRequestComment($"{projectId}", repoName, number, commentId, secondComment);
+        }
+
+        /// <summary>
+        /// Update Pull Request Comment Information
+        /// Updates pull request comment information.
+        /// Authenticated user can update his own comments.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="commentId">comment id</param>
+        /// <param name="secondComment">update comment </param>
+        /// <returns>updated <see cref="IIssueComment"/></returns>
+        public IIssueComment UpdateProjectGitRepositoryPullRequestComment(long projectId, long repoId, long number, long commentId, string secondComment)
+        {
+            return UpdateProjectGitRepositoryPullRequestComment($"{projectId}", $"{repoId}", number, commentId, secondComment);
+        }
+
+        #endregion
+
         #endregion
     }
 }
