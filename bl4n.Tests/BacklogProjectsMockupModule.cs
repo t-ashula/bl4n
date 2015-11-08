@@ -1496,6 +1496,41 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region /projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number/comments
+
+            Get["/{projectKey}/git/repositories/{repoIdOrName}/pullRequests/{number}/comments"] = p => Response.AsJson(new[]
+            {
+                new
+                {
+                    id = 35,
+                    content = "from api",
+                    changeLog = new[]
+                    {
+                        new
+                        {
+                            field = "dependentIssue",
+                            newValue = "GIT-3",
+                            //// originalValue = null
+                        }
+                    },
+                    createdUser = new
+                    {
+                        id = 1,
+                        userId = "admin",
+                        name = "admin",
+                        roleType = 1,
+                        lang = "ja",
+                        mailAddress = "eguchi@nulab.example"
+                    },
+                    created = "2015-05-14T01:53:38Z",
+                    updated = "2015-05-14T01:53:38Z",
+                    //// stars = new[] { new { } },
+                    //// notifications = new[] { new { } }
+                }
+            });
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

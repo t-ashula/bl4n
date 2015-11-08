@@ -464,6 +464,9 @@ namespace BL4N.Tests
         /// <summary> PATCH /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number </summary>
         public abstract void UpdateProjectGitRepositoryPullRequestTest();
 
+        /// <summary> /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number/comments </summary>
+        public abstract void GetProjectGitRepositoryPullRequestCommentsTest();
+
         #endregion
 
         #endregion

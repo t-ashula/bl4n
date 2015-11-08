@@ -1630,6 +1630,66 @@ namespace BL4N
 
         #endregion
 
+        #region get pull requests coments
+
+        /// <summary>
+        /// Get Pull Request Comment
+        /// Returns list of pull request comments.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        public IList<IIssueComment> GetProjectGitRepositoryPullRequestComments(string projectKey, string repoName, long number)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/:number/comments
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}", "comments" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = GetApiResult<List<IssueComment>>(api, jss);
+            return res.Result.ToList<IIssueComment>();
+        }
+
+        /// <summary>
+        /// Get Pull Request Comment
+        /// Returns list of pull request comments.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        public IList<IIssueComment> GetProjectGitRepositoryPullRequestComments(string projectKey, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequestComments(projectKey, $"{repoId}", number);
+        }
+
+        /// <summary>
+        /// Get Pull Request Comment
+        /// Returns list of pull request comments.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        public IList<IIssueComment> GetProjectGitRepositoryPullRequestComments(long projectId, string repoName, long number)
+        {
+            return GetProjectGitRepositoryPullRequestComments($"{projectId}", repoName, number);
+        }
+
+        /// <summary>
+        /// Get Pull Request Comment
+        /// Returns list of pull request comments.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <returns>list of <see cref="IIssueComment"/></returns>
+        public IList<IIssueComment> GetProjectGitRepositoryPullRequestComments(long projectId, long repoId, long number)
+        {
+            return GetProjectGitRepositoryPullRequestComments($"{projectId}", $"{repoId}", number);
+        }
+
+        #endregion
+
         #endregion
     }
 }

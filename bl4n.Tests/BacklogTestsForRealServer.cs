@@ -2560,6 +2560,22 @@ namespace BL4N.Tests
             Assert.Equal(desc, actual.Description);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjectGitRepositoryPullRequestCommentsTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            var prs = backlog.GetProjectGitRepositoryPullRequests(projectId, repoId);
+            Assert.True(prs.Count > 0);
+            var number = prs.First().Number;
+            var actual = backlog.GetProjectGitRepositoryPullRequestComments(projectId, repoId, number);
+            Assert.True(actual.Count > 0);
+        }
+
         #endregion
 
         #endregion
