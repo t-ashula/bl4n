@@ -1562,6 +1562,74 @@ namespace BL4N
 
         #endregion
 
+        #region update pull request
+
+        /// <summary>
+        /// Update Pull Request
+        /// Updates pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">option</param>
+        /// <returns>updated <see cref="IPullRequest"/></returns>
+        public IPullRequest UpdateProjectGitRepositoryPullRequest(string projectKey, string repoName, long number, UpdatePullRequestOptions param)
+        {
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}" });
+            var jss = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat
+            };
+
+            var hc = new FormUrlEncodedContent(param.ToKeyValuePairs());
+            var res = PatchApiResult<PullRequest>(api, hc, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Update Pull Request
+        /// Updates pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">option</param>
+        /// <returns>updated <see cref="IPullRequest"/></returns>
+        public IPullRequest UpdateProjectGitRepositoryPullRequest(long projectId, string repoName, long number, UpdatePullRequestOptions param)
+        {
+            return UpdateProjectGitRepositoryPullRequest($"{projectId}", repoName, number, param);
+        }
+
+        /// <summary>
+        /// Update Pull Request
+        /// Updates pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">option</param>
+        /// <returns>updated <see cref="IPullRequest"/></returns>
+        public IPullRequest UpdateProjectGitRepositoryPullRequest(string projectKey, long repoId, long number, UpdatePullRequestOptions param)
+        {
+            return UpdateProjectGitRepositoryPullRequest(projectKey, $"{repoId}", number, param);
+        }
+
+        /// <summary>
+        /// Update Pull Request
+        /// Updates pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="param">option</param>
+        /// <returns>updated <see cref="IPullRequest"/></returns>
+        public IPullRequest UpdateProjectGitRepositoryPullRequest(long projectId, long repoId, long number, UpdatePullRequestOptions param)
+        {
+            return UpdateProjectGitRepositoryPullRequest($"{projectId}", $"{repoId}", number, param);
+        }
+
+        #endregion
+
         #endregion
     }
 }

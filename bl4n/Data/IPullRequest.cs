@@ -132,10 +132,20 @@ namespace BL4N.Data
         public string BranchCommit { get; set; }
 
         [DataMember(Name = "closeAt")]
-        public DateTime? CloseAt { get; set; }
+        private long? _closeAt;
+
+        public DateTime? CloseAt
+        {
+            get { return _closeAt == null ? (DateTime?)null : Backlog.FromUnixTimeStamp(_closeAt.Value); }
+        }
 
         [DataMember(Name = "mergeAt")]
-        public DateTime? MergeAt { get; set; }
+        private long? _mergeAt;
+
+        public DateTime? MergeAt
+        {
+            get { return _mergeAt == null ? (DateTime?)null : Backlog.FromUnixTimeStamp(_mergeAt.Value); }
+        }
 
         [DataMember(Name = "createdUser")]
         private User _createdUser;

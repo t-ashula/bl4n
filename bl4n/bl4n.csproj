@@ -191,6 +191,7 @@
     <Compile Include="Data\UpdateProjectIssueTypeOptions.cs" />
     <Compile Include="Data\UpdateProjectOptions.cs" />
     <Compile Include="Data\UpdateProjectVersionOptions.cs" />
+    <Compile Include="Data\UpdatePullRequestOptions.cs" />
     <Compile Include="Data\UpdateRadioButtonTypeCustomFieldOptions.cs" />
     <Compile Include="Data\UpdateSentenceCustomFieldOptions.cs" />
     <Compile Include="Data\UpdateSingleListTypeCustomFieldOptions.cs" />

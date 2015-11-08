@@ -234,5 +234,10 @@ namespace BL4N
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
+
+        internal static DateTime FromUnixTimeStamp(long timeStamp)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(timeStamp);
+        }
     }
 }
