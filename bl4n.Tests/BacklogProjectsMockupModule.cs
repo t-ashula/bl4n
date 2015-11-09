@@ -1662,6 +1662,27 @@ namespace BL4N.Tests
             };
 
             #endregion
+
+            #region DELETE /projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number/attachments/:fileId
+
+            Delete["/{projectKey}/git/repositories/{repoIdOrName}/pullRequests/{number}/attachments/{fileId}"] = p => Response.AsJson(new
+            {
+                id = p.fileId,
+                name = "IMG0088.png",
+                size = 5563,
+                createdUser = new
+                {
+                    id = 1,
+                    userId = "admin",
+                    name = "admin",
+                    roleType = 1,
+                    lang = "ja",
+                    mailAddress = "eguchi@nulab.example"
+                },
+                created = "2014-10-28T09:24:43Z"
+            });
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

@@ -482,6 +482,9 @@ namespace BL4N.Tests
         /// <summary> /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number/attachments/:aid </summary>
         public abstract void DownloadProjectGitRepositoryPullRequestAttachmentTest();
 
+        /// <summary> DELETE /api/v2/projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number/attachments/:aid </summary>
+        public abstract void DeleteProjectGitRepositoryPullRequestAttachmentTest();
+
         #endregion
 
         #endregion

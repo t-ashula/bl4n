@@ -3197,6 +3197,23 @@ namespace BL4N.Tests
             Assert.Equal(fileName, actual.FileName);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectGitRepositoryPullRequestAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var projectId = r.Next();
+            var repoId = r.Next();
+            var number = r.Next();
+            var fileId = r.Next();
+            var actual = backlog.DeleteProjectGitRepositoryPullRequestAttachment(projectId, repoId, number, fileId);
+            Assert.Equal(fileId, actual.Id);
+        }
+
         #endregion
 
         #endregion

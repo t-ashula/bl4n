@@ -2669,6 +2669,42 @@ namespace BL4N.Tests
             ISharedFileData actual = backlog.GetProjectGitRepositoryPullRequestAttachment(projectId, repoId, pr.Number, atachments[0].Id);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DeleteProjectGitRepositoryPullRequestAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+
+            long atachmentId;
+            using (var ms = new MemoryStream())
+            {
+                var bmp = Resources.logo;
+                bmp.Save(ms, bmp.RawFormat);
+                var size = ms.Length;
+                ms.Position = 0;
+                var name = $"at.{DateTime.Now.Millisecond}.png";
+                var attached = backlog.AddAttachment(name, ms);
+                Assert.True(attached.Id > 0);
+                Assert.Equal(name, attached.Name);
+                Assert.Equal(size, attached.Size);
+                atachmentId = attached.Id;
+            }
+
+            var option = new AddPullRequestOptions("attachment test", "attacment delete test", "develop", "master");
+            option.AddAttachmentId(atachmentId);
+            var dupped = backlog.AddProjectGitRepositoryPullRequest(projectId, repoId, option);
+            Assert.NotNull(dupped);
+            var duppedAt = backlog.GetProjectGitRepositoryPullRequestAttachments(projectId, repoId, dupped.Number);
+            Assert.True(duppedAt.Count > 0);
+            var actual = backlog.DeleteProjectGitRepositoryPullRequestAttachment(projectId, repoId, dupped.Number, duppedAt[0].Id);
+            Assert.NotNull(actual);
+            Assert.Equal(duppedAt[0].Id, actual.Id);
+        }
+
         #endregion
 
         #endregion

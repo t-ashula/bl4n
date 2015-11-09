@@ -2015,6 +2015,70 @@ namespace BL4N
 
         #endregion
 
+        #region delete pull requests attachment
+
+        /// <summary>
+        /// Delete Pull Request Attachments
+        /// Deletes attached file on pull request.
+        /// </summary>
+        /// <param name="projectKey">project id</param>
+        /// <param name="repoName">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">file id</param>
+        /// <returns></returns>
+        public IAttachment DeleteProjectGitRepositoryPullRequestAttachment(string projectKey, string repoName, long number, long fileId)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/:number/attachments/:fileId
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}", "attachments", $"{fileId}" });
+            var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var res = DeleteApiResult<Attachment>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
+        /// Delete Pull Request Attachments
+        /// Deletes attached file on pull request.
+        /// </summary>
+        /// <param name="projectKey">project id</param>
+        /// <param name="repoId">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">file id</param>
+        /// <returns></returns>
+        public IAttachment DeleteProjectGitRepositoryPullRequestAttachment(string projectKey, long repoId, long number, long fileId)
+        {
+            return DeleteProjectGitRepositoryPullRequestAttachment(projectKey, $"{repoId}", number, fileId);
+        }
+
+        /// <summary>
+        /// Delete Pull Request Attachments
+        /// Deletes attached file on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">file id</param>
+        /// <returns></returns>
+        public IAttachment DeleteProjectGitRepositoryPullRequestAttachment(long projectId, string repoName, long number, long fileId)
+        {
+            return DeleteProjectGitRepositoryPullRequestAttachment($"{projectId}", repoName, number, fileId);
+        }
+
+        /// <summary>
+        /// Delete Pull Request Attachments
+        /// Deletes attached file on pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repo id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">file id</param>
+        /// <returns></returns>
+        public IAttachment DeleteProjectGitRepositoryPullRequestAttachment(long projectId, long repoId, long number, long fileId)
+        {
+            return DeleteProjectGitRepositoryPullRequestAttachment($"{projectId}", $"{repoId}", number, fileId);
+        }
+
+        #endregion
+
         #endregion
     }
 }
