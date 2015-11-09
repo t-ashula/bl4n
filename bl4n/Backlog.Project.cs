@@ -1950,6 +1950,71 @@ namespace BL4N
 
         #endregion
 
+        #region get pull requests attachment
+
+        /// <summary>
+        /// Download Pull Request Attachment
+        /// Downloads attached files on the pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">attachment id</param>
+        /// <returns>attachment file</returns>
+        public ISharedFileData GetProjectGitRepositoryPullRequestAttachment(string projectKey, string repoName, long number, long fileId)
+        {
+            // /api/v2/projects/:projectIdOrKey/git/repositories/:repoName/pullRequests/:number/attachments/:fileId
+            var api = GetApiUri(new[] { "projects", projectKey, "git", "repositories", repoName, "pullRequests", $"{number}", "attachments", $"{fileId}" });
+            var res = GetApiResultAsFile(api);
+            var fileName = res.Result.Item1;
+            var content = res.Result.Item2;
+            return new SharedFileData(fileName, content);
+        }
+
+        /// <summary>
+        /// Download Pull Request Attachment
+        /// Downloads attached files on the pull request.
+        /// </summary>
+        /// <param name="projectKey">project key</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">attachment id</param>
+        /// <returns>attachment file</returns>
+        public ISharedFileData GetProjectGitRepositoryPullRequestAttachment(string projectKey, long repoId, long number, long fileId)
+        {
+            return GetProjectGitRepositoryPullRequestAttachment(projectKey, $"{repoId}", number, fileId);
+        }
+
+        /// <summary>
+        /// Download Pull Request Attachment
+        /// Downloads attached files on the pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoName">repository name</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">attachment id</param>
+        /// <returns>attachment file</returns>
+        public ISharedFileData GetProjectGitRepositoryPullRequestAttachment(long projectId, string repoName, long number, long fileId)
+        {
+            return GetProjectGitRepositoryPullRequestAttachment($"{projectId}", repoName, number, fileId);
+        }
+
+        /// <summary>
+        /// Download Pull Request Attachment
+        /// Downloads attached files on the pull request.
+        /// </summary>
+        /// <param name="projectId">project id</param>
+        /// <param name="repoId">repository id</param>
+        /// <param name="number">p-r number</param>
+        /// <param name="fileId">attachment id</param>
+        /// <returns>attachment file</returns>
+        public ISharedFileData GetProjectGitRepositoryPullRequestAttachment(long projectId, long repoId, long number, long fileId)
+        {
+            return GetProjectGitRepositoryPullRequestAttachment($"{projectId}", $"{repoId}", number, fileId);
+        }
+
+        #endregion
+
         #endregion
     }
 }

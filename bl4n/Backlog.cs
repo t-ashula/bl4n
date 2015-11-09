@@ -239,5 +239,10 @@ namespace BL4N
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(timeStamp);
         }
+
+        internal ISharedFileData GetProjectGitRepositoryPullRequestAttachments(long projectId, long repoId, long number, long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

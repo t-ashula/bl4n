@@ -1633,6 +1633,35 @@ namespace BL4N.Tests
             });
 
             #endregion
+
+            #region /projects/:projectIdOrKey/git/repositories/:repoIdOrName/pullRequests/:number/attachments/:fileId
+
+            Get["/{projectKey}/git/repositories/{repoIdOrName}/pullRequests/{number}/attachments/{fileId}"] = p =>
+            {
+                var fileName = string.Format("{0}.{1}.dat", p.number, (long)p.fileId);
+                var response = new Response
+                {
+                    ContentType = "application/octet-stream",
+                    Contents = stream =>
+                    {
+                        var logo = Resources.projectIcon;
+                        using (var ms = new MemoryStream())
+                        {
+                            logo.Save(ms, ImageFormat.Png);
+                            ms.Position = 0;
+                            using (var writer = new BinaryWriter(stream))
+                            {
+                                writer.Write(ms.GetBuffer());
+                            }
+                        }
+                    }
+                };
+
+                response.Headers.Add("Content-Disposition", "attachment; filename*=UTF-8''" + fileName);
+                return response;
+            };
+
+            #endregion
         }
 
         private Response GetFilesResponse(string path)

@@ -3179,6 +3179,24 @@ namespace BL4N.Tests
             Assert.Equal(1, actual.Count);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void DownloadProjectGitRepositoryPullRequestAttachmentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var projectId = r.Next();
+            var repoId = r.Next();
+            var number = r.Next();
+            var fileId = r.Next();
+            var actual = backlog.GetProjectGitRepositoryPullRequestAttachment(projectId, repoId, number, fileId);
+            var fileName = string.Format("{0}.{1}.dat", number, fileId);
+            Assert.Equal(fileName, actual.FileName);
+        }
+
         #endregion
 
         #endregion
