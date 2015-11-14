@@ -737,11 +737,25 @@ namespace BL4N.Tests
             SkipIfSettingIsBroken();
 
             var backlog = new Backlog(Settings);
-            var opt = new GetProjectsOptions {Archived = true};
+            var opt = new GetProjectsOptions { Archived = true };
             var actual = backlog.GetProjects(opt);
 
             // []
             Assert.Equal(0, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetProjects_all_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var opt = new GetProjectsOptions { All = true };
+            var actual = backlog.GetProjects(opt);
+
+            // プランの都合上テスト難し
+            Assert.Equal(1, actual.Count);
         }
 
         /// <inheritdoc/>

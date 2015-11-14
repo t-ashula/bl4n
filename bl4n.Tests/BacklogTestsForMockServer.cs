@@ -1137,6 +1137,27 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetProjects_all_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var opt = new GetProjectsOptions { All = true };
+            var actual = backlog.GetProjects(opt);
+
+            Assert.Equal(1, actual.Count);
+            Assert.Equal(1, actual[0].Id);
+            Assert.Equal("TEST", actual[0].ProjectKey);
+            Assert.Equal("test", actual[0].Name);
+            Assert.False(actual[0].ChartEnabled);
+            Assert.False(actual[0].SubtaskingEnabled);
+            Assert.Equal("markdown", actual[0].TextFormattingRule);
+            Assert.False(actual[0].Archived);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddProjectTest()
         {
             SkipIfSettingIsBroken();

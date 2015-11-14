@@ -15,10 +15,11 @@ namespace BL4N.Data
     public sealed class GetProjectsOptions : OptionalParams
     {
         private const string ArchivedProperty = "archived";
+        private const string AllProperty = "all";
 
         /// <summary> <see cref="GetProjectsOptions"/> のインスタンスを初期化します </summary>
         public GetProjectsOptions()
-            : base(ArchivedProperty)
+            : base(ArchivedProperty, AllProperty)
         {
         }
 
@@ -40,6 +41,24 @@ namespace BL4N.Data
             }
         }
 
+        private bool _all;
+
+        /// <summary>
+        /// プロジェクトへの参加の有無の指定を取得または設定します
+        /// </summary>
+        public bool All
+        {
+            get { return _all; }
+            set
+            {
+                if (_all != value)
+                {
+                    _all = value;
+                    PropertyChanged(AllProperty);
+                }
+            }
+        }
+
         /// <summary> HTTP Request 用の Key-value ペアの一覧を取得します </summary>
         /// <returns> key-value ペアの一覧 </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
@@ -48,6 +67,11 @@ namespace BL4N.Data
             if (IsPropertyChanged(ArchivedProperty))
             {
                 paris.Add(new KeyValuePair<string, string>(ArchivedProperty, Archived ? "true" : "false"));
+            }
+
+            if (IsPropertyChanged(AllProperty))
+            {
+                paris.Add(new KeyValuePair<string, string>(AllProperty, All ? "true" : "false"));
             }
 
             return paris;
