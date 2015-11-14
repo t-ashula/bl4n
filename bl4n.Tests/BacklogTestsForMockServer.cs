@@ -4327,10 +4327,12 @@ namespace BL4N.Tests
             var backlog = new Backlog(Settings);
             var actual = backlog.GetNotifications();
             Assert.Equal(1, actual.Count);
-            Assert.True(actual[0].Id > 0);
-            Assert.NotNull(actual[0].Issue);
-            Assert.NotNull(actual[0].Comment);
-            Assert.NotNull(actual[0].Project);
+            var notification = actual[0];
+            Assert.True(notification.Id > 0);
+            Assert.NotNull(notification.Issue);
+            Assert.NotNull(notification.Comment);
+            Assert.NotNull(notification.Project);
+            Assert.NotNull(notification.PullRequest);
         }
 
         /// <inheritdoc/>

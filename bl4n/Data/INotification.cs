@@ -40,6 +40,9 @@ namespace BL4N.Data
 
         /// <summary> 作成日時を取得します </summary>
         DateTime Created { get; }
+
+        /// <summary> Gets Pull Request  </summary>
+        IPullRequest PullRequest { get; }
     }
 
     [DataContract]
@@ -95,5 +98,14 @@ namespace BL4N.Data
 
         [DataMember(Name = "created")]
         public DateTime Created { get; private set; }
+
+        [DataMember(Name = "pullRequest")]
+        private PullRequest _pullRequest;
+
+        [IgnoreDataMember]
+        public IPullRequest PullRequest
+        {
+            get { return _pullRequest; }
+        }
     }
 }
