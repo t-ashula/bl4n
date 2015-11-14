@@ -18,7 +18,7 @@ namespace BL4N
     /// <summary> The backlog. for Space API </summary>
     public partial class Backlog
     {
-        /// <summary> space î•ñ‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> space æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <returns> <see cref="ISpace"/>. </returns>
         public ISpace GetSpace()
         {
@@ -28,10 +28,10 @@ namespace BL4N
             return space.Result;
         }
 
-        /// <summary> Å‹ß‚ÌXV‚Ìˆê——‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> æœ€è¿‘ã®æ›´æ–°ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <param name="filter">activity filtering option</param>
-        /// <returns> <see cref="IActivity"/> ‚ÌƒŠƒXƒg</returns>
-        public List<IActivity> GetSpaceActivities(RecentUpdateFilterOptions filter = null)
+        /// <returns> <see cref="IActivity"/> ã®ãƒªã‚¹ãƒˆ</returns>
+        public IList<IActivity> GetSpaceActivities(RecentUpdateFilterOptions filter = null)
         {
             var query = filter == null ? null : filter.ToKeyValuePairs();
             var api = GetApiUri(new[] { "space", "activities" }, query);
@@ -44,7 +44,7 @@ namespace BL4N
             return res.Result.ToList<IActivity>();
         }
 
-        /// <summary> ƒXƒy[ƒX‚ÌƒƒS‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ã‚¹ãƒšãƒ¼ã‚¹ã®ãƒ­ã‚´ã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <returns> <see cref="ILogo"/> </returns>
         public ILogo GetSpaceImage()
         {
@@ -53,7 +53,7 @@ namespace BL4N
             return new Logo(res.Item1, res.Item2);
         }
 
-        /// <summary> ƒXƒy[ƒX‚Ì‚¨’m‚ç‚¹‚ğæ“¾‚µ‚Ü‚· </summary>
+        /// <summary> ã‚¹ãƒšãƒ¼ã‚¹ã®ãŠçŸ¥ã‚‰ã›ã‚’å–å¾—ã—ã¾ã™ </summary>
         /// <returns> <see cref="ISpaceNotification"/> </returns>
         public ISpaceNotification GetSpaceNotifiacation()
         {
@@ -63,9 +63,9 @@ namespace BL4N
             return res.Result;
         }
 
-        /// <summary> ƒXƒy[ƒX‚Ì‚¨’m‚ç‚¹‚ğXV‚µ‚Ü‚· </summary>
-        /// <param name="content"> ‚¨’m‚ç‚¹‚Æ‚µ‚Äİ’è‚·‚é•¶š—ñ </param>
-        /// <returns> <see cref="IActivity"/> ‚ÌƒŠƒXƒg</returns>
+        /// <summary> ã‚¹ãƒšãƒ¼ã‚¹ã®ãŠçŸ¥ã‚‰ã›ã‚’æ›´æ–°ã—ã¾ã™ </summary>
+        /// <param name="content"> ãŠçŸ¥ã‚‰ã›ã¨ã—ã¦è¨­å®šã™ã‚‹æ–‡å­—åˆ— </param>
+        /// <returns> <see cref="IActivity"/> ã®ãƒªã‚¹ãƒˆ</returns>
         public ISpaceNotification UpdateSpaceNotification(string content)
         {
             var api = GetApiUri(new[] { "space", "notification" });

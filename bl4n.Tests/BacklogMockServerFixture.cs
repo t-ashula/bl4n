@@ -19,6 +19,7 @@ namespace BL4N.Tests
         /// <summary> <see cref="BacklogMockServerFixture"/> のインスタンスを初期化します． </summary>
         public BacklogMockServerFixture()
         {
+            // Windows: netsh http add urlacl url=http://+:34567/ user=Everyone
             _mockServer = new NancyHost(new Uri("http://localhost:34567/"));
             _mockServer.Start();
         }

@@ -74,6 +74,7 @@
     <Compile Include="Backlog.Status.cs" />
     <Compile Include="Backlog.User.cs" />
     <Compile Include="Backlog.Wiki.cs" />
+    <Compile Include="Data\Activity\ActivityContent\IPullRequestActivityContent.cs" />
     <Compile Include="Data\Activity\ActivityType.cs" />
     <Compile Include="Data\Activity\FileActivity.cs" />
     <Compile Include="Data\Activity\BulkUpdateActivity.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Data\Activity\ActivityContent\IActivityContent.cs" />
     <Compile Include="Data\Activity\NotifyActivity.cs" />
     <Compile Include="Data\Activity\ProjectActivity.cs" />
+    <Compile Include="Data\Activity\PullRequestActivity.cs" />
     <Compile Include="Data\Activity\SVNRepositoryActivity.cs" />
     <Compile Include="Data\Activity\WikiActivity.cs" />
     <Compile Include="Data\AddCheckBoxTypeCustomFieldOptions.cs" />

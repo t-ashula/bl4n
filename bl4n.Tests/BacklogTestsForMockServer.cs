@@ -85,7 +85,7 @@ namespace BL4N.Tests
 
             var backlog = new Backlog(Settings);
             var activities = backlog.GetSpaceActivities();
-            Assert.Equal(8, activities.Count);
+            Assert.Equal(9, activities.Count);
 
             // type 1, 2, 3, 4
             IssueActivityTest(activities[0]);
@@ -110,6 +110,9 @@ namespace BL4N.Tests
 
             // type 17
             NotifyActivityTest(activities[7]);
+
+            // type 18, 19, 20
+            PullRequestActivityTest(activities[8]);
         }
 
         /// <inheritdoc/>
@@ -353,6 +356,35 @@ namespace BL4N.Tests
             Assert.Equal(0, content.Changes.Count);
             Assert.Equal(0, content.Attachments.Count);
             Assert.Equal(0, content.SharedFiles.Count);
+        }
+
+        private static void PullRequestActivityTest(IActivity activity)
+        {
+            Assert.Equal(19, activity.Type);
+            var content = activity.Content as IPullRequestActivityContent;
+            Assert.NotNull(content);
+            /*
+            ""content"": {
+                ""repository"": { ""description"": ""main"", ""name"": ""bl4n"", ""id"": 9251 },
+                ""changes"": [
+                    { ""old_value"": ""summary.654958389"", ""new_value"": ""develop"", ""field"": ""summary"" },
+                    { ""old_value"": ""desc.1088142746"", ""new_value"": ""update readme"", ""field"": ""description"" }
+                ],
+                ""comment"": { ""content"": """", ""id"": 6691 },
+                ""description"": ""update readme"",
+                ""summary"": ""develop"",
+                ""number"": 1,
+                ""id"": 2553
+            },
+            */
+            Assert.Equal(2553, content.Id);
+            Assert.NotNull(content.Repository);
+            Assert.Equal("main", content.Repository.Description);
+            Assert.NotNull(content.Changes);
+            Assert.NotNull(content.Comment);
+            Assert.Equal("update readme", content.Description);
+            Assert.Equal("develop", content.Summary);
+            Assert.Equal(1, content.Number);
         }
 
         /// <inheritdoc/>

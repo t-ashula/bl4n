@@ -60,6 +60,11 @@ namespace BL4N
 
                 case 17:
                     return new NotifyActivity();
+
+                case 18:
+                case 19:
+                case 20:
+                    return new PullRequestActivity();
             }
 
             throw new InvalidOperationException();

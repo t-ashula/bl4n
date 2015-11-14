@@ -228,6 +228,44 @@ namespace BL4N.Tests
                     ""createdUser"": { ""id"": 60965, ""userId"": ""bl4n.admin"", ""name"": ""bl4n.admin"", ""roleType"": 1, ""lang"": null, ""mailAddress"": ""t.ashula+private nulab@gmail.com"" },
                     ""created"": ""2015-03-26T09:28:33Z""
                 }"
+                + /* 18, 19, 20 */
+                @",{
+                    ""created"": ""2015-11-08T14:37:13Z"",
+                    ""createdUser"": {
+                      ""mailAddress"": ""t.ashula@gmail.com"",
+                      ""lang"": null,
+                      ""roleType"": 2,
+                      ""name"": ""t.ashula"",
+                      ""userId"": ""t.ashula"",
+                      ""id"": 60966
+                    },
+                    ""notifications"": [],
+                    ""content"": {
+                      ""repository"": { ""description"": ""main"", ""name"": ""bl4n"", ""id"": 9251 },
+                      ""changes"": [
+                        { ""old_value"": ""summary.654958389"", ""new_value"": ""develop"", ""field"": ""summary"" },
+                        { ""old_value"": ""desc.1088142746"", ""new_value"": ""update readme"", ""field"": ""description"" }
+                      ],
+                      ""comment"": { ""content"": """", ""id"": 6691 },
+                      ""description"": ""update readme"",
+                      ""summary"": ""develop"",
+                      ""number"": 1,
+                      ""id"": 2553
+                    },
+                    ""type"": 19,
+                    ""project"": {
+                      ""displayOrder"": 2147483646,
+                      ""archived"": false,
+                      ""textFormattingRule"": ""markdown"",
+                      ""projectLeaderCanEditProjectLeader"": false,
+                      ""subtaskingEnabled"": false,
+                      ""chartEnabled"": false,
+                      ""name"": ""bl4n.3"",
+                      ""projectKey"": ""BL4N"",
+                      ""id"": 26476
+                    },
+                    ""id"": 17743561
+                  }"
                 +
                 @"]", "application/json;charset=utf-8");
 
