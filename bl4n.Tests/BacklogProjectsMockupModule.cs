@@ -26,19 +26,29 @@ namespace BL4N.Tests
         {
             #region /projects
 
-            Get[""] = _ => Response.AsJson(new[]
+            Get[""] = _ =>
             {
-                new
+                string o = Request.Query["archived"];
+                bool archived = false;
+                if (!string.IsNullOrEmpty(o))
                 {
-                    id = 1,
-                    projectKey = "TEST",
-                    name = "test",
-                    chartEnabled = false,
-                    subtaskingEnabled = false,
-                    textFormattingRule = "markdown",
-                    archived = false
+                    archived = o == "true";
                 }
-            });
+
+                return Response.AsJson(new[]
+                {
+                    new
+                    {
+                        id = 1,
+                        projectKey = "TEST",
+                        name = "test",
+                        chartEnabled = false,
+                        subtaskingEnabled = false,
+                        textFormattingRule = "markdown",
+                        archived = archived
+                    }
+                });
+            };
 
             #endregion
 

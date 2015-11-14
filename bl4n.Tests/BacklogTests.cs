@@ -196,6 +196,9 @@ namespace BL4N.Tests
         public abstract void GetProjectsTest();
 
         /// <summary> GET /api/v2/projects </summary>
+        public abstract void GetProjects_archived_Test();
+
+        /// <summary> GET /api/v2/projects </summary>
         public abstract void AddProjectTest();
 
         /// <summary> GET /api/v2/project/:projectIdOrKey </summary>

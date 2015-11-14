@@ -23,10 +23,12 @@ namespace BL4N
         /// Get Project List
         /// Returns list of projects.
         /// </summary>
+        /// <param name="options">project filter option</param>
         /// <returns>list of <see cref="IProject"/> </returns>
-        public IList<IProject> GetProjects()
+        public IList<IProject> GetProjects(GetProjectsOptions options = null)
         {
-            var api = GetApiUri(new[] { "projects" });
+            var query = options == null ? null : options.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "projects" }, query);
             var jss = new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat };
             var res = GetApiResult<List<Project>>(api, jss);
             return res.Result.ToList<IProject>();

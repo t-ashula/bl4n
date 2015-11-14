@@ -732,6 +732,20 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetProjects_archived_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var opt = new GetProjectsOptions {Archived = true};
+            var actual = backlog.GetProjects(opt);
+
+            // []
+            Assert.Equal(0, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void AddProjectTest()
         {
             SkipIfSettingIsBroken();
