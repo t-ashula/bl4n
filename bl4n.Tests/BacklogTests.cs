@@ -682,6 +682,12 @@ namespace BL4N.Tests
         /// <summary> POST /api/v2/stars (wikiId) </summary>
         public abstract void AddStarToWikiPageTest();
 
+        /// <summary> POST /api/v2/stars (prid) </summary>
+        public abstract void AddStarToPullRequestTest();
+
+        /// <summary> POST /api/v2/stars (prcid) </summary>
+        public abstract void AddStarToPullRequestCommentTest();
+
         #endregion
 
         #region /api/v2/notifications

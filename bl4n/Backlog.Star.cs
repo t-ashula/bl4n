@@ -53,5 +53,25 @@ namespace BL4N
         {
             AddStar("wikiId", wikiId);
         }
+
+        /// <summary>
+        /// Add Star
+        /// Adds star to pull request
+        /// </summary>
+        /// <param name="id">pull request id</param>
+        public void AddStarToPullRequest(long id)
+        {
+            AddStar("pullRequestId", id);
+        }
+
+        /// <summary>
+        /// Add Star
+        /// Adds star to pull reqest comment
+        /// </summary>
+        /// <param name="id">pull reqest comment id</param>
+        public void AddStarToPullRequestComment(long id)
+        {
+            AddStar("pullRequestCommentId", id);
+        }
     }
 }

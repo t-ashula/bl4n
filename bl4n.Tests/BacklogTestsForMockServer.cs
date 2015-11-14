@@ -4355,6 +4355,30 @@ namespace BL4N.Tests
             backlog.AddStarToWikiPage(wikiId);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToPullRequestTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(10000);
+            backlog.AddStarToPullRequest(id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToPullRequestCommentTest()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            long id = new Random().Next(10000);
+            backlog.AddStarToPullRequestComment(id);
+        }
+
         #endregion
 
         #region /api/v2/notifications

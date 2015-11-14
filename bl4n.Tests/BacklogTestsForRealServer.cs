@@ -3860,6 +3860,37 @@ namespace BL4N.Tests
             backlog.AddStarToWikiPage(pageId);
         }
 
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToPullRequestTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            var prs = backlog.GetProjectGitRepositoryPullRequests(projectId, repoId);
+            Assert.True(prs.Count > 0);
+            var pr = prs[(int)(DateTime.Now.Ticks % prs.Count)];
+            backlog.AddStarToPullRequest(pr.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void AddStarToPullRequestCommentTest()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+            var repoId = backlog.GetProjectGitRepositories(projectId)[0].Id;
+            var number = backlog.GetProjectGitRepositoryPullRequests(projectId, repoId)[0].Number;
+            var comments = backlog.GetProjectGitRepositoryPullRequestComments(projectId, repoId, number);
+            Assert.True(comments.Count > 0);
+            var comment = comments[(int)(DateTime.Now.Ticks % comments.Count)];
+            backlog.AddStarToPullRequestComment(comment.Id);
+        }
+
         #endregion
 
         #region /api/v2/notifications
