@@ -43,6 +43,9 @@ namespace BL4N.Data
 
         /// <summary> Gets Pull Request  </summary>
         IPullRequest PullRequest { get; }
+
+        /// <summary> Gets Pull Request  </summary>
+        IIssueComment PullRequestComment { get; }
     }
 
     [DataContract]
@@ -106,6 +109,15 @@ namespace BL4N.Data
         public IPullRequest PullRequest
         {
             get { return _pullRequest; }
+        }
+
+        [DataMember(Name = "pullRequestComment")]
+        private IssueComment _pullRequestcoComment;
+
+        [IgnoreDataMember]
+        public IIssueComment PullRequestComment
+        {
+            get { return _pullRequestcoComment; }
         }
     }
 }

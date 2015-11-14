@@ -254,6 +254,63 @@ namespace BL4N.Tests
                         projectId = 26476,
                         id = 2553
                     },
+                    pullRequestComment = new
+                    {
+                        notifications = new[]
+                        {
+                            new
+                            {
+                                resourceAlreadyRead = false,
+                                user = new
+                                {
+                                    mailAddress = "t.ashula+nulab@gmail.com",
+                                    //// lang = null,
+                                    roleType = 1,
+                                    name = "bl4n.admin",
+                                    userId = "bl4n.admin",
+                                    id = 60965
+                                },
+                                reason = 11,
+                                alreadyRead = false,
+                                id = 7756700
+                            },
+                            new
+                            {
+                                resourceAlreadyRead = true,
+                                user = new
+                                {
+                                    mailAddress = "t.ashula@gmail.com",
+                                    //// lang = null,
+                                    roleType = 2,
+                                    name = "t.ashula",
+                                    userId = "t.ashula",
+                                    id = 60966
+                                },
+                                reason = 11,
+                                alreadyRead = true,
+                                id = 7756701
+                            }
+                        },
+                        stars = new[] {new {}},
+                        updated = "2015-11-08T16:08:24Z",
+                        created = "2015-11-08T16:08:24Z",
+                        createdUser = new
+                        {
+                            mailAddress = "t.ashula+nulab@gmail.com",
+                            //// lang = null,
+                            roleType = 1,
+                            name = "bl4n.admin",
+                            userId = "bl4n.admin",
+                            id = 60965
+                        },
+                        changeLog = new[] {new {}},
+                        content = "comment.1124018924",
+                        //// position = null,
+                        //// filePath = null,
+                        //// newBlobId = null,
+                        //// oldBlobId = null,
+                        id = 6694
+                    },
                     created = "2013-10-31T06:58:59Z"
                 }
             });

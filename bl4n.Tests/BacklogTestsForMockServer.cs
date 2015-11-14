@@ -4333,6 +4333,7 @@ namespace BL4N.Tests
             Assert.NotNull(notification.Comment);
             Assert.NotNull(notification.Project);
             Assert.NotNull(notification.PullRequest);
+            Assert.NotNull(notification.PullRequestComment);
         }
 
         /// <inheritdoc/>
