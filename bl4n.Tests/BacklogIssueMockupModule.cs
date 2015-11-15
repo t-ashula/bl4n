@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using BL4N.Tests.Properties;
 using Nancy;
 
@@ -37,18 +38,7 @@ namespace BL4N.Tests
             Get[string.Empty] = p =>
             {
                 var pids = ToIds("projectId[]");
-
-                long projectId;
-                if (pids.Count == 0)
-                {
-                    // TODO: error response
-                    projectId = -1;
-                }
-                else
-                {
-                    projectId = pids[0];
-                }
-
+                var projectId = pids.Count == 0 ? 0 : pids[0];
                 var issueTypes = ToIds("issueTypeId[]");
                 var issueTypeId = issueTypes.Count == 0 ? 2 : issueTypes[0];
                 var statusIds = ToIds("statusId[]");
@@ -102,12 +92,9 @@ namespace BL4N.Tests
             Get["/count"] = p =>
             {
                 var pids = ToIds("projectId[]");
-                if (pids.Count == 0)
-                {
-                    // TODO: error handling
-                }
+                var count = !pids.Any() ? 100 : 42;
 
-                return Response.AsJson(new { count = 42 });
+                return Response.AsJson(new { count = count });
             };
 
             #endregion

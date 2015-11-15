@@ -21,15 +21,11 @@ namespace BL4N
         /// Get Issue List
         /// Returns list of issues.
         /// </summary>
-        /// <param name="projectIds">Project Ids</param>
-        /// <param name="conditions">search option</param>
+        /// <param name="options">search option</param>
         /// <returns>list of <see cref="IIssue"/></returns>
-        public IList<IIssue> GetIssues(long[] projectIds, IssueSearchConditions conditions)
+        public IList<IIssue> GetIssues(IssueSearchConditions options)
         {
-            var query = new List<KeyValuePair<string, string>>();
-            query.AddRange(projectIds.ToKeyValuePairs("projectId[]"));
-            query.AddRange(conditions.ToKeyValuePairs());
-
+            var query = options.ToKeyValuePairs();
             var api = GetApiUri(new[] { "issues" }, query);
             var jss = new JsonSerializerSettings
             {
@@ -41,22 +37,46 @@ namespace BL4N
         }
 
         /// <summary>
+        /// Get Issue List
+        /// Returns list of issues.
+        /// </summary>
+        /// <param name="projectIds">Project Ids</param>
+        /// <param name="conditions">search option</param>
+        /// <returns>list of <see cref="IIssue"/></returns>
+        [Obsolete("use IssueSearchConditions only API")]
+        public IList<IIssue> GetIssues(long[] projectIds, IssueSearchConditions conditions)
+        {
+            conditions.ProjectIds.AddRange(projectIds);
+            return GetIssues(conditions);
+        }
+
+        /// <summary>
+        /// Count Issue
+        /// Returns number of issues.
+        /// </summary>
+        /// <param name="options">search condtions</param>
+        /// <returns>issue count as <see cref="ICounter"/></returns>
+        public ICounter GetIssuesCount(IssueSearchConditions options)
+        {
+            var query = options.ToKeyValuePairs();
+            var api = GetApiUri(new[] { "issues", "count" }, query);
+            var jss = new JsonSerializerSettings();
+            var res = GetApiResult<Counter>(api, jss);
+            return res.Result;
+        }
+
+        /// <summary>
         /// Count Issue
         /// Returns number of issues.
         /// </summary>
         /// <param name="projectIds">Project Ids</param>
         /// <param name="conditions">search condtions</param>
         /// <returns>issue count as <see cref="ICounter"/></returns>
+        [Obsolete("use IssueSearchConditions only API")]
         public ICounter GetIssuesCount(long[] projectIds, IssueSearchConditions conditions)
         {
-            var query = new List<KeyValuePair<string, string>>();
-            query.AddRange(projectIds.ToKeyValuePairs("projectId[]"));
-            query.AddRange(conditions.ToKeyValuePairs());
-
-            var api = GetApiUri(new[] { "issues", "count" }, query);
-            var jss = new JsonSerializerSettings();
-            var res = GetApiResult<Counter>(api, jss);
-            return res.Result;
+            conditions.ProjectIds.AddRange(projectIds);
+            return GetIssuesCount(conditions);
         }
 
         /// <summary>

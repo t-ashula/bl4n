@@ -500,8 +500,14 @@ namespace BL4N.Tests
         /// <summary> GET /api/v2/issues </summary>
         public abstract void GetIssuesTest();
 
+        /// <summary> GET /api/v2/issues </summary>
+        public abstract void GetIssues_all_Test();
+
         /// <summary> GET /api/v2/issues/count </summary>
         public abstract void GetIssuesCountTest();
+
+        /// <summary> GET /api/v2/issues/count </summary>
+        public abstract void GetIssuesCount_all_Test();
 
         /// <summary> POST /api/v2/issues </summary>
         public abstract void AddIssueTest();

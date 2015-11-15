@@ -3325,6 +3325,29 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssues_all_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var r = new Random();
+            var options = new IssueSearchConditions();
+            options.AssignerIds.Add(r.Next(2000));
+            options.CreateUserIds.Add(r.Next(1000));
+            options.IssueTypeIds.Add(r.Next(1000));
+            var actual = backlog.GetIssues(options);
+            Assert.Equal(1, actual.Count);
+            var issue = actual[0];
+            Assert.Equal(1, issue.Id);
+            Assert.Equal(0, issue.ProjectId);
+            Assert.Equal(options.IssueTypeIds[0], issue.IssueType.Id);
+            Assert.Equal(options.AssignerIds[0], issue.Assignee.Id);
+            Assert.Equal(options.CreateUserIds[0], issue.CreatedUser.Id);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetIssuesCountTest()
         {
             SkipIfSettingIsBroken();
@@ -3334,6 +3357,19 @@ namespace BL4N.Tests
             var conditions = new IssueSearchConditions();
             var actual = backlog.GetIssuesCount(new long[] { 1 }, conditions);
             Assert.Equal(42, actual.Count);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssuesCount_all_Test()
+        {
+            SkipIfSettingIsBroken();
+            SkipIfMockServerIsDown();
+
+            var backlog = new Backlog(Settings);
+            var conditions = new IssueSearchConditions();
+            var actual = backlog.GetIssuesCount(conditions);
+            Assert.Equal(100, actual.Count);
         }
 
         /// <inheritdoc/>

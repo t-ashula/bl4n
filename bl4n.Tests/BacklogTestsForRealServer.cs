@@ -2762,6 +2762,21 @@ namespace BL4N.Tests
 
         /// <inheritdoc/>
         [Fact]
+        public override void GetIssues_all_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var condition = new IssueSearchConditions();
+            var actual = backlog.GetIssues(condition);
+            Assert.True(actual.Count > 0);
+            Assert.Equal(projectId, actual[0].ProjectId);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
         public override void GetIssuesCountTest()
         {
             SkipIfSettingIsBroken();
@@ -2771,6 +2786,20 @@ namespace BL4N.Tests
 
             var condition = new IssueSearchConditions();
             var actual = backlog.GetIssuesCount(new[] { projectId }, condition);
+            Assert.True(actual.Count > 0);
+        }
+
+        /// <inheritdoc/>
+        [Fact]
+        public override void GetIssuesCount_all_Test()
+        {
+            SkipIfSettingIsBroken();
+
+            var backlog = new Backlog(Settings);
+            var projectId = backlog.GetProjects()[0].Id;
+
+            var condition = new IssueSearchConditions();
+            var actual = backlog.GetIssuesCount(condition);
             Assert.True(actual.Count > 0);
         }
 

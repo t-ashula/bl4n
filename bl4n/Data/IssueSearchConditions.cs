@@ -21,6 +21,7 @@ namespace BL4N.Data
         /// </summary>
         public IssueSearchConditions()
         {
+            ProjectIds = new List<long>();
             VersionIds = new List<long>();
             StatusIds = new List<long>();
             ParentIssueId = new List<long>();
@@ -39,8 +40,10 @@ namespace BL4N.Data
 
         /// <summary> convert search conditions to KeyValuePair </summary>
         /// <returns> key value pairs </returns>
+        /// <remarks> TODO: you can not call twice </remarks>
         public List<KeyValuePair<string, string>> ToKeyValuePairs()
         {
+            _searchConditions.AddRange(ProjectIds.ToKeyValuePairs("projectId[]"));
             _searchConditions.AddRange(IssueTypeIds.ToKeyValuePairs("issueTypeId[]"));
             _searchConditions.AddRange(CategoryIds.ToKeyValuePairs("categoryId[]"));
             _searchConditions.AddRange(VersionIds.ToKeyValuePairs("versionId[]"));
@@ -134,6 +137,9 @@ namespace BL4N.Data
 
             return _searchConditions;
         }
+
+        /// <summary> 検索対象のプロジェクトID のリストを取得します </summary>
+        public List<long> ProjectIds { get; private set; }
 
         /// <summary> 検索対象の課題の種別のIDのリストを取得します </summary>
         /// <remarks> issueTypeId[] </remarks>
