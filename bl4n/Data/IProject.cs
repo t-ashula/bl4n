@@ -28,6 +28,9 @@ namespace BL4N.Data
         /// <summary> サブタスクが有効かどうかを取得します． </summary>
         bool SubtaskingEnabled { get; }
 
+        /// <summary> プロジェクト管理者が他の管理者を変更できるかを取得します </summary>
+        bool ProjectLeaderCanEditProjectLeader { get; }
+
         /// <summary> 文字列のマークアップ方法を取得します． </summary>
         string TextFormattingRule { get; }
 
@@ -56,6 +59,9 @@ namespace BL4N.Data
 
         [DataMember(Name = "subtaskingEnabled")]
         public bool SubtaskingEnabled { get; set; }
+
+        [DataMember(Name = "projectLeaderCanEditProjectLeader")]
+        public bool ProjectLeaderCanEditProjectLeader { get; set; }
 
         [DataMember(Name = "textFormattingRule")]
         public string TextFormattingRule { get; set; }

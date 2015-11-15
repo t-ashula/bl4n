@@ -1112,6 +1112,7 @@ namespace BL4N.Tests
             Assert.False(actual[0].SubtaskingEnabled);
             Assert.Equal("markdown", actual[0].TextFormattingRule);
             Assert.False(actual[0].Archived);
+            Assert.True(actual[0].ProjectLeaderCanEditProjectLeader);
         }
 
         /// <inheritdoc/>
@@ -1250,7 +1251,8 @@ namespace BL4N.Tests
                 ChartEnabled = false,
                 SubtaskingEnabled = false,
                 TextFormattingRule = "markdown",
-                Archived = false
+                Archived = false,
+                ProjectLeaderCanEditProjectLeader = true
             };
             var actual = backlog.UpdateProject(id, newProject);
             Assert.Equal(id, actual.Id);
@@ -1260,6 +1262,7 @@ namespace BL4N.Tests
             Assert.Equal(newProject.SubtaskingEnabled, actual.SubtaskingEnabled);
             Assert.Equal(newProject.TextFormattingRule, actual.TextFormattingRule);
             Assert.Equal(newProject.Archived, actual.Archived);
+            Assert.Equal(newProject.ProjectLeaderCanEditProjectLeader, actual.ProjectLeaderCanEditProjectLeader);
         }
 
         /// <inheritdoc/>
@@ -1289,6 +1292,7 @@ namespace BL4N.Tests
             Assert.Equal(newProject.SubtaskingEnabled, actual.SubtaskingEnabled);
             Assert.Equal(newProject.TextFormattingRule, actual.TextFormattingRule);
             Assert.Equal(newProject.Archived, actual.Archived);
+            Assert.Equal(newProject.ProjectLeaderCanEditProjectLeader, actual.ProjectLeaderCanEditProjectLeader);
         }
 
         /// <inheritdoc/>

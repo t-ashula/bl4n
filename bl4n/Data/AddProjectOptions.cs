@@ -20,13 +20,15 @@ namespace BL4N.Data
         /// <param name="chartEnabled">チャートを有効にします</param>
         /// <param name="subtaskingEnabled">サブタスクを有効にします</param>
         /// <param name="textFormattingRule">テキストのフォーマット</param>
-        public AddProjectOptions(string name, string projectKey, bool chartEnabled, bool subtaskingEnabled, string textFormattingRule)
+        /// <param name="projectLeaderCanEditProjectLeader">プロジェクト管理者も、他のプロジェクト管理者を指定可能に</param>
+        public AddProjectOptions(string name, string projectKey, bool chartEnabled, bool subtaskingEnabled, string textFormattingRule, bool projectLeaderCanEditProjectLeader = false)
         {
             Name = name;
             ProjectKey = projectKey;
             ChartEnabled = chartEnabled;
             SubtaskingEnabled = subtaskingEnabled;
             TextFormattingRule = textFormattingRule;
+            ProjectLeaderCanEditProjectLeader = projectLeaderCanEditProjectLeader;
         }
 
         /// <summary> プロジェクト名を取得または設定します </summary>
@@ -44,6 +46,9 @@ namespace BL4N.Data
         /// <summary> テキストのフォーマットを取得または設定します </summary>
         public string TextFormattingRule { get; set; }
 
+        /// <summary> プロジェクト管理者も、他のプロジェクト管理者を指定可能にするかどうかを取得または設定します </summary>
+        public bool ProjectLeaderCanEditProjectLeader { get; set; }
+
         /// <summary> HTTP Request 用の Key-value ペアの一覧を取得します </summary>
         /// <returns> key-value ペアの一覧 </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePairs()
@@ -55,6 +60,7 @@ namespace BL4N.Data
                 new KeyValuePair<string, string>("chartEnabled", ChartEnabled ? "true" : "false"),
                 new KeyValuePair<string, string>("subtaskingEnabled", SubtaskingEnabled ? "true" : "false"),
                 new KeyValuePair<string, string>("textFormattingRule", TextFormattingRule),
+                new KeyValuePair<string, string>("projectLeaderCanEditProjectLeader", ProjectLeaderCanEditProjectLeader ? "true" : "false")
             };
             return pairs;
         }

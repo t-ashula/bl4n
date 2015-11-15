@@ -794,6 +794,7 @@ namespace BL4N.Tests
             var actual = backlog.GetProject(project.Id);
             Assert.Equal(project.Id, actual.Id);
             Assert.Equal(project.ProjectKey, actual.ProjectKey);
+            Assert.NotNull(actual.ProjectLeaderCanEditProjectLeader);
         }
 
         /// <inheritdoc/>
@@ -813,6 +814,7 @@ namespace BL4N.Tests
             var actual = backlog.GetProject(project.ProjectKey);
             Assert.Equal(project.Id, actual.Id);
             Assert.Equal(project.ProjectKey, actual.ProjectKey);
+            Assert.NotNull(actual.ProjectLeaderCanEditProjectLeader);
         }
 
         /// <inheritdoc/>
@@ -833,6 +835,7 @@ namespace BL4N.Tests
             Assert.Equal(current.SubtaskingEnabled, actual.SubtaskingEnabled);
             Assert.Equal(current.TextFormattingRule, actual.TextFormattingRule);
             Assert.Equal(current.Archived, actual.Archived);
+            Assert.Equal(current.ProjectLeaderCanEditProjectLeader, actual.ProjectLeaderCanEditProjectLeader);
         }
 
         /// <inheritdoc/>
@@ -853,6 +856,7 @@ namespace BL4N.Tests
             Assert.Equal(current.SubtaskingEnabled, actual.SubtaskingEnabled);
             Assert.Equal(current.TextFormattingRule, actual.TextFormattingRule);
             Assert.Equal(current.Archived, actual.Archived);
+            Assert.Equal(current.ProjectLeaderCanEditProjectLeader, actual.ProjectLeaderCanEditProjectLeader);
         }
 
         /// <inheritdoc/>

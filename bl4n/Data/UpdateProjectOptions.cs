@@ -18,6 +18,7 @@ namespace BL4N.Data
         private const string SubtaskingEnabledProperty = "subtaskingEnabled";
         private const string TextFormattingRuleProperty = "textFormattingRule";
         private const string ArchivedProperty = "archived";
+        private const string ProjectLeaderCanEditProjectLeaderProperty = "projectLeaderCanEditProjectLeader";
 
         private string _name;
         private string _projectKey;
@@ -25,10 +26,11 @@ namespace BL4N.Data
         private bool _subtaskingEnabled;
         private string _textFormattingRule;
         private bool _archived;
+        private bool _projectLeaderCanEditProjectLeader;
 
         /// <summary> <see cref="UpdateProjectOptions"/> のインスタンスを初期化します </summary>
         public UpdateProjectOptions()
-            : base(NameProperty, ProjetKeyProperty, ChartEnabledProperty, SubtaskingEnabledProperty, TextFormattingRuleProperty, ArchivedProperty)
+            : base(NameProperty, ProjetKeyProperty, ChartEnabledProperty, SubtaskingEnabledProperty, TextFormattingRuleProperty, ArchivedProperty, ProjectLeaderCanEditProjectLeaderProperty)
         {
         }
 
@@ -98,6 +100,20 @@ namespace BL4N.Data
             }
         }
 
+        /// <summary> プロジェクト管理者が他の管理者を変更できるかどうかを取得または設定します </summary>
+        public bool ProjectLeaderCanEditProjectLeader
+        {
+            get { return _projectLeaderCanEditProjectLeader; }
+            set
+            {
+                if (_projectLeaderCanEditProjectLeader != value)
+                {
+                    _projectLeaderCanEditProjectLeader = value;
+                    PropertyChanged(ProjectLeaderCanEditProjectLeaderProperty);
+                }
+            }
+        }
+
         /// <summary> HTTP Request 用の Key-value ペアの一覧を取得します </summary>
         /// <returns> key-value ペアの一覧 </returns>
         public IEnumerable<KeyValuePair<string, string>> ToKeyValurPairs()
@@ -131,6 +147,12 @@ namespace BL4N.Data
             if (IsPropertyChanged(ArchivedProperty))
             {
                 pairs.Add(new KeyValuePair<string, string>(ArchivedProperty, Archived ? "true" : "false"));
+            }
+
+            if (IsPropertyChanged(ProjectLeaderCanEditProjectLeaderProperty))
+            {
+                pairs.Add(new KeyValuePair<string, string>(ProjectLeaderCanEditProjectLeaderProperty,
+                    ProjectLeaderCanEditProjectLeader ? "true" : "false"));
             }
 
             return pairs;

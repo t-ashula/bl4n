@@ -45,6 +45,7 @@ namespace BL4N.Tests
                         chartEnabled = false,
                         subtaskingEnabled = false,
                         textFormattingRule = "markdown",
+                        projectLeaderCanEditProjectLeader = true,
                         archived = archived
                     }
                 });
@@ -57,6 +58,8 @@ namespace BL4N.Tests
             Post[""] = p =>
             {
                 var req = Request.Form;
+                string o = req.projectLeaderCanEditProjectLeader;
+                var canEdit = !string.IsNullOrEmpty(o) && o == "true";
                 return Response.AsJson(new
                 {
                     id = 1,
@@ -64,6 +67,7 @@ namespace BL4N.Tests
                     projectKey = req.key,
                     chartEnabled = req.chartEnabled,
                     subtaskingEnabled = req.subtaskingEnabled,
+                    projectLeaderCanEditProjectLeader = canEdit,
                     textFormattingRule = req.textFormattingRule
                 });
             };
@@ -90,6 +94,7 @@ namespace BL4N.Tests
                     chartEnabled = false,
                     subtaskingEnabled = false,
                     textFormattingRule = "markdown",
+                    projectLeaderCanEditProjectLeader = true,
                     archived = false
                 });
             };
@@ -109,6 +114,8 @@ namespace BL4N.Tests
                     pid = -1;
                 }
 
+                string o = req.projectLeaderCanEditProjectLeader;
+                var canEdit = !string.IsNullOrEmpty(o) && o == "true";
                 return Response.AsJson(new
                 {
                     id = pid == -1 ? 1 : pid,
@@ -117,6 +124,7 @@ namespace BL4N.Tests
                     chartEnabled = false,
                     subtaskingEnabled = false,
                     textFormattingRule = string.IsNullOrEmpty(req.textFormattingRule) ? "markdown" : req.textFormattingRule,
+                    projectLeaderCanEditProjectLeader = canEdit,
                     archived = false
                 });
             };
@@ -142,6 +150,7 @@ namespace BL4N.Tests
                     name = "test",
                     chartEnabled = false,
                     subtaskingEnabled = false,
+                    projectLeaderCanEditProjectLeader = false,
                     textFormattingRule = "markdown",
                     archived = false
                 });
